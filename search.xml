@@ -91,6 +91,35 @@
     
     
     <entry>
+      <title>Mybatis之QBC风格</title>
+      <link href="/2023/02/15/mybatis%20QBC%E9%A3%8E%E6%A0%BC%E6%9F%A5%E8%AF%A2/"/>
+      <url>/2023/02/15/mybatis%20QBC%E9%A3%8E%E6%A0%BC%E6%9F%A5%E8%AF%A2/</url>
+      
+        <content type="html"><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><p> QBC 风格：Query By Criteria 一种查询方式，比较面向对象，看不到sql语句。</p><p>这里记录一下关于MyBatis中Example的and和or的使用，主要是如下两种场景：</p><ul><li>where (条件1 and 条件2) or (条件3 and 条件4)</li><li>where (条件1 and 条件2) and (条件3 or 条件4)</li></ul><h3 id="where-条件1-and-条件2-or-条件3-and-条件4"><a href="#where-条件1-and-条件2-or-条件3-and-条件4" class="headerlink" title="where (条件1 and 条件2) or (条件3 and 条件4)"></a>where (条件1 and 条件2) or (条件3 and 条件4)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//条件1 and 条件2</span></span><br><span class="line">example.createCriteria()</span><br><span class="line">        .andEqualTo(<span class="string">"isDeleted"</span>,IsDeleted.NOT_DELETED)</span><br><span class="line">        .andEqualTo(<span class="string">"name"</span>, projectCatalogEntity.getName());</span><br><span class="line"><span class="comment">//or (条件3 and 条件4)</span></span><br><span class="line">example.or(example.createCriteria()</span><br><span class="line">        .andEqualTo(<span class="string">"isDeleted"</span>,IsDeleted.NOT_DELETED)</span><br><span class="line">        .andEqualTo(<span class="string">"code"</span>, projectCatalogEntity.getCode()));</span><br></pre></td></tr></table></figure><blockquote><p>WHERE ( is_deleted = ? and name = ? ) or ( is_deleted = ? and code = ? )</p></blockquote><h3 id="where-条件1-and-条件2-and-条件3-or-条件4"><a href="#where-条件1-and-条件2-and-条件3-or-条件4" class="headerlink" title="where (条件1 and 条件2) and (条件3 or 条件4)"></a>where (条件1 and 条件2) and (条件3 or 条件4)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//条件1 and 条件2</span></span><br><span class="line">example.createCriteria()</span><br><span class="line">        .andEqualTo(<span class="string">"isDeleted"</span>,IsDeleted.NOT_DELETED))</span><br><span class="line">        .andEqualTo(<span class="string">"parentId"</span>, projectCatalogEntity.getParentId());</span><br><span class="line"><span class="comment">//and (条件3 or 条件4)</span></span><br><span class="line">example.and(example.createCriteria()</span><br><span class="line">        .andEqualTo(<span class="string">"name"</span>, projectCatalogEntity.getName())</span><br><span class="line">        .orEqualTo(<span class="string">"code"</span>, projectCatalogEntity.getCode()));</span><br></pre></td></tr></table></figure><blockquote><p>WHERE ( is_deleted = ? and parent_id = ? ) and ( name = ? or code = ? )</p></blockquote><h3 id="显示定义条件构造器"><a href="#显示定义条件构造器" class="headerlink" title="显示定义条件构造器"></a>显示定义条件构造器</h3><p>上述QBC查询代码中使用了链式编程方式，省去了Example.Criteria对象的创建。</p><p>多条件查询时,可以直接使用同一个条件构造器(不知道这个Example.Criteria criteria叫什么,就暂且叫他构造器),往里面直接添加条件就行.</p><p>多重条件查询时,如上面的两个括号中的条件都要分别满足时,可以分别创建条件构造器,然后分别往里添加条件</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Example.Criteria criteria = example.createCriteria();</span><br><span class="line">Example.Criteria criteria2 = example.createCriteria();</span><br></pre></td></tr></table></figure><p>两个括号之间(也就是两个条件构造器之间)使用example的and或or来连接</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">example.and(criteria2);</span><br><span class="line">example.or(criteria2);</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> MyBatis </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 学习 </tag>
+            
+            <tag> Java </tag>
+            
+            <tag> MyBatis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>SpringBoot配置文件优先级</title>
       <link href="/2023/02/14/SpringBoot%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BC%98%E5%85%88%E7%BA%A7/"/>
       <url>/2023/02/14/SpringBoot%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BC%98%E5%85%88%E7%BA%A7/</url>
