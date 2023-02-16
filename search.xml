@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>关于@RunWith注解</title>
+      <link href="/2023/02/16/%E5%85%B3%E4%BA%8E@Runwith/"/>
+      <url>/2023/02/16/%E5%85%B3%E4%BA%8E@Runwith/</url>
+      
+        <content type="html"><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><blockquote><p>在JUnit中有很多个Runner，他们负责调用你的测试代码，每一个Runner都有各自的特殊功能，你要根据需要选择不同的Runner来运行你的测试代码。</p><p>如果我们只是简单的做普通Java测试，不涉及Spring Web项目，你可以省略@RunWith注解，这样系统会自动使用默认Runner来运行你的代码。 </p></blockquote><h3 id="RunWith的相关概念"><a href="#RunWith的相关概念" class="headerlink" title="@RunWith的相关概念"></a>@RunWith<strong>的相关概念</strong></h3><p>首先要分清几个概念：</p><ul><li><p>测试方法</p></li><li><p>测试类</p></li><li><p>测试集</p></li><li><p>测试运行器</p></li></ul><p>其中<strong>测试方法</strong>就是用@Test注解的一些函数。<strong>测试类</strong>是包含一个或多个测试方法的一个<strong>Test.java文件</strong>，<strong>测试集</strong>是一个suite，可能包含多个测试类。<strong>测试运行器</strong>则决定了用什么方式偏好去运行这些测试集/类/方法。当类被@RunWith注解修饰（放在测试类上使用），或者类继承了一个被该注解修饰的类，JUnit将会使用这个注解所指明的运行器（runner）来运行测试，而不使用JUnit默认的运行器。</p><h3 id="RunWith的分类"><a href="#RunWith的分类" class="headerlink" title="@RunWith的分类"></a><strong>@RunWith的分类</strong></h3><ul><li><p>@RunWith(JUnit4.class) 指用JUnit4测试工具来运行测试是junit4的默认运行器。</p></li><li><p>@RunWith(SpringJUnit4ClassRunner.class)：指让类运行在Spring的测试环境，以便测试开始时自动创建Spring应用上下文，并使用JUnit4测试工具运行测试。</p></li><li><p>@RunWith(SpringRunner.class)：继承了 @RunWith(SpringJUnit4ClassRunner.class) ，用法相同，名字简短而已。</p></li><li><p>@RunWith(Suite.class)：一套测试集合（suite指一套，使用RunWith测试套件）</p></li></ul><p>因此，@RunWith(SpringRunner.class)和@RunWith(SpringJUnit4ClassRunner.class)在idea环境下是等价的。</p><p>⚠️注意：在Idea环境中，如果不添加额外选项，默认使用JUnit4测试工具来进行测试。</p><p>一般来说，使用@RunWith(SpringRunner.class)注解即可。</p><h3 id="为什么IDEA编译器里边不需要"><a href="#为什么IDEA编译器里边不需要" class="headerlink" title="为什么IDEA编译器里边不需要"></a>为什么IDEA编译器里边不需要</h3><blockquote><p>注意点：<strong>发现idea中springboot项目不加@RunWith仍然可以运行</strong>，所以比较疑问到底加不加，从网上获取到比较比较准确的说法如下：</p></blockquote><p>标准测试类里是要有@RunWith的，作用是告诉java你这个类通过用什么运行环境运行，例如启动和创建spring的应用上下文。<strong>否则你需要为此在启动时写一堆的环境配置代码</strong>。</p><p><strong>你在IDEA里去掉@RunWith仍然能跑是因为在IDEA里识别为一个JUNIT的运行环境，相当于就是一个自识别的RUNWITH环境配置</strong>。但在其他IDE里并没有。</p><p><strong>所以，为了你的代码能在其他IDE里边正常跑，建议还是加@RunWith</strong>。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 编程 </tag>
+            
+            <tag> 学习 </tag>
+            
+            <tag> Spring </tag>
+            
+            <tag> Java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>MySQL 分页查询</title>
       <link href="/2023/02/15/Mysql%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/"/>
       <url>/2023/02/15/Mysql%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/</url>
