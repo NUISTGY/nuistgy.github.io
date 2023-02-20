@@ -31,6 +31,35 @@
     
     
     <entry>
+      <title>SpringBoot集成Mybatis时mybatis.mapper-locations和@MapperScan的作用</title>
+      <link href="/2023/02/20/mybatis%20mapperscan%E5%92%8Cmapperlocations/"/>
+      <url>/2023/02/20/mybatis%20mapperscan%E5%92%8Cmapperlocations/</url>
+      
+        <content type="html"><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><p><strong>mybatis.mapperLocations</strong><br>如果xxMapper.xml放的位置和包路径不同就需要加配置以便MyBatis根据xml生成实现类。若和包一样就不需要显式设置该项</p><p><strong>@MapperScan</strong><br>就是spring扫描包，MyBatis扫描的是接口，自动根据xml生成实现来加入spring的ioc容器中</p><p><strong>综上</strong></p><ul><li>如果mapper接口上加@Mapper就不需要@MapperScan，如果没加就需要@MapperScan</li><li>如果mapper类和mapper.xml不在同一文件夹下，就需要在yml中配置mybatis.mapperLocations</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> SpringBoot </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+            <tag> SpringBoot </tag>
+            
+            <tag> MyBatis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>My Dalia💞</title>
       <link href="/2023/02/18/Dalia/"/>
       <url>/2023/02/18/Dalia/</url>
