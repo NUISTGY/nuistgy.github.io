@@ -33,6 +33,35 @@
     
     
     <entry>
+      <title>Feign 的fallbackFactory方法</title>
+      <link href="/2023/02/21/Feign%E9%99%8D%E7%BA%A7%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95/"/>
+      <url>/2023/02/21/Feign%E9%99%8D%E7%BA%A7%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><blockquote><p>fallbackFactory与fallback方法不能同时使用，这个两个方法其实都类似于Hystrix的功能，当网络不通时返回默认的配置数据。</p></blockquote><h3 id="fallbackFactory用法捕获异常案例"><a href="#fallbackFactory用法捕获异常案例" class="headerlink" title="fallbackFactory用法捕获异常案例"></a><strong>fallbackFactory用法捕获异常案例</strong></h3><p><strong>FeignClient客户端</strong></p><blockquote><p>此类中的@FeignClient中<strong>fallbackFactory</strong>属性指定熔断降级处理的类为WebFeignFallbackFactory。</p></blockquote><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ...</span><br><span class="line"></span><br><span class="line"><span class="meta">@FeignClient</span>(value = <span class="string">"server-feign"</span> ,fallbackFactory = WebFeignFallbackFactory.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">WebFeignService</span> </span>&#123;</span><br><span class="line"><span class="meta">@PostMapping</span>(value = <span class="string">"/Test"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">Test</span><span class="params">(@RequestBody Object o)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>WebFeignFallbackFactory 降级类</strong></p><blockquote><p>注意FallbackFactory这里引入是包是hystrix, import feign.hystrix.FallbackFactory;</p><p>这是实现FallbackFactory&lt;泛型 &gt; implements FallbackFactory, 此类实现<strong>FallbackFactory类</strong>，并实现方法T create(Throwable throwable);</p><p>其中throwable.getMessage(); 就是服务回退时的异常信息。</p></blockquote><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ...</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebFeignFallbackFactory</span> <span class="keyword">implements</span> <span class="title">FallbackFactory</span>&lt;<span class="title">WebFeignService</span>&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> WebFeignService <span class="title">create</span><span class="params">(Throwable throwable)</span> </span>&#123;</span><br><span class="line">        log.error(<span class="string">"异常原因:&#123;&#125;"</span>, throwable.getMessage(), throwable);</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> WebFeignService()&#123;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">Test</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line"><span class="comment">//出现异常，自定义返回内容，保证接口安全</span></span><br><span class="line"><span class="keyword">return</span> throwable.getMessage();</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Feign </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+            <tag> SpringCloud </tag>
+            
+            <tag> Feign </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>JWT概念介绍</title>
       <link href="/2023/02/20/JWT%E6%A6%82%E5%BF%B5/"/>
       <url>/2023/02/20/JWT%E6%A6%82%E5%BF%B5/</url>
