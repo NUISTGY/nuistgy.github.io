@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Feign 远程调用异常处理</title>
+      <link href="/2023/02/21/Feign%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/"/>
+      <url>/2023/02/21/Feign%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><h2 id="Feign-异常处理"><a href="#Feign-异常处理" class="headerlink" title="Feign 异常处理"></a>Feign 异常处理</h2><p>在目前微服务流行的年代，稍微大点的项目都会使用微服务架构模式。<br>当服务提供方响应为非 2xx 状态码时, feign调用将会抛出FeignException. 由于其异常message经过了Feint的封装, 所以不再是服务提供方的原始异常信息. 若想展示原始信息则需要重写ErrorDecoder来实现。</p><h3 id="重写ErrorDecoder"><a href="#重写ErrorDecoder" class="headerlink" title="重写ErrorDecoder"></a>重写ErrorDecoder</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FeignErrorDecoder</span> <span class="keyword">implements</span> <span class="title">ErrorDecoder</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Exception <span class="title">decode</span><span class="params">(String methodKey, Response response)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        String message = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (response.body() != <span class="keyword">null</span>) &#123;</span><br><span class="line">                message = Util.toString(response.body().asReader(Util.UTF_8));</span><br><span class="line">                ApiResponse  result = JsonUtil.parse(message, ApiResponse .class);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> ServiceException(result.getMsg());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ignored) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> RuntimeException(message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="配置全局Feign配置类"><a href="#配置全局Feign配置类" class="headerlink" title="配置全局Feign配置类"></a>配置全局Feign配置类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomizedConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ErrorDecoder <span class="title">feignDecoder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> FeignErrorDecoder();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>说明：</strong>如果不加@Configuration，需要在@FeignClient指定配置类,在Feign进行远程调用后，需要对结果进行解码成具体的Java对象，如ApiResponse对象。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Feign </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+            <tag> SpringCloud </tag>
+            
+            <tag> Feign </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>JWT概念介绍</title>
       <link href="/2023/02/20/JWT%E6%A6%82%E5%BF%B5/"/>
       <url>/2023/02/20/JWT%E6%A6%82%E5%BF%B5/</url>
