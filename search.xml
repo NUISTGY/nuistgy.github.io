@@ -35,6 +35,37 @@
     
     
     <entry>
+      <title>Nacos多环境管理解决方案</title>
+      <link href="/2023/02/28/Nacos%E5%A4%9A%E7%8E%AF%E5%A2%83%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+      <url>/2023/02/28/Nacos%E5%A4%9A%E7%8E%AF%E5%A2%83%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+      
+        <content type="html"><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><h2 id="使用Data-ID与profiles实现"><a href="#使用Data-ID与profiles实现" class="headerlink" title="使用Data ID与profiles实现:"></a>使用<code>Data ID</code>与<code>profiles</code>实现:</h2><blockquote><p>Data ID:  Nacos中，可以理解为Spring Cloud应用的配置文件名。</p><p>Data ID 的名称格式是这样的：${spring.application.name}.properties</p></blockquote><p>实际上，Data ID的规则中，还包含了环境逻辑，应用启动可以通过<code>spring.profiles.active</code>来指定具体的环境名称,那么相应客户端的配置为：<code>${spring.application.name}-${spring.profiles.active}.yml</code></p><blockquote><p>注释：Spring-could默认的配置为：<code>${spring.cloud.nacos.config.prefix}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}</code><br>而上面我们写的 ：<code>${spring.application.name}-${spring.profiles.active}.yml</code>是因为：<br><code>${spring.cloud.nacos.config.prefix}和${spring.cloud.nacos.config.file-extension}</code>都使用了默认值</p></blockquote><h2 id="使用Group实现"><a href="#使用Group实现" class="headerlink" title="使用Group实现"></a>使用<code>Group</code>实现</h2><p><code>Group</code>在Nacos中是用来对Data ID做集合管理的重要概念，我们可以把GROUP看成一个环境的集合，例如应用A归属一个<code>GROUP-A</code> ，应用B归属<code>GROUP-B</code>。对于使用GROUP没有固定要求，主要是为了们在实际使用的时候，需要根据我们的具体需求，可以是架构运维上对多环境的管理，也可以是业务上对不同模块的参数管理。</p><ul><li><strong>第一步：先在Nacos中，通过区分Group来创建两个不同环境的配置内容。</strong></li><li><strong>第二步：在<code>alibaba-nacos-config-client</code>应用的配置文件中，增加Group的指定配</strong>置如：<code>spring.cloud.nacos.config.group=DEV_GROUP</code></li><li><strong>第三步：启动应用</strong></li></ul><h2 id="使用Namespace实现"><a href="#使用Namespace实现" class="headerlink" title="使用Namespace实现"></a>使用<code>Namespace</code>实现</h2><p>NameSpace是较大粒度的隔离，它可以隔离上述说的<code>DATA ID</code> <code>GROUP</code> ，也就是说在不同的命名空间下可以存在相同的<code>DATA ID</code> 和 <code>GROUP</code> ，Namespace的常用场景之一是不同环境的配置的区分隔离，例如：开发测试环境和生产环境的资源（如配置、服务）隔离等。</p><p>使用方法：在<code>alibaba-nacos-config-client</code>应用的配置文件中<br>增加<code>Namespace</code>的指定配置，比如：<code>spring.cloud.nacos.config.namespace=83eed625-d166-4619-b923-93df2088883a</code><br>注意 ：namespace 的配置不是使用名称，而是使用Namespace的ID。</p><h2 id="优劣对比"><a href="#优劣对比" class="headerlink" title="优劣对比"></a>优劣对比</h2><p>利用Nacos配置管理功能中的几个不同纬度来实现多环境的配置管理。从结果上而言，不论用哪一种方式，都能够胜任需求，但是哪一种最好呢？</p><h3 id="第一种：通过Data-ID与profile实现。"><a href="#第一种：通过Data-ID与profile实现。" class="headerlink" title="第一种：通过Data ID与profile实现。"></a>第一种：通过Data ID与profile实现。</h3><ul><li><strong>优点</strong>：这种方式与Spring Cloud Config的实现非常像，用过Spring Cloud Config的用户，可以毫无违和感的过渡过来，由于命名规则类似，所以要从Spring Cloud Config中做迁移也非常简单。</li><li><strong>缺点</strong>：这种方式在项目与环境多的时候，配置内容就会显得非常混乱。配置列表中会看到各种不同应用，不同环境的配置交织在一起，非常不利于管理。</li><li><strong>建议</strong>：项目不多时使用，或者可以结合Group对项目根据业务或者组织架构做一些拆分规划。</li></ul><h3 id="第二种：通过Group实现。"><a href="#第二种：通过Group实现。" class="headerlink" title="第二种：通过Group实现。"></a>第二种：通过Group实现。</h3><ul><li><strong>优点</strong>：通过Group按环境讲各个应用的配置隔离开。可以非常方便的利用Data ID和Group的搜索功能，分别从应用纬度和环境纬度来查看配置。</li><li><strong>缺点</strong>：由于会占用Group纬度，所以需要对Group的使用做好规划，毕竟与业务上的一些配置分组起冲突等问题。</li><li><strong>建议</strong>：这种方式虽然结构上比上一种更好一些，但是依然可能会有一些混乱，主要是在Group的管理上要做好规划和控制。</li></ul><h3 id="第三种：通过Namespace实现。"><a href="#第三种：通过Namespace实现。" class="headerlink" title="第三种：通过Namespace实现。"></a>第三种：通过Namespace实现。</h3><ul><li><strong>优点</strong>：官方建议的方式，通过Namespace来区分不同的环境，释放了Group的自由度，这样可以让Group的使用专注于做业务层面的分组管理。同时，Nacos控制页面上对于Namespace也做了分组展示，不需要搜索，就可以隔离开不同的环境配置，非常易用。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Nacos </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+            <tag> SpringBoot </tag>
+            
+            <tag> SpringCloud </tag>
+            
+            <tag> Nacos </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Feign 远程调用异常处理</title>
       <link href="/2023/02/21/Feign%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/"/>
       <url>/2023/02/21/Feign%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</url>
