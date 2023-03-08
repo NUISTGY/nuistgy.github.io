@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>fork和clone的区别，fetch与pull的区别</title>
+      <link href="/2023/03/08/Git%E4%B8%ADfork%E5%92%8Cclone%E3%80%81pull%E5%92%8Cfetch/"/>
+      <url>/2023/03/08/Git%E4%B8%ADfork%E5%92%8Cclone%E3%80%81pull%E5%92%8Cfetch/</url>
+      
+        <content type="html"><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><h2 id="fork和clone的区别，fetch与pull的区别"><a href="#fork和clone的区别，fetch与pull的区别" class="headerlink" title="fork和clone的区别，fetch与pull的区别"></a>fork和clone的区别，fetch与pull的区别</h2><blockquote><p>fork：在github页面，点击fork按钮。将别人的仓库复制一份到自己的仓库。</p></blockquote><blockquote><p>clone：将github中的仓库克隆到自己本地电脑中。</p></blockquote><h3 id="（1）pull-request的作用"><a href="#（1）pull-request的作用" class="headerlink" title="（1）pull request的作用"></a>（1）pull request的作用</h3><p>比如在仓库的主人（A）没有把我们添加为项目合作者的前提下，我们将A的某个仓库名为“a”的仓库clone到自己的电脑中，在自己的电脑进行修改，但是我们会发现我们没办法通过push将代码贡献到B中。</p><p>所以要想将你的代码贡献到B中，我们应该：</p><ol><li>在A的仓库中fork项目a （此时我们自己的github就有一个一模一样的仓库a，但是URL不同）</li><li>将我们修改的代码push到自己github中的仓库B中</li><li>pull request ，主人就会收到请求，并决定要不要接受你的代码</li><li>也可以可以申请为项目a的contributor，这样可以直接push</li></ol><p><a href="https://imgloc.com/i/516rP" target="_blank" rel="noopener"><img src="https://i.328888.xyz/2023/03/08/516rP.md.png" alt="516rP.md.png"></a></p><h3 id="（2）fork了别人的项目到自己的repository之后，别人的项目更新了，我们fork的项目怎么更新？"><a href="#（2）fork了别人的项目到自己的repository之后，别人的项目更新了，我们fork的项目怎么更新？" class="headerlink" title="（2）fork了别人的项目到自己的repository之后，别人的项目更新了，我们fork的项目怎么更新？"></a>（2）fork了别人的项目到自己的repository之后，别人的项目更新了，我们fork的项目怎么更新？</h3><p>首先fetch网上的更新到自己的项目上，然后再判断、merge。这里就涉及了下一个问题，pull和fetch有啥区别。</p><p><strong>fetch+merge与pull效果一样。但是要多用fetch+merge，这样可以检查fetch下来的更新是否合适。</strong>pull直接包含了这两步操作，如果你觉得网上的更新没有问题，那直接pull也是可以的。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> git </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>业务中的逻辑删除示例</title>
       <link href="/2023/03/02/%E4%B8%9A%E5%8A%A1%E4%B8%AD%E7%9A%84%E9%80%BB%E8%BE%91%E5%88%A0%E9%99%A4%E7%A4%BA%E4%BE%8B/"/>
       <url>/2023/03/02/%E4%B8%9A%E5%8A%A1%E4%B8%AD%E7%9A%84%E9%80%BB%E8%BE%91%E5%88%A0%E9%99%A4%E7%A4%BA%E4%BE%8B/</url>
