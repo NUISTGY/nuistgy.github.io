@@ -4,6 +4,68 @@
   
     
     <entry>
+      <title>fetchSize参数介绍</title>
+      <link href="/2023/03/09/JDBC%20fetchSize%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/"/>
+      <url>/2023/03/09/JDBC%20fetchSize%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/</url>
+      
+        <content type="html"><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><p>fetchSize是JDBC API中用于控制数据检索时一次取回的记录条数的参数。</p><h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>当我们从数据库中检索大量数据时，如果不适当地使用fetchSize参数，会导致内存泄漏和网络拥塞等问题。因此，通过设置适当大小的fetchSize值，我们可以减少每次查询时需要检索的数据条数，从而降低程序的内存和网络消耗。</p><h2 id="底层原理"><a href="#底层原理" class="headerlink" title="底层原理"></a>底层原理</h2><p>当我们执行PreparedStatement对象的executeQuery()方法时，JDBC驱动程序将向数据库发送一个查询请求，并从结果集中获取数据。在这个过程中，fetchSize参数的值对于内部JDBC驱动程序如何处理数据具有重要影响。</p><p>通常情况下，JDBC驱动程序将一次从数据库中检索fetchSize个记录，并将它们添加到ResultSet对象中。然后，在ResultSet对象中的记录用尽之前，JDBC驱动程序将不断地向数据库发送请求以获取更多的记录。在每次请求结束后，JDBC驱动程序将自动释放ResultSet对象中的前面的记录，从而避免引起内存泄漏。</p><p>总之，通过适当地设置fetchSize参数，我们可以最大限度地利用JDBC驱动程序的优势，从而提高检索数据的效率，避免内存泄漏和网络瓶颈问题。</p><h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>在使用JDBC API从数据库中检索数据时，可以通过以下方式设置fetchSize参数：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String sql = <span class="string">"SELECT * FROM my_table"</span>;</span><br><span class="line">PreparedStatement pstmt = conn.prepareStatement(sql);</span><br><span class="line">pstmt.setFetchSize(<span class="number">1000</span>); <span class="comment">// 设置fetchSize为1000</span></span><br><span class="line">ResultSet rs = pstmt.executeQuery();</span><br></pre></td></tr></table></figure><p>如上所示，我们可以通过调用PreparedStatement对象的setFetchSize()方法来设置fetchSize值。在该例子中，我们将fetchSize设置为1000条记录。</p><p>另外，我们也可以在SQL语句中直接指定fetchSize：</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">resultType</span>=<span class="string">"com.example.model.User"</span> <span class="attr">fetchSize</span>=<span class="string">"100"</span>&gt;</span></span><br><span class="line">    SELECT * FROM user_table</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure><p>如上所示，我们可以在MyBatis的Mapper文件中使用fetchSize属性指定fetchSize的值。</p><h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul><li>在实际应用中，fetchSize的最佳值取决于许多因素，如数据量、内存大小、网络带宽等。通常情况下，建议使用较小的值（例如100或1000）以避免内存泄漏和网络瓶颈。</li><li>如果需要处理大量数据，则可以逐步增加fetchSize的值以提高性能，但要注意不要超出系统资源的极限限制。</li><li>fetchSize只对可滚动的ResultSet对象有效。对于非可滚动ResultSet对象和Statement对象，fetchSize被忽略并且所有结果都将一次性返回。</li><li>对于某些数据库驱动程序，fetchSize可能会被忽略或无法按预期工作。因此，在使用fetchSize时需要注意测试和验证。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> SQL优化 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+            <tag> JDBC </tag>
+            
+            <tag> 数据库 </tag>
+            
+            <tag> MyBatis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>MyBatis——流式查询</title>
+      <link href="/2023/03/09/mybatis%E6%B5%81%E5%BC%8F%E6%9F%A5%E8%AF%A2/"/>
+      <url>/2023/03/09/mybatis%E6%B5%81%E5%BC%8F%E6%9F%A5%E8%AF%A2/</url>
+      
+        <content type="html"><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><blockquote><p>流式查询指的是查询成功后不是返回一个集合而是返回一个迭代器，应用每次从迭代器取一条查询结果。流式查询的好处是能够降低内存使用。</p><p>如果没有流式查询，我们想要从数据库取 1000 万条记录而又没有足够的内存时，就不得不分页查询，而分页查询效率取决于表设计，如果设计的不好，就无法执行高效的分页查询。因此流式查询是一个数据库访问框架必须具备的功能。</p><p>流式查询的过程当中，数据库连接是保持打开状态的，因此要注意的是：执行一个流式查询后，数据库访问框架就不负责关闭数据库连接了，需要应用在取完数据后自己关闭。</p></blockquote><h2 id="MyBatis-流式查询接口"><a href="#MyBatis-流式查询接口" class="headerlink" title="MyBatis 流式查询接口"></a>MyBatis 流式查询接口</h2><p>MyBatis 提供了一个叫 org.apache.ibatis.cursor.Cursor 的接口类用于流式查询，这个接口继承了 java.io.Closeable 和 java.lang.Iterable 接口，由此可知：</p><ul><li>Cursor 是可关闭的。实际上当关闭 Cursor 时，也一并将数据库连接关闭了；</li><li>Cursor 是可遍历的。</li></ul><p>除此之外，Cursor 还提供了三个方法：</p><ul><li>isOpen()：用于在取数据之前判断 Cursor 对象是否是打开状态。只有当打开时 Cursor 才能取数据；</li><li>isConsumed()：用于判断查询结果是否全部取完；</li><li>getCurrentIndex()：返回已经获取了多少条数据。</li></ul><p>因为 Cursor 实现了迭代器接口，因此在实际使用当中，从 Cursor 取数据非常简单：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(Cursor cursor = mapper.querySomeData()) &#123;</span><br><span class="line">    cursor.forEach(rowObject -&gt; &#123;</span><br><span class="line">        <span class="comment">// ...使用 try-resource 方式可以令 Cursor 自动关闭</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="流式查询示例"><a href="#流式查询示例" class="headerlink" title="流式查询示例"></a>流式查询示例</h2><p> 我们举个实际例子。下面是一个 Mapper 类：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">FooMapper</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Select</span>(<span class="string">"select * from foo limit #&#123;limit&#125;"</span>)</span><br><span class="line">    <span class="function">Cursor&lt;Foo&gt; <span class="title">scan</span><span class="params">(@Param(<span class="string">"limit"</span>)</span> <span class="keyword">int</span> limit)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>方法 scan() 是一个非常简单的查询。我们在定义这个方时，指定返回值为 Cursor 类型，MyBatis 就明白这个查询方法是一个流式查询。</p><p>然后我们再写一个 SpringMVC Controller 方法来调用 Mapper（无关的代码已经省略）:</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"foo/scan/0/&#123;limit&#125;"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">scanFoo0</span><span class="params">(@PathVariable(<span class="string">"limit"</span>)</span> <span class="keyword">int</span> limit) <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (Cursor&lt;Foo&gt; cursor = fooMapper.scan(limit)) &#123;  <span class="comment">// 1 获取 Cursor 对象并保证它能最后关闭</span></span><br><span class="line">        cursor.forEach(foo -&gt; &#123;&#125;);                      <span class="comment">// 2 从 cursor 中取数据</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>上面的代码看上去没什么问题，但是执行scanFoo0(int)时会报错：</p><blockquote><p>java.lang.IllegalStateException: A Cursor is already closed.</p></blockquote><p>这是因为我们前面说了在取数据的过程中需要保持数据库连接，而 Mapper 方法通常在执行完后连接就关闭了，因此 Cusor 也一并关闭了。所以，解决这个问题的思路不复杂，保持数据库连接打开即可。</p><h2 id="解决方案：-Transactional-注解"><a href="#解决方案：-Transactional-注解" class="headerlink" title="解决方案：@Transactional 注解"></a>解决方案：@Transactional 注解</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"foo/scan/3/&#123;limit&#125;"</span>)</span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">scanFoo3</span><span class="params">(@PathVariable(<span class="string">"limit"</span>)</span> <span class="keyword">int</span> limit) <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (Cursor&lt;Foo&gt; cursor = fooMapper.scan(limit)) &#123;</span><br><span class="line">        cursor.forEach(foo -&gt; &#123; &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> MyBatis </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 编程 </tag>
+            
+            <tag> 学习 </tag>
+            
+            <tag> Java </tag>
+            
+            <tag> MyBatis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>fork和clone的区别，fetch与pull的区别</title>
       <link href="/2023/03/08/Git%E4%B8%ADfork%E5%92%8Cclone%E3%80%81pull%E5%92%8Cfetch/"/>
       <url>/2023/03/08/Git%E4%B8%ADfork%E5%92%8Cclone%E3%80%81pull%E5%92%8Cfetch/</url>
