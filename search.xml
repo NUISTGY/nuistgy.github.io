@@ -58,6 +58,35 @@
     
     
     <entry>
+      <title>SpringMVC之@RequestMapping注解中produces以及consumes属性</title>
+      <link href="/2023/03/10/@RequestMapping%E6%B3%A8%E8%A7%A3%E4%B8%ADproduces%E4%BB%A5%E5%8F%8Aconsumes%E5%B1%9E%E6%80%A7/"/>
+      <url>/2023/03/10/@RequestMapping%E6%B3%A8%E8%A7%A3%E4%B8%ADproduces%E4%BB%A5%E5%8F%8Aconsumes%E5%B1%9E%E6%80%A7/</url>
+      
+        <content type="html"><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><h2 id="http协议基础知识"><a href="#http协议基础知识" class="headerlink" title="http协议基础知识"></a>http协议基础知识</h2><blockquote><p>首先需要了解什么叫MediaType（媒体类型）？</p></blockquote><p>通俗来说，在http协议中，用来表示传输内容的格式就是MediaType，比如text/html，application/json等，其中text代表介质，html代表格式</p><p>也就是经过http协议通信的双方，比如客户端和浏览器，要彼此告诉对方自己<strong>发送的内容</strong>是什么格式，<strong>期望获取的结果</strong>是什么格式</p><p>这两个功能是通过http header中的<code>Content-Type</code>头部和<code>Accept</code>头部来体现的</p><h2 id="RequestMapping对这两个头部的使用"><a href="#RequestMapping对这两个头部的使用" class="headerlink" title="@RequestMapping对这两个头部的使用"></a>@RequestMapping对这两个头部的使用</h2><p>而在springmvc @RequestMapping注解，其提供了根据MediaType进行过滤的功能，仅当Content-Type或Accept头部带有某些MediaType的时候，其才会进行映射</p><h3 id="produces-属性"><a href="#produces-属性" class="headerlink" title="produces()属性"></a>produces()属性</h3><p><strong>其功能有两个</strong></p><ul><li><p>功能1：当请求头中<code>Accept</code>的value与produces()配置的属性匹配上，则进行映射，否则返回客户端HTTP 406（Not Acceptable）响应，或415 unsupported mediaType</p></li><li><p>功能2：默认会把produces中配置的内容写到响应头的Content-Type中去</p></li></ul><p><strong>例1：</strong>当不配置produces()属性的时候，会根据Accept请求头来输出响应头的Content-Type</p><p><strong>例2：</strong>当配置produces()属性的时候，需要Accept与配置的属性兼容，否则会抛出406或415异常</p><p><strong>例3：</strong>当配置produces()属性的时候，如果未设置Accept请求头，那么默认就是<em>/</em>，会根据produces属性来输出响应头的Content-Type</p><h3 id="consumes-属性"><a href="#consumes-属性" class="headerlink" title="consumes()属性"></a>consumes()属性</h3><p>consumes属性的工作方式类似于produces，不过它会关注请求的ContentType头部信息。当请求头中Content-Type的value与consumes()配置的属性匹配上，则进行映射，否则<strong>415</strong> unsupported mediaType</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> SpringMVC </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+            <tag> SpringMVC </tag>
+            
+            <tag> 注解 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>fetchSize参数介绍</title>
       <link href="/2023/03/09/JDBC%20fetchSize%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/"/>
       <url>/2023/03/09/JDBC%20fetchSize%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/</url>
