@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="JVM-执行流程示例"><meta name="keywords" content="JVM"><meta name="author" content="GeYu"><meta name="copyright" content="GeYu"><title>JVM-执行流程示例 | Yu's Blog</title><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">225</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">82</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">45</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://i.328888.xyz/2022/12/21/ARudF.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="post-info"><div id="post-title">JVM-执行流程示例</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-06-20</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/JVM/">JVM</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">468</span><span class="post-meta__separator">|</span><span>阅读时长: 1 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><script src="/assets/js/APlayer.min.js"> </script><blockquote>
+<p>深度剖析：<a href="https://z.itpub.net/article/detail/A323358F7E35E224FD288ABBB1FD9BAE" target="_blank" rel="noopener">https://z.itpub.net/article/detail/A323358F7E35E224FD288ABBB1FD9BAE</a></p>
+</blockquote>
+<p>原始 Java 代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;	</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;        </span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">10</span>;        </span><br><span class="line">        <span class="keyword">int</span> b = Short.MAX_VALUE + <span class="number">1</span>;        </span><br><span class="line">        <span class="keyword">int</span> c = a + b;        </span><br><span class="line">        System.out.println(c);	</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>javap -v Demo.class：省略</p>
+<ul>
+<li><p>常量池载入运行时常量池</p>
+</li>
+<li><p>方法区字节码载入方法区</p>
+</li>
+<li><p>main 线程开始运行，分配栈帧内存：（操作数栈stack=2，局部变量表locals=4）</p>
+</li>
+<li><p><strong>执行引擎</strong>开始执行字节码</p>
+<p><code>bipush 10</code>：将一个 byte 压入操作数栈（其长度会补齐 4 个字节），类似的指令</p>
+<ul>
+<li>sipush 将一个 short 压入操作数栈（其长度会补齐 4 个字节）</li>
+<li>ldc 将一个 int 压入操作数栈</li>
+<li>ldc2_w 将一个 long 压入操作数栈（分两次压入，因为 long 是 8 个字节）</li>
+<li>这里小的数字都是和字节码指令存在一起，超过 short 范围的数字存入了常量池</li>
+</ul>
+<p><code>istore_1</code>：将操作数栈顶数据弹出，存入局部变量表的 slot 1</p>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-%E5%AD%97%E8%8A%82%E7%A0%81%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B1.png" alt></p>
+<p><code>ldc #3</code>：从常量池加载 #3 数据到操作数栈<br>Short.MAX_VALUE 是 32767，所以 32768 = Short.MAX_VALUE + 1 实际是在编译期间计算完成</p>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-%E5%AD%97%E8%8A%82%E7%A0%81%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B2.png" alt></p>
+<p><code>istore_2</code>：将操作数栈顶数据弹出，存入局部变量表的 slot 2</p>
+<p><code>iload_1</code>：将局部变量表的 slot 1 数据弹出，放入操作数栈栈顶</p>
+<p><code>iload_2</code>：将局部变量表的 slot 2 数据弹出，放入操作数栈栈顶</p>
+<p><code>iadd</code>：执行相加操作</p>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-%E5%AD%97%E8%8A%82%E7%A0%81%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B3.png" alt></p>
+<p><code>istore_3</code>：将操作数栈顶数据弹出，存入局部变量表的 slot 3</p>
+<p><code>getstatic #4</code>：获取静态字段</p>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-%E5%AD%97%E8%8A%82%E7%A0%81%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B4.png" alt></p>
+<p><code>iload_3</code>：</p>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-%E5%AD%97%E8%8A%82%E7%A0%81%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B5.png" alt></p>
+<p><code>invokevirtual #5</code>：</p>
+<ul>
+<li>找到常量池 #5 项</li>
+<li>定位到方法区 java/io/PrintStream.println:(I)V 方法</li>
+<li><strong>生成新的栈帧</strong>（分配 locals、stack等）</li>
+<li>传递参数，执行新栈帧中的字节码</li>
+<li>执行完毕，弹出栈帧</li>
+<li>清除 main 操作数栈内容</li>
+</ul>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-%E5%AD%97%E8%8A%82%E7%A0%81%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B6.png" alt></p>
+<p>return：完成 main 方法调用，弹出 main 栈帧，程序结束</p>
+</li>
+</ul>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">GeYu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://nuistgy.github.io/2023/06/20/JVM-执行流程示例/">https://nuistgy.github.io/2023/06/20/JVM-执行流程示例/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://nuistgy.github.io">Yu's Blog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JVM/">JVM</a></div><div class="addthis_inline_share_toolbox pull-right"></div><script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5befa2f76de7c6b5" async></script><nav id="pagination"><div class="prev-post pull-left"><a href="/2023/06/21/JUC-ThreadLocal/"><i class="fa fa-chevron-left">  </i><span>JUC-ThreadLocal</span></a></div><div class="next-post pull-right"><a href="/2023/06/12/Java-栈和队列/"><span>Java-栈和队列</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://i.328888.xyz/2022/12/21/ARudF.png)"><div class="layout" id="footer"><div class="copyright">&copy;2015 - 2023 By GeYu</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Enjoy the cyber world!</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+}</script></body></html>

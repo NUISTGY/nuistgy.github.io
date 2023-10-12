@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="JVM-对象标记"><meta name="keywords" content="JVM"><meta name="author" content="GeYu"><meta name="copyright" content="GeYu"><title>JVM-对象标记 | Yu's Blog</title><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#三色标记"><span class="toc-number">1.</span> <span class="toc-text">三色标记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#标记算法"><span class="toc-number">1.1.</span> <span class="toc-text">标记算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#并发标记"><span class="toc-number">2.</span> <span class="toc-text">并发标记</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">225</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">82</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">45</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://i.328888.xyz/2022/12/21/ARudF.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="post-info"><div id="post-title">JVM-对象标记</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-06-07</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/JVM/">JVM</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">1k</span><span class="post-meta__separator">|</span><span>阅读时长: 3 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="三色标记"><a href="#三色标记" class="headerlink" title="三色标记"></a>三色标记</h2><h3 id="标记算法"><a href="#标记算法" class="headerlink" title="标记算法"></a>标记算法</h3><p>三色标记法把遍历对象图过程中遇到的对象，标记成以下三种颜色：</p>
+<ul>
+<li>白色：尚未访问过</li>
+<li>灰色：本对象已访问过，但是本对象引用到的其他对象尚未全部访问</li>
+<li>黑色：本对象已访问过，而且本对象引用到的其他对象也全部访问完成</li>
+</ul>
+<p>当 Stop The World (STW) 时，对象间的引用是不会发生变化的，可以轻松完成标记，遍历访问过程为：</p>
+<ol>
+<li>初始时，所有对象都在白色集合</li>
+<li>将 GC Roots 直接引用到的对象挪到灰色集合</li>
+<li>从灰色集合中获取对象：<ul>
+<li>将本对象引用到的其他对象全部挪到灰色集合中</li>
+<li>将本对象挪到黑色集合里面</li>
+</ul>
+</li>
+<li>重复步骤 3，直至灰色集合为空时结束</li>
+<li>结束后，仍在白色集合的对象即为 GC Roots 不可达，可以进行回收</li>
+</ol>
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-三色标记法过程.gif" style="zoom: 67%;">
+
+
+<h2 id="并发标记"><a href="#并发标记" class="headerlink" title="并发标记"></a>并发标记</h2><p>并发标记时，对象间的引用可能发生变化，多标和漏标的情况就有可能发生</p>
+<p><strong>多标情况：</strong>当 E 变为灰色或黑色时，其他线程断开的 D 对 E 的引用，导致这部分对象仍会被标记为存活，本轮 GC 不会回收这部分内存，这部分本应该回收但是没有回收到的内存，被称之为<strong>浮动垃圾</strong></p>
+<ul>
+<li>针对并发标记开始后的<strong>新对象</strong>，通常的做法是直接全部当成黑色，也算浮动垃圾</li>
+<li>浮动垃圾并不会影响应用程序的正确性，只是需要等到下一轮垃圾回收中才被清除</li>
+</ul>
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-三色标记法多标情况.png" style="zoom: 50%;">
+
+<p><strong>漏标情况：</strong></p>
+<ul>
+<li>条件一：灰色对象断开了对一个白色对象的引用（直接或间接），即灰色对象原成员变量的引用发生了变化</li>
+<li>条件二：其他线程中修改了黑色对象，插入了一条或多条对该白色对象的新引用</li>
+<li>结果：导致该白色对象当作垃圾被 GC，影响到了程序的正确性</li>
+</ul>
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-三色标记法漏标情况.png" style="zoom:50%;">
+
+<p>代码角度解释漏标：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object G = objE.fieldG; <span class="comment">// 读</span></span><br><span class="line">objE.fieldG = <span class="keyword">null</span>;  	<span class="comment">// 写</span></span><br><span class="line">objD.fieldG = G;     	<span class="comment">// 写</span></span><br></pre></td></tr></table></figure>
+
+<p>为了解决问题，可以操作上面三步，<strong>将对象 G 记录起来，然后作为灰色对象再进行遍历</strong>，比如放到一个特定的集合，等初始的 GC Roots 遍历完（并发标记），再遍历该集合（重新标记）</p>
+<blockquote>
+<p>所以<strong>重新标记需要 STW</strong>，应用程序一直在运行，该集合可能会一直增加新的对象，导致永远都运行不完</p>
+</blockquote>
+<p>解决方法：添加读写屏障，读屏障拦截第一步，写屏障拦截第二三步，在读写前后进行一些后置处理：</p>
+<ul>
+<li><p><strong>写屏障 + 增量更新</strong>：黑色对象新增引用，会将黑色对象变成灰色对象，最后对该节点重新扫描</p>
+<p>增量更新 (Incremental Update) 破坏了条件二，从而保证了不会漏标</p>
+<p>缺点：对黑色变灰的对象重新扫描所有引用，比较耗费时间</p>
+</li>
+<li><p><strong>写屏障 (Store Barrier) + SATB</strong>：当原来成员变量的引用发生变化之前，记录下原来的引用对象</p>
+<p>保留 GC 开始时的对象图，即原始快照 SATB，当 GC Roots 确定后，对象图就已经确定，那后续的标记也应该是按照这个时刻的对象图走，如果期间对白色对象有了新的引用会记录下来，并且将白色对象变灰（说明可达了，并且原始快照中本来就应该是灰色对象），最后重新扫描该对象的引用关系</p>
+<p>SATB (Snapshot At The Beginning) 破坏了条件一，从而保证了不会漏标</p>
+</li>
+<li><p><strong>读屏障 (Load Barrier)</strong>：破坏条件二，黑色对象引用白色对象的前提是获取到该对象，此时读屏障发挥作用</p>
+</li>
+</ul>
+<p>以 Java HotSpot VM 为例，其并发标记时对漏标的处理方案如下：</p>
+<ul>
+<li>CMS：写屏障 + 增量更新</li>
+<li>G1：写屏障 + SATB</li>
+<li>ZGC：读屏障</li>
+</ul>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">GeYu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://nuistgy.github.io/2023/06/07/JVM-对象标记/">https://nuistgy.github.io/2023/06/07/JVM-对象标记/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://nuistgy.github.io">Yu's Blog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JVM/">JVM</a></div><div class="addthis_inline_share_toolbox pull-right"></div><script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5befa2f76de7c6b5" async></script><nav id="pagination"><div class="prev-post pull-left"><a href="/2023/06/08/JVM-字节码文件构成/"><i class="fa fa-chevron-left">  </i><span>JVM-字节码文件构成</span></a></div><div class="next-post pull-right"><a href="/2023/06/07/JVM-记忆集和跨代引用/"><span>JVM-记忆集和跨代引用</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://i.328888.xyz/2022/12/21/ARudF.png)"><div class="layout" id="footer"><div class="copyright">&copy;2015 - 2023 By GeYu</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Enjoy the cyber world!</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+}</script></body></html>

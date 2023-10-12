@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="什么是同源策略？"><meta name="keywords" content="前端,后端,浏览器"><meta name="author" content="GeYu"><meta name="copyright" content="GeYu"><title>什么是同源策略？ | Yu's Blog</title><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、定义"><span class="toc-number">1.</span> <span class="toc-text">一、定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、同源策略分类"><span class="toc-number">2.</span> <span class="toc-text">二、同源策略分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、同源策略的目的"><span class="toc-number">3.</span> <span class="toc-text">三、同源策略的目的</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">225</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">82</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">45</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://i.328888.xyz/2022/12/21/ARudF.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="post-info"><div id="post-title">什么是同源策略？</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-01-07</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/浏览器/">浏览器</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">1.8k</span><span class="post-meta__separator">|</span><span>阅读时长: 5 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="一、定义"><a href="#一、定义" class="headerlink" title="一、定义"></a>一、定义</h2><p><strong>同源策略（same origin policy）</strong>是netScape（网景）提出的一个安全策略，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，浏览器很容易受到XSS、CSFR等攻击。具体表现为浏览器在执行脚本前，会判断脚本是否与打开的网页是同源的，判断<strong>协议、域名、端口</strong>是否都相同，相同则表示同源。其中一项不相同就表示<strong>跨域访问</strong>。会在控制台报一个CORS异常，目的是为了保护本地数据不被JavaScript代码获取回来的数据污染，因此拦截的是客户端发出的请求回来的数据接收，即请求发送了，服务器响应了，但是无法被浏览器接收。</p>
+<p>浏览器采用同源策略，<strong>在没有明确授权的情况下</strong>，禁止页面加载或执行与自身不同源的任何脚本。</p>
+<h2 id="二、同源策略分类"><a href="#二、同源策略分类" class="headerlink" title="二、同源策略分类"></a>二、同源策略分类</h2><ol>
+<li><strong>DOM 同源策略：</strong> 禁止对不同源页面 DOM 进行操作。这里主要场景是 iframe 跨域的情况，不同域名的 iframe 是限制互相访问的(比如一个恶意网站的页面通过iframe嵌入了银行的登录页面（二者不同源），如果没有同源限制，恶意网页上的javascript脚本就可以在用户登录银行的时候获取用户名和密码)</li>
+<li><strong>XMLHttpRequest 同源策略：</strong> 禁止使用 XHR 对象向不同源的服务器地址发起 HTTP 请求(这一点里面其实包括了 ajax)。</li>
+<li><strong>Cookie、LocalStorage、IndexedDB 等存储性内容同源策略：</strong> js中无法访问不属于同个源的cookie、LocalStorage中存储的内容。</li>
+</ol>
+<p>具体来说，cookie和LocalStorage在控制哪些源可以访问的问题上还是细微的差别，父域在设置cookie的时候可以设定允许子域访问这段cookie，同时Cookie只和域名以及路径关联，如果是同个域名不同端口的源依然是共享同个域名下的Cookie的，而LocalStorage则是以源为单位进行管理，相互独立，不同源之间无法相互访问LocalStorage中的内容。</p>
+<p><strong>但是同源策略留了一些“后门”：</strong></p>
+<ol>
+<li>页面中的链接，重定向以及表单提交是不会受到同源策略限制的(<strong>未授权情况下，ajax 的表单提交是不被允许的,但是普通的表单是可以直接跨域的</strong>)。</li>
+<li><code>&lt;script&gt;、&lt;img&gt;、&lt;link&gt;</code>这些包含 src 属性的标签可以加载跨域资源。但浏览器限制了JavaScript的权限使其不能读、写加载的内容。</li>
+</ol>
+<p><strong>总结：</strong></p>
+<p>同源策略限制的内容有：</p>
+<ul>
+<li>Cookie、LocalStorage、IndexedDB 等存储性内容</li>
+<li>DOM和JS对象无法获得</li>
+<li>AJAX请求发送后，结果被浏览器拦截了</li>
+</ul>
+<p>但是有三个标签是允许跨域加载资源：</p>
+<ul>
+<li><code>&lt;img src=XXX&gt;</code></li>
+<li><code>&lt;link href=XXX&gt;</code></li>
+<li><code>&lt;script src=XXX&gt;</code></li>
+</ul>
+<h2 id="三、同源策略的目的"><a href="#三、同源策略的目的" class="headerlink" title="三、同源策略的目的"></a>三、同源策略的目的</h2><p>简单的举两个例子</p>
+<p><strong>（1）如果没有 DOM 同源策略，也就是说不同域的 iframe 之间可以相互访问，那么黑客可以这样进行攻击：</strong></p>
+<ol>
+<li>做一个假网站，里面用 iframe 嵌套一个银行网站mybank.com</li>
+<li>把 iframe 宽高啥的调整到页面全部，这样用户进来除了域名，别的部分和银行的网站没有任何差别。</li>
+<li>这时如果用户输入账号密码，我们的主网站可以跨域访问到mybank.com 的 dom 节点，就可以拿到用户的账户密码了。</li>
+</ol>
+<p><strong>（2）如果 XMLHttpRequest 同源策略，那么黑客可以进行 CSRF（跨站请求伪造） 攻击：</strong></p>
+<ol>
+<li>用户登录了自己的银行页面mybank.com,银行页面向用户的cookie 中添加用户标识。</li>
+<li>用户浏览了恶意页面evil.com，执行了页面中的恶意AJAX 请求代码。</li>
+<li>evil.com向mybank.com发起 Ajax HTTP 请求，浏览器会默认把mybank.com对应 cookie 也同时发送过去。</li>
+<li>银行页面从发送的 cookie 中提取用户标识，验证用户无误，response中返回请求数据。此时数据就泄露了，而且由于 Ajax 在后台执行，用户无法感知这一过程。</li>
+</ol>
+<p><strong>注：</strong></p>
+<ul>
+<li>cookie 是浏览器根据你请求的页面进行发送的，而与从哪个页面发送过去请求无关。比如说，我访问了 a.com 以后获取了 a.com 的cookie ，然后我访问 q.com ，由于 cookie 域的限制，浏览器在请求 q.com 的时候不会携带 a.com 的cookie ，但是当 q.com 有一个向 a.com 发起的请求的时候，浏览器就会自动的在这个请求中带上 a.com 的 cookie。</li>
+<li><strong>跨域并不是请求发不出去，请求能发出去，服务端能收到请求并正常返回结果，只是结果被浏览器拦截了。</strong></li>
+</ul>
+<p>你可能会疑问明明通过表单的方式可以发起跨域请求，为什么 Ajax 就不会?<br>因为归根结底，跨域是为了阻止用户读取到另一个域名下的内容，Ajax 可以获取响应，浏览器认为这不安全，所以拦截了响应。但是表单并不会获取新的内容，所以可以发起跨域请求。同时也说明了跨域并不能完全阻止 CSRF，因为请求毕竟是发出去了。</p>
+<p><strong>跨域访问限制的作用流程大致如下：</strong></p>
+<ol>
+<li>浏览器发送跨域请求</li>
+<li>接收response数据</li>
+<li>检查响应头<br>（1）如果响应头中没有允许跨域访问的配置，则不加载，并报出响应异常<br>（2）如果响应头中有允许跨域访问的设置，正常加载数据</li>
+</ol>
+<p>即: 同源策略并不是浏览器不让请求发出去、或者后端拒绝返回数据。实际情况是请求正常发出去了，后端也正常相应了，只不过数据到了浏览器后浏览器不去作用加载而是丢弃了。</p>
+<p><strong>小结：</strong><br>同源策略控制不同源之间的交互，这些交互通常分为三类：<br><strong>(1)跨域读：</strong> 同源策略是不允许这种事情发生的，如果可以你就能使用 js 读取嵌入在 iframe 中的页面的 dom 元素，获取敏感信息了</p>
+<p><strong>(2)跨域写：</strong> 同源策略不阻止这种操作，比如向不同源的地址发送 POST 请求等，但是这种允许只限制在普通表单（而且是在没有 CSRF token 或者验证 referer 的情况下），对于 ajax 这种方式也是默认不允许的，如果随随便便允许就会出现使用 ajax 来进行 CSRF 请求的情况了</p>
+<p><strong>(3)跨域嵌入：</strong> 这种方式是默认允许的，我们可以在一个源中通过 iframe 嵌入 另一个源的页面，但是如果想限制这种操作的话，我们可以设置 x-frame-options 这个头，这样设置了这个头的页面就允许被嵌入到不同源的页面中了</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">GeYu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://nuistgy.github.io/2023/01/07/同源策略/">https://nuistgy.github.io/2023/01/07/同源策略/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://nuistgy.github.io">Yu's Blog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/前端/">前端</a><a class="post-meta__tags" href="/tags/后端/">后端</a><a class="post-meta__tags" href="/tags/浏览器/">浏览器</a></div><div class="addthis_inline_share_toolbox pull-right"></div><script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5befa2f76de7c6b5" async></script><nav id="pagination"><div class="prev-post pull-left"><a href="/2023/01/10/cookie、session、token/"><i class="fa fa-chevron-left">  </i><span>cookie、session、token？</span></a></div><div class="next-post pull-right"><a href="/2023/01/07/跨站请求伪造/"><span>跨站请求伪造-CSRF</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://i.328888.xyz/2022/12/21/ARudF.png)"><div class="layout" id="footer"><div class="copyright">&copy;2015 - 2023 By GeYu</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Enjoy the cyber world!</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+}</script></body></html>

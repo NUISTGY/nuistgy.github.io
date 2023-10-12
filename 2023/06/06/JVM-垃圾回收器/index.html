@@ -1,0 +1,295 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="JVM-垃圾回收器"><meta name="keywords" content="JVM"><meta name="author" content="GeYu"><meta name="copyright" content="GeYu"><title>JVM-垃圾回收器 | Yu's Blog</title><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#垃圾回收器"><span class="toc-number">1.</span> <span class="toc-text">垃圾回收器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-number">1.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分类"><span class="toc-number">1.2.</span> <span class="toc-text">分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Serial"><span class="toc-number">1.3.</span> <span class="toc-text">Serial</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ParNew"><span class="toc-number">1.4.</span> <span class="toc-text">ParNew</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Parallel"><span class="toc-number">1.5.</span> <span class="toc-text">Parallel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CMS"><span class="toc-number">1.6.</span> <span class="toc-text">CMS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#G1"><span class="toc-number">1.7.</span> <span class="toc-text">G1</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#G1-特点"><span class="toc-number">1.7.1.</span> <span class="toc-text">G1 特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#G1工作原理"><span class="toc-number">1.7.2.</span> <span class="toc-text">G1工作原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#G1相关参数"><span class="toc-number">1.7.3.</span> <span class="toc-text">G1相关参数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">225</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">82</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">45</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://i.328888.xyz/2022/12/21/ARudF.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="post-info"><div id="post-title">JVM-垃圾回收器</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-06-06</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/JVM/">JVM</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">6k</span><span class="post-meta__separator">|</span><span>阅读时长: 18 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="垃圾回收器"><a href="#垃圾回收器" class="headerlink" title="垃圾回收器"></a>垃圾回收器</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><blockquote>
+<p>java的垃圾回收器具体是什么？是线程吗？</p>
+</blockquote>
+<p>Java中的垃圾回收器（Garbage Collector）是一种自动内存管理机制，用于回收不再使用的对象所占用的内存空间。它是Java虚拟机（JVM）的一部分，负责在运行时自动检测和回收不再被引用的对象，并释放它们所占用的内存。</p>
+<p>垃圾回收器的主要功能是识别和回收无用的对象。当程序创建对象时，内存被分配给这些对象，但随着程序的执行，有些对象可能不再被引用或可达。这些无用的对象将占用内存空间，如果没有垃圾回收器清理它们，将会导致内存泄漏和资源浪费。</p>
+<p>Java的垃圾回收器是通过运行在后台的线程来执行的。垃圾回收器线程负责扫描堆中的对象，标记无用对象，并回收它们所占用的内存空间。这些线程在JVM中运行，并且会根据需要自动触发垃圾回收过程。</p>
+<p>Java的垃圾回收器使用了不同的算法来进行垃圾回收，其中最常见的是标记-清除（Mark and Sweep）算法和复制（Copying）算法。这些算法通过追踪对象之间的引用关系来确定哪些对象是可达的，从而决定哪些对象可以被回收。</p>
+<p>总结而言，Java的垃圾回收器是Java虚拟机的一部分，负责自动回收不再被引用的对象所占用的内存空间。它是通过后台线程运行的，使用不同的算法来进行垃圾回收。</p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><ul>
+<li>按线程数分（垃圾回收线程数），可以分为串行垃圾回收器和并行垃圾回收器<ul>
+<li>除了 CMS 和 G1 之外，其它垃圾收集器都是以串行的方式执行</li>
+</ul>
+</li>
+<li>按照工作模式分，可以分为并发式垃圾回收器和独占式垃圾回收器<ul>
+<li>并发式垃圾回收器与应用程序线程交替工作，以尽可能减少应用程序的停顿时间</li>
+<li>独占式垃圾回收器（Stop the world）一旦运行，就停止应用程序中的所有用户线程，直到垃圾回收过程完全结束</li>
+</ul>
+</li>
+<li>按碎片处理方式分，可分为压缩式垃圾回收器和非压缩式垃圾回收器<ul>
+<li>压缩式垃圾回收器在回收完成后进行压缩整理，消除回收后的碎片，再分配对象空间使用指针碰撞</li>
+<li>非压缩式的垃圾回收器不进行这步操作，再分配对象空间使用空闲列表</li>
+</ul>
+</li>
+<li>按工作的内存区间分，又可分为年轻代垃圾回收器和老年代垃圾回收器</li>
+</ul>
+<p>GC 性能指标：</p>
+<ul>
+<li><strong>吞吐量</strong>：程序的运行时间占总运行时间的比例（总运行时间 = 程序的运行时间 + 内存回收的时间）</li>
+<li>垃圾收集开销：吞吐量的补数，垃圾收集所用时间与总运行时间的比例</li>
+<li>暂停时间：执行垃圾收集时，程序的工作线程被暂停的时间</li>
+<li>收集频率：相对于应用程序的执行，收集操作发生的频率</li>
+<li>内存占用：Java 堆区所占的内存大小</li>
+<li>快速：一个对象从诞生到被回收所经历的时间</li>
+</ul>
+<p><strong>垃圾收集器的组合关系</strong>：</p>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8%E5%85%B3%E7%B3%BB%E5%9B%BE.png" alt></p>
+<p>新生代收集器：Serial、ParNew、Parallel Scavenge</p>
+<p>老年代收集器：Serial old、Parallel old、CMS</p>
+<p>整堆收集器：G1</p>
+<ul>
+<li>红色虚线在 JDK9 移除、绿色虚线在 JDK14 弃用该组合、青色虚线在 JDK14 删除 CMS 垃圾回收器</li>
+</ul>
+<p>查看默认的垃圾收回收器：</p>
+<ul>
+<li><p><code>-XX:+PrintcommandLineFlags</code>：查看命令行相关参数（包含使用的垃圾收集器）</p>
+</li>
+<li><p>使用命令行指令：jinfo -flag 相关垃圾回收器参数  进程 ID</p>
+</li>
+</ul>
+<h3 id="Serial"><a href="#Serial" class="headerlink" title="Serial"></a>Serial</h3><p><strong>Serial GC</strong>：串行垃圾收集器，作用于新生代，是指使用单线程进行垃圾回收，采用<strong>复制算法</strong>，新生代基本都是复制算法</p>
+<p><strong>STW（Stop-The-World）</strong>：垃圾回收时，只有一个线程在工作，并且 Java 应用中的所有线程都要暂停，等待垃圾回收的完成</p>
+<p><strong>Serial old GC</strong>：执行老年代垃圾回收的串行收集器，内存回收算法使用的是<strong>标记-整理算法</strong>，同样也采用了串行回收和 STW 机制</p>
+<ul>
+<li>Serial old 是 Client 模式下默认的老年代的垃圾回收器</li>
+<li>Serial old 在 Server 模式下主要有两个用途：<ul>
+<li>在 JDK 1.5 以及之前版本（Parallel Old 诞生以前）中与 Parallel Scavenge 收集器搭配使用</li>
+<li>作为老年代 CMS 收集器的<strong>后备垃圾回收方案</strong>，在并发收集发生 Concurrent Mode Failure 时使用</li>
+</ul>
+</li>
+</ul>
+<p>开启参数：<code>-XX:+UseSerialGC</code> 等价于新生代用 Serial GC 且老年代用 Serial old GC</p>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-Serial%E6%94%B6%E9%9B%86%E5%99%A8.png" alt></p>
+<p>优点：简单而高效（与其他收集器的单线程比），对于限定单个 CPU 的环境来说，Serial 收集器由于没有线程交互的开销，可以获得最高的单线程收集效率</p>
+<p>缺点：对于交互性较强的应用而言，这种垃圾收集器是不能够接受的，比如 JavaWeb 应用</p>
+<h3 id="ParNew"><a href="#ParNew" class="headerlink" title="ParNew"></a>ParNew</h3><p>Par 是 Parallel 并行的缩写，New 是只能处理的是新生代</p>
+<p>并行垃圾收集器在串行垃圾收集器的基础之上做了改进，<strong>采用复制算法</strong>，将单线程改为了多线程进行垃圾回收，可以缩短垃圾回收的时间</p>
+<p>对于其他的行为（收集算法、stop the world、对象分配规则、回收策略等）同 Serial 收集器一样，应用在年轻代，除 Serial 外，只有<strong>ParNew GC 能与 CMS 收集器配合工作</strong></p>
+<p>相关参数：</p>
+<ul>
+<li><p><code>-XX：+UseParNewGC</code>：表示年轻代使用并行收集器，不影响老年代</p>
+</li>
+<li><p><code>-XX:ParallelGCThreads</code>：默认开启和 CPU 数量相同的线程数</p>
+</li>
+</ul>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-ParNew%E6%94%B6%E9%9B%86%E5%99%A8.png" alt></p>
+<p>ParNew 是很多 JVM 运行在 Server 模式下新生代的默认垃圾收集器</p>
+<ul>
+<li>对于新生代，回收次数频繁，使用并行方式高效</li>
+<li>对于老年代，回收次数少，使用串行方式节省资源（CPU 并行需要切换线程，串行可以省去切换线程的资源）</li>
+</ul>
+<h3 id="Parallel"><a href="#Parallel" class="headerlink" title="Parallel"></a>Parallel</h3><p><strong>Parallel Scavenge GC</strong> 收集器是应用于新生代的并行垃圾回收器，<strong>采用复制算法</strong>、并行回收和 Stop the World 机制</p>
+<p><strong>Parallel Old GC</strong> 收集器：是一个应用于老年代的并行垃圾回收器，<strong>采用标记-整理算法</strong></p>
+<p>对比其他回收器：</p>
+<ul>
+<li>其它收集器目标是尽可能缩短垃圾收集时用户线程的停顿时间</li>
+<li>Parallel 目标是达到一个可控制的吞吐量，被称为<strong>吞吐量优先</strong>收集器</li>
+<li>Parallel Scavenge 对比 ParNew 拥有<strong>自适应调节策略</strong>，可以通过一个开关参数打开 GC Ergonomics</li>
+</ul>
+<p>应用场景：</p>
+<ul>
+<li>停顿时间越短就越适合需要与用户交互的程序，良好的响应速度能提升用户体验</li>
+<li>高吞吐量可以高效率地利用 CPU 时间，尽快完成程序的运算任务，适合在后台运算而不需要太多交互</li>
+</ul>
+<p>停顿时间和吞吐量的关系：新生代空间变小 → 缩短停顿时间 → 垃圾回收变得频繁 → 导致吞吐量下降</p>
+<p>在注重吞吐量及 CPU 资源敏感的场合，都可以优先考虑 Parallel Scavenge + Parallel Old 收集器，在 Server 模式下的内存回收性能很好，<strong>Java8 默认是此垃圾收集器组合</strong></p>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-ParallelScavenge%E6%94%B6%E9%9B%86%E5%99%A8.png" alt></p>
+<p>相关参数：</p>
+<ul>
+<li><code>-XX：+UseParallelGC</code>：手动指定年轻代使用 Paralle 并行收集器执行内存回收任务</li>
+<li><code>-XX：+UseParalleloldcc</code>：手动指定老年代使用并行回收收集器执行内存回收任务<ul>
+<li>上面两个参数，默认开启一个，另一个也会被开启（互相激活），默认 JDK8 是开启的</li>
+</ul>
+</li>
+<li><code>-XX:+UseAdaptivesizepplicy</code>：设置 Parallel Scavenge 收集器具有<strong>自适应调节策略</strong>，在这种模式下，年轻代的大小、Eden 和 Survivor 的比例、晋升老年代的对象年龄等参数会被自动调整，虚拟机会根据当前系统的运行情况收集性能监控信息，动态调整这些参数以提供最合适的停顿时间或者最大的吞吐量</li>
+<li><code>-XX:ParallelGcrhreads</code>：设置年轻代并行收集器的线程数，一般与 CPU 数量相等，以避免过多的线程数影响垃圾收集性能<ul>
+<li>在默认情况下，当 CPU 数量小于 8 个，ParallelGcThreads 的值等于 CPU 数量</li>
+<li>当 CPU 数量大于 8 个，ParallelGCThreads 的值等于 3+[5*CPU Count]/8]</li>
+</ul>
+</li>
+<li><code>-XX:MaxGCPauseMillis</code>：设置垃圾收集器最大停顿时间（即 STW 的时间），单位是毫秒<ul>
+<li>对于用户来讲，停顿时间越短体验越好；在服务器端，注重高并发，整体的吞吐量</li>
+<li>为了把停顿时间控制在 MaxGCPauseMillis 以内，收集器在工作时会调整 Java 堆大小或其他一些参数</li>
+</ul>
+</li>
+<li><code>-XX:GCTimeRatio</code>：垃圾收集时间占总时间的比例 =1/(N+1)，用于衡量吞吐量的大小<ul>
+<li>取值范围（0，100）。默认值 99，也就是垃圾回收时间不超过 1</li>
+<li>与 <code>-xx:MaxGCPauseMillis</code> 参数有一定矛盾性，暂停时间越长，Radio 参数就容易超过设定的比例</li>
+</ul>
+</li>
+</ul>
+<h3 id="CMS"><a href="#CMS" class="headerlink" title="CMS"></a>CMS</h3><p>CMS 全称 Concurrent Mark Sweep，是一款<strong>并发的、使用标记-清除</strong>算法、针对老年代的垃圾回收器，其最大特点是<strong>让垃圾收集线程与用户线程同时工作</strong></p>
+<p>CMS 收集器的关注点是尽可能缩短垃圾收集时用户线程的停顿时间，停顿时间越短（<strong>低延迟</strong>）越适合与用户交互的程序，良好的响应速度能提升用户体验</p>
+<p>分为以下四个流程：</p>
+<ul>
+<li>初始标记：使用 STW 出现短暂停顿，仅标记一下 GC Roots 能直接关联到的对象，速度很快</li>
+<li>并发标记：进行 GC Roots 开始遍历整个对象图，在整个回收过程中耗时最长，不需要 STW，可以与用户线程并发运行</li>
+<li>重新标记：修正并发标记期间因用户程序继续运作而导致标记产生变动的那一部分对象，比初始标记时间长但远比并发标记时间短，需要 STW（不停顿就会一直变化，采用写屏障 + 增量更新来避免漏标情况）</li>
+<li>并发清除：清除标记为可以回收对象，<strong>不需要移动存活对象</strong>，所以这个阶段可以与用户线程同时并发的</li>
+</ul>
+<p>Mark Sweep 会造成内存碎片，不把算法换成 Mark Compact 的原因：Mark Compact 算法会整理内存，导致用户线程使用的<strong>对象的地址改变</strong>，影响用户线程继续执行</p>
+<p>在整个过程中耗时最长的并发标记和并发清除过程中，收集器线程都可以与用户线程一起工作，不需要进行停顿</p>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-CMS%E6%94%B6%E9%9B%86%E5%99%A8.png" alt></p>
+<p>优点：并发收集、低延迟</p>
+<p>缺点：</p>
+<ul>
+<li><p>吞吐量降低：在并发阶段虽然不会导致用户停顿，但是会因为占用了一部分线程而导致应用程序变慢，CPU 利用率不够高</p>
+</li>
+<li><p>CMS 收集器<strong>无法处理浮动垃圾</strong>，可能出现 Concurrent Mode Failure 导致另一次 Full GC 的产生</p>
+<p>浮动垃圾是指并发清除阶段由于用户线程继续运行而产生的垃圾（产生了新对象），这部分垃圾只能到下一次 GC 时才能进行回收。由于浮动垃圾的存在，CMS 收集需要预留出一部分内存，不能等待老年代快满的时候再回收。如果预留的内存不够存放浮动垃圾，就会出现 Concurrent Mode Failure，这时虚拟机将临时启用 Serial Old 来替代 CMS，导致很长的停顿时间</p>
+</li>
+<li><p>标记 - 清除算法导致的空间碎片，往往出现老年代空间无法找到足够大连续空间来分配当前对象，不得不提前触发一次 Full GC；为新对象分配内存空间时，将无法使用指针碰撞（Bump the Pointer）技术，而只能够选择空闲列表（Free List）执行内存分配</p>
+</li>
+</ul>
+<p>参数设置：</p>
+<ul>
+<li><p><code>-XX：+UseConcMarkSweepGC</code>：手动指定使用 CMS 收集器执行内存回收任务</p>
+<p>开启该参数后会自动将 <code>-XX:+UseParNewGC</code> 打开，即：ParNew + CMS + Serial old的组合</p>
+</li>
+<li><p><code>-XX:CMSInitiatingoccupanyFraction</code>：设置堆内存使用率的阈值，一旦达到该阈值，便开始进行回收</p>
+<ul>
+<li>JDK5 及以前版本的默认值为 68，即当老年代的空间使用率达到 68% 时，会执行一次CMS回收</li>
+<li>JDK6 及以上版本默认值为 92%</li>
+</ul>
+</li>
+<li><p><code>-XX:+UseCMSCompactAtFullCollection</code>：用于指定在执行完 Full GC 后对内存空间进行压缩整理，以此避免内存碎片的产生，由于内存压缩整理过程无法并发执行，所带来的问题就是停顿时间变得更长</p>
+</li>
+<li><p><code>-XX:CMSFullGCsBeforecompaction</code>：<strong>设置在执行多少次 Full GC 后对内存空间进行压缩整理</strong></p>
+</li>
+<li><p><code>-XX:ParallelCMSThreads</code>：设置 CMS 的线程数量</p>
+<ul>
+<li>CMS 默认启动的线程数是 (ParallelGCThreads+3)/4，ParallelGCThreads 是年轻代并行收集器的线程数</li>
+<li>收集线程占用的 CPU 资源多于25%，对用户程序影响可能较大；当 CPU 资源比较紧张时，受到 CMS 收集器线程的影响，应用程序的性能在垃圾回收阶段可能会非常糟糕</li>
+</ul>
+</li>
+</ul>
+<h3 id="G1"><a href="#G1" class="headerlink" title="G1"></a>G1</h3><h4 id="G1-特点"><a href="#G1-特点" class="headerlink" title="G1 特点"></a>G1 特点</h4><p>G1（Garbage-First）是一款面向服务端应用的垃圾收集器，<strong>应用于新生代和老年代</strong>、采用标记-整理算法、软实时、低延迟、可设定目标（最大 STW 停顿时间）的垃圾回收器，<strong>用于代替 CMS</strong>，适用于较大的堆（&gt;4 ~ 6G），在 JDK9 之后默认使用 G1</p>
+<p>G1 对比其他处理器的优点：</p>
+<ul>
+<li><p>并发与并行：</p>
+<ul>
+<li>并行性：G1 在回收期间，可以有多个 GC 线程同时工作，有效利用多核计算能力，此时用户线程 STW</li>
+<li>并发性：G1 拥有与应用程序交替执行的能力，部分工作可以和应用程序同时执行，因此不会在整个回收阶段发生完全阻塞应用程序的情况</li>
+<li>其他的垃圾收集器使用内置的 JVM 线程执行 GC 的多线程操作，而 G1 GC 可以采用应用线程承担后台运行的 GC 工作，JVM 的 GC 线程处理速度慢时，系统会<strong>调用应用程序线程加速垃圾回收</strong>过程</li>
+</ul>
+</li>
+<li><p><strong>分区算法</strong>：</p>
+<ul>
+<li><p>从分代上看，G1  属于分代型垃圾回收器，区分年轻代和老年代，年轻代依然有 Eden 区和 Survivor 区。从堆结构上看，<strong>新生代和老年代不再物理隔离</strong>，不用担心每个代内存是否足够，这种特性有利于程序长时间运行，分配大对象时不会因为无法找到连续内存空间而提前触发下一次 GC</p>
+</li>
+<li><p>将整个堆划分成约 2048 个大小相同的独立 Region 块，每个 Region 块大小根据堆空间的实际大小而定，整体被控制在 1MB 到 32 MB之间且为 2 的 N 次幂，所有 Region 大小相同，在 JVM 生命周期内不会被改变。G1 把堆划分成多个大小相等的独立区域，使得每个小空间可以单独进行垃圾回收</p>
+</li>
+<li><p><strong>新的区域 Humongous</strong>：本身属于老年代区，当出现了一个巨型对象超出了分区容量的一半，该对象就会进入到该区域。如果一个 H 区装不下一个巨型对象，那么 G1 会寻找连续的 H 分区来存储，为了能找到连续的 H 区，有时候不得不启动 Full GC</p>
+</li>
+<li><p>G1 不会对巨型对象进行拷贝，回收时被优先考虑，G1 会跟踪老年代所有 incoming 引用，这样老年代 incoming 引用为 0 的巨型对象就可以在新生代垃圾回收时处理掉</p>
+</li>
+<li><p>Region 结构图：</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-G1-Region%E5%8C%BA%E5%9F%9F.png" alt></p>
+<ul>
+<li><p>空间整合：</p>
+<ul>
+<li>CMS：标记-清除算法、内存碎片、若干次 GC 后进行一次碎片整理</li>
+<li>G1：整体来看是<strong>基于标记 - 整理算法实现</strong>的收集器，从局部（Region 之间）上来看是基于复制算法实现的，两种算法都可以避免内存碎片</li>
+</ul>
+</li>
+<li><p><strong>可预测的停顿时间模型（软实时 soft real-time）</strong>：可以指定在 M 毫秒的时间片段内，消耗在 GC 上的时间不得超过 N 毫秒</p>
+<ul>
+<li>由于分块的原因，G1 可以只选取部分区域进行内存回收，这样缩小了回收的范围，对于全局停顿情况也能得到较好的控制</li>
+<li>G1 跟踪各个 Region 里面的垃圾堆积的价值大小（回收所获得的空间大小以及回收所需时间，通过过去回收的经验获得），在后台维护一个<strong>优先列表</strong>，每次根据允许的收集时间优先回收价值最大的 Region，保证了 G1 收集器在有限的时间内可以获取尽可能高的收集效率</li>
+</ul>
+<ul>
+<li>相比于 CMS GC，G1 未必能做到 CMS 在最好情况下的延时停顿，但是最差情况要好很多</li>
+</ul>
+</li>
+</ul>
+<p>G1 垃圾收集器的缺点：</p>
+<ul>
+<li>相较于 CMS，G1 还<strong>不具备</strong>全方位、压倒性优势。比如在用户程序运行过程中，G1 无论是为了垃圾收集产生的内存占用还是程序运行时的额外执行负载都要比 CMS 要高</li>
+<li>从经验上来说，在小内存应用上 CMS 的表现大概率会优于 G1，而 G1 在大内存应用上则发挥其优势，平衡点在 6-8GB 之间</li>
+</ul>
+<p>应用场景：</p>
+<ul>
+<li>面向服务端应用，针对具有大内存、多处理器的机器</li>
+<li>需要低 GC 延迟，并具有大堆的应用程序提供解决方案</li>
+</ul>
+<h4 id="G1工作原理"><a href="#G1工作原理" class="headerlink" title="G1工作原理"></a>G1工作原理</h4><p>G1 中提供了三种垃圾回收模式：YoungGC、Mixed GC 和 Full GC，在不同的条件下被触发</p>
+<ul>
+<li>当堆内存使用达到一定值（默认 45%）时，开始老年代并发标记过程</li>
+<li>标记完成马上开始混合回收过程</li>
+</ul>
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-G1回收过程.png" style="zoom: 50%;">
+
+<p>顺时针：Young GC → Young GC + Concurrent Mark → Mixed GC 顺序，进行垃圾回收</p>
+<ul>
+<li><p><strong>Young GC</strong>：发生在年轻代的 GC 算法，一般对象（除了巨型对象）都是在 eden region 中分配内存，当所有 eden region 被耗尽无法申请内存时，就会触发一次 Young GC，G1 停止应用程序的执行 STW，把活跃对象放入老年代，垃圾对象回收</p>
+<p><strong>回收过程</strong>：</p>
+<ol>
+<li>扫描根：根引用连同 RSet 记录的外部引用作为扫描存活对象的入口</li>
+<li>更新 RSet：处理 dirty card queue 更新 RS，此后 RSet 准确的反映对象的引用关系<ul>
+<li>dirty card queue：类似缓存，产生了引用先记录在这里，然后更新到 RSet</li>
+<li>作用：产生引用直接更新 RSet 需要线程同步开销很大，使用队列性能好</li>
+</ul>
+</li>
+<li>处理 RSet：识别被老年代对象指向的 Eden 中的对象，这些被指向的对象被认为是存活的对象，把需要回收的分区放入 Young CSet 中进行回收</li>
+<li>复制对象：Eden 区内存段中存活的对象会被复制到 survivor 区，survivor 区内存段中存活的对象如果年龄未达阈值，年龄会加1，达到阀值会被会被复制到 old 区中空的内存分段，如果 survivor 空间不够，Eden 空间的部分数据会直接晋升到老年代空间</li>
+<li>处理引用：处理 Soft，Weak，Phantom，JNI Weak  等引用，最终 Eden 空间的数据为空，GC 停止工作</li>
+</ol>
+</li>
+<li><p>*<em>Concurrent Mark *</em>：</p>
+<ul>
+<li>初始标记：标记从根节点直接可达的对象，这个阶段是 STW 的，并且会触发一次年轻代 GC</li>
+<li>并发标记 (Concurrent Marking)：在整个堆中进行并发标记（应用程序并发执行），可能被 YoungGC 中断。会计算每个区域的对象活性，即区域中存活对象的比例，若区域中的所有对象都是垃圾，则这个区域会被立即回收（<strong>实时回收</strong>），给浮动垃圾准备出更多的空间，把需要收集的 Region 放入 CSet 当中</li>
+<li>最终标记：为了修正在并发标记期间因用户程序继续运作而导致标记产生变动的那一部分标记记录，虚拟机将这段时间对象变化记录在线程的 Remembered Set Logs 里面，最终标记阶段需要把 Remembered Set Logs 的数据合并到 Remembered Set 中，这阶段需要停顿线程，但是可并行执行（<strong>防止漏标</strong>）</li>
+<li>筛选回收：并发清理阶段，首先对 CSet 中各个 Region 中的回收价值和成本进行排序，根据用户所期望的 GC 停顿时间来制定回收计划，也需要 STW</li>
+</ul>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-G1%E6%94%B6%E9%9B%86%E5%99%A8.jpg" alt></p>
+</li>
+<li><p><strong>Mixed GC</strong>：当很多对象晋升到老年代时，为了避免堆内存被耗尽，虚拟机会触发一个混合的垃圾收集器，即 Mixed GC，除了回收整个 young region，还会回收一部分的 old region，过程同 YGC</p>
+<p>注意：<strong>是一部分老年代，而不是全部老年代</strong>，可以选择哪些老年代 region 收集，对垃圾回收的时间进行控制</p>
+<p>在 G1 中，Mixed GC 可以通过 <code>-XX:InitiatingHeapOccupancyPercent</code> 设置阈值</p>
+</li>
+<li><p><strong>Full GC</strong>：对象内存分配速度过快，Mixed GC 来不及回收，导致老年代被填满，就会触发一次 Full GC，G1 的 Full GC 算法就是单线程执行的垃圾回收，会导致异常长时间的暂停时间，需要进行不断的调优，尽可能的避免 Full GC</p>
+<p>产生 Full GC 的原因：</p>
+<ul>
+<li>晋升时没有足够的空间存放晋升的对象</li>
+<li>并发处理过程完成之前空间耗尽，浮动垃圾</li>
+</ul>
+</li>
+</ul>
+<h4 id="G1相关参数"><a href="#G1相关参数" class="headerlink" title="G1相关参数"></a>G1相关参数</h4><ul>
+<li><code>-XX:+UseG1GC</code>：手动指定使用 G1 垃圾收集器执行内存回收任务</li>
+<li><code>-XX:G1HeapRegionSize</code>：设置每个 Region 的大小。值是 2 的幂，范围是 1MB 到 32MB 之间，目标是根据最小的 Java 堆大小划分出约 2048 个区域，默认是堆内存的 1/2000</li>
+<li><code>-XX:MaxGCPauseMillis</code>：设置期望达到的最大 GC 停顿时间指标，JVM会尽力实现，但不保证达到，默认值是 200ms</li>
+<li><code>-XX:+ParallelGcThread</code>：设置 STW 时 GC 线程数的值，最多设置为 8</li>
+<li><code>-XX:ConcGCThreads</code>：设置并发标记线程数，设置为并行垃圾回收线程数 ParallelGcThreads 的1/4左右</li>
+<li><code>-XX:InitiatingHeapoccupancyPercent</code>：设置触发并发 Mixed GC 周期的 Java 堆占用率阈值，超过此值，就触发 GC，默认值是 45</li>
+<li><code>-XX:+ClassUnloadingWithConcurrentMark</code>：并发标记类卸载，默认启用，所有对象都经过并发标记后，就可以知道哪些类不再被使用，当一个类加载器的所有类都不再使用，则卸载它所加载的所有类</li>
+<li><code>-XX:G1NewSizePercent</code>：新生代占用整个堆内存的最小百分比（默认5％） </li>
+<li><code>-XX:G1MaxNewSizePercent</code>：新生代占用整个堆内存的最大百分比（默认60％） </li>
+<li><code>-XX:G1ReservePercent=10</code>：保留内存区域，防止 to space（Survivor中的 to 区）溢出</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Serial GC、Parallel GC、Concurrent Mark Sweep GC 这三个 GC  不同：</p>
+<ul>
+<li>最小化地使用内存和并行开销，选 Serial GC</li>
+<li>最大化应用程序的吞吐量，选 Parallel GC</li>
+<li>最小化 GC 的中断或停顿时间，选 CMS GC</li>
+</ul>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8%E6%80%BB%E7%BB%93.png" alt></p>
+<p>好文推荐：<a href="https://zhuanlan.zhihu.com/p/428565712" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/428565712</a></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">GeYu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://nuistgy.github.io/2023/06/06/JVM-垃圾回收器/">https://nuistgy.github.io/2023/06/06/JVM-垃圾回收器/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://nuistgy.github.io">Yu's Blog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JVM/">JVM</a></div><div class="addthis_inline_share_toolbox pull-right"></div><script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5befa2f76de7c6b5" async></script><nav id="pagination"><div class="prev-post pull-left"><a href="/2023/06/06/JVM-分代垃圾回收/"><i class="fa fa-chevron-left">  </i><span>JVM-分代垃圾回收</span></a></div><div class="next-post pull-right"><a href="/2023/06/05/JVM-引用分析/"><span>JVM-引用分析</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://i.328888.xyz/2022/12/21/ARudF.png)"><div class="layout" id="footer"><div class="copyright">&copy;2015 - 2023 By GeYu</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Enjoy the cyber world!</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+}</script></body></html>
