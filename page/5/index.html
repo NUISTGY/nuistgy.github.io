@@ -7,7 +7,74 @@
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">225</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">82</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">45</span></a></div></div></div><nav id="nav" style="background-image: url(https://i.328888.xyz/2022/12/21/ARudF.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2023/06/06/JVM-分代垃圾回收/">JVM-分代垃圾回收</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-06-06</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="分代思想"><a href="#分代思想" class="headerlink" title="分代思想"></a>分代思想</h2><h3 id="分代介绍"><a href="#分代介绍" class="headerlink" title="分代介绍"></a>分代介绍</h3><p>Java8 时，堆被分为了两份：新生代和老年代（1:2），在 Java7 时，还存在一个永久代</p>
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">225</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">82</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">45</span></a></div></div></div><nav id="nav" style="background-image: url(https://i.328888.xyz/2022/12/21/ARudF.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2023/06/06/JVM-三种垃圾回收策略/">JVM-三种垃圾回收策略</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-06-06</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="回收算法"><a href="#回收算法" class="headerlink" title="回收算法"></a>回收算法</h2><blockquote>
+<p>在通过引用分析后，JVM知道了哪些对象是可以被回收的，接下来就是执行具体的回收算法。一下介绍三种回收算法，JVM不会单独采用以下的某一种，而是三种算法结合使用，协同工作，这其中还涉及分代回收，不同代的区域执行不同的回收算法。</p>
+</blockquote>
+<h3 id="复制算法"><a href="#复制算法" class="headerlink" title="复制算法"></a>复制算法</h3><p>复制算法的核心就是，<strong>将原有的内存空间一分为二，每次只用其中的一块</strong>，在垃圾回收时，将正在使用的对象复制到另一个内存空间中，然后将该内存空间清理，交换两个内存的角色，完成垃圾的回收</p>
+<p>应用场景：如果内存中的垃圾对象较多，需要复制的对象就较少，这种情况下适合使用该方式并且效率比较高，反之则不适合</p>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95.png" alt></p>
+<p>算法优点：</p>
+<ul>
+<li>没有标记和清除过程，实现简单，运行速度快</li>
+<li>复制过去以后保证空间的连续性，不会出现碎片问题</li>
+</ul>
+<p>算法缺点：</p>
+<ul>
+<li>主要不足是<strong>只使用了内存的一半</strong></li>
+<li>对于 G1 这种分拆成为大量 region 的 GC，复制而不是移动，意味着 GC 需要维护 region 之间对象引用关系，不管是内存占用或者时间开销都不小</li>
+</ul>
+<p>现在的商业虚拟机都采用这种收集算法<strong>回收新生代</strong>，因为新生代 GC 频繁并且对象的存活率不高，但是并不是划分为大小相等的两块，而是一块较大的 Eden 空间和两块较小的 Survivor 空间</p>
+<h3 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h3><p>标记清除算法，是将垃圾回收分为两个阶段，分别是<strong>标记和清除</strong></p>
+<ul>
+<li><p><strong>标记</strong>：Collector 从引用根节点开始遍历，标记所有被引用的对象，一般是在对象的 Header 中记录为可达对象，<strong>标记的是引用的对象，不是垃圾</strong></p>
+</li>
+<li><p><strong>清除</strong>：Collector 对堆内存从头到尾进行线性的遍历，如果发现某个对象在其 Header 中没有标记为可达对象，则将其回收，把分块连接到<strong>空闲列表</strong>的单向链表，判断回收后的分块与前一个空闲分块是否连续，若连续会合并这两个分块，之后进行分配时只需要遍历这个空闲列表，就可以找到分块</p>
+</li>
+<li><p><strong>分配阶段</strong>：程序会搜索空闲链表寻找空间大于等于新对象大小 size 的块 block，如果找到的块等于 size，会直接返回这个分块；如果找到的块大于 size，会将块分割成大小为 size 与 block - size 的两部分，返回大小为 size 的分块，并把大小为 block - size 的块返回给空闲列表</p>
+</li>
+</ul>
+<p>算法缺点：</p>
+<ul>
+<li>标记和清除过程效率都不高</li>
+<li>会产生大量不连续的内存碎片，导致无法给大对象分配内存，需要维护一个空闲链表</li>
+</ul>
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-标记清除算法.png" style="zoom: 67%;">
+
+<h3 id="标记整理"><a href="#标记整理" class="headerlink" title="标记整理"></a>标记整理</h3><p>标记整理（压缩）算法是在标记清除算法的基础之上，做了优化改进的算法</p>
+<p>标记阶段和标记清除算法一样，也是从根节点开始，对对象的引用进行标记，在清理阶段，并不是简单的直接清理可回收对象，而是<strong>将存活对象都向内存另一端移动</strong>，然后清理边界以外的垃圾，从而<strong>解决了碎片化</strong>的问题</p>
+<p>优点：不会产生内存碎片</p>
+<p>缺点：需要移动大量对象，处理效率比较低</p>
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-标记整理算法.png" style="zoom:67%;">
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Mark-Sweep</th>
+<th>Mark-Compact</th>
+<th>Copying</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>速度</td>
+<td>中等</td>
+<td>最慢</td>
+<td>最快</td>
+</tr>
+<tr>
+<td>空间开销</td>
+<td>少（但会堆积碎片）</td>
+<td>少（不堆积碎片）</td>
+<td>通常需要活对象的 2 倍大小（不堆积碎片）</td>
+</tr>
+<tr>
+<td>移动对象</td>
+<td>否</td>
+<td>是</td>
+<td>是</td>
+</tr>
+</tbody></table>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2023/06/06/JVM-分代垃圾回收/">JVM-分代垃圾回收</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-06-06</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="分代思想"><a href="#分代思想" class="headerlink" title="分代思想"></a>分代思想</h2><h3 id="分代介绍"><a href="#分代介绍" class="headerlink" title="分代介绍"></a>分代介绍</h3><p>Java8 时，堆被分为了两份：新生代和老年代（1:2），在 Java7 时，还存在一个永久代</p>
 <ul>
 <li>新生代使用：复制算法</li>
 <li>老年代使用：标记 - 清除 或者 标记 - 整理 算法</li>
@@ -374,63 +441,6 @@
 </ul>
 <p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8%E6%80%BB%E7%BB%93.png" alt></p>
 <p>好文推荐：<a href="https://zhuanlan.zhihu.com/p/428565712" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/428565712</a></p>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2023/06/05/JVM-引用分析/">JVM-引用分析</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-06-05</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="引用分析"><a href="#引用分析" class="headerlink" title="引用分析"></a>引用分析</h2><blockquote>
-<p>更多介绍：<a href="https://blog.csdn.net/m0_60907200/article/details/123776701" target="_blank" rel="noopener">https://blog.csdn.net/m0_60907200/article/details/123776701</a></p>
-</blockquote>
-<p>无论是通过引用计数算法判断对象的引用数量，还是通过可达性分析算法判断对象是否可达，判定对象是否可被回收都与引用有关，Java 提供了四种强度不同的引用类型</p>
-<ol>
-<li><p>强引用：被强引用关联的对象不会被回收，只有所有 GCRoots 都不通过强引用引用该对象，才能被垃圾回收</p>
-<ul>
-<li>强引用可以直接访问目标对象</li>
-<li>虚拟机宁愿抛出 OOM 异常，也不会回收强引用所指向对象</li>
-<li>强引用可能导致<strong>内存泄漏</strong></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object obj = <span class="keyword">new</span> Object();<span class="comment">//使用 new 一个新对象的方式来创建强引用</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>软引用（SoftReference）：被软引用关联的对象只有在内存不够的情况下才会被回收</p>
-<blockquote>
-<p>具体使用：<a href="https://blog.csdn.net/qq_37935909/article/details/109177723" target="_blank" rel="noopener">https://blog.csdn.net/qq_37935909/article/details/109177723</a></p>
-</blockquote>
-<ul>
-<li><strong>仅（可能有强引用，一个对象可以被多个引用）</strong>有软引用引用该对象时，在垃圾回收后，内存仍不足时会再次出发垃圾回收，回收软引用对象</li>
-<li>配合<strong>引用队列来释放软引用自身</strong>，在构造软引用时，可以指定一个引用队列，当软引用对象被回收时，就会加入指定的引用队列，通过这个队列可以跟踪对象的回收情况</li>
-<li>软引用通常用来实现内存敏感的缓存，比如高速缓存就有用到软引用；如果还有空闲内存，就可以暂时保留缓存，当内存不足时清理掉，这样就保证了使用缓存的同时不会耗尽内存</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object obj = <span class="keyword">new</span> Object();</span><br><span class="line">SoftReference&lt;Object&gt; sf = <span class="keyword">new</span> SoftReference&lt;Object&gt;(obj);</span><br><span class="line">obj = <span class="keyword">null</span>;  <span class="comment">// 使对象只被软引用关联</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>弱引用（WeakReference）：被弱引用关联的对象一定会被回收，只能存活到下一次垃圾回收发生之前</p>
-<ul>
-<li>仅有弱引用引用该对象时，在垃圾回收时，无论内存是否充足，都会回收弱引用对象</li>
-<li>配合引用队列来释放弱引用自身</li>
-<li>WeakHashMap 用来存储图片信息，可以在内存不足的时候及时回收，避免了 OOM</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object obj = <span class="keyword">new</span> Object();</span><br><span class="line">WeakReference&lt;Object&gt; wf = <span class="keyword">new</span> WeakReference&lt;Object&gt;(obj);</span><br><span class="line">obj = <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>虚引用（PhantomReference）：也称为幽灵引用或者幻影引用，是所有引用类型中最弱的一个</p>
-<ul>
-<li>一个对象是否有虚引用的存在，不会对其生存时间造成影响，也无法通过虚引用得到一个对象</li>
-<li>为对象设置虚引用的唯一目的是在于跟踪垃圾回收过程，能在这个对象被回收时收到一个系统通知</li>
-<li>必须配合引用队列使用，主要配合 ByteBuffer 使用，被引用对象回收时会将虚引用入队，由 Reference Handler 线程调用虚引用相关方法释放直接内存</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object obj = <span class="keyword">new</span> Object();</span><br><span class="line">PhantomReference&lt;Object&gt; pf = <span class="keyword">new</span> PhantomReference&lt;Object&gt;(obj, <span class="keyword">null</span>);</span><br><span class="line">obj = <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>终结器引用（finalization）：所有的类都继承自Object类，Object类有一个finalize方法（已废弃）。当某个对象不再被其他的对象所引用时，会先将终结器引用对象放入引用队列中，然后根据终结器引用对象找到它所引用的对象，然后调用该对象的finalize方法。调用以后，该对象就可以被垃圾回收了。<strong>这个方法永远都不需要重写，而且也不应该被重写。</strong></p>
-</li>
-</ol>
-<h2 id="引用队列"><a href="#引用队列" class="headerlink" title="引用队列"></a>引用队列</h2><ul>
-<li><p>软引用和弱引用<strong>可以配合</strong>引用队列</p>
-</li>
-<li><ul>
-<li>在软引用和弱引用所引用的对象被回收以后，会将这些引用放入引用队列中，方便一起回收这些软/弱引用对象</li>
-</ul>
-</li>
-<li><p>虚引用和终结器引用<strong>必须配合</strong>引用队列</p>
-</li>
-<li><ul>
-<li>虚引用和终结器引用在使用时会关联一个引用队列</li>
-</ul>
-</li>
-</ul>
 </div><hr></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-chevron-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://i.328888.xyz/2022/12/21/ARudF.png)"><div class="layout" id="footer"><div class="copyright">&copy;2015 - 2023 By GeYu</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Enjoy the cyber world!</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')
