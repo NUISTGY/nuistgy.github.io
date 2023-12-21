@@ -7,79 +7,7 @@
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">225</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">82</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">45</span></a></div></div></div><nav id="nav" style="background-image: url(https://i.328888.xyz/2022/12/21/ARudF.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2022/12/20/JDBC- 6 steps/">JDBC-JDBC 的四种驱动类型</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-12-20</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JDBC/">JDBC</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JDBC/">JDBC</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/数据库/">数据库</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><p>JDBC 有四种驱动类型，分别是：</p>
-<ul>
-<li>JDBC-ODBC 桥（JDBC-ODBC bridge driver plus ODBC driver）</li>
-<li>本地 API 驱动（Native-API partly Java driver）</li>
-<li>网络协议驱动（JDBC-Net pure Java driver）</li>
-<li>本地协议驱动（Native-protocol pure Java driver）</li>
-</ul>
-<p><img src="https://i.328888.xyz/2022/12/20/AHiLk.png" alt></p>
-<h2 id="JDBC-ODBC-桥"><a href="#JDBC-ODBC-桥" class="headerlink" title="JDBC-ODBC 桥"></a>JDBC-ODBC 桥</h2><p>从名称之中就可以知道，这种驱动是 JDBC 在 ODBC 已有的功能上做了一层适配工作，即搭桥（Bridge）。</p>
-<p>这种驱动完全依赖 ODBC 的实现，JDBC 只是做了一层封装工作。</p>
-<p>JDBC-ODBC 桥最主要的功能，是支持 Java 访问 Access 这种伪关系型数据库。</p>
-<p>JDBC-ODBC 桥最大的优点在于：ODBC 的代码在天然的在许多使用数据库的客户端上有，所以这种驱动的安装十分便捷。</p>
-<p>但是，JDBC-ODBC 桥有以下两个主要的缺点：</p>
-<ul>
-<li>由于对 ODBC 的依赖，导致支持的功能有限，性能不佳，扩展能力很弱。</li>
-<li>不适合在并发访问数据库的情况下使用。</li>
-</ul>
-<p>在 Java8 的实现中，已经删除了 JDBC-ODBC 桥这种驱动方式。</p>
-<h2 id="本地-API-驱动"><a href="#本地-API-驱动" class="headerlink" title="本地 API 驱动"></a>本地 API 驱动</h2><p>这种驱动方式，相当于 JDBC 完全使用了 ODBC 的工作方式。</p>
-<p>在这种驱动中，JDBC调用转换为对 DBMS 的客户端 API 的调用。</p>
-<p>JDBC-ODBC 桥的驱动方式，等于是对所有的数据库调用进行了一次整合；而本地 API 驱动则是绕过了 ODBC，对数据库 API 的调用进行了整合。</p>
-<p>所以这种驱动方式的效率，相比第一种驱动，会有显著的提高。</p>
-<p>然而，与 JDBC-ODBC 桥驱动相同，对客户端数据库的 API 有依赖，所以也不适合基于 Internet 的应用。</p>
-<h2 id="网络协议驱动"><a href="#网络协议驱动" class="headerlink" title="网络协议驱动"></a>网络协议驱动</h2><p>这种驱动方式，适用于基于 Internet 的应用，它依赖于一个网络服务器上的中间产品：</p>
-<ul>
-<li>首先，将 JDBC 调用转化为一个 DBMS 无关的网络协议，传递给中间服务器。</li>
-<li>然后，中间服务器负责将这种请求，转化为符合相应的数据库规范的请求，转发给数据库服务器。</li>
-</ul>
-<p>这种驱动是基于 Server 端的，所以不需要在客户端加载数据库厂商的代码库。</p>
-<p>它在在执行效率，可升级性，灵活性方面都很好。</p>
-<p>这种驱动，设计的代码量很小，可以很快地加载到内存当中。</p>
-<p>但是，这种驱动在中间件层仍然需要有配置其它数据库驱动程序，而且增加了一个中间层去传递数据，执行效率还不是最好。</p>
-<p>同时，基于 Internet 的访问要求，客户端必须处理 Web 所提出的安全性、通过防火墙的访问等方面的额外要求。</p>
-<h2 id="本地协议驱动"><a href="#本地协议驱动" class="headerlink" title="本地协议驱动"></a>本地协议驱动</h2><p>这种驱动程序将 JDBC 调用直接转换为 DBMS 使用的网络协议。</p>
-<p>这种驱动允许从客户端机器直接调用 DBMS 服务器，是内部网（Intranet）访问的优秀解决方案。</p>
-<p>由于许多这样的协议都是专用的，因此数据库提供者自己将是主要来源。</p>
-<ol>
-<li>总结</li>
-</ol>
-<ul>
-<li>JDBC-ODBC 桥，适合作为开发应用时的一种过度方案，不使用大量的数据库操作。</li>
-<li>本地 API 驱动，只适用于内部网，但是执行效率不高，所以一般也不采用。</li>
-<li>网络协议驱动，适用于需要同时连接多个不同种类的数据库的应用。</li>
-<li>本地协议驱动，适合于连接单一数据库的应用。<br>从执行效率来讲，第3、4型的驱动是首选，平时通过加载一个 jar 包来达到连接数据库目的的，是第4型驱动。</li>
-</ul>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2022/12/20/JDBC-JDBC 基础/">JDBC-基础</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-12-20</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JDBC/">JDBC</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JDBC/">JDBC</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/数据库/">数据库</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="什么是-JDBC"><a href="#什么是-JDBC" class="headerlink" title="什么是 JDBC"></a>什么是 JDBC</h2><p>JDBC，Java Database Connectivity（Java 数据库连接），是一组执行 SQL 语句的 Java API。</p>
-<p>JDBC，是 Java SE（Java Platform, Standard Edition）标准的一部分。</p>
-<p>Java 程序可以通过 JDBC 连接到关系型数据库，并且使用 SQL（Structured Query Language，结构化查询语言）完成对数据库的操作。</p>
-<p>我们开发时常用的 ORM 框架（Object Relational Mapping），例如 Hibernate，MyBatis，其本质就是对 JDBC 的一种封装。</p>
-<h2 id="JDBC-驱动和面向接口编程"><a href="#JDBC-驱动和面向接口编程" class="headerlink" title="JDBC 驱动和面向接口编程"></a>JDBC 驱动和面向接口编程</h2><p>Java API，就是接口（interface），所以说 JDBC 只给出了接口，没有提供实现类。</p>
-<p>由各个数据库的厂商提供 JDBC 的实现，这些实现类就是我们口中常说的：驱动程序。</p>
-<p>JDBC 的编程工作，是需要面向标准的 JDBC API，不需要关心使用的数据库到底是什么。</p>
-<p>使用 Oracle，DB2，还是 MyBatis 对于 JDBC 的编程都没有影响，这就是面向接口编程。</p>
-<p>理论上说，如果需要切换数据库，只需要换一个驱动程序就可以了，所以说，JDBC 具有跨数据库的特性。</p>
-<p>当然实际操作上没有这么简单，因为 JDBC 跨数据库的特性是基于全部使用标准的 SQL 语句，而某些数据库会有一些只有自己才能用的特殊 SQL 语法。</p>
-<p>例如，Oracle 的 rowid、rownum，MySQL 的 limit。</p>
-<h2 id="JDBC-组成和功能"><a href="#JDBC-组成和功能" class="headerlink" title="JDBC 组成和功能"></a>JDBC 组成和功能</h2><p>JDBC的总体结构有四个组件：应用程序、驱动程序管理器、驱动程序和数据源。 </p>
-<p><img src="https://i.328888.xyz/2022/12/20/Aw9AU.md.png" alt></p>
-<p>JDBC 主要有以下三个功能：</p>
-<ul>
-<li>建立程序与数据库的连接。</li>
-<li>执行 SQL 语句。</li>
-<li>获得 SQL 语句的执行结果。</li>
-</ul>
-<h2 id="JDBC-和-ODBC"><a href="#JDBC-和-ODBC" class="headerlink" title="JDBC 和 ODBC"></a>JDBC 和 ODBC</h2><p>ODBC，Open Database Connectivity（开放数据库连接），也是一组通过 API 访问数据库的技术。</p>
-<p>ODBC 先于 JDBC 的出现，JDBC 模仿了 ODBC 的设计。</p>
-<p>与 JDBC 相同，ODBC 需要数据库厂商提供驱动，支持数据库之间的切换，而 ODBC 负责管理数据库驱动。</p>
-<p>相比于 ODBC，JDBC 有以下优势：</p>
-<ul>
-<li>JDBC 对于数据库的操作更加简单、直观。</li>
-<li>JDBC 具有更高的安全性。</li>
-</ul>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2022/12/19/Spring中注册Bean的方式有哪些？/">Spring中注册Bean的方式有哪些？</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-12-19</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Spring/">Spring</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Spring/">Spring</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h2><p>我们知道，在使用Spring框架后，Bean统一都交给IOC容器去管理和创建，那么将一个对象加入到Spring容器中有哪些方式呢，今天我们结合具体的代码来总结一下。</p>
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">223</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">82</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">45</span></a></div></div></div><nav id="nav" style="background-image: url(https://i.328888.xyz/2022/12/21/ARudF.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2022/12/19/Spring中注册Bean的方式有哪些？/">Spring中注册Bean的方式有哪些？</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-12-19</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Spring/">Spring</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Spring/">Spring</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h2><p>我们知道，在使用Spring框架后，Bean统一都交给IOC容器去管理和创建，那么将一个对象加入到Spring容器中有哪些方式呢，今天我们结合具体的代码来总结一下。</p>
 <h2 id="二、第一种方式：-XML配置方式"><a href="#二、第一种方式：-XML配置方式" class="headerlink" title="二、第一种方式： XML配置方式"></a>二、第一种方式： XML配置方式</h2><p>XML配置的方式，是Spring最早支持的方式，不过现在XML方式已经用的比较少了，基本上都是用后面的配置方式替代了。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">&lt;beans xmlns=<span class="string">"http://www.springframework.org/schema/beans"</span></span><br><span class="line">	   xmlns:xsi=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">	   xsi:schemaLocation=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span><br><span class="line">	&lt;bean id=<span class="string">"student"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.wsh.injectbean.method_01.Student"</span>/&gt;</span><br><span class="line">&lt;/beans&gt;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 第一种方式： XML文件配置</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		ClassPathXmlApplicationContext applicationContext = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"classpath:spring-config.xml"</span>);</span><br><span class="line">		System.out.println(applicationContext.getBean(<span class="string">"student"</span>));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -116,6 +44,79 @@
 <h2 id="八、第七种方式：-Import-ImportBeanDefinitionRegistrar方式"><a href="#八、第七种方式：-Import-ImportBeanDefinitionRegistrar方式" class="headerlink" title="八、第七种方式：@Import + ImportBeanDefinitionRegistrar方式?"></a>八、第七种方式：@Import + ImportBeanDefinitionRegistrar方式?</h2><p>这种方式我们需要实现ImportBeanDefinitionRegistrar接口，并重写registerBeanDefinitions()方法，然后定义我们需要注册的Bean的定义信息，然后registry.registerBeanDefinition()方法注册即可。<strong>这种方式比ImportSelector更加灵活，可以自定义bean的名称、作用域等很多参数。</strong> 像我们常见的Spring Cloud中的Feign，就使用了ImportBeanDefinitionRegistrar，具体可以参考FeignClientsRegistrar类。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomImportBeanDefinitionRegistrar</span> <span class="keyword">implements</span> <span class="title">ImportBeanDefinitionRegistrar</span> </span>&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 可以自定义bean的名称、作用域等很多参数</span></span><br><span class="line">		registry.registerBeanDefinition(<span class="string">"user"</span>, <span class="keyword">new</span> RootBeanDefinition(User.class));</span><br><span class="line">		RootBeanDefinition rootBeanDefinition = <span class="keyword">new</span> RootBeanDefinition(Product.class);</span><br><span class="line">		rootBeanDefinition.setScope(BeanDefinition.SCOPE_SINGLETON);</span><br><span class="line">		registry.registerBeanDefinition(<span class="string">"product"</span>, rootBeanDefinition);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Import</span>(&#123;CustomImportBeanDefinitionRegistrar.class&#125;)</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 第七种方式：<span class="doctag">@Import</span> + ImportBeanDefinitionRegistrar方式</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 可以自定义bean的名称、作用域等很多参数, 像我们常见的Spring Cloud中的Feign，就使用了ImportBeanDefinitionRegistrar</span></span><br><span class="line"><span class="comment"> * class FeignClientsRegistrar implements ImportBeanDefinitionRegistrar, ResourceLoaderAware, EnvironmentAware &#123;</span></span><br><span class="line"><span class="comment"> * 		public void registerBeanDefinitions(AnnotationMetadata metadata, BeanDefinitionRegistry registry) &#123;</span></span><br><span class="line"><span class="comment"> *         this.registerDefaultConfiguration(metadata, registry);</span></span><br><span class="line"><span class="comment"> *         this.registerFeignClients(metadata, registry);</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		AnnotationConfigApplicationContext applicationContext = <span class="keyword">new</span> AnnotationConfigApplicationContext(AppConfig.class);</span><br><span class="line">		System.out.println(applicationContext.getBean(<span class="string">"product"</span>));</span><br><span class="line">		System.out.println(applicationContext.getBean(<span class="string">"user"</span>));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2022/12/18/Autowired&amp;Resource/">Spring依赖注入注解@Resource和@Autowired</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-12-18</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Spring/">Spring</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Spring/">Spring</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p><code>@Resource</code>和<code>@Autowired</code>注解都可以在<strong>Spring Framework</strong>应用中进行声明式的依赖注入。而且面试中经常涉及到这两个注解的知识点。今天我们来总结一下它们。</p>
+<h2 id="2-Resource"><a href="#2-Resource" class="headerlink" title="2. @Resource"></a>2. @Resource</h2><p>全称<code>javax.annotation.Resource</code>,它属于<strong>JSR-250</strong>规范的一个注解，包含<strong>Jakarta EE</strong>（<strong>J2EE</strong>）中。<strong>Spring</strong>提供了对该注解的支持。我们来详细了解一下该注解的规则。</p>
+<p><strong>该注解使用在成员属性和setter方法上。默认情况下<code>@Resource</code>按照名称注入，如果没有显式声明名称则按照变量名称或者方法中对应的参数名称进行注入。</strong></p>
+<p><img src="https://i.328888.xyz/2022/12/18/4vdxb.png" alt="4vdxb.png"></p>
+<p>@Resource注解也可以完成非简单类型注入。那它和@Autowired注解有什么区别？</p>
+<ul>
+<li>@Resource注解是JDK扩展包中的，也就是说属于JDK的一部分。所以该注解是标准注解，更加具有通用性。(JSR-250标准中制定的注解类型。JSR是Java规范提案。)</li>
+<li>@Autowired注解是Spring框架自己的。</li>
+<li><strong>@Resource注解默认根据名称装配byName，未指定name时，使用属性名作为name。通过name找不到的话会自动启动通过类型byType装配。</strong></li>
+<li><strong>@Autowired注解默认根据类型装配byType，如果想根据名称装配，需要配合@Qualifier注解一起用。</strong></li>
+<li>@Resource注解用在属性上、setter方法上。</li>
+<li>@Autowired注解用在属性上、setter方法上、构造方法上、构造方法参数上。</li>
+</ul>
+<p>@Resource注解属于JDK扩展包，所以不在JDK当中，需要额外引入以下依赖：【<strong>如果是JDK8的话不需要额外引入依赖。高于JDK11或低于JDK8需要引入以下依赖。</strong>】</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">如果你是Spring6+版本请使用这个依赖👇</span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>jakarta.annotation<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jakarta.annotation-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">如果你是spring5-版本请使用这个依赖👇</span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.annotation<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.annotation-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Autowired"><a href="#3-Autowired" class="headerlink" title="3. @Autowired"></a>3. @Autowired</h2><ul>
+<li><p>第一点注意：该注解可以标注在哪里？</p>
+</li>
+<li><ul>
+<li>构造方法上</li>
+<li>方法上</li>
+<li>形参上</li>
+<li>属性上</li>
+<li>注解上</li>
+</ul>
+</li>
+<li><p>第二点注意：该注解有一个required属性，默认值是true，表示在注入的时候要求被注入的Bean必须是存在的，如果不存在则报错。如果required属性设置为false，表示注入的Bean存在或者不存在都没关系，存在的话就注入，不存在的话，也不报错。</p>
+</li>
+</ul>
+<p><img src="https://i.328888.xyz/2022/12/18/4vGld.png" alt="4vGld.png"></p>
+<ul>
+<li>@Autowired注解可以出现在：属性上、构造方法上、构造方法的参数上、setter方法上。</li>
+<li>当带参数的构造方法只有一个，@Autowired注解可以省略。</li>
+<li>@Autowired注解默认根据类型注入。如果要根据名称注入的话，需要配合@Qualifier注解一起使用。</li>
+</ul>
+<h2 id="4-使用细节和其他注意事项"><a href="#4-使用细节和其他注意事项" class="headerlink" title="4. 使用细节和其他注意事项"></a>4. 使用细节和其他注意事项</h2><p>负责声明Bean的注解，常见的包括四个：</p>
+<ul>
+<li>@Component</li>
+<li>@Controller</li>
+<li>@Service</li>
+<li>@Repository</li>
+</ul>
+<p>注意可以在声明Bean的注解中设置Bean的<strong>name</strong>，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(<span class="string">"xxxBean"</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>问：如果把value属性彻底去掉，spring会被Bean自动取名吗？</strong></p>
+<p><strong>答：会的。并且默认名字的规律是：<u>Bean类名首字母小写即可</u>。</strong></p>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2022/12/16/SSH related/">Linux ssh</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-12-16</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Linux/">Linux</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/ssh/">ssh</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="1-初见SSH"><a href="#1-初见SSH" class="headerlink" title="1. 初见SSH"></a>1. 初见SSH</h2><p>SSH是一种协议标准，其目的是实现安全远程登录以及其它安全网络服务。</p>
+<ul>
+<li>SSH仅仅是一协议标准，其具体的实现有很多，既有开源实现的OpenSSH，也有商业实现方案。使用范围最广泛的当然是开源实现OpenSSH。</li>
+</ul>
+<h2 id="2-SSH工作原理"><a href="#2-SSH工作原理" class="headerlink" title="2. SSH工作原理"></a>2. SSH工作原理</h2><p>在讨论SSH的原理和使用前，我们需要分析一个问题：为什么需要SSH？</p>
+<p>从1.1节SSH的定义中可以看出，SSH和telnet、ftp等协议主要的区别在于安全性。这就引出下一个问题：如何实现数据的安全呢？首先想到的实现方案肯定是对数据进行加密。加密的方式主要有两种：</p>
+<ul>
+<li>对称加密（也称为秘钥加密）</li>
+<li>非对称加密（也称公钥加密）</li>
+</ul>
+<p>所谓对称加密，指加密解密使用同一套秘钥。对称加密的加密强度高，很难破解。但是在实际应用过程中不得不面临一个棘手的问题：如何安全的保存密钥呢？尤其是考虑到数量庞大的Client端，很难保证密钥不被泄露。一旦一个Client端的密钥被窃据，那么整个系统的安全性也就不复存在。为了解决这个问题，非对称加密应运而生。</p>
+<p>非对称加密有两个密钥：“公钥”和“私钥”。两个密钥的特性：公钥加密后的密文，只能通过对应的私钥进行解密。而通过公钥推理出私钥的可能性微乎其微。</p>
+<p><img src="assets/1.png" alt></p>
+<p><strong>这样就一定安全了吗？</strong><br>上述流程会有一个问题：Client端如何保证接受到的公钥就是目标Server端的？，如果一个攻击者中途拦截Client的登录请求，向其发送自己的公钥，Client端用攻击者的公钥进行数据加密。攻击者接收到加密信息后再用自己的私钥进行解密，不就窃取了Client的登录信息了吗？这就是所谓的中间人攻击</p>
+<hr>
+<p>在上面介绍的登录流程中可以发现，每次登录都需要输入密码，很麻烦。SSH提供了另外一种可以免去输入密码过程的登录方式：公钥登录。流程如下：<br><img src="assets/2.png" alt></p>
+<ol>
+<li>Client将自己的公钥存放在Server上，追加在文件authorized_keys中。</li>
+<li>Server端接收到Client的连接请求后，会在authorized_keys中匹配到Client的公钥pubKey，并生成随机数R，用Client的公钥对该随机数进行加密得到pubKey(R)，然后将加密后信息发送给Client。</li>
+<li>Client端通过私钥进行解密得到随机数R，然后对随机数R和本次会话的SessionKey利用MD5生成摘要Digest1，发送给Server端。</li>
+<li>Server端会也会对R和SessionKey利用同样摘要算法生成Digest2。</li>
+<li>Server端会最后比较Digest1和Digest2是否相同，完成认证过程。</li>
+</ol>
 </div><hr></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/42/"><i class="fa fa-chevron-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><span class="page-number current">43</span><a class="page-number" href="/page/44/">44</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/44/"><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://i.328888.xyz/2022/12/21/ARudF.png)"><div class="layout" id="footer"><div class="copyright">&copy;2015 - 2023 By GeYu</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Enjoy the cyber world!</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')

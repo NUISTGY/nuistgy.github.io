@@ -7,488 +7,7 @@
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">225</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">82</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">45</span></a></div></div></div><nav id="nav" style="background-image: url(https://i.328888.xyz/2022/12/21/ARudF.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2022/11/16/Nginx_Lua_learn/">Nginx Lua学习</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-11-16</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Nginx/">Nginx</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/后端/">后端</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Nginx/">Nginx</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/中间件/">中间件</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h1 id="Nginx-Lua学习"><a href="#Nginx-Lua学习" class="headerlink" title="Nginx Lua学习"></a>Nginx Lua学习</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>Nginx 是可扩展的，可用于处理各种使用场景。本内容中，我们一起学习使用 Lua 扩展 Nginx 的功能。</p>
-<p>Lua 是一种轻量、小巧的脚本语言，用标准 C 语言编写并以源代码形式开发。设计的目的是为了嵌入到其他应用程序中，从而为应用程序提供灵活的扩展和定制功能。</p>
-<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><p>跟其他语言进行比较，Lua 有其自身的特点：</p>
-<ul>
-<li><p>轻量级</p>
-<p>Lua 用标准 C 语言编写并以源代码形式开发，编译后仅仅一百余千字节，可以很方便的嵌入到其他程序中。</p>
-</li>
-<li><p>可扩展</p>
-<p>Lua 提供非常丰富易于使用的扩展接口和机制，由宿主语言（通常是 C 或 C++）提供功能，Lua 可以使用它们，就像内置的功能一样。</p>
-</li>
-<li><p>支持面向过程编程和函数式编程</p>
-</li>
-</ul>
-<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>Lua 在不同的系统中得到大量应用，场景的应用场景如下:</p>
-<p>游戏开发、独立应用脚本、Web 应用脚本、扩展和数据库插件、系统安全上。</p>
-<h2 id="Lua的安装"><a href="#Lua的安装" class="headerlink" title="Lua的安装"></a>Lua的安装</h2><p>在 Linux 上安装 Lua 非常简单，只需要下载源码包并在终端解压、编译即可使用。</p>
-<p>Lua 的官网地址为：<a href="https://www.lua.org/" target="_blank" rel="noopener">https://www.lua.org</a></p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.4tduh26e2b20.webp" alt="image"></p>
-<p>点击 download 可以找到对应版本的下载地址，我这里使用最新版 lua-5.4.4，其对应的资源链接地址为 <code>https://www.lua.org/ftp/lua-5.4.4.tar.gz</code>，也可以在 Linux 使用 wget 命令直接下载</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://www.lua.org/ftp/lua-5.4.4.tar.gz</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>我这里下载在 <code>/opt/lua</code></li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir /opt/lua</span><br><span class="line"><span class="built_in">cd</span> /opt/lua</span><br><span class="line">wget https://www.lua.org/ftp/lua-5.4.4.tar.gz</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>解压</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf lua-5.4.4.tar.gz</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>检测是否满足 Lua 需要的环境</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/lua/lua-5.4.4</span><br><span class="line">make linux <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
-
-<p>如果在执行 <code>make linux test</code> 失败，报如下错误(如果没有,则编译安装):</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.3h3rcto261s0.webp" alt="image"></p>
-<p>说明当前系统缺少 libreadline-dev 依赖包，需要通过命令来进行安装：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y readline-devel</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>编译安装</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>验证是否安装成功</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master lua-5.4.4]<span class="comment"># lua -v</span></span><br><span class="line">Lua 5.4.4  Copyright (C) 1994-2022 Lua.org, PUC-Rio</span><br></pre></td></tr></table></figure>
-
-<h2 id="第一个Lua程序"><a href="#第一个Lua程序" class="headerlink" title="第一个Lua程序"></a>第一个Lua程序</h2><p>Lua 和 C/C++ 语法非常相似，整体上比较清晰，简洁。条件语句、循环语句、函数调用都与 C/C++ 基本一致。如果对 C/C++ 不太熟悉，也没关系，因为天下语言是一家，基本上理解起来都不会太困难。下面一点一点进行讲解。</p>
-<p>大家需要知道的是，Lua 有两种交互方式，分别是：交互式和脚本式，这两者的区别，下面我们分别来讲解下：</p>
-<h3 id="交互式"><a href="#交互式" class="headerlink" title="交互式"></a>交互式</h3><p>交互式是指可以在命令行输入程序，然后回车就可以看到运行的效果。</p>
-<p>Lua 交互式编程模式可以通过命令 <code>lua -i</code> 或 <code>lua</code> 来启用：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lua -i</span><br><span class="line">// 或者</span><br><span class="line">lua</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master lua<span class="number">-5.4</span><span class="number">.4</span>]# lua</span><br><span class="line">Lua <span class="number">5.4</span><span class="number">.4</span>  Copyright (C) <span class="number">1994</span><span class="number">-2022</span> Lua.org, PUC-Rio</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-
-<p>在命令行中输入如下命令，并按回车，会有输出在控制台：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">"Hello world"</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">print</span>(<span class="string">"HelloWorld"</span>)</span><br><span class="line">HelloWorld</span><br></pre></td></tr></table></figure>
-
-<p>CTRL + C 交互式终端。</p>
-<h3 id="脚本式"><a href="#脚本式" class="headerlink" title="脚本式"></a>脚本式</h3><p>脚本式是将代码保存到一个以 lua 为扩展名的文件中并执行的方式。</p>
-<p>方式一：</p>
-<p>我们需要一个文件名为 hello.lua，在文件中添加要执行的代码，然后通过命令 <code>lua hello.lua</code> 来执行，会在控制台输出对应的结果。</p>
-<p>创建 hello.lua 文件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir lua_demo</span><br><span class="line"><span class="built_in">cd</span> lua_demo</span><br><span class="line">vim hello.lua</span><br></pre></td></tr></table></figure>
-
-<p>hello.lua 文件内容</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">"HelloWorld"</span>)</span><br></pre></td></tr></table></figure>
-
-<p>执行 hello.lua 文件：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lua hello.lua</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master lua_demo]<span class="comment"># lua hello.lua</span></span><br><span class="line">HelloWorld</span><br></pre></td></tr></table></figure>
-
-<p><strong>不想每次都是用 lua hello.lua 来执行该文件，可不可以直接执行 hello.lua 文件？</strong></p>
-<p>方式二：</p>
-<p>将 hello.lua 做如下修改</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/<span class="keyword">local</span>/bin/lua</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"Hello World!!!"</span>)</span><br></pre></td></tr></table></figure>
-
-<p>第一行用来指定 Lua 解释器命令所在位置为 <code>/usr/local/bin/lua</code>，加上 # 号标记，解释器会忽略它。一般情况下 #! 就是用来指定用哪个程序来运行本文件。</p>
-<p>但是 hello.lua 并不是一个可执行文件，需要通过 chmod 来设置可执行权限，最简单的方式为：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 755 hello.lua</span><br></pre></td></tr></table></figure>
-
-<p>然后执行该文件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./hello.lua</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master lua_demo]<span class="comment"># ./hello.lua</span></span><br><span class="line">Hello World!!!</span><br></pre></td></tr></table></figure>
-
-<p>补充一点，如果想在交互式中运行脚本式的 hello.lua 中的内容，我们可以使用一个 dofile 函数，如：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dofile</span>(<span class="string">"lua_demo/hello.lua"</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master lua_demo]# lua</span><br><span class="line">Lua <span class="number">5.4</span><span class="number">.4</span>  Copyright (C) <span class="number">1994</span><span class="number">-2022</span> Lua.org, PUC-Rio</span><br><span class="line">&gt; <span class="built_in">dofile</span>(<span class="string">"hello.lua"</span>)</span><br><span class="line">Hello World!!!</span><br></pre></td></tr></table></figure>
-
-<p>::: warning</p>
-<p>在 Lua 语言中，连续语句之间的分隔符并不是必须的，也就是说后面不需要加分号，当然加上也不会报错。</p>
-<p>:::</p>
-<p>在 Lua 语言中，表达式之间的换行也起不到任何作用。如以下四个写法，其实都是等效的</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 写法一：换行，不加分号</span></span><br><span class="line">a=1</span><br><span class="line">b=a+2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 写法二：换行，加分号</span></span><br><span class="line">a=1;</span><br><span class="line">b=a+2;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 写法三：不换行，加分号</span></span><br><span class="line">a=1; b=a+2;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 写法四：不换行，不加分号</span></span><br><span class="line">a=1 b=a+2</span><br></pre></td></tr></table></figure>
-
-<p>不建议使用第四种方式，可读性太差。</p>
-<h2 id="Lua的注释"><a href="#Lua的注释" class="headerlink" title="Lua的注释"></a>Lua的注释</h2><p>关于 Lua 文件的注释要分两种，第一种是单行注释，第二种是多行注释。</p>
-<p>单行注释的语法为：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 注释内容</span></span><br></pre></td></tr></table></figure>
-
-<p>多行注释的语法为:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">	注释内容</span></span><br><span class="line"><span class="comment">	注释内容</span></span><br><span class="line"><span class="comment">--]]</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/<span class="keyword">local</span>/bin/lua</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"Hello World!!!"</span>)</span><br><span class="line"><span class="comment">-- print("HelloWorld")</span></span><br><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">print("HelloWorld2")</span></span><br><span class="line"><span class="comment">--]]</span></span><br></pre></td></tr></table></figure>
-
-<p>如果想取消多行注释，只需要在第一个–之前在加一个-即可，如：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">---[[</span></span><br><span class="line">	注释内容</span><br><span class="line">	注释内容</span><br><span class="line"><span class="comment">--]]</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Lua标识符"><a href="#Lua标识符" class="headerlink" title="Lua标识符"></a>Lua标识符</h2><p>换句话说标识符就是我们的变量名，Lua 定义变量名以一个字母 A 到 Z 或 a 到 z 或下划线 _ 开头后加上 0 个或多个字母，下划线，数字（0 到 9）。这块建议大家最好不要使用下划线加大写字母的标识符，如 _VERSION，因为 Lua 的保留字也是这样定义的，容易发生冲突。注意 Lua 是区分大小写字母的。</p>
-<h2 id="Lua关键字"><a href="#Lua关键字" class="headerlink" title="Lua关键字"></a>Lua关键字</h2><p>下列是 Lua 的关键字，大家在定义常量、变量或其他用户自定义标识符都要避免使用以下这些关键字：</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>and</td>
-<td>break</td>
-<td>do</td>
-<td>else</td>
-</tr>
-<tr>
-<td>elseif</td>
-<td>end</td>
-<td>false</td>
-<td>for</td>
-</tr>
-<tr>
-<td>function</td>
-<td>if</td>
-<td>in</td>
-<td>local</td>
-</tr>
-<tr>
-<td>nil</td>
-<td>not</td>
-<td>or</td>
-<td>repeat</td>
-</tr>
-<tr>
-<td>return</td>
-<td>then</td>
-<td>true</td>
-<td>until</td>
-</tr>
-<tr>
-<td>while</td>
-<td>goto</td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>一般约定，以下划线开头连接一串大写字母的名字（比如 _VERSION）被保留用于 Lua 内部全局变量。这个也是上面我们不建议这么定义标识符的原因。</p>
-<h2 id="Lua运算符"><a href="#Lua运算符" class="headerlink" title="Lua运算符"></a>Lua运算符</h2><p>Lua中支持的运算符有算术运算符、关系运算符、逻辑运算符、其他运算符。</p>
-<h3 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h3><table>
-<thead>
-<tr>
-<th>符号</th>
-<th>作用</th>
-<th>例子</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>+</td>
-<td>加法</td>
-<td>10 + 20 –&gt; 30</td>
-</tr>
-<tr>
-<td>-</td>
-<td>减法</td>
-<td>20 - 10 –&gt; 10</td>
-</tr>
-<tr>
-<td>*</td>
-<td>乘法</td>
-<td>10 * 20 –&gt; 200</td>
-</tr>
-<tr>
-<td>/</td>
-<td>除法</td>
-<td>20 / 10 –&gt; 2</td>
-</tr>
-<tr>
-<td>%</td>
-<td>取余</td>
-<td>3 % 2 –&gt; 1</td>
-</tr>
-<tr>
-<td>^</td>
-<td>乘幂</td>
-<td>10 ^ 2 –&gt; 100</td>
-</tr>
-<tr>
-<td>-</td>
-<td>符号</td>
-<td>-10 –&gt; -10</td>
-</tr>
-</tbody></table>
-<h3 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h3><table>
-<thead>
-<tr>
-<th>符号</th>
-<th>作用</th>
-<th>例子</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>==</td>
-<td>等于</td>
-<td>10 == 10 –&gt; true</td>
-</tr>
-<tr>
-<td>~=</td>
-<td>不等于</td>
-<td>10 ~= 10 –&gt; false</td>
-</tr>
-<tr>
-<td>&gt;</td>
-<td>大于</td>
-<td>20 &gt; 10 –&gt; true</td>
-</tr>
-<tr>
-<td>&lt;</td>
-<td>小于</td>
-<td>20 &lt; 10 –&gt; false</td>
-</tr>
-<tr>
-<td>&gt;=</td>
-<td>大于等于</td>
-<td>20 &gt;= 10 –&gt; true</td>
-</tr>
-<tr>
-<td>&lt;=</td>
-<td>小于等于</td>
-<td>20 &lt;= 10 –&gt; false</td>
-</tr>
-</tbody></table>
-<h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3><table>
-<thead>
-<tr>
-<th>符号</th>
-<th>作用</th>
-<th>例子</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>and</td>
-<td>逻辑与</td>
-<td>A and B（等价于 Java 的 a &amp;&amp; b）</td>
-</tr>
-<tr>
-<td>or</td>
-<td>逻辑或</td>
-<td>A or B（等价于 Java 的 a || b）</td>
-</tr>
-<tr>
-<td>not</td>
-<td>逻辑非</td>
-<td>not A（取反，如果 A 为 true，则返回 false）</td>
-</tr>
-</tbody></table>
-<p>逻辑运算符可以作为 if 的判断条件，返回的结果如下:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">A = <span class="literal">true</span></span><br><span class="line">B = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">A <span class="keyword">and</span> B	    <span class="comment">--&gt; true</span></span><br><span class="line">A <span class="keyword">or</span>  B     <span class="comment">--&gt; true</span></span><br><span class="line"><span class="keyword">not</span> A 	    <span class="comment">--&gt; false</span></span><br><span class="line"></span><br><span class="line">A = <span class="literal">true</span></span><br><span class="line">B = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">A <span class="keyword">and</span> B	   <span class="comment">--&gt; false</span></span><br><span class="line">A <span class="keyword">or</span>  B    <span class="comment">--&gt; true</span></span><br><span class="line"><span class="keyword">not</span> A 	   <span class="comment">--&gt; false</span></span><br><span class="line"></span><br><span class="line">A = <span class="literal">false</span></span><br><span class="line">B = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">A <span class="keyword">and</span> B	   <span class="comment">--&gt; false</span></span><br><span class="line">A <span class="keyword">or</span>  B    <span class="comment">--&gt; true</span></span><br><span class="line"><span class="keyword">not</span> A 	   <span class="comment">--&gt; true</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="其他运算符"><a href="#其他运算符" class="headerlink" title="其他运算符"></a>其他运算符</h3><table>
-<thead>
-<tr>
-<th>符号</th>
-<th>作用</th>
-<th>例子</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>..</td>
-<td>连接两个字符串</td>
-<td>“HELLO “..”WORLD” –&gt; HELLO WORLD</td>
-</tr>
-<tr>
-<td>#</td>
-<td>一元预算法，返回字符串或表的长度</td>
-<td>#”HELLO” –&gt; 5</td>
-</tr>
-</tbody></table>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master lua_demo]# lua</span><br><span class="line">Lua <span class="number">5.4</span><span class="number">.4</span>  Copyright (C) <span class="number">1994</span><span class="number">-2022</span> Lua.org, PUC-Rio</span><br><span class="line">&gt; <span class="string">"Hello"</span>..<span class="string">"World"</span></span><br><span class="line">HelloWorld</span><br><span class="line">&gt; #<span class="string">"HelloWorld"</span></span><br><span class="line"><span class="number">10</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Lua全局变量-amp-局部变量"><a href="#Lua全局变量-amp-局部变量" class="headerlink" title="Lua全局变量&amp;局部变量"></a>Lua全局变量&amp;局部变量</h2><p>在 Lua 语言中，全局变量无须声明即可使用。在默认情况下，变量总是认为是全局的，如果未提前赋值，默认为 nil:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@master lua_demo]# lua</span><br><span class="line">Lua <span class="number">5.4</span><span class="number">.4</span>  Copyright (C) <span class="number">1994</span><span class="number">-2022</span> Lua.org, PUC-Rio</span><br><span class="line">&gt; <span class="built_in">print</span>(b)</span><br><span class="line"><span class="literal">nil</span></span><br><span class="line">&gt; b=<span class="number">100</span></span><br><span class="line">&gt; <span class="built_in">print</span>(b)</span><br><span class="line"><span class="number">100</span></span><br><span class="line">&gt; b=<span class="literal">nil</span></span><br><span class="line">&gt; <span class="built_in">print</span>(b)</span><br><span class="line"><span class="literal">nil</span></span><br></pre></td></tr></table></figure>
-
-<p>要想声明一个局部变量，需要使用 local 来声明</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master lua_demo]# lua</span><br><span class="line">Lua <span class="number">5.4</span><span class="number">.4</span>  Copyright (C) <span class="number">1994</span><span class="number">-2022</span> Lua.org, PUC-Rio</span><br><span class="line">&gt; <span class="keyword">local</span> a=<span class="number">100</span></span><br><span class="line">&gt; <span class="built_in">print</span>(a)</span><br><span class="line"><span class="literal">nil</span></span><br><span class="line">&gt; <span class="keyword">local</span> a=<span class="number">100</span> <span class="built_in">print</span>(a)</span><br><span class="line"><span class="number">100</span></span><br></pre></td></tr></table></figure>
-
-<p>如上所示，终端交互式的 local 声明的变量在同一行使用，换行了则离开了该变量的作用域。如果使用了 function 之类的结构或者在文件里使用 local，则可以换行，具体往下看。</p>
-<h2 id="Lua数据类型"><a href="#Lua数据类型" class="headerlink" title="Lua数据类型"></a>Lua数据类型</h2><p>Lua 有 8 个数据类型</p>
-<table>
-<thead>
-<tr>
-<th>数据类型名</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>nil</td>
-<td>空，无效值</td>
-</tr>
-<tr>
-<td>boolean</td>
-<td>布尔，true | false</td>
-</tr>
-<tr>
-<td>number</td>
-<td>数值</td>
-</tr>
-<tr>
-<td>string</td>
-<td>字符串</td>
-</tr>
-<tr>
-<td>function</td>
-<td>函数</td>
-</tr>
-<tr>
-<td>table</td>
-<td>表</td>
-</tr>
-<tr>
-<td>thread</td>
-<td>线程</td>
-</tr>
-<tr>
-<td>userdata</td>
-<td>用户数据</td>
-</tr>
-</tbody></table>
-<p>可以使用 type 函数测试给定变量或者的类型：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(<span class="literal">nil</span>))				<span class="comment">--&gt; nil</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(<span class="literal">true</span>))               <span class="comment">--&gt; boolean</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(<span class="number">1.1</span>*<span class="number">1.1</span>))            <span class="comment">--&gt; number</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(<span class="string">"Hello world"</span>))      <span class="comment">--&gt; string</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(<span class="built_in">io</span>.<span class="built_in">stdin</span>))			<span class="comment">--&gt; userdata</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(<span class="built_in">print</span>))              <span class="comment">--&gt; function</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(<span class="built_in">type</span>))               <span class="comment">--&gt; function</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>&#123;&#125;)					<span class="comment">--&gt; table</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(<span class="built_in">type</span>(X)))            <span class="comment">--&gt; string</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="nil"><a href="#nil" class="headerlink" title="nil"></a>nil</h3><p>nil 是一种只有一个 nil 值的类型，它的作用可以用来与其他所有值进行区分。当想要移除一个变量时，只需要将该变量名赋值为 nil，垃圾回收就会会释放该变量所占用的内存。</p>
-<h3 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h3><p>boolean 类型具有两个值，true 和 false。boolean 类型一般被用来做条件判断的真与假。在 Lua 语言中，只会将 false 和 nil 视为假，其他的都视为真，<strong>特别是在条件检测中 0 和空字符串都会认为是真</strong>，这个和我们熟悉的大多数语言不太一样。</p>
-<h3 id="number"><a href="#number" class="headerlink" title="number"></a>number</h3><p>在 Lua5.3 版本开始，Lua 语言为数值格式提供了两种选择 integer（整型）和 float（双精度浮点型），和其他语言不太一样，float 不代表单精度类型。</p>
-<p>数值常量的表示方式：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4</span>			<span class="comment">--&gt; 4</span></span><br><span class="line"><span class="number">0.4</span>		<span class="comment">--&gt; 0.4</span></span><br><span class="line"><span class="number">4.75e-3</span>	<span class="comment">--&gt; 0.00475</span></span><br><span class="line"><span class="number">4.75e3</span>		<span class="comment">--&gt; 4750.0</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@master lua_demo]# lua</span><br><span class="line">Lua <span class="number">5.4</span><span class="number">.4</span>  Copyright (C) <span class="number">1994</span><span class="number">-2022</span> Lua.org, PUC-Rio</span><br><span class="line">&gt; <span class="number">4</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line">&gt; <span class="number">0.4</span></span><br><span class="line"><span class="number">0.4</span></span><br><span class="line">&gt; <span class="number">4.75e-3</span></span><br><span class="line"><span class="number">0.00475</span></span><br><span class="line">&gt; <span class="number">4.75e3</span></span><br><span class="line"><span class="number">4750.0</span></span><br></pre></td></tr></table></figure>
-
-<p>不管是整型还是双精度浮点型，使用 type() 函数来取其类型，都会返回的是 number</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">type</span>(<span class="number">3</span>)	<span class="comment">--&gt; number</span></span><br><span class="line"><span class="built_in">type</span>(<span class="number">3.3</span>)	<span class="comment">--&gt; number</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master lua_demo]# lua</span><br><span class="line">Lua <span class="number">5.4</span><span class="number">.4</span>  Copyright (C) <span class="number">1994</span><span class="number">-2022</span> Lua.org, PUC-Rio</span><br><span class="line">&gt; <span class="built_in">type</span>(<span class="number">3</span>)</span><br><span class="line">number</span><br><span class="line">&gt; <span class="built_in">type</span>(<span class="number">3.3</span>)</span><br><span class="line">number</span><br></pre></td></tr></table></figure>
-
-<p>所以它们之间是可以相互转换的，同时，具有相同算术值的整型值和浮点型值在 Lua 语言中是相等的</p>
-<h3 id="string"><a href="#string" class="headerlink" title="string"></a>string</h3><p>Lua 语言中的字符串即可以表示单个字符，也可以表示一整本书籍。在 Lua 语言中，操作 100K 或者 1M 个字母组成的字符串的程序很常见。</p>
-<p>可以使用单引号或双引号来声明字符串</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">"hello"</span></span><br><span class="line">b = <span class="string">'world'</span></span><br><span class="line"><span class="built_in">print</span>(a)	<span class="comment">--&gt; hello</span></span><br><span class="line"><span class="built_in">print</span>(b) 	<span class="comment">--&gt; world</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@master lua_demo]# lua</span><br><span class="line">Lua <span class="number">5.4</span><span class="number">.4</span>  Copyright (C) <span class="number">1994</span><span class="number">-2022</span> Lua.org, PUC-Rio</span><br><span class="line">&gt; a = <span class="string">"Hello"</span></span><br><span class="line">&gt; b = <span class="string">"World"</span></span><br><span class="line">&gt; <span class="built_in">print</span>(a)</span><br><span class="line">Hello</span><br><span class="line">&gt; <span class="built_in">print</span>(b)</span><br><span class="line">World</span><br></pre></td></tr></table></figure>
-
-<p>如果声明的字符串比较长或者有多行，则可以使用如下方式进行声明</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">html = <span class="string">[[</span></span><br><span class="line"><span class="string">&lt;html&gt;</span></span><br><span class="line"><span class="string">&lt;head&gt;</span></span><br><span class="line"><span class="string">&lt;title&gt;Lua-string&lt;/title&gt;</span></span><br><span class="line"><span class="string">&lt;/head&gt;</span></span><br><span class="line"><span class="string">&lt;body&gt;</span></span><br><span class="line"><span class="string">&lt;a href="http://www.lua.org"&gt;Lua&lt;/a&gt;</span></span><br><span class="line"><span class="string">&lt;/body&gt;</span></span><br><span class="line"><span class="string">&lt;/html&gt;</span></span><br><span class="line"><span class="string">]]</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="table"><a href="#table" class="headerlink" title="table"></a>table</h3><p>table 是 Lua 语言中最主要和强大的数据结构。使用 table 表时，Lua 语言可以以一种简单、统一且高效的方式表示数组、集合、记录和其他很多数据结构。Lua 语言中的表本质上是一种辅助数组。这种数组比 Java 中的数组更加灵活，可以使用数值做索引，也可以使用字符串或其他任意类型的值作索引（除 nil 外）。</p>
-<p>创建表的最简单方式：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = &#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>创建数组方式一</strong></p>
-<p>我们都知道数组就是相同数据类型的元素按照一定顺序排列的集合，那么使用 table 如何创建一个数组呢？</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr = &#123;<span class="string">"TOM"</span>,<span class="string">"JERRY"</span>,<span class="string">"ROSE"</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>要想获取数组中的值，我们可以通过如下内容来获取：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(arr[<span class="number">0</span>])		<span class="comment">-- nil</span></span><br><span class="line"><span class="built_in">print</span>(arr[<span class="number">1</span>])		<span class="comment">-- TOM</span></span><br><span class="line"><span class="built_in">print</span>(arr[<span class="number">2</span>])		<span class="comment">-- JERRY</span></span><br><span class="line"><span class="built_in">print</span>(arr[<span class="number">3</span>])		<span class="comment">-- ROSE</span></span><br></pre></td></tr></table></figure>
-
-<p>从上面的结果可以看出来，<strong>数组的下标默认是从 1 开始的</strong>。</p>
-<p><strong>创建数组方式二</strong></p>
-<p>上述创建数组，也可以通过如下方式来创建：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">arr = &#123;&#125;</span><br><span class="line">arr[<span class="number">1</span>] = <span class="string">"TOM"</span></span><br><span class="line">arr[<span class="number">2</span>] = <span class="string">"JERRY"</span></span><br><span class="line">arr[<span class="number">3</span>] = <span class="string">"ROSE"</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>创建数组方式三</strong></p>
-<p>表的索引即可以是数字，也可以是字符串等其他的内容，所以也可以将索引更改为字符串来创建：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">arr = &#123;&#125;</span><br><span class="line">arr[<span class="string">"X"</span>] = <span class="number">10</span></span><br><span class="line">arr[<span class="string">"Y"</span>] = <span class="number">20</span></span><br><span class="line">arr[<span class="string">"Z"</span>] = <span class="number">30</span></span><br></pre></td></tr></table></figure>
-
-<p>当然，如果想要获取这些数组中的值，可以使用下面的方式</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 方式一</span></span><br><span class="line"><span class="built_in">print</span>(arr[<span class="string">"X"</span>])</span><br><span class="line"><span class="built_in">print</span>(arr[<span class="string">"Y"</span>])</span><br><span class="line"><span class="built_in">print</span>(arr[<span class="string">"Z"</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 方式二</span></span><br><span class="line"><span class="built_in">print</span>(arr.X)</span><br><span class="line"><span class="built_in">print</span>(arr.Y)</span><br><span class="line"><span class="built_in">print</span>(arr.Z)</span><br></pre></td></tr></table></figure>
-
-<p><strong>创建数组方式四</strong></p>
-<p>当前 table 的灵活不仅于此，还有更灵活的声明方式：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr = &#123;<span class="string">"TOM"</span>,X=<span class="number">10</span>,<span class="string">"JERRY"</span>,Y=<span class="number">20</span>,<span class="string">"ROSE"</span>,Z=<span class="number">30</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如何获取上面的值？</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">arr[<span class="number">1</span>]       <span class="comment">-- TOM</span></span><br><span class="line">arr[<span class="string">"X"</span>]	 <span class="comment">-- 10</span></span><br><span class="line">arr.X   	 <span class="comment">-- 10</span></span><br><span class="line">arr[<span class="number">2</span>]		 <span class="comment">-- JERRY</span></span><br><span class="line">arr[<span class="string">"Y"</span>]	 <span class="comment">-- 20</span></span><br><span class="line">arr.Y		 <span class="comment">--20</span></span><br><span class="line">arr[<span class="number">3</span>]		 <span class="comment">-- ROSE</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@master lua_demo]# lua</span><br><span class="line">Lua <span class="number">5.4</span><span class="number">.4</span>  Copyright (C) <span class="number">1994</span><span class="number">-2022</span> Lua.org, PUC-Rio</span><br><span class="line">&gt; arr = &#123;<span class="string">"TOM"</span>,X=<span class="number">10</span>,<span class="string">"JERRY"</span>,Y=<span class="number">20</span>,<span class="string">"ROSE"</span>,Z=<span class="number">30</span>&#125;</span><br><span class="line">&gt; arr[<span class="number">0</span>]</span><br><span class="line"><span class="literal">nil</span></span><br><span class="line">&gt; arr[<span class="number">1</span>]</span><br><span class="line">TOM</span><br><span class="line">&gt; arr[<span class="number">2</span>]</span><br><span class="line">JERRY</span><br><span class="line">&gt; arr[<span class="number">3</span>]</span><br><span class="line">ROSE</span><br><span class="line">&gt; arr[<span class="string">"X"</span>]</span><br><span class="line"><span class="number">10</span></span><br><span class="line">&gt; arr[<span class="string">"Y"</span>]</span><br><span class="line"><span class="number">20</span></span><br><span class="line">&gt; arr[<span class="string">"Z"</span>]</span><br><span class="line"><span class="number">30</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="function"><a href="#function" class="headerlink" title="function"></a>function</h3><p>在 Lua 语言中，函数（Function）是对语句和表达式进行抽象的主要方式。</p>
-<p>定义函数的语法为：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">functionName</span><span class="params">(params)</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>函数被调用的时候，传入的参数个数与定义函数时使用的参数个数不一致的时候，Lua 语言会通过抛弃多余参数和将不足的参数设为 nil 的方式来调整参数的个数。</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>  <span class="title">f</span><span class="params">(a,b)</span></span></span><br><span class="line">    <span class="built_in">print</span>(a,b)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 调用函数</span></span><br><span class="line">f()			<span class="comment">--&gt; nil  nil</span></span><br><span class="line">f(<span class="number">2</span>)		<span class="comment">--&gt; 2 nil</span></span><br><span class="line">f(<span class="number">2</span>,<span class="number">6</span>)		<span class="comment">--&gt; 2 6</span></span><br><span class="line">f(<span class="number">2.6</span><span class="number">.8</span>)	<span class="comment">--&gt; 2 6 (8 被丢弃)</span></span><br></pre></td></tr></table></figure>
-
-<p>可变长参数函数</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">(...)</span></span></span><br><span class="line">    a,b,c=...    <span class="comment">-- 按顺序令 a,b,c 等于多个参数的前三个</span></span><br><span class="line">    <span class="built_in">print</span>(a)</span><br><span class="line">    <span class="built_in">print</span>(b)</span><br><span class="line">    <span class="built_in">print</span>(c)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 调用函数</span></span><br><span class="line">add(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)  <span class="comment">--&gt; 1 2 3</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@master lua_demo]# lua</span><br><span class="line">Lua <span class="number">5.4</span><span class="number">.4</span>  Copyright (C) <span class="number">1994</span><span class="number">-2022</span> Lua.org, PUC-Rio</span><br><span class="line">&gt; <span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">(a,b)</span></span></span><br><span class="line">&gt;&gt; <span class="keyword">return</span> a,b</span><br><span class="line">&gt;&gt; <span class="keyword">end</span></span><br><span class="line">&gt; x,y = f(<span class="number">11</span>,<span class="number">12</span>)</span><br><span class="line">&gt; <span class="built_in">print</span>(x,y)</span><br><span class="line"><span class="number">11</span>      <span class="number">12</span></span><br><span class="line">&gt; <span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">(...)</span></span></span><br><span class="line">&gt;&gt; a,b,c=...</span><br><span class="line">&gt;&gt; <span class="built_in">print</span>(a)</span><br><span class="line">&gt;&gt; <span class="built_in">print</span>(b)</span><br><span class="line">&gt;&gt; <span class="built_in">print</span>(c)</span><br><span class="line">&gt;&gt; <span class="keyword">end</span></span><br><span class="line">&gt; add(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
-
-<p>函数返回值可以有多个，这点和 Java 不太一样</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">(a,b)</span></span></span><br><span class="line">    <span class="keyword">return</span> a,b</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 调用函数</span></span><br><span class="line">x,y = f(<span class="number">11</span>,<span class="number">22</span>)	<span class="comment">--&gt; x=11,y=22</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="thread"><a href="#thread" class="headerlink" title="thread"></a>thread</h3><p>thread 翻译过来是线程的意思，在 Lua 中，thread 用来表示执行的独立线路，用来执行协同程序。</p>
-<h3 id="userdata"><a href="#userdata" class="headerlink" title="userdata"></a>userdata</h3><p>userdata 是一种用户自定义数据，用于表示一种由应用程序或 C/C++ 语言库所创建的类型。</p>
-<h2 id="Lua控制结构"><a href="#Lua控制结构" class="headerlink" title="Lua控制结构"></a>Lua控制结构</h2><p>Lua 语言提供了一组精简且常用的控制结构，包括用于条件执行的证 以及用于循环的 while、repeat 和 for。所有的控制结构语法上都有一个显式的终结符：end 用于终结 if、for 及 while 结构，until 用于终结 repeat 结构。</p>
-<h3 id="if判断"><a href="#if判断" class="headerlink" title="if判断"></a>if判断</h3><p>if 语句先测试其条件，并根据条件是否满足执行相应的 then 部分或 else 部分。else 部分是可选的。</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testif</span><span class="params">(a)</span></span></span><br><span class="line">    <span class="keyword">if</span> a &gt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"a是正数"</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testif</span><span class="params">(a)</span></span></span><br><span class="line">    <span class="keyword">if</span> a &gt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"a是正数"</span>)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"a是负数"</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>如果要编写嵌套的 if 语句，可以使用 elseif。 它类似于在 else 后面紧跟一个if。根据传入的年龄返回不同的结果，如</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">show</span><span class="params">(age)</span></span></span><br><span class="line">    <span class="keyword">if</span> age&lt;=<span class="number">18</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"青少年"</span></span><br><span class="line">    <span class="keyword">elseif</span> age&gt;<span class="number">18</span> <span class="keyword">and</span> age&lt;=<span class="number">45</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"青年"</span></span><br><span class="line">    <span class="keyword">elseif</span> age&gt;<span class="number">45</span> <span class="keyword">and</span> age&lt;=<span class="number">60</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"中年人"</span></span><br><span class="line">    <span class="keyword">elseif</span> age&gt;<span class="number">60</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"老年人"</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="function"><span class="keyword">function</span> <span class="title">show</span><span class="params">(age)</span></span></span><br><span class="line">&gt;&gt;      <span class="keyword">if</span> age&lt;=<span class="number">18</span> <span class="keyword">then</span></span><br><span class="line">&gt;&gt;              <span class="keyword">return</span> <span class="string">"青少年"</span></span><br><span class="line">&gt;&gt;      <span class="keyword">elseif</span> age&gt;<span class="number">18</span> <span class="keyword">and</span> age&lt;=<span class="number">45</span> <span class="keyword">then</span></span><br><span class="line">&gt;&gt;              <span class="keyword">return</span> <span class="string">"青年"</span></span><br><span class="line">&gt;&gt;      <span class="keyword">elseif</span> age&gt;<span class="number">45</span> <span class="keyword">and</span> age&lt;=<span class="number">60</span> <span class="keyword">then</span></span><br><span class="line">&gt;&gt;              <span class="keyword">return</span> <span class="string">"中年人"</span></span><br><span class="line">&gt;&gt;      <span class="keyword">elseif</span> age&gt;<span class="number">60</span> <span class="keyword">then</span></span><br><span class="line">&gt;&gt;              <span class="keyword">return</span> <span class="string">"老年人"</span></span><br><span class="line">&gt;&gt;      <span class="keyword">end</span></span><br><span class="line">&gt;&gt; <span class="keyword">end</span></span><br><span class="line">&gt; show(<span class="number">59</span>)</span><br><span class="line">中年人</span><br></pre></td></tr></table></figure>
-
-<h3 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h3><p>顾名思义，当条件为真时 while 循环会重复执行其循环体。Lua 语言先测试 while 语句的条件，若条件为假则循环结束；否则，Lua 会执行循环体并不断地重复这个过程。</p>
-<p>语法：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> 条件 <span class="keyword">do</span></span><br><span class="line">	循环体</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>例子：实现数组的循环</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testWhile</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">local</span> i = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> i &lt;= <span class="number">10</span> <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">print</span>(i)</span><br><span class="line">        i = i + <span class="number">1</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="function"><span class="keyword">function</span> <span class="title">testwhile</span><span class="params">()</span></span></span><br><span class="line">&gt;&gt;      <span class="keyword">local</span> i=<span class="number">1</span></span><br><span class="line">&gt;&gt;      <span class="keyword">while</span> i&lt;=<span class="number">10</span> <span class="keyword">do</span></span><br><span class="line">&gt;&gt;              <span class="built_in">print</span>(i)</span><br><span class="line">&gt;&gt;              i=i+<span class="number">1</span></span><br><span class="line">&gt;&gt;      <span class="keyword">end</span></span><br><span class="line">&gt;&gt; <span class="keyword">end</span></span><br><span class="line">&gt; testwhile()</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">8</span></span><br><span class="line"><span class="number">9</span></span><br><span class="line"><span class="number">10</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="repeat循环"><a href="#repeat循环" class="headerlink" title="repeat循环"></a>repeat循环</h3><p>顾名思义， repeat-until 语句会重复执行其循环体直到条件为真时结束。由于条件测试在循环体之后执行，所以循环体至少会执行一次。</p>
-<p>语法：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">repeat</span></span><br><span class="line">	循环体</span><br><span class="line"><span class="keyword">until</span> 条件</span><br></pre></td></tr></table></figure>
-
-<p>例子：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testRepeat</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">local</span> i = <span class="number">10</span></span><br><span class="line">    <span class="keyword">repeat</span></span><br><span class="line">        <span class="built_in">print</span>(i)</span><br><span class="line">        i = i - <span class="number">1</span></span><br><span class="line">    <span class="keyword">until</span> i &lt; <span class="number">1</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="function"><span class="keyword">function</span> <span class="title">testRepeat</span><span class="params">()</span></span></span><br><span class="line">&gt;&gt;      <span class="keyword">local</span> i=<span class="number">10</span></span><br><span class="line">&gt;&gt;      <span class="keyword">repeat</span></span><br><span class="line">&gt;&gt;              <span class="built_in">print</span>(i)</span><br><span class="line">&gt;&gt;              i=i<span class="number">-1</span></span><br><span class="line">&gt;&gt;      <span class="keyword">until</span> i&lt;<span class="number">1</span></span><br><span class="line">&gt;&gt; <span class="keyword">end</span></span><br><span class="line">&gt; testRepeat(<span class="number">10</span>)</span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">9</span></span><br><span class="line"><span class="number">8</span></span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h3><p><strong>数值型 for 循环</strong></p>
-<p>语法:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> param = exp1,exp2,exp3 <span class="keyword">do</span></span><br><span class="line">	循环体</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>param 的值从 exp1 变化到 exp2 之前的每次循环会执行循环体，并在每次循环结束后将步长（step）exp3 赋值给到 param 上。exp3 可选，如果不设置默认为 1。</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>,<span class="number">100</span>,<span class="number">10</span> <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">for</span> i=<span class="number">1</span>,<span class="number">100</span>,<span class="number">10</span> <span class="keyword">do</span></span><br><span class="line">&gt;&gt;      <span class="built_in">print</span>(i)</span><br><span class="line">&gt;&gt; <span class="keyword">end</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">11</span></span><br><span class="line"><span class="number">21</span></span><br><span class="line"><span class="number">31</span></span><br><span class="line"><span class="number">41</span></span><br><span class="line"><span class="number">51</span></span><br><span class="line"><span class="number">61</span></span><br><span class="line"><span class="number">71</span></span><br><span class="line"><span class="number">81</span></span><br><span class="line"><span class="number">91</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>泛型 for 循环</strong></p>
-<p>泛型 for 循环通过一个迭代器函数来遍历所有值，类似于 Java 中的 foreach 语句。</p>
-<p>语法：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">ipairs</span>(x) <span class="keyword">do</span></span><br><span class="line">	循环体</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>i 是数组索引值，v 是对应索引的数组元素值，ipairs 是 Lua 提供的一个迭代器函数，用来迭代数组，x 是要遍历的数组。</p>
-<p>例如：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">arr = &#123;<span class="string">"TOME"</span>,<span class="string">"JERRY"</span>,<span class="string">"ROWS"</span>,<span class="string">"LUCY"</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">ipairs</span>(arr) <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">print</span>(i,v)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; arr =&#123;<span class="string">"TOM"</span>,<span class="string">"JERRY"</span>,<span class="string">"ROWS"</span>,<span class="string">"LUCY"</span>&#125;</span><br><span class="line">&gt; <span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">ipairs</span>(arr) <span class="keyword">do</span></span><br><span class="line">&gt;&gt;      <span class="built_in">print</span>(i,v)</span><br><span class="line">&gt;&gt; <span class="keyword">end</span></span><br><span class="line"><span class="number">1</span>       TOM</span><br><span class="line"><span class="number">2</span>       JERRY</span><br><span class="line"><span class="number">3</span>       ROWS</span><br><span class="line"><span class="number">4</span>       LUCY</span><br></pre></td></tr></table></figure>
-
-<p>但是如果将 arr 的值进行修改为：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr = &#123;<span class="string">"TOME"</span>,<span class="string">"JERRY"</span>,<span class="string">"ROWS"</span>,x=<span class="string">"JACK"</span>,<span class="string">"LUCY"</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>同样的代码在执行的时候，就只能看到和之前一样的结果，而其中的 x 为 JACK 就无法遍历出来，缺失了数据，如果解决呢？</p>
-<p>我们可以将迭代器函数由 <code>ipairs</code> 变成 <code>pairs</code>，如</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; arr = &#123;<span class="string">"TOM"</span>,<span class="string">"JERRY"</span>,<span class="string">"ROWS"</span>,x=<span class="string">"JACK"</span>,<span class="string">"LUCY"</span>&#125;</span><br><span class="line">&gt; <span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">pairs</span>(arr) <span class="keyword">do</span></span><br><span class="line">&gt;&gt;      <span class="built_in">print</span>(i,v)</span><br><span class="line">&gt;&gt; <span class="keyword">end</span></span><br><span class="line"><span class="number">1</span>       TOM</span><br><span class="line"><span class="number">2</span>       JERRY</span><br><span class="line"><span class="number">3</span>       ROWS</span><br><span class="line"><span class="number">4</span>       LUCY</span><br><span class="line">x       JACK</span><br></pre></td></tr></table></figure></div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2022/11/15/Java学习之路(42)/">Java学习之路--静态成员的继承问题</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-11-15</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/编程/">编程</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/学习/">学习</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><p><strong>看两段代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExtendsDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Cat c = <span class="keyword">new</span> Cat();</span><br><span class="line">        c.test();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String schoolName =<span class="string">"黑猫"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(schoolName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 输出结果：</span></span><br><span class="line"><span class="comment"> * 黑猫</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-
-<p>这段代码表明静态的父类成员依旧是可以被继承到子类的，否则不可能通过子类引用访问到这个静态的父类方法。</p>
-<hr>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExtendsDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Cat c = <span class="keyword">new</span> Cat();</span><br><span class="line">        Animal a = <span class="keyword">new</span> Cat();</span><br><span class="line"></span><br><span class="line">        c.test();</span><br><span class="line">        a.test();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String schoolName = <span class="string">"白猫"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(schoolName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String schoolName =<span class="string">"黑猫"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(schoolName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 输出结果：</span></span><br><span class="line"><span class="comment"> * 白猫</span></span><br><span class="line"><span class="comment"> * 黑猫</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-
-<p>这段代码表明，虽然静态成员可以被继承，但是和子类的同名静态方法并不构成重写关系，子类的同名静态方法会将父类同名静态方法隐藏，因此也不支持多态。</p>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2022/11/15/Nginx_Deployment_and_cluster/">Nginx 部署与集群</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-11-15</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Nginx/">Nginx</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/后端/">后端</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Nginx/">Nginx</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/中间件/">中间件</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h1 id="Nginx-部署与集群"><a href="#Nginx-部署与集群" class="headerlink" title="Nginx 部署与集群"></a>Nginx 部署与集群</h1><h2 id="Nginx与Tomcat部署"><a href="#Nginx与Tomcat部署" class="headerlink" title="Nginx与Tomcat部署"></a>Nginx与Tomcat部署</h2><p>前面已经将 Nginx 的大部分内容进行了讲解，我们都知道了 Nginx 在高并发场景和处理静态资源是非常高性能的，但是在实际项目中除了静态资源还有就是后台业务代码模块，一般后台业务都会被部署在 Tomcat、weblogic 或者是 websphere 等 Web 服务器上。那么如何使用 Nginx 接收用户的请求并把请求转发到后台 Web 服务器？</p>
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">223</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">82</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">45</span></a></div></div></div><nav id="nav" style="background-image: url(https://i.328888.xyz/2022/12/21/ARudF.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2022/11/15/Nginx_Deployment_and_cluster/">Nginx 部署与集群</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-11-15</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Nginx/">Nginx</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/后端/">后端</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Nginx/">Nginx</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/中间件/">中间件</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h1 id="Nginx-部署与集群"><a href="#Nginx-部署与集群" class="headerlink" title="Nginx 部署与集群"></a>Nginx 部署与集群</h1><h2 id="Nginx与Tomcat部署"><a href="#Nginx与Tomcat部署" class="headerlink" title="Nginx与Tomcat部署"></a>Nginx与Tomcat部署</h2><p>前面已经将 Nginx 的大部分内容进行了讲解，我们都知道了 Nginx 在高并发场景和处理静态资源是非常高性能的，但是在实际项目中除了静态资源还有就是后台业务代码模块，一般后台业务都会被部署在 Tomcat、weblogic 或者是 websphere 等 Web 服务器上。那么如何使用 Nginx 接收用户的请求并把请求转发到后台 Web 服务器？</p>
 <p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.iachagf6u0g.webp" alt="image"></p>
 <p>步骤分析:</p>
 <ul>
@@ -815,6 +334,568 @@
 </ul>
 <p><strong>问题思考</strong></p>
 <p>通常如果 Master 服务死掉后，Backup 会变成 Master，但是当原来的 Master 服务又恢复了，它会和原来的 Backup 会抢占 VIP，这样就会发生两次切换，这对业务繁忙的网站来说是不好的。所以我们要在配置文件加入 nopreempt 非抢占，但是这个参数只能用于 Backup 的服务器，所以我们在用配置的时候，最好 Master 和 Backup 的 state 都设置成 Backup，这样它们只能通过 priority 优先级来竞争。</p>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2022/11/15/Nginx_Site_and_certification/">Nginx 站点与认证</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-11-15</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Nginx/">Nginx</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/后端/">后端</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Nginx/">Nginx</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/中间件/">中间件</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h1 id="Nginx-站点与认证"><a href="#Nginx-站点与认证" class="headerlink" title="Nginx 站点与认证"></a>Nginx 站点与认证</h1><h2 id="Nginx制作下载站点"><a href="#Nginx制作下载站点" class="headerlink" title="Nginx制作下载站点"></a>Nginx制作下载站点</h2><p>首先我们先要清楚什么是下载站点？</p>
+<p>我们先来看一个网站 <a href="http://nginx.org/download/" target="_blank" rel="noopener">http://nginx.org/download/</a></p>
+<p>这个是大家去下载 Nginx 时经常访问的网站，该网站主要就是用来提供用户来下载相关资源的网站，就叫做下载网站。</p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.17v6jxd79kao.webp" alt="image"></p>
+<p>如何制作一个下载站点：</p>
+<ul>
+<li><p>Nginx 使用的是模块 <code>ngx_http_autoindex_module</code> 来实现的（自带），该模块处理以斜杠(『 / 』)结尾的请求，并生成目录列表。</p>
+</li>
+<li><p>Nginx 编译的时候会自动加载该模块，但是该模块默认是关闭的，我们需要使用下来指令来完成对应的配置</p>
+</li>
+</ul>
+<h3 id="autoindex"><a href="#autoindex" class="headerlink" title="autoindex"></a>autoindex</h3><p><code>autoindex</code> 指令启用或禁用目录列表的输出</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>默认值</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>autoindex &lt;on | off&gt;;</td>
+<td>autoindex off;</td>
+<td>http、server、location</td>
+</tr>
+</tbody></table>
+<h3 id="autoindex-exact-size"><a href="#autoindex-exact-size" class="headerlink" title="autoindex_exact_size"></a>autoindex_exact_size</h3><p><code>autoindex_exact_size</code> 指令对应 HTLM 格式，指定是否在目录列表展示文件的详细大小。</p>
+<p>默认为 on，显示出文件的确切大小，单位是 bytes。</p>
+<p>改为 off 后，显示出文件的大概大小，单位是 kB 或者 MB 或者 GB。</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>默认值</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>autoindex_exact_size &lt;on | off&gt;;</td>
+<td>autoindex_exact_size on;</td>
+<td>http、server、location</td>
+</tr>
+</tbody></table>
+<h3 id="autoindex-format"><a href="#autoindex-format" class="headerlink" title="autoindex_format"></a>autoindex_format</h3><p><code>autoindex_format</code> 指令设置目录列表的格式。</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>默认值</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>autoindex_format &lt;html | xml | json | jsonp&gt;;</td>
+<td>autoindex_format html;</td>
+<td>http、server、location</td>
+</tr>
+</tbody></table>
+<p>只有当 <code>autoindex_format</code> 指令设置为 html 时候，上方的 <code>autoindex_exact_size</code> 指令才会起作用。</p>
+<p>该指令在 1.7.9 及以后版本中出现。</p>
+<h3 id="autoindex-localtime"><a href="#autoindex-localtime" class="headerlink" title="autoindex_localtime"></a>autoindex_localtime</h3><p><code>autoindex_localtime</code> 指令对应 HTML 格式，是否在目录列表上显示时间。</p>
+<p>默认为 off，显示的文件时间为 GMT 时间。</p>
+<p>改为 on 后，显示的文件时间为文件的服务器时间。</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>默认值</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>autoindex_localtime &lt;on |off&gt;;</td>
+<td>autoindex_localtime off;</td>
+<td>http、server、location</td>
+</tr>
+</tbody></table>
+<h3 id="实现案例"><a href="#实现案例" class="headerlink" title="实现案例"></a>实现案例</h3><p>自行准备几个文件或者压缩包，我这里准备了 4 个用过的压缩包。</p>
+<ul>
+<li>创建一个目录，将压缩包放入其中，我这里创建的路径是 <code>/opt/download</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /opt/download</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后把压缩包都放到该目录下</li>
+</ul>
+<p>效果如下:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@master download]<span class="comment"># pwd</span></span><br><span class="line">/opt/download</span><br><span class="line">[root@master download]<span class="comment"># ll</span></span><br><span class="line">总用量 545504</span><br><span class="line">-rw-r--r--. 1 root root 408587111 3月  12 22:02 hadoop-2.10.1.tar.gz</span><br><span class="line">-rw-r--r--. 1 root root 145520298 3月  12 21:29 jdk-8u301-linux-x64.tar.gz</span><br><span class="line">-rw-r--r--  1 root root     25680 4月  27 2017 mysql57-community-release-el7-11.noarch.rpm</span><br><span class="line">-rw-r--r--  1 root root   4456335 5月   9 19:40 mysql-connector-java-5.1.48.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>打开 Nginx 的配置文件</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>添加配置如下内容：</li>
+</ul>
+<p><strong>有注释版</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /download &#123;</span><br><span class="line">    <span class="attribute">root</span> /opt;                <span class="comment"># 下载目录所在的路径，location 后面的 /download 拼接到 /opt 后面</span></span><br><span class="line">    <span class="comment"># 以这些后缀的文件点击后为下载，注释掉则 txt 等文件是在网页打开并查看内容</span></span><br><span class="line">    <span class="attribute">if</span> (<span class="variable">$request_filename</span> <span class="regexp">~* ^.*?\.(txt|doc|pdf|rar|gz|zip|docx|exe|xlsx|ppt|pptx|conf)$)</span>&#123;</span><br><span class="line">			  <span class="attribute">add_header</span> Content-Disposition <span class="string">'attachment;'</span>;</span><br><span class="line">		  &#125;</span><br><span class="line">    <span class="attribute">autoindex</span> <span class="literal">on</span>;			  <span class="comment"># 启用目录列表的输出</span></span><br><span class="line">    <span class="attribute">autoindex_exact_size</span> <span class="literal">on</span>;  <span class="comment"># 在目录列表展示文件的详细大小</span></span><br><span class="line">    <span class="attribute">autoindex_format</span> html;	  <span class="comment"># 设置目录列表的格式为 html</span></span><br><span class="line">    <span class="attribute">autoindex_localtime</span> <span class="literal">on</span>;   <span class="comment"># 目录列表上显示系统时间</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>无注释版</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /download &#123;</span><br><span class="line">    <span class="attribute">root</span> /opt;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">if</span> (<span class="variable">$request_filename</span> <span class="regexp">~* ^.*?\.(txt|doc|pdf|rar|gz|zip|docx|exe|xlsx|ppt|pptx|conf)$)</span>&#123;</span><br><span class="line">			  <span class="attribute">add_header</span> Content-Disposition <span class="string">'attachment;'</span>;</span><br><span class="line">		  &#125;</span><br><span class="line">    <span class="attribute">autoindex</span> <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">autoindex_exact_size</span> <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">autoindex_format</span> html;</span><br><span class="line">    <span class="attribute">autoindex_localtime</span> <span class="literal">on</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong></p>
+<p>root 指令后面必须是下载路径，因为我的下载路径是 <code>/opt/download</code>，所以这里填写 <code>/opt</code>，而 location 的 <code>/download</code> 会自动拼接到后面，形成完整的下载路径。</p>
+<ul>
+<li>访问 <code>192.168.91.200/download</code></li>
+</ul>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.3gmq4emy84w0.webp" alt="image"></p>
+<ul>
+<li>JSON和XML格式(一般不用这两种格式)</li>
+</ul>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.6n5evv8oo5k0.webp" alt="image"></p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.kvsekaaiu40.webp" alt="image"></p>
+<h2 id="Nginx用户认证模块"><a href="#Nginx用户认证模块" class="headerlink" title="Nginx用户认证模块"></a>Nginx用户认证模块</h2><p>对应系统资源的访问，我们往往需要限制谁能访问，谁不能访问。这块就是我们通常所说的认证部分，认证需要做的就是根据用户输入的用户名和密码来判定用户是否为合法用户，如果是则放行访问，如果不是则拒绝访问。</p>
+<p>Nginx 对应用户认证这块是通过 <code>ngx_http_auth_basic_module</code> 模块来实现的，它允许通过使用「HTTP基本身份验证」协议验证用户名和密码来限制对资源的访问。默认情况下 Nginx 是已经安装了该模块，如果不需要则使用 <code>--without-http_auth_basic_module</code> 删除认证模块。</p>
+<p>该模块的指令比较简单。</p>
+<h3 id="auth-basic"><a href="#auth-basic" class="headerlink" title="auth_basic"></a>auth_basic</h3><p><code>auth_basic</code> 指令使用「HTTP基本身份验证」协议启用用户名和密码的验证。默认关闭。</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>默认值</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>auth_basic &lt;string | off&gt;;</td>
+<td>auth_basic off;</td>
+<td>http、server、location、limit_except</td>
+</tr>
+</tbody></table>
+<p>开启后，服务端会返回 401，指定的字符串会返回到客户端，给用户以提示信息，但是不同的浏览器对内容的展示不一致。</p>
+<h3 id="auth-basic-user-file"><a href="#auth-basic-user-file" class="headerlink" title="auth_basic_user_file"></a>auth_basic_user_file</h3><p><code>auth_basic_user_file</code> 指令指定用户名和密码所在文件，包括所在的路径。</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>默认值</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>auth_basic_user_file <file>;</file></td>
+<td>—</td>
+<td>http、server、location、limit_except</td>
+</tr>
+</tbody></table>
+<p>指定文件路径，该文件中设置用户名和密码，密码需要进行加密。可以采用工具自动生成。</p>
+<h3 id="实现案例-1"><a href="#实现案例-1" class="headerlink" title="实现案例"></a>实现案例</h3><ul>
+<li>在配置文件 nginx.conf 添加如下内容：</li>
+</ul>
+<p><strong>有注释版</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /download&#123;</span><br><span class="line">    <span class="comment"># 下载站点知识</span></span><br><span class="line">    <span class="attribute">root</span> /opt;                <span class="comment"># 下载目录所在的路径，location 后面的 /download 拼接到 /opt 后面</span></span><br><span class="line">    <span class="attribute">autoindex</span> <span class="literal">on</span>;			  <span class="comment"># 启用目录列表的输出</span></span><br><span class="line">    <span class="attribute">autoindex_exact_size</span> <span class="literal">on</span>;  <span class="comment"># 在目录列表展示文件的详细大小</span></span><br><span class="line">    <span class="attribute">autoindex_format</span> html;	  <span class="comment"># 设置目录列表的格式为 html</span></span><br><span class="line">    <span class="attribute">autoindex_localtime</span> <span class="literal">on</span>;   <span class="comment"># 目录列表上显示系统时间</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 认证模块知识</span></span><br><span class="line">    <span class="attribute">auth_basic</span> <span class="string">'please input your auth'</span>;   <span class="comment"># 启用户名和密码的验证，并在请求头插入数据</span></span><br><span class="line">    <span class="attribute">auth_basic_user_file</span> htpasswd;    <span class="comment"># 存用户名和密码的文件路径</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>无注释版</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /download&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="attribute">root</span> /opt;</span><br><span class="line">    <span class="attribute">autoindex</span> <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">autoindex_exact_size</span> <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">autoindex_format</span> html;</span><br><span class="line">    <span class="attribute">autoindex_localtime</span> <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="attribute">auth_basic</span> <span class="string">'please input your auth'</span>;   </span><br><span class="line">    <span class="attribute">auth_basic_user_file</span> htpasswd;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>我们需要使用 <code>htpasswd</code> 工具生成包含用户名和密码的文件</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y httpd-tools</span><br></pre></td></tr></table></figure>
+
+<p>该工具基本操作指令如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">htpasswd -c /usr/<span class="built_in">local</span>/nginx/conf/htpasswd username   <span class="comment"># 创建一个新文件记录用户名和密码，密码后面弹出输入</span></span><br><span class="line">htpasswd -b /usr/<span class="built_in">local</span>/nginx/conf/htpasswd username password   <span class="comment"># 在指定文件新增一个用户名和密码</span></span><br><span class="line">htpasswd -D /usr/<span class="built_in">local</span>/nginx/conf/htpasswd username   <span class="comment"># 从指定文件删除一个用户信息</span></span><br><span class="line">htpasswd -v /usr/<span class="built_in">local</span>/nginx/conf/htpasswd username   <span class="comment"># 验证用户名和密码是否正确</span></span><br></pre></td></tr></table></figure>
+
+<p>根据需求指定生成路径的位置。</p>
+<ul>
+<li>我们创建一个 frx 的用户名，密码是 123456</li>
+</ul>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.5uqgyc41uuc0.webp" alt="image"></p>
+<p>可以查看生成的文件内容</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master conf]<span class="comment"># cat /usr/local/nginx/conf/htpasswd</span></span><br><span class="line">frx:<span class="variable">$apr1</span><span class="variable">$wDXdSh0O</span><span class="variable">$yR66Agylnta9zupO7cD3k</span>.</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>浏览器访问 <code>192.168.91.200/download</code><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.1j6bwl4jr2g0.webp" alt="image"></li>
+</ul>
+<p>上述方式虽然能实现用户名和密码的验证，但是大家也看到了，所有的用户名和密码信息都记录在文件里面，如果用户量过大的话，这种方式就显得有点麻烦了，这时候我们就得通过后台业务代码来进行用户权限的校验了。</p>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2022/11/14/Nginx_Cache_integration/">Nginx 缓存集成</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-11-14</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Nginx/">Nginx</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/后端/">后端</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Nginx/">Nginx</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/中间件/">中间件</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h1 id="Nginx-缓存集成"><a href="#Nginx-缓存集成" class="headerlink" title="Nginx 缓存集成"></a>Nginx 缓存集成</h1><h2 id="缓存的概念"><a href="#缓存的概念" class="headerlink" title="缓存的概念"></a>缓存的概念</h2><p>缓存就是数据交换的缓冲区（称作：Cache），当用户要获取数据的时候，会先从缓存中去查询获取数据，如果缓存中有就会直接返回给用户，如果缓存中没有，则会发请求从服务器重新查询数据，将数据返回给用户的同时将数据放入缓存，下次用户就会直接从缓存中获取数据。</p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220805/image.371wkgon7280.webp" alt="image"></p>
+<p>缓存其实在很多场景中都有用到，比如：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作系统磁盘缓存</td>
+<td>减少磁盘机械操作</td>
+</tr>
+<tr>
+<td>数据库缓存</td>
+<td>减少文件系统的IO操作</td>
+</tr>
+<tr>
+<td>应用程序缓存</td>
+<td>减少对数据库的查询</td>
+</tr>
+<tr>
+<td>Web 服务器缓存</td>
+<td>减少对应用服务器请求次数</td>
+</tr>
+<tr>
+<td>浏览器缓存</td>
+<td>减少与后台的交互次数</td>
+</tr>
+</tbody></table>
+<p>缓存的优点</p>
+<ul>
+<li>减少数据传输，节省网络流量，加快响应速度，提升用户体验</li>
+<li>减轻服务器压力</li>
+<li>提供服务端的高可用性</li>
+</ul>
+<p>缓存的缺点</p>
+<ul>
+<li>数据的不一致</li>
+<li>增加成本</li>
+</ul>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220805/image.2itt4ge9erq0.webp" alt="image"></p>
+<p>在 <a href="/middleware/Nginx/Nginx_Static_resource_deployment/#静态资源缓存配置">静态资源部署 - 缓存配置</a> 的时候，我们学习了如何在浏览器进行缓存，而本内容学习的是 Nginx。</p>
+<p>Nginx 作为 Web 服务器，Nginx 作为 Web 缓存服务器，它介于客户端和应用服务器之间，当用户通过浏览器访问一个 URL 时，Web 缓存服务器会去应用服务器获取要展示给用户的内容，将内容缓存到自己的服务器上，当下一次请求到来时，如果访问的是同一个 URL，Web 缓存服务器就会直接将之前缓存的内容返回给客户端，而不是向应用服务器再次发送请求。Web 缓存降低了应用服务器、数据库的负载，减少了网络延迟，提高了用户访问的响应速度，增强了用户的体验。</p>
+<h2 id="Web缓存服务"><a href="#Web缓存服务" class="headerlink" title="Web缓存服务"></a>Web缓存服务</h2><p>Nginx 是从 0.7.48 版开始提供缓存功能。Nginx 是基于 Proxy Store 来实现的，<strong>其原理是把 URL 及相关组合当做 Key，在使用 MD5 算法对 Key 进行哈希化，得到硬盘上对应的哈希目录路径，从而将缓存内容保存在该目录中</strong>。它可以支持任意 URL 连接，同时也支持 404/301/302 这样的非200 状态码。Nginx 即可以支持对指定 URL 或者状态码设置过期时间，也可以使用 purge 命令来手动清除指定 URL 的缓存。</p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220805/image.5rf186zoffg0.webp" alt="image"></p>
+<h2 id="缓存设置相关指令"><a href="#缓存设置相关指令" class="headerlink" title="缓存设置相关指令"></a>缓存设置相关指令</h2><p>Nginx 的 Web 缓存服务主要是使用 <code>ngx_http_proxy_module</code> 模块相关指令集来完成，接下来我们把常用的指令来进行介绍下。</p>
+<p><a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html" target="_blank" rel="noopener">ngx_http_proxy_module 文档地址</a></p>
+<h3 id="proxy-cache-path"><a href="#proxy-cache-path" class="headerlink" title="proxy_cache_path"></a>proxy_cache_path</h3><p>该指定用于设置缓存文件的存放路径。</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>默认值</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>proxy_cache_path &lt;path&gt; [levels=number]<br> &lt;keys_zone=zone_name:zone_size&gt; [inactive=time][max_size=size];</td>
+<td>—</td>
+<td>http</td>
+</tr>
+</tbody></table>
+<p><code>path</code>：缓存路径地址，如：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/proxy_cache</span><br></pre></td></tr></table></figure>
+
+<p><code>levels</code>: 指定该缓存空间 <code>path</code> 基础上新建的目录，最多可以设置 3 层，每层取 1 到 2 个字母作为目录名，格式为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">levels=num:num:num   # 三个 num 代表三层，每层目录名分别取 num 个字母</span><br><span class="line">levels=num:num       # 两个 num 代表两层，每层目录名分别取 num 个字母</span><br><span class="line">levels=num           # 一个 num 代表一层，每层目录名分别取 num 个字母</span><br></pre></td></tr></table></figure>
+
+<p>如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">levels=1:2   # 缓存空间有两层目录，第一层目录名取 1 个字母，第二层目录名取 2 个字母</span><br></pre></td></tr></table></figure>
+
+<p>字母名从 MD5 加密的值后面往前截取。</p>
+<p>举例说明：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 假设 proxy_cache_key 为 kele，通过 MD5 加密以后的值为 27ce47ea65c1381dbe5175f7c77d8a3a</span></span><br><span class="line">levels=1:2    # 最终的存储路径为 /usr/local/proxy_cache/a/a3，每层截取个数根据 1:2</span><br><span class="line">levels=2:1:2  # 最终的存储路径为 /usr/local/proxy_cache/3a/a/d8，每层截取个数根据 2:1:2</span><br><span class="line">levels=2:2:2  # 最终的存储路径为 /usr/local/proxy_cache/3a/8a/7d，每层截取个数根据 2:2:2</span><br></pre></td></tr></table></figure>
+
+<p>还不理解吗？存储路径在 <code>path</code> 目录基础上再创建新的目录，新的目录名从加密后的值的后面往前面截取。</p>
+<p><code>keys_zone</code>：用来为这个存key的缓存区设置名称和指定大小，如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keys_zone=kele:200m  # 缓存区的名称是 kele，大小为 200M，1M 大概能存储 8000 个 keys</span><br></pre></td></tr></table></figure>
+
+<p><code>inactive</code>：指定的时间内未访问的缓存数据会从缓存中删除，默认情况下，<code>inactive</code> 设置为 10 分钟。如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inactive=1d   # 缓存数据在 1 天内没有被访问就会被删除</span><br></pre></td></tr></table></figure>
+
+<p><code>max_size</code>：设置最大缓存空间，如果缓存空间存满，默认会覆盖缓存时间最长的资源，默认单位为兆。如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">max_size=20g    # 最大缓存空间为 20G</span><br></pre></td></tr></table></figure>
+
+<p>配置实例:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http&#123;</span><br><span class="line">	<span class="attribute">proxy_cache_path</span> /usr/local/proxy_cache keys_zone=kele:<span class="number">200m</span> levels=<span class="number">1</span>:<span class="number">2</span>:<span class="number">1</span> inactive=<span class="number">1d</span> max_size=<span class="number">20g</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时重启 Nginx 配置文件，发现 <code>/usr/local</code> 目录里多出一个目录，名字叫做 proxy_cache。</p>
+<h3 id="proxy-cache"><a href="#proxy-cache" class="headerlink" title="proxy_cache"></a>proxy_cache</h3><p>该指令用来开启或关闭代理缓存，如果是开启则自定使用哪个缓存区来进行缓存。默认关闭。</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>默认值</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>proxy_cache &lt;zone_name | off&gt;;</td>
+<td>proxy_cache off;</td>
+<td>http、server、location</td>
+</tr>
+</tbody></table>
+<p>zone_name：指定使用缓存区的名称。</p>
+<p>缓存区的名称必须是 <code>proxy_cache_path</code> 里的 <code>keys_zone</code> 生成的缓存名。</p>
+<h3 id="proxy-cache-key"><a href="#proxy-cache-key" class="headerlink" title="proxy_cache_key"></a>proxy_cache_key</h3><p>该指令用来设置 Web 缓存的 key 值，Nginx 会根据 key 值利用 MD5 计算处哈希值并缓存起来，作为缓存目录名的参考。</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>默认值</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>proxy_cache_key &lt;key&gt;;</td>
+<td>proxy_cache_key $scheme$proxy_host$request_uri;</td>
+<td>http、server、location</td>
+</tr>
+</tbody></table>
+<p>如 kele 由 MD5 计算出来是 27ce47ea65c1381dbe5175f7c77d8a3a</p>
+<p>在哪计算出来的？ 前往 <a href="https://md5jiami.bmcx.com/" target="_blank" rel="noopener">MD5 在线加密网站</a></p>
+<h3 id="proxy-cache-valid"><a href="#proxy-cache-valid" class="headerlink" title="proxy_cache_valid"></a>proxy_cache_valid</h3><p>该指令用来对不同返回状态码的 URL 设置不同的缓存时间。</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>默认值</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>proxy_cache_valid [code …… ] &lt;time&gt;;</td>
+<td>—</td>
+<td>http、server、location</td>
+</tr>
+</tbody></table>
+<p>如：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">proxy_cache_valid</span> <span class="number">200</span> <span class="number">302</span> <span class="number">10m</span>; <span class="comment"># 为 200 和 302 的响应 URL 设置 10 分钟缓存时间</span></span><br><span class="line"><span class="attribute">proxy_cache_valid</span> <span class="number">404</span> <span class="number">1m</span>;      <span class="comment"># 为 404 的响应 URL 设置 1 分钟缓存时间</span></span><br><span class="line"><span class="attribute">proxy_cache_valid</span> any <span class="number">1m</span>;      <span class="comment"># 对所有响应状态码的URL都设置 1 分钟缓存时间</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="proxy-cache-min-uses"><a href="#proxy-cache-min-uses" class="headerlink" title="proxy_cache_min_uses"></a>proxy_cache_min_uses</h3><p>该指令用来设置资源被访问多少次后才会被缓存。默认是 1 次。</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>默认值</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>proxy_cache_min_uses &lt;number&gt;;</td>
+<td>proxy_cache_min_uses 1;</td>
+<td>http、server、location</td>
+</tr>
+</tbody></table>
+<h3 id="proxy-cache-methods"><a href="#proxy-cache-methods" class="headerlink" title="proxy_cache_methods"></a>proxy_cache_methods</h3><p>该指令是设置缓存哪些 HTTP 方法的请求资源。</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>默认值</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>proxy_cache_methods &lt;GET | HEAD | POST&gt;;</td>
+<td>proxy_cache_methods GET HEAD;</td>
+<td>http、server、location</td>
+</tr>
+</tbody></table>
+<p>默认缓存 HTTP 的 GET 和 HEAD 方法的请求资源，不缓存 POST 方法的请求资源。</p>
+<h2 id="缓存设置案例"><a href="#缓存设置案例" class="headerlink" title="缓存设置案例"></a>缓存设置案例</h2><h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h3><p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220805/image.4ye8ddxwbng0.webp" alt="image"></p>
+<h3 id="步骤实现"><a href="#步骤实现" class="headerlink" title="步骤实现"></a>步骤实现</h3><p><strong>应用服务器的环境准备</strong></p>
+<ol>
+<li><p>在 <code>192.168.200.146</code> 服务器 A 上的 tomcat 的 webapps 下面添加一个 js 目录，并在 js 目录中添加一个 jquery.js 文件</p>
+</li>
+<li><p>启动 tomcat</p>
+</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/tomcat/bin</span><br><span class="line">./startup.sh</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>访问服务器 A 进行测试</li>
+</ol>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">http://192.168.200.146:8080/js/jquery.js</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Nginx 的环境准备</strong></p>
+<ol>
+<li>准备服务器 B 完成 Nginx 的反向代理配置</li>
+</ol>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">http&#123;</span><br><span class="line">	<span class="attribute">upstream</span> backend&#123;</span><br><span class="line">		<span class="attribute">server</span> <span class="number">192.168.200.146:8080</span>;   <span class="comment"># 服务器 A 地址</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="section">server</span> &#123;</span><br><span class="line">		<span class="attribute">listen</span>       <span class="number">8080</span>;</span><br><span class="line">        <span class="attribute">server_name</span>  localhost;</span><br><span class="line">        <span class="attribute">location</span> / &#123;</span><br><span class="line">        	<span class="attribute">proxy_pass</span> http://backend/js/;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>完成 Nginx 缓存配置</li>
+</ol>
+<p><strong>有注释版</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">http&#123;</span><br><span class="line">    <span class="attribute">proxy_cache_path</span> /usr/local/proxy_cache levels=<span class="number">2</span>:<span class="number">1</span> keys_zone=bing:<span class="number">200m</span> inactive=<span class="number">1d</span> max_size=<span class="number">20g</span>;</span><br><span class="line">    <span class="attribute">upstream</span> backend&#123;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">192.168.200.146:8080</span>;   <span class="comment"># 服务器 A 的地址</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span>       <span class="number">8080</span>;     			<span class="comment"># 监听 8080 端口</span></span><br><span class="line">        <span class="attribute">server_name</span>  localhost; 		<span class="comment"># 监听 localhost 的IP</span></span><br><span class="line">        <span class="attribute">location</span> / &#123;					<span class="comment"># 监听包含 / 的请求</span></span><br><span class="line">            <span class="attribute">proxy_cache</span> bing;    		<span class="comment"># 开启 bing 缓存区，和第 2 行的 keys_zone 对应</span></span><br><span class="line">            <span class="attribute">proxy_cache_key</span> kele;  		<span class="comment"># 缓存的 key 值，会被 MD5 解析成字符串用于生成缓存的目录</span></span><br><span class="line">            <span class="attribute">proxy_cache_min_uses</span> <span class="number">5</span>; 	<span class="comment"># 资源被访问 5 次后才会被缓存</span></span><br><span class="line">            <span class="attribute">proxy_cache_valid</span> <span class="number">200</span> <span class="number">5d</span>;	<span class="comment"># 为 200 响应 URL 设置 5 天缓存时间</span></span><br><span class="line">            <span class="attribute">proxy_cache_valid</span> <span class="number">404</span> <span class="number">30s</span>;  <span class="comment"># 为 404 的响应 URL 设置 30 秒缓存时间</span></span><br><span class="line">            <span class="attribute">proxy_cache_valid</span> any <span class="number">1m</span>;	<span class="comment"># 为除了上方的任意响应 URL 设置 1 分钟缓存时间</span></span><br><span class="line">            <span class="attribute">add_header</span> nginx-cache <span class="string">"<span class="variable">$upstream_cache_status</span>"</span>;  <span class="comment"># 将缓存的状态放到请求头里</span></span><br><span class="line">            <span class="attribute">proxy_pass</span> http://backend/js/;  <span class="comment"># 代理 backend，将 /js/ 追加到 backend 模块里的地址后面</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>无注释版</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">http&#123;</span><br><span class="line">    <span class="attribute">proxy_cache_path</span> /usr/local/proxy_cache levels=<span class="number">2</span>:<span class="number">1</span> keys_zone=bing:<span class="number">200m</span> inactive=<span class="number">1d</span> max_size=<span class="number">20g</span>;</span><br><span class="line">    <span class="attribute">upstream</span> backend&#123;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">192.168.200.146:8080</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span>       <span class="number">8080</span>;</span><br><span class="line">        <span class="attribute">server_name</span>  localhost;</span><br><span class="line">        <span class="attribute">location</span> / &#123;</span><br><span class="line">            <span class="attribute">proxy_cache</span> bing;</span><br><span class="line">            <span class="attribute">proxy_cache_key</span> kele;</span><br><span class="line">            <span class="attribute">proxy_cache_min_uses</span> <span class="number">5</span>;</span><br><span class="line">            <span class="attribute">proxy_cache_valid</span> <span class="number">200</span> <span class="number">5d</span>;</span><br><span class="line">            <span class="attribute">proxy_cache_valid</span> <span class="number">404</span> <span class="number">30s</span>;</span><br><span class="line">            <span class="attribute">proxy_cache_valid</span> any <span class="number">1m</span>;</span><br><span class="line">            <span class="attribute">add_header</span> nginx-cache <span class="string">"<span class="variable">$upstream_cache_status</span>"</span>;</span><br><span class="line">            <span class="attribute">proxy_pass</span> http://backend/js/;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>测试是否缓存成功</li>
+</ol>
+<p>利用 <code>$upstream_cache_status</code> 的值在控制台(F12)查看是否缓存。</p>
+<p>第一次访问 <code>192.168.200.113:8080/jquery.js</code>，如图：</p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220805/image.3p1azxp6cdy0.webp" alt="image"></p>
+<p>因为第一次访问时，正在缓存，所以返回的请求头 MISS 是没有缓存成功。</p>
+<p>第二次访问 <code>192.168.200.113:8080/jquery.js</code>，如图：</p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220805/image.73w7kaxo8r00.webp" alt="image"></p>
+<p>HIT 代表成功缓存。</p>
+<ol start="4">
+<li>测试 404 缓存时间</li>
+</ol>
+<p>测试 404 缓存时间，我们访问 <code>192.168.200.113:8080/jquery.js111</code>，它会返回 404 页面，并缓存 404 页面，当我们立即访问正确的 <code>192.168.200.113:8080/jquery.js</code>，它依然返回 404 页面，因为 <code>/jquery.js</code> 请求目前被缓存为 404，还没到 30 秒过期，等 30 秒后再访问，就成功了。</p>
+<h2 id="缓存的删除"><a href="#缓存的删除" class="headerlink" title="缓存的删除"></a>缓存的删除</h2><p>这里介绍两种方式：</p>
+<ul>
+<li>删除对应的缓存目录</li>
+<li>使用第三方扩展模块</li>
+</ul>
+<h3 id="删除缓存目录"><a href="#删除缓存目录" class="headerlink" title="删除缓存目录"></a>删除缓存目录</h3><p>假设缓存目录是 <code>/usr/local/proxy_cache/</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /usr/<span class="built_in">local</span>/proxy_cache/......</span><br></pre></td></tr></table></figure>
+
+<p>如果想删除某个缓存目录，就在后面加上目录名。如果想删除整个缓存目录，直接删除 <code>/usr/local/proxy_cache/</code> 即可。</p>
+<h3 id="ngx-cache-purge删除"><a href="#ngx-cache-purge删除" class="headerlink" title="ngx_cache_purge删除"></a>ngx_cache_purge删除</h3><p>使用第三方扩展模块 <code>ngx_cache_purge</code> 进行删除缓存。</p>
+<ol>
+<li><p>下载 <code>ngx_cache_purge</code> 模块对应的资源包，并上传到服务器的 <code>/root/nginx/module/</code> 目录下。</p>
+<p>这里的资源包是 ngx_cache_purge-2.3.tar.gz</p>
+</li>
+<li><p>对资源文件进行解压缩</p>
+</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxf ngx_cache_purge-2.3.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>修改文件夹名称为 <code>purge</code>，方便后期配置</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv ngx_cache_purge-2.3 purge</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>查询 Nginx 的配置参数 <code>configure arguments</code>，并拷贝出来</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -V</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>进入 Nginx 的安装包目录，使用 ./configure 进行参数配置，记得加上 <code>nginx -V</code> 查询出来的 <code>configure arguments</code> 参数</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --add-module=/root/nginx/module/purge  <span class="comment"># 加上之前的 configure arguments 参数</span></span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>使用 make 进行编译</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>将 Nginx 安装目录的 nginx 二级制可执行文件备份</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv /usr/<span class="built_in">local</span>/nginx/sbin/nginx /usr/<span class="built_in">local</span>/nginx/sbin/nginx.backup</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>将编译后的 objs 中的 nginx 拷贝到 nginx 的 sbin 目录下</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp objs/nginx /usr/<span class="built_in">local</span>/nginx/sbin</span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>使用 <code>make upgrade</code> 进行升级，记得在安装包目录下执行</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/nginx/core/nginx-1.20.2</span><br><span class="line"></span><br><span class="line">make upgrade</span><br></pre></td></tr></table></figure>
+
+<ol start="10">
+<li>在 Nginx 配置文件中进行如下配置</li>
+</ol>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">    <span class="attribute">location</span> ~/purge(/.*) &#123;</span><br><span class="line">        <span class="attribute">proxy_cache_purge</span> bing kele;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>proxy_cache_purge</code> 指令</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>默认值</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>proxy_cache_purge &lt;cache&gt; &lt;key&gt;</td>
+<td>-</td>
+<td>http、server、location</td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>cache</code> 是 <code>proxy_cache</code>，详细内容看 <a href="https://notes.youngkbt.cn/nginx/cache-integration/#proxy-cache" target="_blank" rel="noopener">proxy_cache</a></li>
+<li><code>key</code> 是 <code>proxy_cache_key</code>，详细内容看 <a href="https://notes.youngkbt.cn/nginx/cache-integration/#proxy-cache-key" target="_blank" rel="noopener">proxy_cache_key</a></li>
+</ul>
+<h2 id="资源不缓存"><a href="#资源不缓存" class="headerlink" title="资源不缓存"></a>资源不缓存</h2><p>前面咱们已经完成了 Nginx 作为 Web 缓存服务器的使用。但是我们得思考一个问题，<strong>不是所有的数据都适合进行缓存</strong>。比如说对于一些经常发生变化的数据。如果进行缓存的话，就很容易出现用户访问到的数据不是服务器真实的数据。所以对于这些资源我们在缓存的过程中就需要进行过滤，不进行缓存。</p>
+<p>Nginx 也提供了这块的功能设置，需要使用到如下两个指令：</p>
+<ul>
+<li>proxy_no_cache</li>
+<li>proxy_cache_bypass</li>
+</ul>
+<h3 id="proxy-no-cache"><a href="#proxy-no-cache" class="headerlink" title="proxy_no_cache"></a>proxy_no_cache</h3><p>该指令是用来定义不将数据进行缓存的条件，也就是不缓存指定的数据。</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>默认值</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>proxy_no_cache &lt;string&gt; …… ;</td>
+<td>—</td>
+<td>http、server、location</td>
+</tr>
+</tbody></table>
+<p>可设置多个 string。</p>
+<p>配置实例：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">proxy_no_cache</span> <span class="variable">$cookie_nocache</span> <span class="variable">$arg_nocache</span> <span class="variable">$arg_comment</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="proxy-cache-bypass"><a href="#proxy-cache-bypass" class="headerlink" title="proxy_cache_bypass"></a>proxy_cache_bypass</h3><p>该指令是用来设置不从缓存中获取数据的条件，也就是虽然缓存了指定的资源，但请求过来也不会去获取它，而是去服务器里获取资源。</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>默认值</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>proxy_cache_bypass &lt;string&gt; …… ;</td>
+<td>—</td>
+<td>http、server、location</td>
+</tr>
+</tbody></table>
+<p>可设置多个 string。</p>
+<p>配置实例：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">proxy_cache_bypass</span> <span class="variable">$cookie_nocache</span> <span class="variable">$arg_nocache</span> <span class="variable">$arg_comment</span>;</span><br></pre></td></tr></table></figure>
+
+<p>上述两个指令都有一个指定的条件，这个条件可以是多个，<strong>并且多个条件中至少有一个不为空且不等于「0」，则条件满足成立。</strong></p>
+<p>上面给的配置实例是从官方网站获取的，里面使用到了三个变量，分别是 <code>$cookie_nocache</code>、<code>$arg_nocache</code>、<code>$arg_comment</code></p>
+<h3 id="常用不缓存变量"><a href="#常用不缓存变量" class="headerlink" title="常用不缓存变量"></a>常用不缓存变量</h3><p>常用不缓存的三个变量分别为：</p>
+<ul>
+<li><code>$cookie_nocache</code></li>
+<li><code>$arg_nocache</code></li>
+<li><code>$arg_comment</code></li>
+</ul>
+<p>这三个变量分别代表的含义是:</p>
+<ul>
+<li><code>$cookie_nocache</code>：指的是当前请求的 cookie 中 key 为 nocache 的 value 值</li>
+<li><code>$arg_nocache</code> 和 <code>$arg_comment</code>：指的是当前请求的参数中属性名为 nocache 和 comment 对应的属性值</li>
+</ul>
+<p>案例演示:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">log_format</span> params <span class="variable">$cookie_nocache</span> | <span class="variable">$arg_nocache</span> | <span class="variable">$arg_comment</span>；</span><br><span class="line">server &#123;</span><br><span class="line">    <span class="attribute">listen</span>	<span class="number">8081</span>;</span><br><span class="line">    <span class="attribute">server_name</span> localhost;</span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">access_log</span> logs/access_params.log params;</span><br><span class="line">        <span class="attribute">add_header</span> Set-Cookie <span class="string">'nocache=888'</span>;</span><br><span class="line">        <span class="attribute">root</span> html;</span><br><span class="line">        <span class="attribute">index</span> index.html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>访问 <code>192.168.200.133:8081?nocache=999&amp;comment=777</code>，然后去日志查看结果，如图所示：</p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220805/image.695kmtpob840.webp" alt="image"></p>
+<p>以后访问的某一个资源如果不想缓存，在 URL 后面加入三个变量中的任意一个或多个即可，只要它们不为空或 0。</p>
+<p>这三个变量推荐作为不缓存资源的条件，但并不是只能作为不缓存资源的条件。</p>
+<h3 id="案例模板"><a href="#案例模板" class="headerlink" title="案例模板"></a>案例模板</h3><p>设置不缓存资源的配置方案模板：</p>
+<ul>
+<li>如果访问的是 js 文件，则不会缓存该 js 文件</li>
+<li>如果 <code>$nocache</code> <code>$cookie_nocache</code> <code>$arg_nocache</code> <code>$arg_comment</code> 任意不为空或 0，则访问的资源不进行缓存</li>
+</ul>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span>	<span class="number">8080</span>;</span><br><span class="line">    <span class="attribute">server_name</span> localhost;</span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">if</span> (<span class="variable">$request_uri</span> <span class="regexp">~ /.*\.js$)</span>&#123;</span><br><span class="line">            <span class="attribute">set</span> <span class="variable">$nocache</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="attribute">proxy_no_cache</span> <span class="variable">$nocache</span> <span class="variable">$cookie_nocache</span> <span class="variable">$arg_nocache</span> <span class="variable">$arg_comment</span>;</span><br><span class="line">        <span class="attribute">proxy_cache_bypass</span> <span class="variable">$nocache</span> <span class="variable">$cookie_nocache</span> <span class="variable">$arg_nocache</span> <span class="variable">$arg_comment</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为什么不会缓存 js 文件呢，看第 5 - 6 行代码。如果访问的文件是 js 文件，则设置 <code>$nocache</code> 为 1，只要它不为 0，则触发第 8 行代码，<code>proxy_no_cache</code> 后面的参数只要有一个不为空或 0，则访问的资源不进行缓存。</p>
+<hr>
+<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p>proxy_cache_path设置缓存路径，其中有一个inactive参数设置cache设置不活跃缓存的删除时间。<br>proxy_cache_valid设置不同响应码的缓存过期时间。</p>
+<p><strong>提出问题</strong></p>
+<p>那么这俩参数同时设置，哪个生效呢？</p>
+<p>根据上面Stack Overflow的说法。<strong>inactive应该需要设置的比valid中时间长。</strong></p>
+<p>注意，inactive时间到了，数据删除。valid过期了数据不会删除。有请求，inactive就刷新计时，valid不变。没请求，inactive和valid都不变。</p>
+<p>分析各种情况：</p>
+<p><strong>1、inactive设置1m，valid设置1h</strong><br>首先，请求进来，cache出现，两个时间开始倒计时。<br>情况一：不断请求这个cache，inactive不断刷新1m倒计时，直到到达1h，valid过期。这时你去请求了一次，nginx重新去读取服务器数据，刷新valid倒计时。期间数据一直在缓存里。不请求，就再过1m删掉。<br>情况二：两次请求间隔超过了1min，inactive生效，删除了这个cache数据，没了。你再请求，相当于重新去服务器拿了一次数据，inactive和valid倒计时都会重新刷新，不请求，cache里就没有这份数据了</p>
+<p><strong>2、inactive设置1m,valid设置1m</strong><br>首先，请求进来，cache出现，两个时间开始倒计时。<br>情况一：1m内不请求，最后inactive生效删掉。不请求就没缓存了，请求了一次，重新从服务器读取一份，两个计时刷新。<br>情况二：1m内请求了一次，inactive时间刷新，但是valid还在计时，所以1m到了后，缓存过期了。你再请求就重新从服务器读取一份，刷新计时。不请求，就等待1m，由inactive生效删除了缓存</p>
+<p><strong>3、inactive设置1h，valid设置了1m</strong><br>首先，请求进来，cache出现，两个时间开始倒计时。<br>过了1m，缓存过期，数据在没删掉。不请求，直到1h到，inactive删掉缓存。请求了一次，重新从服务器读取，刷新两个计时。</p>
+<p>所以，结论inactive应该需要设置的比valid中时间长。<br>目的是针对，一个长期不使用的缓存数据，把他删掉不占用存储，或者强制刷新。</p>
+<ul>
+<li>inactive是针对两次请求间隔时间，到时间就删掉不占用内存。</li>
+<li>valid是针对持续不断的请求，导致一直缓存，我设置时间强制刷新一下。例如，支付宝每时每刻都有人访问，一直请求，缓存就一直不刷新一直是旧的。</li>
+</ul>
+<p>inactive和valid是配合使用，不是谁时间短覆盖谁的关系。</p>
 </div><hr></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/45/"><i class="fa fa-chevron-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/45/">45</a><span class="page-number current">46</span><a class="page-number" href="/page/47/">47</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/47/"><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://i.328888.xyz/2022/12/21/ARudF.png)"><div class="layout" id="footer"><div class="copyright">&copy;2015 - 2023 By GeYu</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Enjoy the cyber world!</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')

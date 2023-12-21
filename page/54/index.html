@@ -7,88 +7,7 @@
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">225</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">82</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">45</span></a></div></div></div><nav id="nav" style="background-image: url(https://i.328888.xyz/2022/12/21/ARudF.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2022/09/16/git_status总结/">Git工作区中文件状态总结</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-09-16</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/git/">git</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/git/">git</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>Git工作区中文件的状态👇</p>
-<p>Git工作区中的文件存在两种状态:</p>
-<ul>
-<li>untracked未跟踪（未被纳入版本控制)</li>
-<li>tracked已跟踪（被纳入版本控制)<ul>
-<li>1.Unmodified 未修改状态</li>
-<li>2.Modified 已修改状态</li>
-<li>3.Staged 已暂存状态</li>
-</ul>
-</li>
-</ul>
-<h1 id="详细说明"><a href="#详细说明" class="headerlink" title="详细说明"></a>详细说明</h1><p><strong>注⚠：使用git status查看文件状态</strong></p>
-<h2 id="untracker"><a href="#untracker" class="headerlink" title="untracker"></a>untracker</h2><p>设想：此时在.git所在目录中新建文件Hello.txt<br>则：此时查看文件Hello.txt状态为 <font color="#660000">untracker</font> </p>
-<h2 id="tracker"><a href="#tracker" class="headerlink" title="tracker"></a>tracker</h2><h3 id="Staged"><a href="#Staged" class="headerlink" title="Staged"></a>Staged</h3><p>设想：此时对Hello.txt文件进行git add. 操作<br>则：此时查看文件Hello.txt状态为 <font color="#006600">Staged</font></p>
-<h3 id="Unmodified"><a href="#Unmodified" class="headerlink" title="Unmodified"></a>Unmodified</h3><p>设想：此时对Hello.txt文件进行git commit 操作<br>则：此时查看文件Hello.txt状态为 Unmodified，注意此时调用状态查看结果并不显示</p>
-<h3 id="Modified"><a href="#Modified" class="headerlink" title="Modified"></a>Modified</h3><p>设想：此时对Hello.txt文件内容进行修改操作<br>则：此时查看文件Hello.txt状态为 <font color="#660000">Modified</font> (未放入缓存区)</p>
-<p>紧接着：再次执行git add. 操作<br>则：此时查看文件Hello.txt状态为 <font color="#006600">Modified</font> (已归入缓存区)</p>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2022/09/13/SpringMVC - 获取Get请求参数详解/">SpringMVC获取Get请求参数的几种方式</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-09-13</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/后端/">后端</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/SpringMVC/">SpringMVC</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/后端/">后端</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JavaWeb/">JavaWeb</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/RESTful/">RESTful</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p><strong><center>📨本篇主要罗列获取Get请求参数方法的区别📨</center></strong></p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>先看如下两段基于@GetMapping注解的方法👇</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/page"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> R&lt;Page&gt; <span class="title">page</span><span class="params">(<span class="keyword">int</span> page, <span class="keyword">int</span> pageSize, String name)</span></span>&#123;</span><br><span class="line">    log.info(<span class="string">"page=&#123;&#125;, pageSize=&#123;&#125;, name=&#123;&#125;"</span>, page, pageSize, name);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建页面对象</span></span><br><span class="line">    Page pageInfo = <span class="keyword">new</span> Page(page,pageSize);</span><br><span class="line">    <span class="comment">//配置分页条件</span></span><br><span class="line">    LambdaQueryWrapper&lt;Employee&gt; queryWrapper = <span class="keyword">new</span> LambdaQueryWrapper();</span><br><span class="line">    queryWrapper.like(StringUtils.isNotEmpty(name), Employee::getName, name);</span><br><span class="line">    queryWrapper.orderByDesc(Employee::getUpdateTime);</span><br><span class="line"></span><br><span class="line">    employeeService.page(pageInfo, queryWrapper);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> R.success(pageInfo);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/&#123;id&#125;"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> R&lt;Employee&gt; <span class="title">getByID</span><span class="params">(@PathVariable Long id)</span></span>&#123;</span><br><span class="line">    Employee employee = employeeService.getById(id);</span><br><span class="line">    <span class="keyword">if</span> (employee != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> R.success(employee);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> R.error(<span class="string">"查询失败！"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>上面两段代码中：</p>
-<ul>
-<li>共同点是都是针对Get请求的后端代码逻辑处理</li>
-<li>主要的不同之处是对于Get请求参数的获取方式</li>
-<li>第一段代码的完整请求路径是：<strong><a href="http://localhost:8080/employee/page?page=1&amp;pageSize=2" target="_blank" rel="noopener">http://localhost:8080/employee/page?page=1&amp;pageSize=2</a></strong></li>
-<li>第二段代码的完整请求路径是：<strong><a href="http://localhost:8080/employee/141242344443454456" target="_blank" rel="noopener">http://localhost:8080/employee/141242344443454456</a></strong></li>
-</ul>
-<h2 id="后端用参数接收"><a href="#后端用参数接收" class="headerlink" title="后端用参数接收"></a>后端用参数接收</h2><p>第一种属于传统方式的Get请求参数获取方法，即参数跟在问号后面。<br>我们假有这样一段请求需要处理：<strong><a href="http://localhost:8080/helloworld?name=张三" target="_blank" rel="noopener">http://localhost:8080/helloworld?name=张三</a></strong><br>则Controller中的处理代码如下👇</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestParam;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/helloworld"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">helloworld1</span><span class="params">(@RequestParam(<span class="string">"name"</span>)</span> String name) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"获取到的name是："</span> + name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="RequestParam使用"><a href="#RequestParam使用" class="headerlink" title="@RequestParam使用"></a>@RequestParam使用</h3><p>这种方式涉及了@RequestParam注解的使用，关于该注解总结如下👇</p>
-<ul>
-<li><p>不加@RequestParam，前端的参数名需要和后端控制器的变量名保持一致才能生效</p>
-</li>
-<li><p>不加@RequestParam，参数为非必传，加@RequestParam写法参数为必传。但@RequestParam可以通过@RequestParam(required = false)设置为非必传。</p>
-</li>
-<li><p>@RequestParam可以通过@RequestParam(“userId”)或者@RequestParam(value = “userId”)指定传入的参数名。</p>
-</li>
-<li><p>@RequestParam可以通过@RequestParam(defaultValue = “0”)指定参数默认值</p>
-</li>
-<li><p>如果接口除了前端调用还有后端RPC调用，则不能省略@RequestParam，否则RPC会找不到参数报错</p>
-</li>
-<li><p>访问时：</p>
-<ul>
-<li>不加@RequestParam注解：url可带参数也可不带参数</li>
-<li>加@RequestParam注解：url必须带有参数</li>
-</ul>
-</li>
-</ul>
-<h2 id="后端用路径接收"><a href="#后端用路径接收" class="headerlink" title="后端用路径接收"></a>后端用路径接收</h2><p>第二种是典型的 RESTful 风格，ID参数值直接放在路径里面。<br>我们假有这样一段请求需要处理：<strong><a href="http://localhost:8080/helloworld/张三" target="_blank" rel="noopener">http://localhost:8080/helloworld/张三</a></strong><br>则Controller中的处理代码如下👇</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PathVariable;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/helloworld/&#123;name&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">helloworld</span><span class="params">(@PathVariable(<span class="string">"name"</span>)</span> String name) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"获取到的name是："</span> + name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="PathVariable使用"><a href="#PathVariable使用" class="headerlink" title="@PathVariable使用"></a>@PathVariable使用</h3><p>通过 @PathVariable 可以将 URL 中占位符参数绑定到控制器处理方法的形参中。</p>
-<ul>
-<li><p>若方法参数名称和需要绑定的url中变量名称一致时,可以简写：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/&#123;id&#125;"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> R&lt;Employee&gt; <span class="title">getByID</span><span class="params">(@PathVariable Long id)</span></span>&#123;</span><br><span class="line">    Employee employee = employeeService.getById(id);</span><br><span class="line">    <span class="keyword">if</span> (employee != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> R.success(employee);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> R.error(<span class="string">"查询失败！"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>若方法参数名称和需要绑定的url中变量名称不一致时，写成：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/&#123;id&#125;"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> R&lt;Employee&gt; <span class="title">getByID</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Long empId)</span>&#123;</span><br><span class="line">    Employee employee = employeeService.getById(empId);</span><br><span class="line">    <span class="keyword">if</span> (employee != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> R.success(employee);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> R.error(<span class="string">"查询失败！"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="用POJO实体类接收"><a href="#用POJO实体类接收" class="headerlink" title="用POJO实体类接收"></a>用POJO实体类接收</h2><p>此处定义一个简单的POJO如下👇</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(Integer age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>定义一个RestController如下👇</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/helloworld"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">helloworld</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"name："</span> + user.getName();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现在给出一个GET请求：<strong><a href="http://localhost:8080/helloworld?name=张三" target="_blank" rel="noopener">http://localhost:8080/helloworld?name=张三</a></strong><br>则浏览器可以看到：<strong>name: 张三</strong></p>
-<h2 id="后端用数组接收"><a href="#后端用数组接收" class="headerlink" title="后端用数组接收"></a>后端用数组接收</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/array"</span>)</span><br><span class="line"><span class="keyword">public</span> Integer[] array(Integer[] a) &#123;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>前端则调用<strong>url：localhost:8080/user/array?a=1&amp;a=2&amp;a=3</strong></p>
-<p>当然，这里也可用List<integer>来接收，不过需要加上@RequestParam(“a”)注解</integer></p>
-<p>如果直接使用List<integer>来接收，也不加上@RequestParam(“a”)注解的话，则会报错: No primary or default constructor found for interface java.util.List</integer></p>
-<h2 id="后端使用Map接收"><a href="#后端使用Map接收" class="headerlink" title="后端使用Map接收"></a>后端使用Map接收</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/loginByMap"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">loginByMap</span><span class="params">(@RequestParam Map&lt;String, Object&gt; map)</span> </span>&#123;</span><br><span class="line">    String name = (String) map.get(<span class="string">"name"</span>);</span><br><span class="line">    <span class="keyword">int</span> age = Integer.parseInt((String) map.get(<span class="string">"age"</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> User(name, age);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>前端则调用<strong>url：localhost:8080/user/loginByMap?name=tom&amp;age=12</strong></p>
-<p>⚠️值得注意的是，这里的map参数前需要加@RequestParam注解，用于将请求参数注入到map中。</p>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2022/09/08/servlet进化之旅/">Servlet进化之旅 —— 从ServerSocket编程到SpringMVC框架开发</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-09-08</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/后端/">后端</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/SpringMVC/">SpringMVC</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/后端/">后端</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Servlet/">Servlet</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Tomcat/">Tomcat</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JavaWeb/">JavaWeb</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong><center>本篇主要记录Java后端开发学习过程中关于Servlet相关技术路线的梳理和总结</center></strong></p>
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">223</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">82</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">45</span></a></div></div></div><nav id="nav" style="background-image: url(https://i.328888.xyz/2022/12/21/ARudF.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2022/09/08/servlet进化之旅/">Servlet进化之旅 —— 从ServerSocket编程到SpringMVC框架开发</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-09-08</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/后端/">后端</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/SpringMVC/">SpringMVC</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/后端/">后端</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Servlet/">Servlet</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Tomcat/">Tomcat</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JavaWeb/">JavaWeb</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong><center>本篇主要记录Java后端开发学习过程中关于Servlet相关技术路线的梳理和总结</center></strong></p>
 <p>按技术迭代顺序依次从下述几个Web技术开展梳理：</p>
 <ul>
 <li>ServerSocket编程</li>
@@ -174,6 +93,1702 @@
 <center>
 👀开发过程肉眼可见的简介♥
 </center>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2022/09/07/MySql/">MySQL笔记</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-09-07</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/MySQL/">MySQL</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/学习/">学习</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/数据库/">数据库</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/MySQL/">MySQL</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h1 id="基础篇"><a href="#基础篇" class="headerlink" title="基础篇"></a>基础篇</h1><h2 id="通用语法及分类"><a href="#通用语法及分类" class="headerlink" title="通用语法及分类"></a>通用语法及分类</h2><ul>
+<li>DDL: 数据定义语言，用来定义数据库对象（数据库、表、字段）</li>
+<li>DML: 数据操作语言，用来对数据库表中的数据进行增删改</li>
+<li>DQL: 数据查询语言，用来查询数据库中表的记录</li>
+<li>DCL: 数据控制语言，用来创建数据库用户、控制数据库的控制权限</li>
+</ul>
+<h3 id="DDL（数据定义语言）"><a href="#DDL（数据定义语言）" class="headerlink" title="DDL（数据定义语言）"></a>DDL（数据定义语言）</h3><p>数据定义语言</p>
+<h4 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h4><p>查询所有数据库：<br><code>SHOW DATABASES;</code><br>查询当前数据库：<br><code>SELECT DATABASE();</code><br>创建数据库：<br><code>CREATE DATABASE [ IF NOT EXISTS ] 数据库名 [ DEFAULT CHARSET 字符集] [COLLATE 排序规则 ];</code><br>删除数据库：<br><code>DROP DATABASE [ IF EXISTS ] 数据库名;</code><br>使用数据库：<br><code>USE 数据库名;</code></p>
+<h5 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h5><ul>
+<li>UTF8字符集长度为3字节，有些符号占4字节，所以推荐用utf8mb4字符集</li>
+</ul>
+<h4 id="表操作"><a href="#表操作" class="headerlink" title="表操作"></a>表操作</h4><p>查询当前数据库所有表：<br><code>SHOW TABLES;</code><br>查询表结构：<br><code>DESC 表名;</code><br>查询指定表的建表语句：<br><code>SHOW CREATE TABLE 表名;</code></p>
+<p>创建表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE 表名(</span><br><span class="line">	字段1 字段1类型 [COMMENT 字段1注释],</span><br><span class="line">	字段2 字段2类型 [COMMENT 字段2注释],</span><br><span class="line">	字段3 字段3类型 [COMMENT 字段3注释],</span><br><span class="line">	...</span><br><span class="line">	字段n 字段n类型 [COMMENT 字段n注释]</span><br><span class="line">)[ COMMENT 表注释 ];</span><br></pre></td></tr></table></figure>
+
+<p><strong>最后一个字段后面没有逗号</strong></p>
+<p>添加字段：<br><code>ALTER TABLE 表名 ADD 字段名 类型(长度) [COMMENT 注释] [约束];</code><br>例：<code>ALTER TABLE emp ADD nickname varchar(20) COMMENT &#39;昵称&#39;;</code></p>
+<p>修改数据类型：<br><code>ALTER TABLE 表名 MODIFY 字段名 新数据类型(长度);</code><br>修改字段名和字段类型：<br><code>ALTER TABLE 表名 CHANGE 旧字段名 新字段名 类型(长度) [COMMENT 注释] [约束];</code><br>例：将emp表的nickname字段修改为username，类型为varchar(30)<br><code>ALTER TABLE emp CHANGE nickname username varchar(30) COMMENT &#39;昵称&#39;;</code></p>
+<p>删除字段：<br><code>ALTER TABLE 表名 DROP 字段名;</code></p>
+<p>修改表名：<br><code>ALTER TABLE 表名 RENAME TO 新表名</code></p>
+<p>删除表：<br><code>DROP TABLE [IF EXISTS] 表名;</code><br>删除表，并重新创建该表：<br><code>TRUNCATE TABLE 表名;</code></p>
+<h3 id="DML（数据操作语言）"><a href="#DML（数据操作语言）" class="headerlink" title="DML（数据操作语言）"></a>DML（数据操作语言）</h3><h4 id="添加数据"><a href="#添加数据" class="headerlink" title="添加数据"></a>添加数据</h4><p>指定字段：<br><code>INSERT INTO 表名 (字段名1, 字段名2, ...) VALUES (值1, 值2, ...);</code><br>全部字段：<br><code>INSERT INTO 表名 VALUES (值1, 值2, ...);</code></p>
+<p>批量添加数据：<br><code>INSERT INTO 表名 (字段名1, 字段名2, ...) VALUES (值1, 值2, ...), (值1, 值2, ...), (值1, 值2, ...);</code><br><code>INSERT INTO 表名 VALUES (值1, 值2, ...), (值1, 值2, ...), (值1, 值2, ...);</code></p>
+<h5 id="注意事项-1"><a href="#注意事项-1" class="headerlink" title="注意事项"></a>注意事项</h5><ul>
+<li>字符串和日期类型数据应该包含在引号中</li>
+<li>插入的数据大小应该在字段的规定范围内</li>
+</ul>
+<h4 id="更新和删除数据"><a href="#更新和删除数据" class="headerlink" title="更新和删除数据"></a>更新和删除数据</h4><p>修改数据：<br><code>UPDATE 表名 SET 字段名1 = 值1, 字段名2 = 值2, ... [ WHERE 条件 ];</code><br>例：<br><code>UPDATE emp SET name = &#39;Jack&#39; WHERE id = 1;</code></p>
+<p>删除数据：<br><code>DELETE FROM 表名 [ WHERE 条件 ];</code></p>
+<h3 id="DQL（数据查询语言）"><a href="#DQL（数据查询语言）" class="headerlink" title="DQL（数据查询语言）"></a>DQL（数据查询语言）</h3><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">	字段列表</span><br><span class="line">FROM</span><br><span class="line">	表名字段</span><br><span class="line">WHERE</span><br><span class="line">	条件列表</span><br><span class="line">GROUP BY</span><br><span class="line">	分组字段列表</span><br><span class="line">HAVING</span><br><span class="line">	分组后的条件列表</span><br><span class="line">ORDER BY</span><br><span class="line">	排序字段列表</span><br><span class="line">LIMIT</span><br><span class="line">	分页参数</span><br></pre></td></tr></table></figure>
+
+<h4 id="基础查询"><a href="#基础查询" class="headerlink" title="基础查询"></a>基础查询</h4><p>查询多个字段：<br><code>SELECT 字段1, 字段2, 字段3, ... FROM 表名;</code><br><code>SELECT * FROM 表名;</code></p>
+<p>设置别名：<br><code>SELECT 字段1 [ AS 别名1 ], 字段2 [ AS 别名2 ], 字段3 [ AS 别名3 ], ... FROM 表名;</code><br><code>SELECT 字段1 [ 别名1 ], 字段2 [ 别名2 ], 字段3 [ 别名3 ], ... FROM 表名;</code></p>
+<p>去除重复记录：<br><code>SELECT DISTINCT 字段列表 FROM 表名;</code></p>
+<p>转义：<br><code>SELECT * FROM 表名 WHERE name LIKE &#39;/_张三&#39; ESCAPE &#39;/&#39;</code><br>/ 之后的_不作为通配符</p>
+<h4 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h4><p>语法：<br><code>SELECT 字段列表 FROM 表名 WHERE 条件列表;</code></p>
+<p>条件：</p>
+<table>
+<thead>
+<tr>
+<th>比较运算符</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&gt;</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td>大于等于</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td>小于等于</td>
+</tr>
+<tr>
+<td>=</td>
+<td>等于</td>
+</tr>
+<tr>
+<td>&lt;&gt; 或 !=</td>
+<td>不等于</td>
+</tr>
+<tr>
+<td>BETWEEN … AND …</td>
+<td>在某个范围内（含最小、最大值）</td>
+</tr>
+<tr>
+<td>IN(…)</td>
+<td>在in之后的列表中的值，多选一</td>
+</tr>
+<tr>
+<td>LIKE 占位符</td>
+<td>模糊匹配（_匹配单个字符，%匹配任意个字符）</td>
+</tr>
+<tr>
+<td>IS NULL</td>
+<td>是NULL</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>逻辑运算符</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AND 或 &amp;&amp;</td>
+<td>并且（多个条件同时成立）</td>
+</tr>
+<tr>
+<td>OR 或 &#124;&#124;</td>
+<td>或者（多个条件任意一个成立）</td>
+</tr>
+<tr>
+<td>NOT 或 !</td>
+<td>非，不是</td>
+</tr>
+</tbody></table>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">-- 年龄等于30</span><br><span class="line">select * from employee where age = 30;</span><br><span class="line">-- 年龄小于30</span><br><span class="line">select * from employee where age &lt; 30;</span><br><span class="line">-- 小于等于</span><br><span class="line">select * from employee where age &lt;= 30;</span><br><span class="line">-- 没有身份证</span><br><span class="line">select * from employee where idcard is null or idcard = &apos;&apos;;</span><br><span class="line">-- 有身份证</span><br><span class="line">select * from employee where idcard;</span><br><span class="line">select * from employee where idcard is not null;</span><br><span class="line">-- 不等于</span><br><span class="line">select * from employee where age != 30;</span><br><span class="line">-- 年龄在20到30之间</span><br><span class="line">select * from employee where age between 20 and 30;</span><br><span class="line">select * from employee where age &gt;= 20 and age &lt;= 30;</span><br><span class="line">-- 下面语句不报错，但查不到任何信息</span><br><span class="line">select * from employee where age between 30 and 20;</span><br><span class="line">-- 性别为女且年龄小于30</span><br><span class="line">select * from employee where age &lt; 30 and gender = &apos;女&apos;;</span><br><span class="line">-- 年龄等于25或30或35</span><br><span class="line">select * from employee where age = 25 or age = 30 or age = 35;</span><br><span class="line">select * from employee where age in (25, 30, 35);</span><br><span class="line">-- 姓名为两个字</span><br><span class="line">select * from employee where name like &apos;__&apos;;</span><br><span class="line">-- 身份证最后为X</span><br><span class="line">select * from employee where idcard like &apos;%X&apos;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="聚合查询（聚合函数）"><a href="#聚合查询（聚合函数）" class="headerlink" title="聚合查询（聚合函数）"></a>聚合查询（聚合函数）</h4><p>常见聚合函数：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>count</td>
+<td>统计数量</td>
+</tr>
+<tr>
+<td>max</td>
+<td>最大值</td>
+</tr>
+<tr>
+<td>min</td>
+<td>最小值</td>
+</tr>
+<tr>
+<td>avg</td>
+<td>平均值</td>
+</tr>
+<tr>
+<td>sum</td>
+<td>求和</td>
+</tr>
+</tbody></table>
+<p>语法：<br><code>SELECT 聚合函数(字段列表) FROM 表名;</code><br>例：<br><code>SELECT count(id) from employee where workaddress = &quot;广东省&quot;;</code></p>
+<h4 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h4><p>语法：<br><code>SELECT 字段列表 FROM 表名 [ WHERE 条件 ] GROUP BY 分组字段名 [ HAVING 分组后的过滤条件 ];</code></p>
+<p>where 和 having 的区别：</p>
+<ul>
+<li>执行时机不同：where是分组之前进行过滤，不满足where条件不参与分组；having是分组后对结果进行过滤。</li>
+<li>判断条件不同：where不能对聚合函数进行判断，而having可以。</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-- 根据性别分组，统计男性和女性数量（只显示分组数量，不显示哪个是男哪个是女）</span><br><span class="line">select count(*) from employee group by gender;</span><br><span class="line">-- 根据性别分组，统计男性和女性数量</span><br><span class="line">select gender, count(*) from employee group by gender;</span><br><span class="line">-- 根据性别分组，统计男性和女性的平均年龄</span><br><span class="line">select gender, avg(age) from employee group by gender;</span><br><span class="line">-- 年龄小于45，并根据工作地址分组</span><br><span class="line">select workaddress, count(*) from employee where age &lt; 45 group by workaddress;</span><br><span class="line">-- 年龄小于45，并根据工作地址分组，获取员工数量大于等于3的工作地址</span><br><span class="line">select workaddress, count(*) address_count from employee where age &lt; 45 group by workaddress having address_count &gt;= 3;</span><br></pre></td></tr></table></figure>
+
+<h5 id="注意事项-2"><a href="#注意事项-2" class="headerlink" title="注意事项"></a>注意事项</h5><ul>
+<li>执行顺序：where &gt; 聚合函数 &gt; having</li>
+<li>分组之后，查询的字段一般为聚合函数和分组字段，查询其他字段无任何意义</li>
+</ul>
+<h4 id="排序查询"><a href="#排序查询" class="headerlink" title="排序查询"></a>排序查询</h4><p>语法：<br><code>SELECT 字段列表 FROM 表名 ORDER BY 字段1 排序方式1, 字段2 排序方式2;</code></p>
+<p>排序方式：</p>
+<ul>
+<li>ASC: 升序（默认）</li>
+<li>DESC: 降序</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-- 根据年龄升序排序</span><br><span class="line">SELECT * FROM employee ORDER BY age ASC;</span><br><span class="line">SELECT * FROM employee ORDER BY age;</span><br><span class="line">-- 两字段排序，根据年龄升序排序，入职时间降序排序</span><br><span class="line">SELECT * FROM employee ORDER BY age ASC, entrydate DESC;</span><br></pre></td></tr></table></figure>
+
+<h5 id="注意事项-3"><a href="#注意事项-3" class="headerlink" title="注意事项"></a>注意事项</h5><p>如果是多字段排序，当第一个字段值相同时，才会根据第二个字段进行排序</p>
+<h4 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h4><p>语法：<br><code>SELECT 字段列表 FROM 表名 LIMIT 起始索引, 查询记录数;</code></p>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-- 查询第一页数据，展示10条</span><br><span class="line">SELECT * FROM employee LIMIT 0, 10;</span><br><span class="line">-- 查询第二页</span><br><span class="line">SELECT * FROM employee LIMIT 10, 10;</span><br></pre></td></tr></table></figure>
+
+<h5 id="注意事项-4"><a href="#注意事项-4" class="headerlink" title="注意事项"></a>注意事项</h5><ul>
+<li>起始索引从0开始，起始索引 = （查询页码 - 1） * 每页显示记录数</li>
+<li>分页查询是数据库的方言，不同数据库有不同实现，MySQL是LIMIT</li>
+<li>如果查询的是第一页数据，起始索引可以省略，直接简写 LIMIT 10</li>
+</ul>
+<h4 id="DQL执行顺序"><a href="#DQL执行顺序" class="headerlink" title="DQL执行顺序"></a>DQL执行顺序</h4><p>FROM -&gt; WHERE -&gt; GROUP BY -&gt; SELECT -&gt; ORDER BY -&gt; LIMIT</p>
+<h3 id="DCL"><a href="#DCL" class="headerlink" title="DCL"></a>DCL</h3><h4 id="管理用户"><a href="#管理用户" class="headerlink" title="管理用户"></a>管理用户</h4><p>查询用户：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">USER mysql;</span><br><span class="line">SELECT * FROM user;</span><br></pre></td></tr></table></figure>
+
+<p>创建用户:<br><code>CREATE USER &#39;用户名&#39;@&#39;主机名&#39; IDENTIFIED BY &#39;密码&#39;;</code></p>
+<p>修改用户密码：<br><code>ALTER USER &#39;用户名&#39;@&#39;主机名&#39; IDENTIFIED WITH mysql_native_password BY &#39;新密码&#39;;</code></p>
+<p>删除用户：<br><code>DROP USER &#39;用户名&#39;@&#39;主机名&#39;;</code></p>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-- 创建用户test，只能在当前主机localhost访问</span><br><span class="line">create user &apos;test&apos;@&apos;localhost&apos; identified by &apos;123456&apos;;</span><br><span class="line">-- 创建用户test，能在任意主机访问</span><br><span class="line">create user &apos;test&apos;@&apos;%&apos; identified by &apos;123456&apos;;</span><br><span class="line">create user &apos;test&apos; identified by &apos;123456&apos;;</span><br><span class="line">-- 修改密码</span><br><span class="line">alter user &apos;test&apos;@&apos;localhost&apos; identified with mysql_native_password by &apos;1234&apos;;</span><br><span class="line">-- 删除用户</span><br><span class="line">drop user &apos;test&apos;@&apos;localhost&apos;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="注意事项-5"><a href="#注意事项-5" class="headerlink" title="注意事项"></a>注意事项</h5><ul>
+<li>主机名可以使用 % 通配</li>
+</ul>
+<h4 id="权限控制"><a href="#权限控制" class="headerlink" title="权限控制"></a>权限控制</h4><p>常用权限：</p>
+<table>
+<thead>
+<tr>
+<th>权限</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ALL, ALL PRIVILEGES</td>
+<td>所有权限</td>
+</tr>
+<tr>
+<td>SELECT</td>
+<td>查询数据</td>
+</tr>
+<tr>
+<td>INSERT</td>
+<td>插入数据</td>
+</tr>
+<tr>
+<td>UPDATE</td>
+<td>修改数据</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>删除数据</td>
+</tr>
+<tr>
+<td>ALTER</td>
+<td>修改表</td>
+</tr>
+<tr>
+<td>DROP</td>
+<td>删除数据库/表/视图</td>
+</tr>
+<tr>
+<td>CREATE</td>
+<td>创建数据库/表</td>
+</tr>
+</tbody></table>
+<p>更多权限请看<a href="#权限一览表" title="权限一览表">权限一览表</a></p>
+<p>查询权限：<br><code>SHOW GRANTS FOR &#39;用户名&#39;@&#39;主机名&#39;;</code></p>
+<p>授予权限：<br><code>GRANT 权限列表 ON 数据库名.表名 TO &#39;用户名&#39;@&#39;主机名&#39;;</code></p>
+<p>撤销权限：<br><code>REVOKE 权限列表 ON 数据库名.表名 FROM &#39;用户名&#39;@&#39;主机名&#39;;</code></p>
+<h5 id="注意事项-6"><a href="#注意事项-6" class="headerlink" title="注意事项"></a>注意事项</h5><ul>
+<li>多个权限用逗号分隔</li>
+<li>授权时，数据库名和表名可以用 * 进行通配，代表所有</li>
+</ul>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ul>
+<li>字符串函数</li>
+<li>数值函数</li>
+<li>日期函数</li>
+<li>流程函数</li>
+</ul>
+<h3 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h3><p>常用函数：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CONCAT(s1, s2, …, sn)</td>
+<td>字符串拼接，将s1, s2, …, sn拼接成一个字符串</td>
+</tr>
+<tr>
+<td>LOWER(str)</td>
+<td>将字符串全部转为小写</td>
+</tr>
+<tr>
+<td>UPPER(str)</td>
+<td>将字符串全部转为大写</td>
+</tr>
+<tr>
+<td>LPAD(str, n, pad)</td>
+<td>左填充，用字符串pad对str的左边进行填充，达到n个字符串长度</td>
+</tr>
+<tr>
+<td>RPAD(str, n, pad)</td>
+<td>右填充，用字符串pad对str的右边进行填充，达到n个字符串长度</td>
+</tr>
+<tr>
+<td>TRIM(str)</td>
+<td>去掉字符串头部和尾部的空格</td>
+</tr>
+<tr>
+<td>SUBSTRING(str, start, len)</td>
+<td>返回从字符串str从start位置起的len个长度的字符串</td>
+</tr>
+</tbody></table>
+<p>使用示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">-- 拼接</span><br><span class="line">SELECT CONCAT(&apos;Hello&apos;, &apos;World&apos;);</span><br><span class="line">-- 小写</span><br><span class="line">SELECT LOWER(&apos;Hello&apos;);</span><br><span class="line">-- 大写</span><br><span class="line">SELECT UPPER(&apos;Hello&apos;);</span><br><span class="line">-- 左填充</span><br><span class="line">SELECT LPAD(&apos;01&apos;, 5, &apos;-&apos;);</span><br><span class="line">-- 右填充</span><br><span class="line">SELECT RPAD(&apos;01&apos;, 5, &apos;-&apos;);</span><br><span class="line">-- 去除空格</span><br><span class="line">SELECT TRIM(&apos; Hello World &apos;);</span><br><span class="line">-- 切片（起始索引为1）</span><br><span class="line">SELECT SUBSTRING(&apos;Hello World&apos;, 1, 5);</span><br></pre></td></tr></table></figure>
+
+<h3 id="数值函数"><a href="#数值函数" class="headerlink" title="数值函数"></a>数值函数</h3><p>常见函数：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CEIL(x)</td>
+<td>向上取整</td>
+</tr>
+<tr>
+<td>FLOOR(x)</td>
+<td>向下取整</td>
+</tr>
+<tr>
+<td>MOD(x, y)</td>
+<td>返回x/y的模</td>
+</tr>
+<tr>
+<td>RAND()</td>
+<td>返回0~1内的随机数</td>
+</tr>
+<tr>
+<td>ROUND(x, y)</td>
+<td>求参数x的四舍五入值，保留y位小数</td>
+</tr>
+</tbody></table>
+<h3 id="日期函数"><a href="#日期函数" class="headerlink" title="日期函数"></a>日期函数</h3><p>常用函数：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CURDATE()</td>
+<td>返回当前日期</td>
+</tr>
+<tr>
+<td>CURTIME()</td>
+<td>返回当前时间</td>
+</tr>
+<tr>
+<td>NOW()</td>
+<td>返回当前日期和时间</td>
+</tr>
+<tr>
+<td>YEAR(date)</td>
+<td>获取指定date的年份</td>
+</tr>
+<tr>
+<td>MONTH(date)</td>
+<td>获取指定date的月份</td>
+</tr>
+<tr>
+<td>DAY(date)</td>
+<td>获取指定date的日期</td>
+</tr>
+<tr>
+<td>DATE_ADD(date, INTERVAL expr type)</td>
+<td>返回一个日期/时间值加上一个时间间隔expr后的时间值</td>
+</tr>
+<tr>
+<td>DATEDIFF(date1, date2)</td>
+<td>返回起始时间date1和结束时间date2之间的天数</td>
+</tr>
+</tbody></table>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- DATE_ADD</span><br><span class="line">SELECT DATE_ADD(NOW(), INTERVAL 70 YEAR);</span><br></pre></td></tr></table></figure>
+
+<h3 id="流程函数"><a href="#流程函数" class="headerlink" title="流程函数"></a>流程函数</h3><p>常用函数：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IF(value, t, f)</td>
+<td>如果value为true，则返回t，否则返回f</td>
+</tr>
+<tr>
+<td>IFNULL(value1, value2)</td>
+<td>如果value1不为空，返回value1，否则返回value2</td>
+</tr>
+<tr>
+<td>CASE WHEN [ val1 ] THEN [ res1 ] … ELSE [ default ] END</td>
+<td>如果val1为true，返回res1，… 否则返回default默认值</td>
+</tr>
+<tr>
+<td>CASE [ expr ] WHEN [ val1 ] THEN [ res1 ] … ELSE [ default ] END</td>
+<td>如果expr的值等于val1，返回res1，… 否则返回default默认值</td>
+</tr>
+</tbody></table>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">select</span><br><span class="line">	name,</span><br><span class="line">	(case when age &gt; 30 then &apos;中年&apos; else &apos;青年&apos; end)</span><br><span class="line">from employee;</span><br><span class="line">select</span><br><span class="line">	name,</span><br><span class="line">	(case workaddress when &apos;北京市&apos; then &apos;一线城市&apos; when &apos;上海市&apos; then &apos;一线城市&apos; else &apos;二线城市&apos; end) as &apos;工作地址&apos;</span><br><span class="line">from employee;</span><br></pre></td></tr></table></figure>
+
+<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><p>分类：</p>
+<table>
+<thead>
+<tr>
+<th>约束</th>
+<th>描述</th>
+<th>关键字</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>非空约束</td>
+<td>限制该字段的数据不能为null</td>
+<td>NOT NULL</td>
+</tr>
+<tr>
+<td>唯一约束</td>
+<td>保证该字段的所有数据都是唯一、不重复的</td>
+<td>UNIQUE</td>
+</tr>
+<tr>
+<td>主键约束</td>
+<td>主键是一行数据的唯一标识，要求非空且唯一</td>
+<td>PRIMARY KEY</td>
+</tr>
+<tr>
+<td>默认约束</td>
+<td>保存数据时，如果未指定该字段的值，则采用默认值</td>
+<td>DEFAULT</td>
+</tr>
+<tr>
+<td>检查约束（8.0.1版本后）</td>
+<td>保证字段值满足某一个条件</td>
+<td>CHECK</td>
+</tr>
+<tr>
+<td>外键约束</td>
+<td>用来让两张图的数据之间建立连接，保证数据的一致性和完整性</td>
+<td>FOREIGN KEY</td>
+</tr>
+</tbody></table>
+<p>约束是作用于表中字段上的，可以再创建表/修改表的时候添加约束。</p>
+<h3 id="常用约束"><a href="#常用约束" class="headerlink" title="常用约束"></a>常用约束</h3><table>
+<thead>
+<tr>
+<th>约束条件</th>
+<th>关键字</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主键</td>
+<td>PRIMARY KEY</td>
+</tr>
+<tr>
+<td>自动增长</td>
+<td>AUTO_INCREMENT</td>
+</tr>
+<tr>
+<td>不为空</td>
+<td>NOT NULL</td>
+</tr>
+<tr>
+<td>唯一</td>
+<td>UNIQUE</td>
+</tr>
+<tr>
+<td>逻辑条件</td>
+<td>CHECK</td>
+</tr>
+<tr>
+<td>默认值</td>
+<td>DEFAULT</td>
+</tr>
+</tbody></table>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create table user(</span><br><span class="line">	id int primary key auto_increment,</span><br><span class="line">	name varchar(10) not null unique,</span><br><span class="line">	age int check(age &gt; 0 and age &lt; 120),</span><br><span class="line">	status char(1) default &apos;1&apos;,</span><br><span class="line">	gender char(1)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h3 id="外键约束"><a href="#外键约束" class="headerlink" title="外键约束"></a>外键约束</h3><p>添加外键：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE 表名(</span><br><span class="line">	字段名 字段类型,</span><br><span class="line">	...</span><br><span class="line">	[CONSTRAINT] [外键名称] FOREIGN KEY(外键字段名) REFERENCES 主表(主表列名)</span><br><span class="line">);</span><br><span class="line">ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名) REFERENCES 主表(主表列名);</span><br><span class="line"></span><br><span class="line">-- 例子</span><br><span class="line">alter table emp add constraint fk_emp_dept_id foreign key(dept_id) references dept(id);</span><br></pre></td></tr></table></figure>
+
+<p>删除外键：<br><code>ALTER TABLE 表名 DROP FOREIGN KEY 外键名;</code></p>
+<h4 id="删除-更新行为"><a href="#删除-更新行为" class="headerlink" title="删除/更新行为"></a>删除/更新行为</h4><table>
+<thead>
+<tr>
+<th>行为</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NO ACTION</td>
+<td>当在父表中删除/更新对应记录时，首先检查该记录是否有对应外键，如果有则不允许删除/更新（与RESTRICT一致）</td>
+</tr>
+<tr>
+<td>RESTRICT</td>
+<td>当在父表中删除/更新对应记录时，首先检查该记录是否有对应外键，如果有则不允许删除/更新（与NO ACTION一致）</td>
+</tr>
+<tr>
+<td>CASCADE</td>
+<td>当在父表中删除/更新对应记录时，首先检查该记录是否有对应外键，如果有则也删除/更新外键在子表中的记录</td>
+</tr>
+<tr>
+<td>SET NULL</td>
+<td>当在父表中删除/更新对应记录时，首先检查该记录是否有对应外键，如果有则设置子表中该外键值为null（要求该外键允许为null）</td>
+</tr>
+<tr>
+<td>SET DEFAULT</td>
+<td>父表有变更时，子表将外键设为一个默认值（Innodb不支持）</td>
+</tr>
+</tbody></table>
+<p>更改删除/更新行为：<br><code>ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段) REFERENCES 主表名(主表字段名) ON UPDATE 行为 ON DELETE 行为;</code></p>
+<h2 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h2><h3 id="多表关系"><a href="#多表关系" class="headerlink" title="多表关系"></a>多表关系</h3><ul>
+<li>一对多（多对一）</li>
+<li>多对多</li>
+<li>一对一</li>
+</ul>
+<h4 id="一对多"><a href="#一对多" class="headerlink" title="一对多"></a>一对多</h4><p>案例：部门与员工<br>关系：一个部门对应多个员工，一个员工对应一个部门<br>实现：在多的一方建立外键，指向一的一方的主键</p>
+<h4 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h4><p>案例：学生与课程<br>关系：一个学生可以选多门课程，一门课程也可以供多个学生选修<br>实现：建立第三张中间表，中间表至少包含两个外键，分别关联两方主键</p>
+<h4 id="一对一"><a href="#一对一" class="headerlink" title="一对一"></a>一对一</h4><p>案例：用户与用户详情<br>关系：一对一关系，多用于单表拆分，将一张表的基础字段放在一张表中，其他详情字段放在另一张表中，以提升操作效率<br>实现：在任意一方加入外键，关联另外一方的主键，并且设置外键为唯一的（UNIQUE）</p>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><p>合并查询（笛卡尔积，会展示所有组合结果）：<br><code>select * from employee, dept;</code></p>
+<blockquote>
+<p>笛卡尔积：两个集合A集合和B集合的所有组合情况（在多表查询时，需要消除无效的笛卡尔积）</p>
+</blockquote>
+<p>消除无效笛卡尔积：<br><code>select * from employee, dept where employee.dept = dept.id;</code></p>
+<h3 id="内连接查询"><a href="#内连接查询" class="headerlink" title="内连接查询"></a>内连接查询</h3><p>内连接查询的是两张表交集的部分</p>
+<p>隐式内连接：<br><code>SELECT 字段列表 FROM 表1, 表2 WHERE 条件 ...;</code></p>
+<p>显式内连接：<br><code>SELECT 字段列表 FROM 表1 [ INNER ] JOIN 表2 ON 连接条件 ...;</code></p>
+<p>显式性能比隐式高</p>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-- 查询员工姓名，及关联的部门的名称</span><br><span class="line">-- 隐式</span><br><span class="line">select e.name, d.name from employee as e, dept as d where e.dept = d.id;</span><br><span class="line">-- 显式</span><br><span class="line">select e.name, d.name from employee as e inner join dept as d on e.dept = d.id;</span><br></pre></td></tr></table></figure>
+
+<h3 id="外连接查询"><a href="#外连接查询" class="headerlink" title="外连接查询"></a>外连接查询</h3><p>左外连接：<br>查询左表所有数据，以及两张表交集部分数据<br><code>SELECT 字段列表 FROM 表1 LEFT [ OUTER ] JOIN 表2 ON 条件 ...;</code><br>相当于查询表1的所有数据，包含表1和表2交集部分数据</p>
+<p>右外连接：<br>查询右表所有数据，以及两张表交集部分数据<br><code>SELECT 字段列表 FROM 表1 RIGHT [ OUTER ] JOIN 表2 ON 条件 ...;</code></p>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-- 左</span><br><span class="line">select e.*, d.name from employee as e left outer join dept as d on e.dept = d.id;</span><br><span class="line">select d.name, e.* from dept d left outer join emp e on e.dept = d.id;  -- 这条语句与下面的语句效果一样</span><br><span class="line">-- 右</span><br><span class="line">select d.name, e.* from employee as e right outer join dept as d on e.dept = d.id;</span><br></pre></td></tr></table></figure>
+
+<p>左连接可以查询到没有dept的employee，右连接可以查询到没有employee的dept</p>
+<h3 id="自连接查询"><a href="#自连接查询" class="headerlink" title="自连接查询"></a>自连接查询</h3><p>当前表与自身的连接查询，自连接必须使用表别名</p>
+<p>语法：<br><code>SELECT 字段列表 FROM 表A 别名A JOIN 表A 别名B ON 条件 ...;</code></p>
+<p>自连接查询，可以是内连接查询，也可以是外连接查询</p>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-- 查询员工及其所属领导的名字</span><br><span class="line">select a.name, b.name from employee a, employee b where a.manager = b.id;</span><br><span class="line">-- 没有领导的也查询出来</span><br><span class="line">select a.name, b.name from employee a left join employee b on a.manager = b.id;</span><br></pre></td></tr></table></figure>
+
+<h3 id="联合查询-union-union-all"><a href="#联合查询-union-union-all" class="headerlink" title="联合查询 union, union all"></a>联合查询 union, union all</h3><p>把多次查询的结果合并，形成一个新的查询集</p>
+<p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT 字段列表 FROM 表A ...</span><br><span class="line">UNION [ALL]</span><br><span class="line">SELECT 字段列表 FROM 表B ...</span><br></pre></td></tr></table></figure>
+
+<h4 id="注意事项-7"><a href="#注意事项-7" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
+<li>UNION ALL 会有重复结果，UNION 不会</li>
+<li>联合查询比使用or效率高，不会使索引失效</li>
+</ul>
+<h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p>SQL语句中嵌套SELECT语句，称谓嵌套查询，又称子查询。<br><code>SELECT * FROM t1 WHERE column1 = ( SELECT column1 FROM t2);</code><br><strong>子查询外部的语句可以是 INSERT / UPDATE / DELETE / SELECT 的任何一个</strong></p>
+<p>根据子查询结果可以分为：</p>
+<ul>
+<li>标量子查询（子查询结果为单个值）</li>
+<li>列子查询（子查询结果为一列）</li>
+<li>行子查询（子查询结果为一行）</li>
+<li>表子查询（子查询结果为多行多列）</li>
+</ul>
+<p>根据子查询位置可分为：</p>
+<ul>
+<li>WHERE 之后</li>
+<li>FROM 之后</li>
+<li>SELECT 之后</li>
+</ul>
+<h4 id="标量子查询"><a href="#标量子查询" class="headerlink" title="标量子查询"></a>标量子查询</h4><p>子查询返回的结果是单个值（数字、字符串、日期等）。<br>常用操作符：- &lt; &gt; &gt; &gt;= &lt; &lt;=</p>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-- 查询销售部所有员工</span><br><span class="line">select id from dept where name = &apos;销售部&apos;;</span><br><span class="line">-- 根据销售部部门ID，查询员工信息</span><br><span class="line">select * from employee where dept = 4;</span><br><span class="line">-- 合并（子查询）</span><br><span class="line">select * from employee where dept = (select id from dept where name = &apos;销售部&apos;);</span><br><span class="line"></span><br><span class="line">-- 查询xxx入职之后的员工信息</span><br><span class="line">select * from employee where entrydate &gt; (select entrydate from employee where name = &apos;xxx&apos;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="列子查询"><a href="#列子查询" class="headerlink" title="列子查询"></a>列子查询</h4><p>返回的结果是一列（可以是多行）。</p>
+<p>常用操作符：</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IN</td>
+<td>在指定的集合范围内，多选一</td>
+</tr>
+<tr>
+<td>NOT IN</td>
+<td>不在指定的集合范围内</td>
+</tr>
+<tr>
+<td>ANY</td>
+<td>子查询返回列表中，有任意一个满足即可</td>
+</tr>
+<tr>
+<td>SOME</td>
+<td>与ANY等同，使用SOME的地方都可以使用ANY</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td>子查询返回列表的所有值都必须满足</td>
+</tr>
+</tbody></table>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-- 查询销售部和市场部的所有员工信息</span><br><span class="line">select * from employee where dept in (select id from dept where name = &apos;销售部&apos; or name = &apos;市场部&apos;);</span><br><span class="line">-- 查询比财务部所有人工资都高的员工信息</span><br><span class="line">select * from employee where salary &gt; all(select salary from employee where dept = (select id from dept where name = &apos;财务部&apos;));</span><br><span class="line">-- 查询比研发部任意一人工资高的员工信息</span><br><span class="line">select * from employee where salary &gt; any (select salary from employee where dept = (select id from dept where name = &apos;研发部&apos;));</span><br></pre></td></tr></table></figure>
+
+<h4 id="行子查询"><a href="#行子查询" class="headerlink" title="行子查询"></a>行子查询</h4><p>返回的结果是一行（可以是多列）。<br>常用操作符：=, &lt;, &gt;, IN, NOT IN</p>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-- 查询与xxx的薪资及直属领导相同的员工信息</span><br><span class="line">select * from employee where (salary, manager) = (12500, 1);</span><br><span class="line">select * from employee where (salary, manager) = (select salary, manager from employee where name = &apos;xxx&apos;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="表子查询"><a href="#表子查询" class="headerlink" title="表子查询"></a>表子查询</h4><p>返回的结果是多行多列<br>常用操作符：IN</p>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-- 查询与xxx1，xxx2的职位和薪资相同的员工</span><br><span class="line">select * from employee where (job, salary) in (select job, salary from employee where name = &apos;xxx1&apos; or name = &apos;xxx2&apos;);</span><br><span class="line">-- 查询入职日期是2006-01-01之后的员工，及其部门信息</span><br><span class="line">select e.*, d.* from (select * from employee where entrydate &gt; &apos;2006-01-01&apos;) as e left join dept as d on e.dept = d.id;</span><br></pre></td></tr></table></figure>
+
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>事务是一组操作的集合，事务会把所有操作作为一个整体一起向系统提交或撤销操作请求，即这些操作要么同时成功，要么同时失败。</p>
+<p>基本操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">-- 1. 查询张三账户余额</span><br><span class="line">select * from account where name = &apos;张三&apos;;</span><br><span class="line">-- 2. 将张三账户余额-1000</span><br><span class="line">update account set money = money - 1000 where name = &apos;张三&apos;;</span><br><span class="line">-- 此语句出错后张三钱减少但是李四钱没有增加</span><br><span class="line">模拟sql语句错误</span><br><span class="line">-- 3. 将李四账户余额+1000</span><br><span class="line">update account set money = money + 1000 where name = &apos;李四&apos;;</span><br><span class="line"></span><br><span class="line">-- 查看事务提交方式</span><br><span class="line">SELECT @@AUTOCOMMIT;</span><br><span class="line">-- 设置事务提交方式，1为自动提交，0为手动提交，该设置只对当前会话有效</span><br><span class="line">SET @@AUTOCOMMIT = 0;</span><br><span class="line">-- 提交事务</span><br><span class="line">COMMIT;</span><br><span class="line">-- 回滚事务</span><br><span class="line">ROLLBACK;</span><br><span class="line"></span><br><span class="line">-- 设置手动提交后上面代码改为：</span><br><span class="line">select * from account where name = &apos;张三&apos;;</span><br><span class="line">update account set money = money - 1000 where name = &apos;张三&apos;;</span><br><span class="line">update account set money = money + 1000 where name = &apos;李四&apos;;</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
+
+<p>操作方式二：</p>
+<p>开启事务：<br><code>START TRANSACTION 或 BEGIN TRANSACTION;</code><br>提交事务：<br><code>COMMIT;</code><br>回滚事务：<br><code>ROLLBACK;</code></p>
+<p>操作实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">start transaction;</span><br><span class="line">select * from account where name = &apos;张三&apos;;</span><br><span class="line">update account set money = money - 1000 where name = &apos;张三&apos;;</span><br><span class="line">update account set money = money + 1000 where name = &apos;李四&apos;;</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
+
+<h3 id="四大特性ACID"><a href="#四大特性ACID" class="headerlink" title="四大特性ACID"></a>四大特性ACID</h3><ul>
+<li>原子性(Atomicity)：事务是不可分割的最小操作但愿，要么全部成功，要么全部失败</li>
+<li>一致性(Consistency)：事务完成时，必须使所有数据都保持一致状态</li>
+<li>隔离性(Isolation)：数据库系统提供的隔离机制，保证事务在不受外部并发操作影响的独立环境下运行</li>
+<li>持久性(Durability)：事务一旦提交或回滚，它对数据库中的数据的改变就是永久的</li>
+</ul>
+<h3 id="并发事务"><a href="#并发事务" class="headerlink" title="并发事务"></a>并发事务</h3><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>脏读</td>
+<td>一个事务读到另一个事务还没提交的数据</td>
+</tr>
+<tr>
+<td>不可重复读</td>
+<td>一个事务先后读取同一条记录，但两次读取的数据不同</td>
+</tr>
+<tr>
+<td>幻读</td>
+<td>一个事务按照条件查询数据时，没有对应的数据行，但是再插入数据时，又发现这行数据已经存在</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>这三个问题的详细演示：<a href="https://www.bilibili.com/video/BV1Kr4y1i7ru?p=55cd" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1Kr4y1i7ru?p=55cd</a> </p>
+</blockquote>
+<p>并发事务隔离级别：</p>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Read uncommitted</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>Read committed</td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>Repeatable Read(默认)</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+</tr>
+<tr>
+<td>Serializable</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+</tbody></table>
+<ul>
+<li>√表示在当前隔离级别下该问题会出现</li>
+<li>Serializable 性能最低；Read uncommitted 性能最高，数据安全性最差</li>
+</ul>
+<p>查看事务隔离级别：<br><code>SELECT @@TRANSACTION_ISOLATION;</code><br>设置事务隔离级别：<br><code>SET [ SESSION | GLOBAL ] TRANSACTION ISOLATION LEVEL {READ UNCOMMITTED | READ COMMITTED | REPEATABLE READ | SERIALIZABLE };</code><br>SESSION 是会话级别，表示只针对当前会话有效，GLOBAL 表示对所有会话有效</p>
+<h1 id="进阶篇"><a href="#进阶篇" class="headerlink" title="进阶篇"></a>进阶篇</h1><h2 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h2><p>MySQL体系结构：</p>
+<p><img src="https://dhc.pythonanywhere.com/media/editor/MySQL%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84_20220315034329549927.png" alt="结构图" title="结构图"><br><img src="https://dhc.pythonanywhere.com/media/editor/MySQL%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%B1%82%E7%BA%A7%E5%90%AB%E4%B9%89_20220315034359342837.png" alt="层级描述" title="层级描述"></p>
+<p>存储引擎就是存储数据、建立索引、更新/查询数据等技术的实现方式。存储引擎是基于表而不是基于库的，所以存储引擎也可以被称为表引擎。<br>默认存储引擎是InnoDB。</p>
+<p>相关操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-- 查询建表语句</span><br><span class="line">show create table account;</span><br><span class="line">-- 建表时指定存储引擎</span><br><span class="line">CREATE TABLE 表名(</span><br><span class="line">	...</span><br><span class="line">) ENGINE=INNODB;</span><br><span class="line">-- 查看当前数据库支持的存储引擎</span><br><span class="line">show engines;</span><br></pre></td></tr></table></figure>
+
+<h3 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a>InnoDB</h3><p>InnoDB 是一种兼顾高可靠性和高性能的通用存储引擎，在 MySQL 5.5 之后，InnoDB 是默认的 MySQL 引擎。</p>
+<p>特点：</p>
+<ul>
+<li>DML 操作遵循 ACID 模型，支持<strong>事务</strong></li>
+<li><strong>行级锁</strong>，提高并发访问性能</li>
+<li>支持<strong>外键</strong>约束，保证数据的完整性和正确性</li>
+</ul>
+<p>文件：</p>
+<ul>
+<li>xxx.ibd: xxx代表表名，InnoDB 引擎的每张表都会对应这样一个表空间文件，存储该表的表结构（frm、sdi）、数据和索引。</li>
+</ul>
+<p>参数：innodb_file_per_table，决定多张表共享一个表空间还是每张表对应一个表空间</p>
+<p>知识点：</p>
+<p>查看 Mysql 变量：<br><code>show variables like &#39;innodb_file_per_table&#39;;</code></p>
+<p>从idb文件提取表结构数据：<br>（在cmd运行）<br><code>ibd2sdi xxx.ibd</code></p>
+<p>InnoDB 逻辑存储结构：<br><img src="https://dhc.pythonanywhere.com/media/editor/%E9%80%BB%E8%BE%91%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84_20220316030616590001.png" alt="InnoDB逻辑存储结构" title="InnoDB逻辑存储结构"></p>
+<h3 id="MyISAM"><a href="#MyISAM" class="headerlink" title="MyISAM"></a>MyISAM</h3><p>MyISAM 是 MySQL 早期的默认存储引擎。</p>
+<p>特点：</p>
+<ul>
+<li>不支持事务，不支持外键</li>
+<li>支持表锁，不支持行锁</li>
+<li>访问速度快</li>
+</ul>
+<p>文件：</p>
+<ul>
+<li>xxx.sdi: 存储表结构信息</li>
+<li>xxx.MYD: 存储数据</li>
+<li>xxx.MYI: 存储索引</li>
+</ul>
+<h3 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h3><p>Memory 引擎的表数据是存储在内存中的，受硬件问题、断电问题的影响，只能将这些表作为临时表或缓存使用。</p>
+<p>特点：</p>
+<ul>
+<li>存放在内存中，速度快</li>
+<li>hash索引（默认）</li>
+</ul>
+<p>文件：</p>
+<ul>
+<li>xxx.sdi: 存储表结构信息</li>
+</ul>
+<h3 id="存储引擎特点"><a href="#存储引擎特点" class="headerlink" title="存储引擎特点"></a>存储引擎特点</h3><table>
+<thead>
+<tr>
+<th>特点</th>
+<th>InnoDB</th>
+<th>MyISAM</th>
+<th>Memory</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存储限制</td>
+<td>64TB</td>
+<td>有</td>
+<td>有</td>
+</tr>
+<tr>
+<td>事务安全</td>
+<td>支持</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>锁机制</td>
+<td>行锁</td>
+<td>表锁</td>
+<td>表锁</td>
+</tr>
+<tr>
+<td>B+tree索引</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>Hash索引</td>
+<td>-</td>
+<td>-</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>全文索引</td>
+<td>支持（5.6版本之后）</td>
+<td>支持</td>
+<td>-</td>
+</tr>
+<tr>
+<td>空间使用</td>
+<td>高</td>
+<td>低</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>内存使用</td>
+<td>高</td>
+<td>低</td>
+<td>中等</td>
+</tr>
+<tr>
+<td>批量插入速度</td>
+<td>低</td>
+<td>高</td>
+<td>高</td>
+</tr>
+<tr>
+<td>支持外键</td>
+<td>支持</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h3 id="存储引擎的选择"><a href="#存储引擎的选择" class="headerlink" title="存储引擎的选择"></a>存储引擎的选择</h3><p>在选择存储引擎时，应该根据应用系统的特点选择合适的存储引擎。对于复杂的应用系统，还可以根据实际情况选择多种存储引擎进行组合。</p>
+<ul>
+<li>InnoDB: 如果应用对事物的完整性有比较高的要求，在并发条件下要求数据的一致性，数据操作除了插入和查询之外，还包含很多的更新、删除操作，则 InnoDB 是比较合适的选择</li>
+<li>MyISAM: 如果应用是以读操作和插入操作为主，只有很少的更新和删除操作，并且对事务的完整性、并发性要求不高，那这个存储引擎是非常合适的。</li>
+<li>Memory: 将所有数据保存在内存中，访问速度快，通常用于临时表及缓存。Memory 的缺陷是对表的大小有限制，太大的表无法缓存在内存中，而且无法保障数据的安全性</li>
+</ul>
+<p>电商中的足迹和评论适合使用 MyISAM 引擎，缓存适合使用 Memory 引擎。</p>
+<h2 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h2><h3 id="查看执行频次"><a href="#查看执行频次" class="headerlink" title="查看执行频次"></a>查看执行频次</h3><p>查看当前数据库的 INSERT, UPDATE, DELETE, SELECT 访问频次：<br><code>SHOW GLOBAL STATUS LIKE &#39;Com_______&#39;;</code> 或者 <code>SHOW SESSION STATUS LIKE &#39;Com_______&#39;;</code><br>例：<code>show global status like &#39;Com_______&#39;</code></p>
+<h3 id="慢查询日志"><a href="#慢查询日志" class="headerlink" title="慢查询日志"></a>慢查询日志</h3><p>慢查询日志记录了所有执行时间超过指定参数（long_query_time，单位：秒，默认10秒）的所有SQL语句的日志。<br>MySQL的慢查询日志默认没有开启，需要在MySQL的配置文件（/etc/my.cnf）中配置如下信息：<br>    # 开启慢查询日志开关<br>    slow_query_log=1<br>    # 设置慢查询日志的时间为2秒，SQL语句执行时间超过2秒，就会视为慢查询，记录慢查询日志<br>    long_query_time=2</p>
+<p>更改后记得重启MySQL服务，日志文件位置：/var/lib/mysql/localhost-slow.log</p>
+<p>查看慢查询日志开关状态：<br><code>show variables like &#39;slow_query_log&#39;;</code></p>
+<h3 id="profile"><a href="#profile" class="headerlink" title="profile"></a>profile</h3><p>show profile 能在做SQL优化时帮我们了解时间都耗费在哪里。通过 have_profiling 参数，能看到当前 MySQL 是否支持 profile 操作：<br><code>SELECT @@have_profiling;</code><br>profiling 默认关闭，可以通过set语句在session/global级别开启 profiling：<br><code>SET profiling = 1;</code><br>查看所有语句的耗时：<br><code>show profiles;</code><br>查看指定query_id的SQL语句各个阶段的耗时：<br><code>show profile for query query_id;</code><br>查看指定query_id的SQL语句CPU的使用情况<br><code>show profile cpu for query query_id;</code></p>
+<h3 id="explain"><a href="#explain" class="headerlink" title="explain"></a>explain</h3><p>EXPLAIN 或者 DESC 命令获取 MySQL 如何执行 SELECT 语句的信息，包括在 SELECT 语句执行过程中表如何连接和连接的顺序。<br>语法：<br>    # 直接在select语句之前加上关键字 explain / desc<br>    EXPLAIN SELECT 字段列表 FROM 表名 HWERE 条件;</p>
+<p>EXPLAIN 各字段含义：</p>
+<ul>
+<li>id：select 查询的序列号，表示查询中执行 select 子句或者操作表的顺序（id相同，执行顺序从上到下；id不同，值越大越先执行）</li>
+<li>select_type：表示 SELECT 的类型，常见取值有 SIMPLE（简单表，即不适用表连接或者子查询）、PRIMARY（主查询，即外层的查询）、UNION（UNION中的第二个或者后面的查询语句）、SUBQUERY（SELECT/WHERE之后包含了子查询）等</li>
+<li>type：表示连接类型，性能由好到差的连接类型为 NULL、system、const、eq_ref、ref、range、index、all</li>
+<li>possible_key：可能应用在这张表上的索引，一个或多个</li>
+<li>Key：实际使用的索引，如果为 NULL，则没有使用索引</li>
+<li>Key_len：表示索引中使用的字节数，该值为索引字段最大可能长度，并非实际使用长度，在不损失精确性的前提下，长度越短越好</li>
+<li>rows：MySQL认为必须要执行的行数，在InnoDB引擎的表中，是一个估计值，可能并不总是准确的</li>
+<li>filtered：表示返回结果的行数占需读取行数的百分比，filtered的值越大越好</li>
+</ul>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>索引是帮助 MySQL <strong>高效获取数据</strong>的<strong>数据结构（有序）</strong>。在数据之外，数据库系统还维护着满足特定查找算法的数据结构，这些数据结构以某种方式引用（指向）数据，这样就可以在这些数据结构上实现高级查询算法，这种数据结构就是索引。</p>
+<p>优缺点：</p>
+<p>优点：</p>
+<ul>
+<li>提高数据检索效率，降低数据库的IO成本</li>
+<li>通过索引列对数据进行排序，降低数据排序的成本，降低CPU的消耗</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>索引列也是要占用空间的</li>
+<li>索引大大提高了查询效率，但降低了更新的速度，比如 INSERT、UPDATE、DELETE</li>
+</ul>
+<h3 id="索引结构"><a href="#索引结构" class="headerlink" title="索引结构"></a>索引结构</h3><table>
+<thead>
+<tr>
+<th>索引结构</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>B+Tree</td>
+<td>最常见的索引类型，大部分引擎都支持B+树索引</td>
+</tr>
+<tr>
+<td>Hash</td>
+<td>底层数据结构是用哈希表实现，只有精确匹配索引列的查询才有效，不支持范围查询</td>
+</tr>
+<tr>
+<td>R-Tree(空间索引)</td>
+<td>空间索引是 MyISAM 引擎的一个特殊索引类型，主要用于地理空间数据类型，通常使用较少</td>
+</tr>
+<tr>
+<td>Full-Text(全文索引)</td>
+<td>是一种通过建立倒排索引，快速匹配文档的方式，类似于 Lucene, Solr, ES</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>索引</th>
+<th>InnoDB</th>
+<th>MyISAM</th>
+<th>Memory</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>B+Tree索引</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>Hash索引</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>R-Tree索引</td>
+<td>不支持</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>Full-text</td>
+<td>5.6版本后支持</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+</tbody></table>
+<h4 id="B-Tree"><a href="#B-Tree" class="headerlink" title="B-Tree"></a>B-Tree</h4><p><img src="https://dhc.pythonanywhere.com/media/editor/%E4%BA%8C%E5%8F%89%E6%A0%91_20220316153214227108.png" alt="二叉树" title="二叉树"></p>
+<p>二叉树的缺点可以用红黑树来解决：<br><img src="https://dhc.pythonanywhere.com/media/editor/%E7%BA%A2%E9%BB%91%E6%A0%91_20220316163142686602.png" alt="红黑树" title="红黑树"><br>红黑树也存在大数据量情况下，层级较深，检索速度慢的问题。</p>
+<p>为了解决上述问题，可以使用 B-Tree 结构。<br>B-Tree (多路平衡查找树) 以一棵最大度数（max-degree，指一个节点的子节点个数）为5（5阶）的 b-tree 为例（每个节点最多存储4个key，5个指针）</p>
+<p><img src="https://dhc.pythonanywhere.com/media/editor/B-Tree%E7%BB%93%E6%9E%84_20220316163813441163.png" alt="B-Tree结构" title="B-Tree结构"></p>
+<blockquote>
+<p>B-Tree 的数据插入过程动画参照：<a href="https://www.bilibili.com/video/BV1Kr4y1i7ru?p=68" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1Kr4y1i7ru?p=68</a><br>演示地址：<a href="https://www.cs.usfca.edu/~galles/visualization/BTree.html" target="_blank" rel="noopener">https://www.cs.usfca.edu/~galles/visualization/BTree.html</a></p>
+</blockquote>
+<h4 id="B-Tree-1"><a href="#B-Tree-1" class="headerlink" title="B+Tree"></a>B+Tree</h4><p>结构图：</p>
+<p><img src="https://dhc.pythonanywhere.com/media/editor/B+Tree%E7%BB%93%E6%9E%84%E5%9B%BE_20220316170700591277.png" alt="B+Tree结构图" title="B+Tree结构图"></p>
+<blockquote>
+<p>演示地址：<a href="https://www.cs.usfca.edu/~galles/visualization/BPlusTree.html" target="_blank" rel="noopener">https://www.cs.usfca.edu/~galles/visualization/BPlusTree.html</a></p>
+</blockquote>
+<p>与 B-Tree 的区别：</p>
+<ul>
+<li>所有的数据都会出现在叶子节点</li>
+<li>叶子节点形成一个单向链表</li>
+</ul>
+<p>MySQL 索引数据结构对经典的 B+Tree 进行了优化。在原 B+Tree 的基础上，增加一个指向相邻叶子节点的链表指针，就形成了带有顺序指针的 B+Tree，提高区间访问的性能。</p>
+<p><img src="https://dhc.pythonanywhere.com/media/editor/%E7%BB%93%E6%9E%84%E5%9B%BE_20220316171730865611.png" alt="MySQL B+Tree 结构图" title="MySQL B+Tree 结构图"></p>
+<h4 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h4><p>哈希索引就是采用一定的hash算法，将键值换算成新的hash值，映射到对应的槽位上，然后存储在hash表中。<br>如果两个（或多个）键值，映射到一个相同的槽位上，他们就产生了hash冲突（也称为hash碰撞），可以通过链表来解决。</p>
+<p><img src="https://dhc.pythonanywhere.com/media/editor/Hash%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%9B%BE_20220317143226150679.png" alt="Hash索引原理图" title="Hash索引原理图"></p>
+<p>特点：</p>
+<ul>
+<li>Hash索引只能用于对等比较（=、in），不支持范围查询（betwwn、&gt;、&lt;、…）这是致命缺点 </li>
+<li>无法利用索引完成排序操作</li>
+<li>查询效率高，通常只需要一次检索就可以了，效率通常要高于 B+Tree 索引</li>
+</ul>
+<p>存储引擎支持：</p>
+<ul>
+<li>Memory</li>
+<li>InnoDB: 具有自适应hash功能，hash索引是存储引擎根据 B+Tree 索引在指定条件下自动构建的</li>
+</ul>
+<h4 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h4><ol>
+<li>为什么 InnoDB 存储引擎选择使用 B+Tree 索引结构？</li>
+</ol>
+<ul>
+<li>相对于二叉树，层级更少，搜索效率高</li>
+<li>对于 B-Tree，无论是叶子节点还是非叶子节点，都会保存数据，这样导致一页中存储的键值减少，指针也跟着减少，要同样保存大量数据，只能增加树的高度，导致性能降低</li>
+<li>相对于 Hash 索引，B+Tree 支持范围匹配及排序操作</li>
+<li>必看：<a href="https://blog.csdn.net/qq_37102984/article/details/124296196" target="_blank" rel="noopener">https://blog.csdn.net/qq_37102984/article/details/124296196</a></li>
+</ul>
+<h3 id="索引分类"><a href="#索引分类" class="headerlink" title="索引分类"></a>索引分类</h3><table>
+<thead>
+<tr>
+<th>分类</th>
+<th>含义</th>
+<th>特点</th>
+<th>关键字</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主键索引</td>
+<td>针对于表中主键创建的索引</td>
+<td>默认自动创建，只能有一个</td>
+<td>PRIMARY</td>
+</tr>
+<tr>
+<td>唯一索引</td>
+<td>避免同一个表中某数据列中的值重复</td>
+<td>可以有多个</td>
+<td>UNIQUE</td>
+</tr>
+<tr>
+<td>常规索引</td>
+<td>快速定位特定数据</td>
+<td>可以有多个</td>
+<td></td>
+</tr>
+<tr>
+<td>全文索引</td>
+<td>全文索引查找的是文本中的关键词，而不是比较索引中的值</td>
+<td>可以有多个</td>
+<td>FULLTEXT</td>
+</tr>
+</tbody></table>
+<p>在 InnoDB 存储引擎中，根据索引的存储形式，又可以分为以下两种：</p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>含义</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>聚集索引(Clustered Index)</td>
+<td>将数据存储与索引放一块，索引结构的叶子节点保存了行数据</td>
+<td>必须有，而且只有一个</td>
+</tr>
+<tr>
+<td>二级索引(Secondary Index)</td>
+<td>将数据与索引分开存储，索引结构的叶子节点关联的是对应的主键</td>
+<td>可以存在多个</td>
+</tr>
+</tbody></table>
+<p>演示图：</p>
+<p><img src="https://dhc.pythonanywhere.com/media/editor/%E5%8E%9F%E7%90%86%E5%9B%BE_20220318194454880073.png" alt="大致原理" title="大致原理"><br><img src="https://dhc.pythonanywhere.com/media/editor/%E6%BC%94%E7%A4%BA%E5%9B%BE_20220319215403721066.png" alt="演示图" title="演示图"></p>
+<p>聚集索引选取规则：</p>
+<ul>
+<li>如果存在主键，主键索引就是聚集索引</li>
+<li>如果不存在主键，将使用第一个唯一(UNIQUE)索引作为聚集索引</li>
+<li>如果表没有主键或没有合适的唯一索引，则 InnoDB 会自动生成一个 rowid 作为隐藏的聚集索引</li>
+</ul>
+<h4 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h4><p>1. 以下 SQL 语句，哪个执行效率高？为什么？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select * from user where id = 10;</span><br><span class="line">select * from user where name = &apos;Arm&apos;;</span><br><span class="line">-- 备注：id为主键，name字段创建的有索引</span><br></pre></td></tr></table></figure>
+
+<p>答：第一条语句，因为第二条需要回表查询，相当于两个步骤。</p>
+<p>2. InnoDB 主键索引的 B+Tree 高度为多少？</p>
+<p>答：假设一行数据大小为1k，一页中可以存储16行这样的数据。InnoDB 的指针占用6个字节的空间，主键假设为bigint，占用字节数为8.<br>可得公式：<code>n * 8 + (n + 1) * 6 = 16 * 1024</code>，其中 8 表示 bigint 占用的字节数，n 表示当前节点存储的key的数量，(n + 1) 表示指针数量（比key多一个）。算出n约为1170。</p>
+<p>如果树的高度为2，那么他能存储的数据量大概为：<code>1171 * 16 = 18736</code>；<br>如果树的高度为3，那么他能存储的数据量大概为：<code>1171 * 1171 * 16 = 21939856</code>。</p>
+<p>另外，如果有成千上万的数据，那么就要考虑分表，涉及运维篇知识。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>创建索引：<br><code>CREATE [ UNIQUE | FULLTEXT ] INDEX index_name ON table_name (index_col_name, ...);</code><br>如果不加 CREATE 后面不加索引类型参数，则创建的是常规索引</p>
+<p>查看索引：<br><code>SHOW INDEX FROM table_name;</code></p>
+<p>删除索引：<br><code>DROP INDEX index_name ON table_name;</code></p>
+<p>案例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-- name字段为姓名字段，该字段的值可能会重复，为该字段创建索引</span><br><span class="line">create index idx_user_name on tb_user(name);</span><br><span class="line">-- phone手机号字段的值非空，且唯一，为该字段创建唯一索引</span><br><span class="line">create unique index idx_user_phone on tb_user (phone);</span><br><span class="line">-- 为profession, age, status创建联合索引</span><br><span class="line">create index idx_user_pro_age_stat on tb_user(profession, age, status);</span><br><span class="line">-- 为email建立合适的索引来提升查询效率</span><br><span class="line">create index idx_user_email on tb_user(email);</span><br><span class="line"></span><br><span class="line">-- 删除索引</span><br><span class="line">drop index idx_user_email on tb_user;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用规则"><a href="#使用规则" class="headerlink" title="使用规则"></a>使用规则</h3><h4 id="最左前缀法则"><a href="#最左前缀法则" class="headerlink" title="最左前缀法则"></a>最左前缀法则</h4><p>如果索引关联了多列（联合索引），要遵守最左前缀法则，最左前缀法则指的是查询从索引的最左列开始，并且不跳过索引中的列。<br>如果跳跃某一列，索引将部分失效（后面的字段索引失效）。</p>
+<p>联合索引中，出现范围查询（&lt;, &gt;），范围查询右侧的列索引失效。可以用&gt;=或者&lt;=来规避索引失效问题。</p>
+<h4 id="索引失效情况"><a href="#索引失效情况" class="headerlink" title="索引失效情况"></a>索引失效情况</h4><ol>
+<li>在索引列上进行运算操作，索引将失效。如：<code>explain select * from tb_user where substring(phone, 10, 2) = &#39;15&#39;;</code></li>
+<li>字符串类型字段使用时，不加引号，索引将失效。如：<code>explain select * from tb_user where phone = 17799990015;</code>，此处phone的值没有加引号</li>
+<li>模糊查询中，如果仅仅是尾部模糊匹配，索引不会是失效；如果是头部模糊匹配，索引失效。如：<code>explain select * from tb_user where profession like &#39;%工程&#39;;</code>，前后都有 % 也会失效。</li>
+<li>用 or 分割开的条件，如果 or 其中一个条件的列没有索引，那么涉及的索引都不会被用到。</li>
+<li>如果 MySQL 评估使用索引比全表更慢，则不使用索引。</li>
+</ol>
+<h4 id="SQL-提示"><a href="#SQL-提示" class="headerlink" title="SQL 提示"></a>SQL 提示</h4><p>是优化数据库的一个重要手段，简单来说，就是在SQL语句中加入一些人为的提示来达到优化操作的目的。</p>
+<p>例如，使用索引：<br><code>explain select * from tb_user use index(idx_user_pro) where profession=&quot;软件工程&quot;;</code><br>不使用哪个索引：<br><code>explain select * from tb_user ignore index(idx_user_pro) where profession=&quot;软件工程&quot;;</code><br>必须使用哪个索引：<br><code>explain select * from tb_user force index(idx_user_pro) where profession=&quot;软件工程&quot;;</code></p>
+<p>use 是建议，实际使用哪个索引 MySQL 还会自己权衡运行速度去更改，force就是无论如何都强制使用该索引。</p>
+<h4 id="覆盖索引-amp-回表查询"><a href="#覆盖索引-amp-回表查询" class="headerlink" title="覆盖索引&amp;回表查询"></a>覆盖索引&amp;回表查询</h4><blockquote>
+<p>联合索引和覆盖索引：  知乎 <a href="https://www.zhihu.com/question/20266909/answer/2299176280" target="_blank" rel="noopener">https://www.zhihu.com/question/20266909/answer/2299176280</a></p>
+</blockquote>
+<p>尽量使用覆盖索引（查询使用了索引，并且需要返回的列，在该索引中已经全部能找到），减少 select *。</p>
+<p>explain 中 extra 字段含义：<br><code>using index condition</code>：查找使用了索引，但是需要回表查询数据<br><code>using where; using index;</code>：查找使用了索引，但是需要的数据都在索引列中能找到，所以不需要回表查询</p>
+<p>如果在聚集索引中直接能找到对应的行，则直接返回行数据，只需要一次查询，哪怕是select *；如果在辅助索引中找聚集索引，如<code>select id, name from xxx where name=&#39;xxx&#39;;</code>，也只需要通过辅助索引(name)查找到对应的id，返回name和name索引对应的id即可，只需要一次查询；如果是通过辅助索引查找其他字段，则需要回表查询，如<code>select id, name, gender from xxx where name=&#39;xxx&#39;;</code></p>
+<p>所以尽量不要用<code>select *</code>，容易出现回表查询，降低效率，除非有联合索引包含了所有字段</p>
+<p>面试题：一张表，有四个字段（id, username, password, status），由于数据量大，需要对以下SQL语句进行优化，该如何进行才是最优方案：<br><code>select id, username, password from tb_user where username=&#39;itcast&#39;;</code></p>
+<p>解：给username和password字段建立联合索引，则不需要回表查询，直接覆盖索引</p>
+<p>面试题：索引下推和覆盖索引的区别？（重要）</p>
+<p>解：<a href="https://blog.csdn.net/Joker_ZJN/article/details/130631391" target="_blank" rel="noopener">https://blog.csdn.net/Joker_ZJN/article/details/130631391</a></p>
+<h4 id="前缀索引"><a href="#前缀索引" class="headerlink" title="前缀索引"></a>前缀索引</h4><p>当字段类型为字符串（varchar, text等）时，有时候需要索引很长的字符串，这会让索引变得很大，查询时，浪费大量的磁盘IO，影响查询效率，此时可以只降字符串的一部分前缀，建立索引，这样可以大大节约索引空间，从而提高索引效率。</p>
+<p>语法：<code>create index idx_xxxx on table_name(columnn(n));</code><br>前缀长度：可以根据索引的选择性来决定，而选择性是指不重复的索引值（基数）和数据表的记录总数的比值，索引选择性越高则查询效率越高，唯一索引的选择性是1，这是最好的索引选择性，性能也是最好的。<br>求选择性公式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select count(distinct email) / count(*) from tb_user;</span><br><span class="line">select count(distinct substring(email, 1, 5)) / count(*) from tb_user;</span><br></pre></td></tr></table></figure>
+
+<p>show index 里面的sub_part可以看到接取的长度</p>
+<h4 id="单列索引-amp-联合索引"><a href="#单列索引-amp-联合索引" class="headerlink" title="单列索引&amp;联合索引"></a>单列索引&amp;联合索引</h4><p>单列索引：即一个索引只包含单个列<br>联合索引：即一个索引包含了多个列<br>在业务场景中，如果存在多个查询条件，考虑针对于查询字段建立索引时，建议建立联合索引，而非单列索引。</p>
+<p>单列索引情况：<br><code>explain select id, phone, name from tb_user where phone = &#39;17799990010&#39; and name = &#39;韩信&#39;;</code><br>这句只会用到phone索引字段</p>
+<p>‼️联合索引相关知识点：<a href="https://zhuanlan.zhihu.com/p/481750465" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/481750465</a></p>
+<h5 id="注意事项-8"><a href="#注意事项-8" class="headerlink" title="注意事项"></a>注意事项</h5><ul>
+<li>多条件联合查询时，MySQL优化器会评估哪个字段的索引效率更高，会选择该索引完成本次查询</li>
+</ul>
+<h3 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h3><ol>
+<li>针对于数据量较大，且查询比较频繁的表建立索引</li>
+<li>针对于常作为查询条件（where）、排序（order by）、分组（group by）操作的字段建立索引</li>
+<li>尽量选择区分度高的列作为索引，尽量建立唯一索引，区分度越高，使用索引的效率越高</li>
+<li>如果是字符串类型的字段，字段长度较长，可以针对于字段的特点，建立前缀索引</li>
+<li>尽量使用联合索引，减少单列索引，查询时，联合索引很多时候可以覆盖索引，节省存储空间，避免回表，提高查询效率</li>
+<li>要控制索引的数量，索引并不是多多益善，索引越多，维护索引结构的代价就越大，会影响增删改的效率</li>
+<li>如果索引列不能存储NULL值，请在创建表时使用NOT NULL约束它。当优化器知道每列是否包含NULL值时，它可以更好地确定哪个索引最有效地用于查询</li>
+</ol>
+<h2 id="SQL-优化"><a href="#SQL-优化" class="headerlink" title="SQL 优化"></a>SQL 优化</h2><h3 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h3><p>普通插入：</p>
+<ol>
+<li>采用批量插入（一次插入的数据不建议超过1000条）</li>
+<li>手动提交事务</li>
+<li>主键顺序插入</li>
+</ol>
+<p>大批量插入：<br>如果一次性需要插入大批量数据，使用insert语句插入性能较低，此时可以使用MySQL数据库提供的load指令插入。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 客户端连接服务端时，加上参数 --local-infile（这一行在bash/cmd界面输入）</span><br><span class="line">mysql --local-infile -u root -p</span><br><span class="line"># 设置全局参数local_infile为1，开启从本地加载文件导入数据的开关</span><br><span class="line">set global local_infile = 1;</span><br><span class="line">select @@local_infile;</span><br><span class="line"># 执行load指令将准备好的数据，加载到表结构中</span><br><span class="line">load data local infile &apos;/root/sql1.log&apos; into table &apos;tb_user&apos; fields terminated by &apos;,&apos; lines terminated by &apos;\n&apos;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="主键优化"><a href="#主键优化" class="headerlink" title="主键优化"></a>主键优化</h3><p>数据组织方式：在InnoDB存储引擎中，表数据都是根据主键顺序组织存放的，这种存储方式的表称为索引组织表（Index organized table, IOT）</p>
+<p>页分裂：页可以为空，也可以填充一般，也可以填充100%，每个页包含了2-N行数据（如果一行数据过大，会行溢出），根据主键排列。<br>页合并：当删除一行记录时，实际上记录并没有被物理删除，只是记录被标记（flaged）为删除并且它的空间变得允许被其他记录声明使用。当页中删除的记录到达 MERGE_THRESHOLD（默认为页的50%），InnoDB会开始寻找最靠近的页（前后）看看是否可以将这两个页合并以优化空间使用。</p>
+<p>MERGE_THRESHOLD：合并页的阈值，可以自己设置，在创建表或创建索引时指定</p>
+<blockquote>
+<p>文字说明不够清晰明了，具体可以看视频里的PPT演示过程：<a href="https://www.bilibili.com/video/BV1Kr4y1i7ru?p=90" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1Kr4y1i7ru?p=90</a></p>
+</blockquote>
+<p>主键设计原则：</p>
+<ul>
+<li>满足业务需求的情况下，尽量降低主键的长度</li>
+<li>插入数据时，尽量选择顺序插入，选择使用 AUTO_INCREMENT 自增主键</li>
+<li>尽量不要使用 UUID 做主键或者是其他的自然主键，如身份证号</li>
+<li>业务操作时，避免对主键的修改</li>
+</ul>
+<h3 id="order-by优化"><a href="#order-by优化" class="headerlink" title="order by优化"></a>order by优化</h3><ol>
+<li>Using filesort：通过表的索引或全表扫描，读取满足条件的数据行，然后在排序缓冲区 sort buffer 中完成排序操作，所有不是通过索引直接返回排序结果的排序都叫 FileSort 排序</li>
+<li>Using index：通过有序索引顺序扫描直接返回有序数据，这种情况即为 using index，不需要额外排序，操作效率高</li>
+</ol>
+<p>如果order by字段全部使用升序排序或者降序排序，则都会走索引，但是如果一个字段升序排序，另一个字段降序排序，则不会走索引，explain的extra信息显示的是<code>Using index, Using filesort</code>，如果要优化掉Using filesort，则需要另外再创建一个索引，如：<code>create index idx_user_age_phone_ad on tb_user(age asc, phone desc);</code>，此时使用<code>select id, age, phone from tb_user order by age asc, phone desc;</code>会全部走索引</p>
+<p>总结：</p>
+<ul>
+<li>根据排序字段建立合适的索引，多字段排序时，也遵循最左前缀法则</li>
+<li>尽量使用覆盖索引</li>
+<li>多字段排序，一个升序一个降序，此时需要注意联合索引在创建时的规则（ASC/DESC）</li>
+<li>如果不可避免出现filesort，大数据量排序时，可以适当增大排序缓冲区大小 sort_buffer_size（默认256k）</li>
+</ul>
+<h4 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h4><p>如果一个索引包含（或者说覆盖）所有需要查询的字段的值，我们就称之为“覆盖索引”<br>我们知道 InnoDB 存储引擎中，如果不是主键索引，叶子节点存储的是主键+列值。最终还是要“回表”，也就是要通过主键再查找一次，这样就会比较慢。<strong>覆盖索引</strong>就是把要查询出的<strong>列和索引是对应</strong>的，不做<strong>回表</strong>操作</p>
+<h5 id="如何实现索引覆盖？"><a href="#如何实现索引覆盖？" class="headerlink" title="如何实现索引覆盖？"></a>如何实现索引覆盖？</h5><p>常见的方法是：将被查询的字段，建立到联合索引里去（或者说 查询的字段都已经建立了索引）。</p>
+<blockquote>
+<p><em>下面情况假设已经对name字段建立了索引</em></p>
+</blockquote>
+<p>第一个SQL语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>, <span class="keyword">name</span> <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> <span class="keyword">name</span>=<span class="string">'shenjian'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>能够命中 name 索引，索引叶子节点存储了主键 id，通过 name 的索引树即可获取 id 和 name，无需回表，符合索引覆盖，效率较高。<br>第二个SQL语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>, <span class="keyword">name</span>, sex <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> <span class="keyword">name</span>=<span class="string">'shenjian'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>能够命中 name 索引，索引叶子节点存储了主键 id，但 sex 字段必须回表查询才能获取到，不符合索引覆盖，需要再次通过 id 值扫码聚集索引获取 sex 字段，效率会降低。<br>如果把 (name) 单列索引升级为联合索引 (name, sex) 就不同了：<br>再次执行，第二个SQL语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>, <span class="keyword">name</span>, sex <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> <span class="keyword">name</span>=<span class="string">'shenjian'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>能够命中 联合索引，索引叶子节点存储了主键 id，通过 联合索引 的索引树即可获取 name 和 sex，无需回表，符合索引覆盖，效率较高。</p>
+<h3 id="group-by优化"><a href="#group-by优化" class="headerlink" title="group by优化"></a>group by优化</h3><ul>
+<li>在分组操作时，可以通过索引来提高效率</li>
+<li>分组操作时，索引的使用也是满足最左前缀法则的</li>
+</ul>
+<p>如索引为<code>idx_user_pro_age_stat</code>，则句式可以是<code>select ... where profession order by age</code>，这样也符合最左前缀法则</p>
+<h3 id="limit优化"><a href="#limit优化" class="headerlink" title="limit优化"></a>limit优化</h3><p>常见的问题如<code>limit 2000000, 10</code>，此时需要 MySQL 排序前2000000条记录，但仅仅返回2000000 - 2000010的记录，其他记录丢弃，查询排序的代价非常大。<br>优化方案：一般分页查询时，通过创建覆盖索引能够比较好地提高性能，可以通过覆盖索引加子查询形式进行优化</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-- 此语句耗时很长</span><br><span class="line">select * from tb_sku limit 9000000, 10;</span><br><span class="line">-- 通过覆盖索引加快速度，直接通过主键索引进行排序及查询</span><br><span class="line">select id from tb_sku order by id limit 9000000, 10;</span><br><span class="line">-- 下面的语句是错误的，因为 MySQL 不支持 in 里面使用 limit</span><br><span class="line">-- select * from tb_sku where id in (select id from tb_sku order by id limit 9000000, 10);</span><br><span class="line">-- 通过连表查询即可实现第一句的效果，并且能达到第二句的速度</span><br><span class="line">select * from tb_sku as s, (select id from tb_sku order by id limit 9000000, 10) as a where s.id = a.id;</span><br></pre></td></tr></table></figure>
+
+<h3 id="count优化"><a href="#count优化" class="headerlink" title="count优化"></a>count优化</h3><p>MyISAM 引擎把一个表的总行数存在了磁盘上，因此执行 count(*) 的时候会直接返回这个数，效率很高（前提是不适用where）；<br>InnoDB 在执行 count(*) 时，需要把数据一行一行地从引擎里面读出来，然后累计计数。<br>优化方案：自己计数，如创建key-value表存储在内存或硬盘，或者是用redis</p>
+<p>count的几种用法：</p>
+<ul>
+<li>如果count函数的参数（count里面写的那个字段）不是NULL（字段值不为NULL），累计值就加一，最后返回累计值</li>
+<li>用法：count(*)、count(主键)、count(字段)、count(1)</li>
+<li>count(主键)跟count(*)一样，因为主键不能为空；count(字段)只计算字段值不为NULL的行；count(1)引擎会为每行添加一个1，然后就count这个1，返回结果也跟count(*)一样；count(null)返回0</li>
+</ul>
+<p>各种用法的性能：</p>
+<ul>
+<li>count(主键)：InnoDB引擎会遍历整张表，把每行的主键id值都取出来，返回给服务层，服务层拿到主键后，直接按行进行累加（主键不可能为空）</li>
+<li>count(字段)：没有not null约束的话，InnoDB引擎会遍历整张表把每一行的字段值都取出来，返回给服务层，服务层判断是否为null，不为null，计数累加；有not null约束的话，InnoDB引擎会遍历整张表把每一行的字段值都取出来，返回给服务层，直接按行进行累加</li>
+<li>count(1)：InnoDB 引擎遍历整张表，但不取值。服务层对于返回的每一层，放一个数字 1 进去，直接按行进行累加</li>
+<li>count(*)：InnoDB 引擎并不会把全部字段取出来，而是专门做了优化，不取值，服务层直接按行进行累加</li>
+</ul>
+<p>按效率排序：count(字段) &lt; count(主键) &lt; count(1) &lt; count(*)，所以尽量使用 count(*)</p>
+<h3 id="update优化（避免行锁升级为表锁）"><a href="#update优化（避免行锁升级为表锁）" class="headerlink" title="update优化（避免行锁升级为表锁）"></a>update优化（避免行锁升级为表锁）</h3><p>InnoDB 的行锁是针对索引加的锁，不是针对记录加的锁，并且该索引不能失效，否则会从行锁升级为表锁。</p>
+<p>如以下两条语句：<br><code>update student set no = &#39;123&#39; where id = 1;</code>，这句由于id有主键索引，所以只会锁这一行；<br><code>update student set no = &#39;123&#39; where name = &#39;test&#39;;</code>，这句由于name没有索引，所以会把整张表都锁住进行数据更新，解决方法是给name字段添加索引</p>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><h2 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h2><table>
+<thead>
+<tr>
+<th>类型名称</th>
+<th>取值范围</th>
+<th>大小</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TINYINT</td>
+<td>-128〜127</td>
+<td>1个字节</td>
+</tr>
+<tr>
+<td>SMALLINT</td>
+<td>-32768〜32767</td>
+<td>2个宇节</td>
+</tr>
+<tr>
+<td>MEDIUMINT</td>
+<td>-8388608〜8388607</td>
+<td>3个字节</td>
+</tr>
+<tr>
+<td>INT (INTEGHR)</td>
+<td>-2147483648〜2147483647</td>
+<td>4个字节</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td>-9223372036854775808〜9223372036854775807</td>
+<td>8个字节</td>
+</tr>
+</tbody></table>
+<p>无符号在数据类型后加 unsigned 关键字。</p>
+<h2 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h2><table>
+<thead>
+<tr>
+<th>类型名称</th>
+<th>说明</th>
+<th>存储需求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FLOAT</td>
+<td>单精度浮点数</td>
+<td>4 个字节</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td>双精度浮点数</td>
+<td>8 个字节</td>
+</tr>
+<tr>
+<td>DECIMAL (M, D)，DEC</td>
+<td>压缩的“严格”定点数</td>
+<td>M+2 个字节</td>
+</tr>
+</tbody></table>
+<h2 id="日期和时间"><a href="#日期和时间" class="headerlink" title="日期和时间"></a>日期和时间</h2><table>
+<thead>
+<tr>
+<th>类型名称</th>
+<th>日期格式</th>
+<th>日期范围</th>
+<th>存储需求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>YEAR</td>
+<td>YYYY</td>
+<td>1901 ~ 2155</td>
+<td>1 个字节</td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>HH:MM:SS</td>
+<td>-838:59:59 ~ 838:59:59</td>
+<td>3 个字节</td>
+</tr>
+<tr>
+<td>DATE</td>
+<td>YYYY-MM-DD</td>
+<td>1000-01-01 ~ 9999-12-3</td>
+<td>3 个字节</td>
+</tr>
+<tr>
+<td>DATETIME</td>
+<td>YYYY-MM-DD HH:MM:SS</td>
+<td>1000-01-01 00:00:00 ~ 9999-12-31 23:59:59</td>
+<td>8 个字节</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>YYYY-MM-DD HH:MM:SS</td>
+<td>1980-01-01 00:00:01 UTC ~ 2040-01-19 03:14:07 UTC</td>
+<td>4 个字节</td>
+</tr>
+</tbody></table>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><table>
+<thead>
+<tr>
+<th>类型名称</th>
+<th>说明</th>
+<th>存储需求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CHAR(M)</td>
+<td>固定长度非二进制字符串</td>
+<td>M 字节，1&lt;=M&lt;=255</td>
+</tr>
+<tr>
+<td>VARCHAR(M)</td>
+<td>变长非二进制字符串</td>
+<td>L+1字节，在此，L&lt; = M和 1&lt;=M&lt;=255</td>
+</tr>
+<tr>
+<td>TINYTEXT</td>
+<td>非常小的非二进制字符串</td>
+<td>L+1字节，在此，L&lt;2^8</td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>小的非二进制字符串</td>
+<td>L+2字节，在此，L&lt;2^16</td>
+</tr>
+<tr>
+<td>MEDIUMTEXT</td>
+<td>中等大小的非二进制字符串</td>
+<td>L+3字节，在此，L&lt;2^24</td>
+</tr>
+<tr>
+<td>LONGTEXT</td>
+<td>大的非二进制字符串</td>
+<td>L+4字节，在此，L&lt;2^32</td>
+</tr>
+<tr>
+<td>ENUM</td>
+<td>枚举类型，只能有一个枚举字符串值</td>
+<td>1或2个字节，取决于枚举值的数目 (最大值为65535)</td>
+</tr>
+<tr>
+<td>SET</td>
+<td>一个设置，字符串对象可以有零个或 多个SET成员</td>
+<td>1、2、3、4或8个字节，取决于集合 成员的数量（最多64个成员）</td>
+</tr>
+</tbody></table>
+<h2 id="二进制类型"><a href="#二进制类型" class="headerlink" title="二进制类型"></a>二进制类型</h2><table>
+<thead>
+<tr>
+<th>类型名称</th>
+<th>说明</th>
+<th>存储需求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BIT(M)</td>
+<td>位字段类型</td>
+<td>大约 (M+7)/8 字节</td>
+</tr>
+<tr>
+<td>BINARY(M)</td>
+<td>固定长度二进制字符串</td>
+<td>M 字节</td>
+</tr>
+<tr>
+<td>VARBINARY (M)</td>
+<td>可变长度二进制字符串</td>
+<td>M+1 字节</td>
+</tr>
+<tr>
+<td>TINYBLOB (M)</td>
+<td>非常小的BLOB</td>
+<td>L+1 字节，在此，L&lt;2^8</td>
+</tr>
+<tr>
+<td>BLOB (M)</td>
+<td>小 BLOB</td>
+<td>L+2 字节，在此，L&lt;2^16</td>
+</tr>
+<tr>
+<td>MEDIUMBLOB (M)</td>
+<td>中等大小的BLOB</td>
+<td>L+3 字节，在此，L&lt;2^24</td>
+</tr>
+<tr>
+<td>LONGBLOB (M)</td>
+<td>非常大的BLOB</td>
+<td>L+4 字节，在此，L&lt;2^32</td>
+</tr>
+</tbody></table>
+<h1 id="权限一览表"><a href="#权限一览表" class="headerlink" title="权限一览表"></a>权限一览表</h1><blockquote>
+<p>具体权限的作用详见<a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html" title="官方文档" target="_blank" rel="noopener">官方文档</a></p>
+</blockquote>
+<p>GRANT 和 REVOKE 允许的静态权限</p>
+<table>
+<thead>
+<tr>
+<th align="left">Privilege</th>
+<th align="left">Grant Table Column</th>
+<th align="left">Context</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_all" target="_blank" rel="noopener"><code>ALL [PRIVILEGES]</code></a></td>
+<td align="left">Synonym for “all privileges”</td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_alter" target="_blank" rel="noopener"><code>ALTER</code></a></td>
+<td align="left"><code>Alter_priv</code></td>
+<td align="left">Tables</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_alter-routine" target="_blank" rel="noopener"><code>ALTER ROUTINE</code></a></td>
+<td align="left"><code>Alter_routine_priv</code></td>
+<td align="left">Stored routines</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_create" target="_blank" rel="noopener"><code>CREATE</code></a></td>
+<td align="left"><code>Create_priv</code></td>
+<td align="left">Databases, tables, or indexes</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_create-role" target="_blank" rel="noopener"><code>CREATE ROLE</code></a></td>
+<td align="left"><code>Create_role_priv</code></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_create-routine" target="_blank" rel="noopener"><code>CREATE ROUTINE</code></a></td>
+<td align="left"><code>Create_routine_priv</code></td>
+<td align="left">Stored routines</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_create-tablespace" target="_blank" rel="noopener"><code>CREATE TABLESPACE</code></a></td>
+<td align="left"><code>Create_tablespace_priv</code></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_create-temporary-tables" target="_blank" rel="noopener"><code>CREATE TEMPORARY TABLES</code></a></td>
+<td align="left"><code>Create_tmp_table_priv</code></td>
+<td align="left">Tables</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_create-user" target="_blank" rel="noopener"><code>CREATE USER</code></a></td>
+<td align="left"><code>Create_user_priv</code></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_create-view" target="_blank" rel="noopener"><code>CREATE VIEW</code></a></td>
+<td align="left"><code>Create_view_priv</code></td>
+<td align="left">Views</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_delete" target="_blank" rel="noopener"><code>DELETE</code></a></td>
+<td align="left"><code>Delete_priv</code></td>
+<td align="left">Tables</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_drop" target="_blank" rel="noopener"><code>DROP</code></a></td>
+<td align="left"><code>Drop_priv</code></td>
+<td align="left">Databases, tables, or views</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_drop-role" target="_blank" rel="noopener"><code>DROP ROLE</code></a></td>
+<td align="left"><code>Drop_role_priv</code></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_event" target="_blank" rel="noopener"><code>EVENT</code></a></td>
+<td align="left"><code>Event_priv</code></td>
+<td align="left">Databases</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_execute" target="_blank" rel="noopener"><code>EXECUTE</code></a></td>
+<td align="left"><code>Execute_priv</code></td>
+<td align="left">Stored routines</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_file" target="_blank" rel="noopener"><code>FILE</code></a></td>
+<td align="left"><code>File_priv</code></td>
+<td align="left">File access on server host</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_grant-option" target="_blank" rel="noopener"><code>GRANT OPTION</code></a></td>
+<td align="left"><code>Grant_priv</code></td>
+<td align="left">Databases, tables, or stored routines</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_index" target="_blank" rel="noopener"><code>INDEX</code></a></td>
+<td align="left"><code>Index_priv</code></td>
+<td align="left">Tables</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_insert" target="_blank" rel="noopener"><code>INSERT</code></a></td>
+<td align="left"><code>Insert_priv</code></td>
+<td align="left">Tables or columns</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_lock-tables" target="_blank" rel="noopener"><code>LOCK TABLES</code></a></td>
+<td align="left"><code>Lock_tables_priv</code></td>
+<td align="left">Databases</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_process" target="_blank" rel="noopener"><code>PROCESS</code></a></td>
+<td align="left"><code>Process_priv</code></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_proxy" target="_blank" rel="noopener"><code>PROXY</code></a></td>
+<td align="left">See <code>proxies_priv</code> table</td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_references" target="_blank" rel="noopener"><code>REFERENCES</code></a></td>
+<td align="left"><code>References_priv</code></td>
+<td align="left">Databases or tables</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_reload" target="_blank" rel="noopener"><code>RELOAD</code></a></td>
+<td align="left"><code>Reload_priv</code></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_replication-client" target="_blank" rel="noopener"><code>REPLICATION CLIENT</code></a></td>
+<td align="left"><code>Repl_client_priv</code></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_replication-slave" target="_blank" rel="noopener"><code>REPLICATION SLAVE</code></a></td>
+<td align="left"><code>Repl_slave_priv</code></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_select" target="_blank" rel="noopener"><code>SELECT</code></a></td>
+<td align="left"><code>Select_priv</code></td>
+<td align="left">Tables or columns</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_show-databases" target="_blank" rel="noopener"><code>SHOW DATABASES</code></a></td>
+<td align="left"><code>Show_db_priv</code></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_show-view" target="_blank" rel="noopener"><code>SHOW VIEW</code></a></td>
+<td align="left"><code>Show_view_priv</code></td>
+<td align="left">Views</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_shutdown" target="_blank" rel="noopener"><code>SHUTDOWN</code></a></td>
+<td align="left"><code>Shutdown_priv</code></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_super" target="_blank" rel="noopener"><code>SUPER</code></a></td>
+<td align="left"><code>Super_priv</code></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_trigger" target="_blank" rel="noopener"><code>TRIGGER</code></a></td>
+<td align="left"><code>Trigger_priv</code></td>
+<td align="left">Tables</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_update" target="_blank" rel="noopener"><code>UPDATE</code></a></td>
+<td align="left"><code>Update_priv</code></td>
+<td align="left">Tables or columns</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_usage" target="_blank" rel="noopener"><code>USAGE</code></a></td>
+<td align="left">Synonym for “no privileges”</td>
+<td align="left">Server administration</td>
+</tr>
+</tbody></table>
+<p>GRANT 和 REVOKE 允许的动态权限</p>
+<table>
+<thead>
+<tr>
+<th align="left">Privilege</th>
+<th align="left">Context</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_application-password-admin" target="_blank" rel="noopener"><code>APPLICATION_PASSWORD_ADMIN</code></a></td>
+<td align="left">Dual password administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_audit-abort-exempt" target="_blank" rel="noopener"><code>AUDIT_ABORT_EXEMPT</code></a></td>
+<td align="left">Allow queries blocked by audit log filter</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_audit-admin" target="_blank" rel="noopener"><code>AUDIT_ADMIN</code></a></td>
+<td align="left">Audit log administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_authentication-policy-admin" target="_blank" rel="noopener"><code>AUTHENTICATION_POLICY_ADMIN</code></a></td>
+<td align="left">Authentication administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_backup-admin" target="_blank" rel="noopener"><code>BACKUP_ADMIN</code></a></td>
+<td align="left">Backup administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_binlog-admin" target="_blank" rel="noopener"><code>BINLOG_ADMIN</code></a></td>
+<td align="left">Backup and Replication administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_binlog-encryption-admin" target="_blank" rel="noopener"><code>BINLOG_ENCRYPTION_ADMIN</code></a></td>
+<td align="left">Backup and Replication administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_clone-admin" target="_blank" rel="noopener"><code>CLONE_ADMIN</code></a></td>
+<td align="left">Clone administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_connection-admin" target="_blank" rel="noopener"><code>CONNECTION_ADMIN</code></a></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_encryption-key-admin" target="_blank" rel="noopener"><code>ENCRYPTION_KEY_ADMIN</code></a></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_firewall-admin" target="_blank" rel="noopener"><code>FIREWALL_ADMIN</code></a></td>
+<td align="left">Firewall administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_firewall-exempt" target="_blank" rel="noopener"><code>FIREWALL_EXEMPT</code></a></td>
+<td align="left">Firewall administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_firewall-user" target="_blank" rel="noopener"><code>FIREWALL_USER</code></a></td>
+<td align="left">Firewall administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_flush-optimizer-costs" target="_blank" rel="noopener"><code>FLUSH_OPTIMIZER_COSTS</code></a></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_flush-status" target="_blank" rel="noopener"><code>FLUSH_STATUS</code></a></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_flush-tables" target="_blank" rel="noopener"><code>FLUSH_TABLES</code></a></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_flush-user-resources" target="_blank" rel="noopener"><code>FLUSH_USER_RESOURCES</code></a></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_group-replication-admin" target="_blank" rel="noopener"><code>GROUP_REPLICATION_ADMIN</code></a></td>
+<td align="left">Replication administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_group-replication-stream" target="_blank" rel="noopener"><code>GROUP_REPLICATION_STREAM</code></a></td>
+<td align="left">Replication administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_innodb-redo-log-archive" target="_blank" rel="noopener"><code>INNODB_REDO_LOG_ARCHIVE</code></a></td>
+<td align="left">Redo log archiving administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_ndb-stored-user" target="_blank" rel="noopener"><code>NDB_STORED_USER</code></a></td>
+<td align="left">NDB Cluster</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_passwordless-user-admin" target="_blank" rel="noopener"><code>PASSWORDLESS_USER_ADMIN</code></a></td>
+<td align="left">Authentication administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_persist-ro-variables-admin" target="_blank" rel="noopener"><code>PERSIST_RO_VARIABLES_ADMIN</code></a></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_replication-applier" target="_blank" rel="noopener"><code>REPLICATION_APPLIER</code></a></td>
+<td align="left"><code>PRIVILEGE_CHECKS_USER</code> for a replication channel</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_replication-slave-admin" target="_blank" rel="noopener"><code>REPLICATION_SLAVE_ADMIN</code></a></td>
+<td align="left">Replication administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_resource-group-admin" target="_blank" rel="noopener"><code>RESOURCE_GROUP_ADMIN</code></a></td>
+<td align="left">Resource group administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_resource-group-user" target="_blank" rel="noopener"><code>RESOURCE_GROUP_USER</code></a></td>
+<td align="left">Resource group administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_role-admin" target="_blank" rel="noopener"><code>ROLE_ADMIN</code></a></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_session-variables-admin" target="_blank" rel="noopener"><code>SESSION_VARIABLES_ADMIN</code></a></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_set-user-id" target="_blank" rel="noopener"><code>SET_USER_ID</code></a></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_show-routine" target="_blank" rel="noopener"><code>SHOW_ROUTINE</code></a></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_system-user" target="_blank" rel="noopener"><code>SYSTEM_USER</code></a></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_system-variables-admin" target="_blank" rel="noopener"><code>SYSTEM_VARIABLES_ADMIN</code></a></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_table-encryption-admin" target="_blank" rel="noopener"><code>TABLE_ENCRYPTION_ADMIN</code></a></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_version-token-admin" target="_blank" rel="noopener"><code>VERSION_TOKEN_ADMIN</code></a></td>
+<td align="left">Server administration</td>
+</tr>
+<tr>
+<td align="left"><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_xa-recover-admin" target="_blank" rel="noopener"><code>XA_RECOVER_ADMIN</code></a></td>
+<td align="left">Server administration</td>
+</tr>
+</tbody></table>
+<h1 id="图形化界面工具"><a href="#图形化界面工具" class="headerlink" title="图形化界面工具"></a>图形化界面工具</h1><ul>
+<li>Workbench(免费): <a href="http://dev.mysql.com/downloads/workbench/" target="_blank" rel="noopener">http://dev.mysql.com/downloads/workbench/</a></li>
+<li>navicat(收费，试用版30天): <a href="https://www.navicat.com/en/download/navicat-for-mysql" target="_blank" rel="noopener">https://www.navicat.com/en/download/navicat-for-mysql</a></li>
+<li>Sequel Pro(开源免费，仅支持Mac OS): <a href="http://www.sequelpro.com/" target="_blank" rel="noopener">http://www.sequelpro.com/</a></li>
+<li>HeidiSQL(免费): <a href="http://www.heidisql.com/" target="_blank" rel="noopener">http://www.heidisql.com/</a></li>
+<li>phpMyAdmin(免费): <a href="https://www.phpmyadmin.net/" target="_blank" rel="noopener">https://www.phpmyadmin.net/</a></li>
+<li>SQLyog: <a href="https://sqlyog.en.softonic.com/" target="_blank" rel="noopener">https://sqlyog.en.softonic.com/</a></li>
+</ul>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h1 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h1><ol>
+<li>在SQL语句之后加上<code>\G</code>会将结果的表格形式转换成行文本形式</li>
+<li>查看Mysql数据库占用空间：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT table_schema &quot;Database Name&quot;</span><br><span class="line">     , SUM(data_length + index_length) / (1024 * 1024) &quot;Database Size in MB&quot;</span><br><span class="line">FROM information_schema.TABLES</span><br><span class="line">GROUP BY table_schema;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2022/09/06/Maven中dependence和dependenceManagement/">Maven中的dependencies和dependencyManagement标签</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-09-06</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Maven/">Maven</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/编程/">编程</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/学习/">学习</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Maven/">Maven</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><p>本文主要记录学习SSM过程中对于Maven的pom.xml文件内<strong>dependencies</strong>和<strong>dependencyManagement</strong>两个标签的区别和理解。</p>
+<p>闲言少叙，直奔主题👇</p>
+<h2 id="情景一："><a href="#情景一：" class="headerlink" title="情景一："></a>情景一：</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>web-demo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>war<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.25<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.32<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上述pom文件中同时在<strong>dependencies</strong>和<strong>dependencyManagement</strong>中引入了mysql依赖，但是版本不同。</p>
+<center>这里我们查看项目的外部库👇
+
+<p><img src="https://img.gejiba.com/images/07d8c055577d9f4a3378869033e9df15.png" alt></p>
+<p>可见同时作用时版本以<strong>dependencies</strong>中指定的为准</p>
+</center>
+
+<h2 id="情景二："><a href="#情景二：" class="headerlink" title="情景二："></a>情景二：</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>web-demo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>war<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- &lt;version&gt;8.0.25&lt;/version&gt; --&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.32<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>此处我们将<strong>dependencies</strong>中的<strong>version</strong>标签进行注释，即不指定版本信息再进行观察。</p>
+<center>这里我们查看项目的外部库👇
+
+<p><img src="https://img.gejiba.com/images/44c0e5bc68a6c84b0ef1f0d2a5f13fe2.png" alt></p>
+<p>可见不在<strong>dependencies</strong>中指定版本时，外部库版本以<strong>dependencyManagement</strong>中定义的版本为准</p>
+</center>
+
+<h2 id="情景三："><a href="#情景三：" class="headerlink" title="情景三："></a>情景三：</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>web-demo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>war<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- &lt;dependencies&gt;</span></span><br><span class="line"><span class="comment">        &lt;dependency&gt;</span></span><br><span class="line"><span class="comment">            &lt;groupId&gt;mysql&lt;/groupId&gt;</span></span><br><span class="line"><span class="comment">            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</span></span><br><span class="line"><span class="comment">            &lt;version&gt;8.0.25&lt;/version&gt;</span></span><br><span class="line"><span class="comment">        &lt;/dependency&gt;</span></span><br><span class="line"><span class="comment">    &lt;/dependencies&gt; --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.32<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>此处我们将<strong>dependencies</strong>标签的全部内容进行注释。</p>
+<center>这里我们查看项目的外部库👇
+
+<p><img src="https://img.gejiba.com/images/1c6fd77878b719965c31b7dd0b6fc9bd.png" alt></p>
+<p>可见在<strong>dependencyManagement</strong>中仅仅进行了对外部库的声明而非引用</p>
+</center>
+
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>Maven中的dependencyManagement元素提供了一种管理依赖版本号的方式。在dependencyManagement元素中声明所依赖的jar包的版本号等信息，那么所有子项目再次引入此依赖jar包时则无需显式的列出版本号。Maven会沿着父子层级向上寻找拥有dependencyManagement 元素的项目，然后使用它指定的版本号。</p>
+<p>在父项目的POM.xml中配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.3.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>此配置即声明了spring-boot的版本信息。</p>
+<p>子项目则无需指定版本信息：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>使用优点</strong><br>如果有多个子项目都引用同一样依赖，则可以避免在每个使用的子项目里都声明一个版本号。当想升级或切换到另一个版本时，只需要在顶层父容器里更新，而不需要逐个修改子项目；另外如果某个子项目需要另外的一个版本，只需要声明version即可。</p>
+<p><strong>注意事项</strong><br>dependencyManagement中定义的只是依赖的声明，并不实现引入，因此子项目需要显式的声明需要用的依赖。</p>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><ul>
+<li><strong>dependencyManagement</strong>其实只是一个管理jar的作用的声明标签,是管理jar的版本的,其他他的什么作用都没有,只是定义找到该jar的三维坐标,并不是真正的去执行下载的jar的功能</li>
+<li>在<strong>dependencies</strong>中的依赖中如果没有声明jar的版本,就到<strong>dependenciesManagement</strong>中去找,找到就使用,没有就报错</li>
+<li>在<strong>dependencies</strong>中声明jar的版本,则使用该版本,不管在<strong>dependenciesManagement</strong>中有没有声明jar的version,都以该jar的版本为主</li>
+</ul>
 </div><hr></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/53/"><i class="fa fa-chevron-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/53/">53</a><span class="page-number current">54</span><a class="page-number" href="/page/55/">55</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/55/"><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://i.328888.xyz/2022/12/21/ARudF.png)"><div class="layout" id="footer"><div class="copyright">&copy;2015 - 2023 By GeYu</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Enjoy the cyber world!</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')
