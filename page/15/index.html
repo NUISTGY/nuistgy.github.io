@@ -7,7 +7,88 @@
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">223</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">82</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">45</span></a></div></div></div><nav id="nav" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2023/04/23/JUC-Atomic引用类型/">JUC-Atomic 引用类型</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-04-23</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JUC/">JUC</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/并发编程/">并发编程</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JUC/">JUC</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="原子引用"><a href="#原子引用" class="headerlink" title="原子引用"></a>原子引用</h2><p>原子引用：对 Object 进行原子操作，提供一种读和写都是原子性的对象引用变量</p>
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">224</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">83</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">46</span></a></div></div></div><nav id="nav" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2023/04/23/JUC-Atomic/">JUC-Atomic 整数类型</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-04-23</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JUC/">JUC</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/并发编程/">并发编程</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JUC/">JUC</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="Atomic-整数类型"><a href="#Atomic-整数类型" class="headerlink" title="Atomic 整数类型"></a>Atomic 整数类型</h2><h3 id="常用API"><a href="#常用API" class="headerlink" title="常用API"></a>常用API</h3><p>常见原子类：AtomicInteger、AtomicBoolean、AtomicLong</p>
+<p>构造方法：</p>
+<ul>
+<li><code>public AtomicInteger()</code>：初始化一个默认值为 0 的原子型 Integer</li>
+<li><code>public AtomicInteger(int initialValue)</code>：初始化一个指定值的原子型 Integer</li>
+</ul>
+<p>常用API：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public final int get()</td>
+<td>获取 AtomicInteger 的值</td>
+</tr>
+<tr>
+<td>public final int getAndIncrement()</td>
+<td>以原子方式将当前值加 1，返回的是自增前的值</td>
+</tr>
+<tr>
+<td>public final int incrementAndGet()</td>
+<td>以原子方式将当前值加 1，返回的是自增后的值</td>
+</tr>
+<tr>
+<td>public final int getAndSet(int value)</td>
+<td>以原子方式设置为 newValue 的值，返回旧值</td>
+</tr>
+<tr>
+<td>public final int addAndGet(int data)</td>
+<td>以原子方式将输入的数值与实例中的值相加并返回<br>实例：AtomicInteger 里的 value</td>
+</tr>
+<tr>
+<td>public final int getAndUpdate(IntUnaryOperator updateFunction)</td>
+<td>可以自定义操作逻辑</td>
+</tr>
+<tr>
+<td>public final int updateAndGet(IntUnaryOperator updateFunction)</td>
+<td>可以自定义操作逻辑</td>
+</tr>
+</tbody></table>
+<h3 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h3><p><strong>AtomicInteger 原理</strong>：自旋锁  + CAS 算法</p>
+<p>CAS 算法：有 3 个操作数（内存值 V， 旧的预期值 A，要修改的值 B）</p>
+<ul>
+<li>当旧的预期值 A == 内存值 V   此时可以修改，将 V 改为 B</li>
+<li>当旧的预期值 A !=  内存值 V   此时不能修改，并重新获取现在的最新值，重新获取的动作就是自旋 </li>
+</ul>
+<p>分析 getAndSet 方法：</p>
+<ul>
+<li><p>AtomicInteger：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndSet</span><span class="params">(<span class="keyword">int</span> newValue)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * this: 		当前对象</span></span><br><span class="line"><span class="comment">    * valueOffset:	内存偏移量，内存地址</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">return</span> unsafe.getAndSetInt(<span class="keyword">this</span>, valueOffset, newValue);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>valueOffset：偏移量表示该变量值相对于当前对象地址的偏移，Unsafe 就是根据内存偏移地址获取数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">valueOffset = unsafe.objectFieldOffset</span><br><span class="line">                (AtomicInteger.class.getDeclaredField(<span class="string">"value"</span>));</span><br><span class="line"><span class="comment">//调用本地方法   --&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">long</span> <span class="title">objectFieldOffset</span><span class="params">(Field var1)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>unsafe 类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// val1: AtomicInteger对象本身，var2: 该对象值得引用地址，var4: 需要变动的数</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndSetInt</span><span class="params">(Object var1, <span class="keyword">long</span> var2, <span class="keyword">int</span> var4)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> var5;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="comment">// var5: 用 var1 和 var2 找到的内存中的真实值</span></span><br><span class="line">        var5 = <span class="keyword">this</span>.getIntVolatile(var1, var2);</span><br><span class="line">    &#125; <span class="keyword">while</span>(!<span class="keyword">this</span>.compareAndSwapInt(var1, var2, var5, var4));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> var5;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>var5：从主内存中拷贝到工作内存中的值（每次都要从主内存拿到最新的值到本地内存），然后执行 <code>compareAndSwapInt()</code> 再和主内存的值进行比较，假设方法返回 false，那么就一直执行 while 方法，直到期望的值和真实值一样，修改数据</p>
+</li>
+<li><p>变量 value 用 volatile 修饰，保证了多线程之间的内存可见性，避免线程从工作缓存中获取失效的变量</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> value</span><br></pre></td></tr></table></figure>
+
+<p><strong>CAS 必须借助 volatile 才能读取到共享变量的最新值来实现比较并交换的效果</strong></p>
+</li>
+</ul>
+<p>分析 getAndUpdate 方法：</p>
+<ul>
+<li><p>getAndUpdate：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndUpdate</span><span class="params">(IntUnaryOperator updateFunction)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> prev, next;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        prev = get();	<span class="comment">//当前值，cas的期望值</span></span><br><span class="line">        next = updateFunction.applyAsInt(prev);<span class="comment">//期望值更新到该值</span></span><br><span class="line">    &#125; <span class="keyword">while</span> (!compareAndSet(prev, next));<span class="comment">//自旋</span></span><br><span class="line">    <span class="keyword">return</span> prev;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>函数式接口：可以自定义操作逻辑</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AtomicInteger a = <span class="keyword">new</span> AtomicInteger();</span><br><span class="line">a.getAndUpdate(i -&gt; i + <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>compareAndSet：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(<span class="keyword">int</span> expect, <span class="keyword">int</span> update)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * this: 		当前对象</span></span><br><span class="line"><span class="comment">    * valueOffset:	内存偏移量，内存地址</span></span><br><span class="line"><span class="comment">    * expect:		期望的值</span></span><br><span class="line"><span class="comment">    * update: 		更新的值</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">return</span> unsafe.compareAndSwapInt(<span class="keyword">this</span>, valueOffset, expect, update);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2023/04/23/JUC-Atomic引用类型/">JUC-Atomic 引用类型</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-04-23</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JUC/">JUC</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/并发编程/">并发编程</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JUC/">JUC</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="原子引用"><a href="#原子引用" class="headerlink" title="原子引用"></a>原子引用</h2><p>原子引用：对 Object 进行原子操作，提供一种读和写都是原子性的对象引用变量</p>
 <p>原子引用类：AtomicReference、AtomicStampedReference、AtomicMarkableReference</p>
 <h3 id="AtomicReference-类："><a href="#AtomicReference-类：" class="headerlink" title="AtomicReference 类："></a>AtomicReference 类：</h3><ul>
 <li><p>构造方法：<code>AtomicReference&lt;T&gt; atomicReference = new AtomicReference&lt;T&gt;()</code></p>
@@ -91,52 +172,6 @@
 <li>线程对变量的 use 与 load、read 操作是相关联的，所以变量使用前必须先从主存加载</li>
 <li>线程对变量的 assign 与 store、write 操作是相关联的，所以变量使用后必须同步至主存</li>
 <li>线程 1 和线程 2 谁先对变量执行 read 操作，就会先进行 write 操作，防止指令重排</li>
-</ul>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2023/04/23/JUC-可见性/">JUC-可见性</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-04-23</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JUC/">JUC</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/并发编程/">并发编程</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JUC/">JUC</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>可见性：是指当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值</p>
-<p>存在不可见问题的根本原因是由于缓存的存在，线程持有的是共享变量的副本，无法感知其他线程对于共享变量的更改，导致读取的值不是最新的。但是 final 修饰的变量是<strong>不可变</strong>的，就算有缓存，也不会存在不可见的问题</p>
-<p>main 线程对 run 变量的修改对于 t 线程不可见，导致了 t 线程无法停止：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">boolean</span> run = <span class="keyword">true</span>;	<span class="comment">//添加volatile</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    Thread t = <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">        <span class="keyword">while</span>(run)&#123;</span><br><span class="line">        <span class="comment">// ....</span></span><br><span class="line">        &#125;</span><br><span class="line">	&#125;);</span><br><span class="line">    t.start();</span><br><span class="line">    sleep(<span class="number">1</span>);</span><br><span class="line">    run = <span class="keyword">false</span>; <span class="comment">// 线程t不会如预想的停下来</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>原因：</p>
-<ul>
-<li>初始状态， t 线程刚开始从主内存读取了 run 的值到工作内存</li>
-<li>因为 t 线程要频繁从主内存中读取 run 的值，JIT 编译器会将 run 的值缓存至自己工作内存中的高速缓存中，减少对主存中 run 的访问，提高效率</li>
-<li>1 秒之后，main 线程修改了 run 的值，并同步至主存，而 t 是从自己工作内存中的高速缓存中读取这个变量的值，结果永远是旧值</li>
-</ul>
-<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JMM-%E5%8F%AF%E8%A7%81%E6%80%A7%E4%BE%8B%E5%AD%90.png" alt></p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="加锁"><a href="#加锁" class="headerlink" title="加锁"></a>加锁</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main方法</span></span><br><span class="line"><span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (volatileThread) &#123;</span><br><span class="line">        <span class="keyword">if</span>(volatileThread.isFlag()) &#123;</span><br><span class="line">            System.out.println(<span class="string">"执行了======"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>   某一个线程进入synchronized代码块前后，执行过程入如下：</p>
-<p>   a. 线程获得锁</p>
-<p>   b. 清空工作内存</p>
-<p>   c. 从主内存拷贝共享变量最新的值到工作内存成为副本</p>
-<p>   d. 执行代码</p>
-<p>   e. 将修改后的副本的值刷新回主内存中</p>
-<p>   f. 线程释放锁</p>
-<h3 id="volatile关键字"><a href="#volatile关键字" class="headerlink" title="volatile关键字"></a>volatile关键字</h3><p>   使用volatile关键字：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> flag ;</span><br></pre></td></tr></table></figure>
-
-<p>   工作原理：</p>
-<ol>
-<li><p>VolatileThread线程从主内存读取到数据放入其对应的工作内存</p>
-</li>
-<li><p>将flag的值更改为true，但是这个时候flag的值还没有写会主内存</p>
-</li>
-<li><p>此时main方法main方法读取到了flag的值为false</p>
-</li>
-<li><p>当VolatileThread线程将flag的值写回去后，失效其他线程对此变量副本</p>
-</li>
-<li><p>再次对flag进行操作的时候线程会从主内存读取最新的值，放入到工作内存中</p>
-<p>总结： volatile保证不同线程对共享变量操作的可见性，也就是说一个线程修改了volatile修饰的变量，当修改写回主内存时，另外一个线程立即看到最新的值。</p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">⚠️ volatile不保证原子性。</span><br></pre></td></tr></table></figure>
-
-<h3 id="volatile与synchronized"><a href="#volatile与synchronized" class="headerlink" title="volatile与synchronized"></a>volatile与synchronized</h3><ul>
-<li><p>volatile只能修饰实例变量和类变量，而synchronized可以修饰方法，以及代码块。</p>
-</li>
-<li><p>volatile保证数据的可见性，但是不保证原子性(多线程进行写操作，不保证线程安全)，而synchronized是一种排他（互斥）的机制，</p>
-</li>
 </ul>
 </div><hr></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-chevron-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2015 - 2023 By GeYu</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Enjoy the cyber world!</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
