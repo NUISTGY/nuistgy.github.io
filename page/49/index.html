@@ -7,7 +7,146 @@
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">225</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">83</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">46</span></a></div></div></div><nav id="nav" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2022/11/10/Nginx_Configuration_file/">Nginx 核心配置文件</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-11-10</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Nginx/">Nginx</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/后端/">后端</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Nginx/">Nginx</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/中间件/">中间件</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h1 id="Nginx-核心配置文件"><a href="#Nginx-核心配置文件" class="headerlink" title="Nginx 核心配置文件"></a>Nginx 核心配置文件</h1><p>从前面的内容学习中，我们知道 Nginx 的核心配置文件默认是放在 <code>/usr/local/nginx/conf/nginx.conf</code>，本次我们就来学习下 nginx.conf 的内容和基本配置方法。</p>
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">226</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">83</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">46</span></a></div></div></div><nav id="nav" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2022/11/10/Nginx_Basic_case_configuration/">Nginx 基础配置实例</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-11-10</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Nginx/">Nginx</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/后端/">后端</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Nginx/">Nginx</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/中间件/">中间件</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h1 id="Nginx-基础配置实例"><a href="#Nginx-基础配置实例" class="headerlink" title="Nginx 基础配置实例"></a>Nginx 基础配置实例</h1><p><strong>引言</strong></p>
+<p>学习了核心配置文件的内容，也仅仅是学习，没有实际例子来巩固的知识容易流失，本内容带你写一个简单的 demo 实例。</p>
+<p>每次开机都手动启动 Nginx 服务？每次使用 Nginx 的指令总是要进入 sbin 目录下？本文带你配置 Naginx 服务自启和全局 nginx 指令。</p>
+<h2 id="基础配置实例"><a href="#基础配置实例" class="headerlink" title="基础配置实例"></a>基础配置实例</h2><p>前面我们已经对 Nginx 服务器默认配置文件的结构和涉及的基本指令做了详细的阐述。通过这些指令的合理配置，我们就可以让一台 Nginx 服务器正常工作，并且提供基本的 Web 服务器功能。</p>
+<p>接下来我们将通过一个比较完整和最简单的基础配置实例，来巩固下前面所学习的指令及其配置。</p>
+<h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><ul>
+<li><p>有如下访问：</p>
+<p><code>http://192.168.199.27:8081/server1/location1</code> 访问的是：index_sr1_location1.html <code>http://192.168.199.27:8081/server1/location2</code> 访问的是：index_sr1_location2.html <code>http://192.168.199.27:8082/server2/location1</code> 访问的是：index_sr2_location1.html <code>http://192.168.199.27:8082/server2/location2</code> 访问的是：index_sr2_location2.html</p>
+</li>
+<li><p>如果访问的资源不存在，返回自定义的 404 页面</p>
+</li>
+<li><p>将 /server1 和 /server2 的配置使用不同的配置文件分割，将两个文件文件放到 /home/www/conf.d 目录下，然后在 Nginx 的配置文件使用 include 合并两个文件</p>
+</li>
+<li><p>为 /server1 和 /server2 各自创建一个访问日志文件</p>
+</li>
+</ul>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建 404 页面</span></span><br><span class="line">touch /home/www/404.html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建 conf.d 目录</span></span><br><span class="line">mkdir /home/www/conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建两个配置文件</span></span><br><span class="line">touch /home/www/conf/server1.conf</span><br><span class="line">touch /home/www/conf/server2.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建 myweb 目录</span></span><br><span class="line">mkdir /home/www/myweb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建 server1 目录和其子目录以及 index.html 文件</span></span><br><span class="line">mkdir -p /home/www/myweb/server1/location1</span><br><span class="line">mkdir -p /home/www/myweb/server1/location2</span><br><span class="line"></span><br><span class="line">touch /home/www/myweb/server1/location1/index.html</span><br><span class="line">touch /home/www/myweb/server1/location2/index.html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建日志目录和日志文件</span></span><br><span class="line">mkdir -p /home/www/myweb/server1/logs</span><br><span class="line">touch /home/www/myweb/server1/logs/access.log</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建 server2 目录和其子目录以及 index.html 文件</span></span><br><span class="line"><span class="comment"># 和创建 server1 步骤一样，把 1 改为 2 即可</span></span><br></pre></td></tr></table></figure>
+
+<p>准备相关文件，/homw/www 目录如下：</p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220729/image.2fjy4216srrw.webp" alt="image"></p>
+<p>因为 Nginx 自带配置文件的备份，即 nginx.conf.default，所以我们可以直接修改配置文件，但是如果你的配置文件曾经修改过，那么请进行备份。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf.backup</span><br></pre></td></tr></table></figure>
+
+<p>备份后，进入 <code>/usr/local/nginx/conf/nginx.conf</code> 配置文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf</span><br></pre></td></tr></table></figure>
+
+<p>先清空文件，然后添加如下内容:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cache-lifetime=&quot;5&quot; :options=&quot;&#123; useUrlFragment: false &#125;&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>有注释版</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">user</span> www; <span class="comment"># 配置允许运行 Nginx 工作进程的用户和用户组</span></span><br><span class="line"><span class="attribute">worker_processes</span> <span class="number">2</span>;  <span class="comment"># 配置运行 Nginx 进程生成的 worker 进程数</span></span><br><span class="line"><span class="attribute">error_log</span> logs/error.log;  <span class="comment"># 配置 Nginx 服务器运行对错误日志存放的路径</span></span><br><span class="line"><span class="attribute">pid</span> logs/nginx.pid;   <span class="comment"># 配置 Nginx 服务器允许时记录 Nginx 的 master 进程的 PID 文件路径和名称</span></span><br><span class="line"><span class="attribute">daemon</span> <span class="literal">on</span>;   <span class="comment"># 配置 Nginx 服务是否以守护进程方法启动</span></span><br><span class="line"></span><br><span class="line">events&#123;</span><br><span class="line">	<span class="attribute">accept_mutex</span> <span class="literal">on</span>;   <span class="comment"># 设置 Nginx 网络连接序列化,解决惊群</span></span><br><span class="line">	<span class="attribute">multi_accept</span> <span class="literal">on</span>;   <span class="comment"># 设置 Nginx 的 worker 进程是否可以同时接收多个请求</span></span><br><span class="line">	<span class="attribute">worker_connections</span> <span class="number">1024</span>;   <span class="comment"># 设置 Nginx 的 worker 进程最大的连接数</span></span><br><span class="line">	<span class="attribute">use</span> <span class="literal">epoll</span>;   <span class="comment"># 设置 Nginx 使用的事件驱动模型</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http&#123;</span><br><span class="line"></span><br><span class="line">	<span class="attribute">include</span> mime.types;   <span class="comment"># 定义 MIME-Type</span></span><br><span class="line">	<span class="attribute">default_type</span> application/octet-stream;</span><br><span class="line">	<span class="attribute">sendfile</span> <span class="literal">on</span>;   <span class="comment"># 配置允许使用 sendfile 方式运输</span></span><br><span class="line">	<span class="attribute">keepalive_timeout</span> <span class="number">65</span>;   <span class="comment"># 配置连接超时时间</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 配置请求处理日志格式</span></span><br><span class="line">	<span class="attribute">log_format</span> server1 <span class="string">'===&gt;server1 access log'</span>;</span><br><span class="line">	<span class="attribute">log_format</span> server2 <span class="string">'===&gt;server2 access log'</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="attribute">include</span> /home/www/conf/<span class="regexp">*.conf</span>;  <span class="comment"># 引用其他 conf 文件</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>无注释版</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">user</span> www;</span><br><span class="line"><span class="attribute">worker_processes</span> <span class="number">2</span>;</span><br><span class="line"><span class="attribute">error_log</span> logs/error.log;</span><br><span class="line"><span class="attribute">pid</span> logs/nginx.pid;</span><br><span class="line"><span class="attribute">daemon</span> <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line">events&#123;</span><br><span class="line">	<span class="attribute">accept_mutex</span> <span class="literal">on</span>;</span><br><span class="line">	<span class="attribute">multi_accept</span> <span class="literal">on</span>;</span><br><span class="line">	<span class="attribute">worker_connections</span> <span class="number">1024</span>;</span><br><span class="line">	<span class="attribute">use</span> <span class="literal">epoll</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http&#123;</span><br><span class="line"></span><br><span class="line">	<span class="attribute">include</span> mime.types;</span><br><span class="line">	<span class="attribute">default_type</span> application/octet-stream;</span><br><span class="line">	<span class="attribute">sendfile</span> <span class="literal">on</span>;</span><br><span class="line">	<span class="attribute">keepalive_timeout</span> <span class="number">65</span>;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="attribute">log_format</span> server1 <span class="string">'===&gt;this is server1 access log'</span>;</span><br><span class="line">	<span class="attribute">log_format</span> server2 <span class="string">'===&gt;this is server2 access log'</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="attribute">include</span> /home/www/conf/<span class="regexp">*.conf</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第 25 行代码使用 include 将 service1 和service2 的配置文件进行引用。以后无需修改主配置文件，只需要引入子配置文件即可，主配置文件作为默认值，子配置文件的内容会覆盖和主配置文件相同的内容。</p>
+<p>进入 server1.conf 文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /home/www/conf/server1.conf</span><br></pre></td></tr></table></figure>
+
+<p>server1.conf 文件内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cache-lifetime=&quot;5&quot; :options=&quot;&#123; useUrlFragment: false &#125;&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>有注释版</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">8081</span>;   <span class="comment"># 配置监听端口和主机名称</span></span><br><span class="line">  <span class="attribute">server_name</span> localhost;</span><br><span class="line">  <span class="attribute">access_log</span> /home/www/myweb/server1/logs/access.log server1;   <span class="comment"># 配置请求处理日志存放路径</span></span><br><span class="line">  <span class="attribute">error_page</span> <span class="number">404</span> /<span class="number">404</span>.html;   <span class="comment"># 配置错误页面</span></span><br><span class="line"></span><br><span class="line">  <span class="attribute">location</span> /server1/location1&#123;   <span class="comment"># 配置处理 /server1/location1 请求的 location</span></span><br><span class="line">      <span class="attribute">root</span> /home/www/myweb;</span><br><span class="line">      <span class="attribute">index</span> index.html;       <span class="comment"># 这是 server1 下的 location1 的 index.html</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">location</span> /server1/location2&#123;   <span class="comment"># 配置处理 /server1/location2 请求的 location</span></span><br><span class="line">      <span class="attribute">root</span> /home/www/myweb;</span><br><span class="line">      <span class="attribute">index</span> index.html;    <span class="comment"># 这是 server1 下的 location2 的 index.html</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">location</span> = /<span class="number">404</span>.html &#123;   <span class="comment"># 配置错误页面转向</span></span><br><span class="line">      <span class="attribute">root</span> /home/www;</span><br><span class="line">      <span class="attribute">index</span> <span class="number">404</span>.html;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>无注释版</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">8081</span>;</span><br><span class="line">  <span class="attribute">server_name</span> localhost;</span><br><span class="line">  <span class="attribute">access_log</span> /home/www/myweb/server1/logs/access.log server1;</span><br><span class="line">  <span class="attribute">error_page</span> <span class="number">404</span> /<span class="number">404</span>.html;</span><br><span class="line">  </span><br><span class="line">  <span class="attribute">location</span> /server1/location1&#123;</span><br><span class="line">      <span class="attribute">root</span> /home/www/myweb;</span><br><span class="line">      <span class="attribute">index</span> index.html;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="attribute">location</span> /server1/location2&#123;</span><br><span class="line">      <span class="attribute">root</span> /home/www/myweb;</span><br><span class="line">      <span class="attribute">index</span> index.html;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="attribute">location</span> = /<span class="number">404</span>.html &#123;</span><br><span class="line">      <span class="attribute">root</span> /home/www;</span><br><span class="line">      <span class="attribute">index</span> <span class="number">404</span>.html;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>server2.conf 文件内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cache-lifetime=&quot;5&quot; :options=&quot;&#123; useUrlFragment: false &#125;&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>有注释版</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">8082</span>;   <span class="comment"># 配置监听端口和主机名称</span></span><br><span class="line">  <span class="attribute">server_name</span> localhost;</span><br><span class="line">  <span class="attribute">access_log</span> /home/www/myweb/server2/logs/access.log server2;   <span class="comment"># 配置请求处理日志存放路径</span></span><br><span class="line">  <span class="attribute">error_page</span> <span class="number">404</span> /<span class="number">404</span>.html;   <span class="comment"># 配置错误页面,对404.html做了定向配置</span></span><br><span class="line">  </span><br><span class="line">  <span class="attribute">location</span> /server2/location1&#123;   <span class="comment"># 配置处理 /server1/location1 请求的 location</span></span><br><span class="line">      <span class="attribute">root</span> /home/www/myweb;</span><br><span class="line">      <span class="attribute">index</span> index.html;   <span class="comment"># 这是 server2 下的 location1 的 index.html</span></span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  <span class="attribute">location</span> /server2/location2&#123;   <span class="comment"># 配置处理 /server2/location2 请求的 location</span></span><br><span class="line">      <span class="attribute">root</span> /home/www/myweb;</span><br><span class="line">      <span class="attribute">index</span> index.html;    <span class="comment"># 这是 server2 下的 location2 的 index.html</span></span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="attribute">location</span> = /<span class="number">404</span>.html &#123;   <span class="comment"># 配置错误页面转向</span></span><br><span class="line">      <span class="attribute">root</span> /home/www;</span><br><span class="line">      <span class="attribute">index</span> <span class="number">404</span>.html;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>无注解版</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">8082</span>;</span><br><span class="line">  <span class="attribute">server_name</span> localhost;</span><br><span class="line">  <span class="attribute">access_log</span> /home/www/myweb/server2/logs/access.log server2;</span><br><span class="line">  <span class="attribute">error_page</span> <span class="number">404</span> /<span class="number">404</span>.html;</span><br><span class="line">  </span><br><span class="line">  <span class="attribute">location</span> /server2/location1&#123;</span><br><span class="line">      <span class="attribute">root</span> /home/www/myweb;</span><br><span class="line">      <span class="attribute">index</span> index.html;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="attribute">location</span> /server2/location2&#123;</span><br><span class="line">      <span class="attribute">root</span> /home/www/myweb;</span><br><span class="line">      <span class="attribute">index</span> index.html;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="attribute">location</span> = /<span class="number">404</span>.html &#123;</span><br><span class="line">      <span class="attribute">root</span> /home/www;</span><br><span class="line">      <span class="attribute">index</span> <span class="number">404</span>.html;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>server1下面的location1下面的index.html的内容</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>server1下面的loaction1下面的index.html<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其他的三个页面把数字改了就可以</p>
+<p>404.html内容;</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>不好意思，程序小哥正在加紧维修中 ...... <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>重启 Nginx ，使得配置文件生效</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>如果没有关闭防火墙，记得开放 8081 和 8082 端口。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开放 8081 和 8082 端口</span></span><br><span class="line">firewall-cmd --zone=public --add-port=8081/tcp --permanent</span><br><span class="line">firewall-cmd --zone=public --add-port=8082/tcp --permanent</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启防火墙</span></span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+<p>打开浏览器分别访问，效果如图所示：</p>
+<p>8081 的 server1 的 location1：</p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220729/image.8hg9dg1p4z0.webp" alt="image"></p>
+<p>8081 的 server1 的 location2：</p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220729/image.2dphfquey6v4.webp" alt="image"></p>
+<p>8082 的 server2 的 location1：</p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220729/image.rfbc49fqpmo.webp" alt="image"></p>
+<p>8082 的 server2 的 location2：</p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220729/image.1m80pe5hx1q8.webp" alt="image"></p>
+<p>如果访问一个不存在的 404 请求：</p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220729/image.3fccke6ob8c0.webp" alt="image"></p>
+<p>日志也会打印，这里演示一个：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@master www]<span class="comment"># tail /home/www/myweb/server1/logs/access.log</span></span><br><span class="line">===&gt;this is server1 access <span class="built_in">log</span></span><br><span class="line">===&gt;this is server1 access <span class="built_in">log</span></span><br><span class="line">===&gt;this is server1 access <span class="built_in">log</span></span><br><span class="line">===&gt;this is server1 access <span class="built_in">log</span></span><br><span class="line">===&gt;this is server1 access <span class="built_in">log</span></span><br><span class="line">===&gt;this is server1 access <span class="built_in">log</span></span><br><span class="line">===&gt;this is server1 access <span class="built_in">log</span></span><br><span class="line">===&gt;this is server1 access <span class="built_in">log</span></span><br><span class="line">===&gt;this is server1 access <span class="built_in">log</span></span><br><span class="line">===&gt;this is server1 access <span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="操作的问题"><a href="#操作的问题" class="headerlink" title="操作的问题"></a>操作的问题</h2><p>经过前面的操作，我们会发现，如果想要启动、关闭或重新加载 Nginx 配置文件，都需要先进入到 Nginx 的安装目录的 sbin 目录，然后使用 Nginx 的二级制可执行文件 nginx 来操作，相对来说操作比较繁琐，这块该如何优化？另外如果我们想把 Nginx 设置成随着服务器启动就自动完成启动操作，又该如何来实现？</p>
+<p>这就需要用到接下来我们要讲解的两个知识点：</p>
+<ul>
+<li>Nginx 服务启停配置</li>
+<li>Nginx 全局命令配置</li>
+</ul>
+<h2 id="服务启停配置"><a href="#服务启停配置" class="headerlink" title="服务启停配置"></a>服务启停配置</h2><p>把 Nginx 应用服务设置成为系统服务，方便对 Nginx 服务的启动和停止等相关操作，具体实现步骤:</p>
+<ul>
+<li>在 <code>/usr/lib/systemd/system</code> 目录下创建 nginx.service 文件</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/lib/systemd/system/nginx.service</span><br></pre></td></tr></table></figure>
+
+<p>文件添加如下内容：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=nginx web service</span><br><span class="line">Documentation=http://nginx.org/en/docs/</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">PIDFile=/usr/<span class="built_in">local</span>/nginx/logs/nginx.pid</span><br><span class="line">ExecStartPre=/usr/<span class="built_in">local</span>/nginx/sbin/nginx -t -c /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf</span><br><span class="line">ExecStart=/usr/<span class="built_in">local</span>/nginx/sbin/nginx</span><br><span class="line">ExecReload=/usr/<span class="built_in">local</span>/nginx/sbin/nginx -s reload</span><br><span class="line">ExecStop=/usr/<span class="built_in">local</span>/nginx/sbin/nginx -s stop</span><br><span class="line">PrivateTmp=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=default.target</span><br></pre></td></tr></table></figure>
+
+<p>注意：可执行文件 nginx 根据自己的路径进行修改，以及 .conf 配置文件和 .pid 文件的路径。这份内容是基于默认安装目录的。</p>
+<ul>
+<li>添加完成后，如果权限有问题需要进行权限设置，没有则忽略这一步</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 755 /usr/lib/systemd/system/nginx.service</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用系统命令来操作 Nginx 服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动 Nginx</span></span><br><span class="line">systemctl start nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止 Nginx</span></span><br><span class="line">systemctl stop nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启 Nginx</span></span><br><span class="line">systemctl restart nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新加载配置文件</span></span><br><span class="line">systemctl reload nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 Nginx 状态</span></span><br><span class="line">systemctl status nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开机启动</span></span><br><span class="line">systemctl <span class="built_in">enable</span> nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭开启启动</span></span><br><span class="line">systemctl <span class="built_in">disable</span> nginx</span><br></pre></td></tr></table></figure>
+
+<h2 id="全局命令配置"><a href="#全局命令配置" class="headerlink" title="全局命令配置"></a>全局命令配置</h2><p>前面我们介绍过 Nginx 安装目录下的二级制可执行文件 <code>nginx</code> 的很多命令，要想使用这些命令前提是需要进入 sbin 目录下才能使用，很不方便，如何去优化，我们可以将该二进制可执行文件加入到系统的环境变量，这样的话在任何目录都可以使用 nginx 对应的相关命令。具体实现步骤如下:</p>
+<p>方法一：</p>
+<ul>
+<li>修改 <code>/etc/profile</code> 文件</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在最后一行添加</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/usr/<span class="built_in">local</span>/nginx/sbin</span><br></pre></td></tr></table></figure>
+
+<p>可执行文件 nginx 的路径根据自己的路径修改，这里是默认路径。</p>
+<ul>
+<li>使之立即生效</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>任意位置执行 nginx 命令，测试成功</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># nginx -v</span></span><br><span class="line">nginx version: nginx/1.21.6</span><br></pre></td></tr></table></figure>
+
+<p>方法二：</p>
+<ul>
+<li>将可执行文件 nginx 拷贝一份到 /usr/bin 目录下</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/<span class="built_in">local</span>/nginx/sbin/nginx /usr/bin</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>任意位置执行 nginx 命令，测试成功</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># nginx -v</span></span><br><span class="line">nginx version: nginx/1.21.6</span><br></pre></td></tr></table></figure>
+
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2022/11/10/Nginx_Configuration_file/">Nginx 核心配置文件</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-11-10</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Nginx/">Nginx</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/后端/">后端</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Nginx/">Nginx</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/中间件/">中间件</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h1 id="Nginx-核心配置文件"><a href="#Nginx-核心配置文件" class="headerlink" title="Nginx 核心配置文件"></a>Nginx 核心配置文件</h1><p>从前面的内容学习中，我们知道 Nginx 的核心配置文件默认是放在 <code>/usr/local/nginx/conf/nginx.conf</code>，本次我们就来学习下 nginx.conf 的内容和基本配置方法。</p>
 <hr>
 <h2 id="配置文件内容"><a href="#配置文件内容" class="headerlink" title="配置文件内容"></a>配置文件内容</h2><p>读取 Nginx 自带的 Nginx 配置文件，配置文件内容很多，我们先将其中的注释部分【学习一个技术点就是在 Nginx 的配置文件中可以使用 <code>#</code> 来注释】删除掉后，就剩下如下内容：</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">worker_processes</span>  <span class="number">1</span>;   <span class="comment"># 使用指令 1 </span></span><br><span class="line"></span><br><span class="line"><span class="section">events</span> &#123;    <span class="comment"># 这是 events 块</span></span><br><span class="line">    <span class="attribute">worker_connections</span>  <span class="number">1024</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">http</span> &#123;    <span class="comment"># 这是 http 块</span></span><br><span class="line">    <span class="attribute">include</span>       mime.types;</span><br><span class="line">    <span class="attribute">default_type</span>  application/octet-stream;</span><br><span class="line">    <span class="attribute">sendfile</span>        <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">keepalive_timeout</span>  <span class="number">65</span>;</span><br><span class="line"></span><br><span class="line">    <span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span>       <span class="number">80</span>;   <span class="comment"># 监听 80 端口</span></span><br><span class="line">        <span class="attribute">server_name</span>  localhost;   <span class="comment"># 监听请求过来的 IP</span></span><br><span class="line">        <span class="attribute">location</span> / &#123;   <span class="comment"># 请求的地址是 /，则进入这个配置，访问 idnex.html</span></span><br><span class="line">            <span class="attribute">root</span>   html;      <span class="comment"># 进入 html 目录找到访问的页面</span></span><br><span class="line">            <span class="attribute">index</span>  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment"># 如果访问的页面是 500 502 503 504，则发送 /50x.html 请求</span></span><br><span class="line">        <span class="attribute">error_page</span>   <span class="number">500</span> <span class="number">502</span> <span class="number">503</span> <span class="number">504</span>  /50x.html;  </span><br><span class="line">        <span class="attribute">location</span> = /50x.html &#123;      <span class="comment"># 如果匹配上 /50x.html 请求</span></span><br><span class="line">            <span class="attribute">root</span>   html;     <span class="comment"># 则进入 html 目录找到 /50x.html</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1373,300 +1512,7 @@
 <li>设置 no-cache 和正数的 max-age 时，后退时会访问服务器</li>
 </ul>
 <h3 id="Nginx服务端缓存"><a href="#Nginx服务端缓存" class="headerlink" title="Nginx服务端缓存"></a>Nginx服务端缓存</h3><p>在 Web 缓存的种类，我们提到了 Ngixn 服务端缓存，而上面仅仅介绍了在浏览器进行缓存，而因为 Ngixn 服务端缓存的内容比较多，所以前往 <strong>Nginx - 缓存集成</strong> 进行学习。</p>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2022/11/09/Nginx_Base_Use/">Nginx基本使用</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-11-09</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Nginx/">Nginx</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/后端/">后端</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Nginx/">Nginx</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/中间件/">中间件</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h1 id="Nginx-基本使用"><a href="#Nginx-基本使用" class="headerlink" title="Nginx 基本使用"></a>Nginx 基本使用</h1><p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220727/image.7e2zl4ci9t40.webp" alt="image"></p>
-<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p>进入Nginx的主目录我们可以看到这些文件夹</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@master /]<span class="comment"># cd /usr/local/nginx/</span></span><br><span class="line">[root@master nginx]<span class="comment"># ll</span></span><br><span class="line">总用量 0</span><br><span class="line">drwx------ 2 nobody root   6 7月  27 20:35 client_body_temp</span><br><span class="line">drwxr-xr-x 2 root   root 333 7月  27 20:31 conf</span><br><span class="line">drwx------ 2 nobody root   6 7月  27 20:35 fastcgi_temp</span><br><span class="line">drwxr-xr-x 2 root   root  40 7月  27 20:31 html</span><br><span class="line">drwxr-xr-x 2 root   root  58 7月  27 20:35 logs</span><br><span class="line">drwx------ 2 nobody root   6 7月  27 20:35 proxy_temp</span><br><span class="line">drwxr-xr-x 2 root   root  36 7月  27 20:33 sbin</span><br><span class="line">drwx------ 2 nobody root   6 7月  27 20:35 scgi_temp</span><br><span class="line">drwx------ 2 nobody root   6 7月  27 20:35 uwsgi_temp</span><br></pre></td></tr></table></figure>
-
-<p>其中这几个文件夹在刚安装后是没有的，主要用来存放运行过程中的临时文件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">client_body_temp fastcgi_temp proxy_temp scgi_temp</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>主要目录说明</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>目录</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>conf</td>
-<td>用来存放配置文件相关</td>
-</tr>
-<tr>
-<td>html</td>
-<td>用来存放静态文件的默认目录 html、css等</td>
-</tr>
-<tr>
-<td>sbin</td>
-<td>nginx的主程序</td>
-</tr>
-</tbody></table>
-<h2 id="基本运行原理"><a href="#基本运行原理" class="headerlink" title="基本运行原理"></a>基本运行原理</h2><p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220727/image.5klrdamfdsg0.webp" alt="image"></p>
-<h2 id="启动停止命令"><a href="#启动停止命令" class="headerlink" title="启动停止命令"></a>启动停止命令</h2><p>对于 Nginx 的启停在 Linux 系统中也有很多种方式，我们介绍两种方式：</p>
-<ul>
-<li>Nginx 服务的信号控制</li>
-<li>Nginx 的命令行控制</li>
-</ul>
-<h3 id="服务信号控制"><a href="#服务信号控制" class="headerlink" title="服务信号控制"></a>服务信号控制</h3><p>在了解内容之前，我们首先要考虑一些问题：</p>
-<ul>
-<li><p>Nginx 中的 master 和 worker 进程?</p>
-</li>
-<li><p>Nginx 的工作方式?</p>
-</li>
-<li><p>如何获取进程的 PID?</p>
-</li>
-<li><p>信号有哪些?</p>
-</li>
-<li><p>如何通过信号控制 Nginx 的启停等相关操作?</p>
-</li>
-</ul>
-<p>前面在提到 Nginx 的高性能，其实也和它的架构模式有关。Nginx 默认采用的是多进程的方式来工作的，当将 Nginx 启动后，我们通过 <code>ps -ef | grep nginx</code> 命令可以查看到如下内容：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep nginx</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master sbin]<span class="comment"># ps -ef| grep nginx</span></span><br><span class="line">root       3564      1  0 13:54 ?        00:00:00 nginx: master process ./nginx</span><br><span class="line">nobody     3565   3564  0 13:54 ?        00:00:00 nginx: worker process</span><br><span class="line">root       3567   3483  0 13:54 pts/1    00:00:00 grep --color=auto nginx</span><br></pre></td></tr></table></figure>
-
-<p>从上图中可以看到，Nginx 后台进程中包含一个 master 进程和多个 worker 进程，master 进程主要用来管理 worker 进程，包含接收外界的信息，并将接收到的信号发送给各个 worker 进程，监控 worker 进程的状态。当 worker 进程出现异常退出后，会自动重新启动新的 worker 进程。而 worker 进程则是专门用来处理用户请求的，各个 worker 进程之间是平等的并且相互独立，处理请求的机会也是一样的。</p>
-<p>Nginx 的进程模型，我们可以通过下图来说明下：</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220728/image.2i4zuw23isa0.webp" alt="image"></p>
-<p>我们现在作为管理员，只需要通过给 master 进程发送信号就可以来控制 Nginx，这个时候我们需要有两个前提条件，一个是要操作的 master 进程，一个是 给 master 进程的信号。</p>
-<ol>
-<li>要想操作 Nginx 的 master 进程，就需要获取到 master 进程的进程号 PID。获取方式简单介绍两个：</li>
-</ol>
-<ul>
-<li>通过 <code>ps -ef | grep nginx</code></li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep nginx</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>在讲解 Nginx 的 <code>./configure</code> 的配置参数的时候，有一个参数 <code>--pid-path=PATH</code>，它的默认值是 <code>/usr/local/nginx/logs/nginx.pid</code>，所以可以通过查看该文件来获取 Nginx 的 master 进程 PID</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /usr/<span class="built_in">local</span>/nginx/logs/nginx.pid</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>信号(signal)</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>信号</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>TERM/INT</td>
-<td>立即关闭整个服务（关闭 Nginx）</td>
-</tr>
-<tr>
-<td>QUIT</td>
-<td>「优雅」的关闭整个服务（关闭 Nginx）</td>
-</tr>
-<tr>
-<td>HUP</td>
-<td>重读配置文件并使用服务对新配置项生效（重启 Nginx）</td>
-</tr>
-<tr>
-<td>USR1</td>
-<td>重新打开日志文件，可以用来进行日志切割（重启日志）</td>
-</tr>
-<tr>
-<td>USR2</td>
-<td>平滑升级到最新版的 Nginx</td>
-</tr>
-<tr>
-<td>WINCH</td>
-<td>所有子进程不在接收处理新连接，相当于给 Work 进程发送 QUIT 指令</td>
-</tr>
-</tbody></table>
-<p>调用命令为 <code>kill -signal PID</code></p>
-<blockquote>
-<p>signal：即为信号；PID 即为获取到的 master 进程 PID</p>
-</blockquote>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -signal PID</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式一：</span></span><br><span class="line"><span class="built_in">kill</span> -TERM PID</span><br><span class="line"></span><br><span class="line"><span class="comment"># 立即关闭当前线程</span></span><br><span class="line"><span class="built_in">kill</span> -TERM `cat /usr/<span class="built_in">local</span>/nginx/logs/nginx.pid`</span><br><span class="line"></span><br><span class="line"><span class="comment"># 格式一：</span></span><br><span class="line"><span class="built_in">kill</span> -INT PID</span><br><span class="line"></span><br><span class="line"><span class="comment"># 立即关闭当前线程</span></span><br><span class="line"><span class="built_in">kill</span> -INT `cat /usr/<span class="built_in">local</span>/nginx/logs/nginx.pid`</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>案例</li>
-</ul>
-<ol>
-<li>发送 TERM/INT 信号给 master 进程，会将 Nginx 服务立即关闭。</li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@master nginx]<span class="comment"># cat logs/nginx.pid</span></span><br><span class="line">3564</span><br><span class="line">[root@master nginx]<span class="comment"># kill  -TERM 3564</span></span><br><span class="line">[root@master nginx]<span class="comment"># ps -ef | grep nginx</span></span><br><span class="line">root       8874   8753  0 15:58 pts/2    00:00:00 grep --color=auto nginx</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>发送 QUIT 信号给 master 进程，master 进程会控制所有的 work 进程不再接收新的请求，等所有请求处理完后，在把进程都关闭掉。</li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 优雅 关闭线程</span></span><br><span class="line"><span class="built_in">kill</span> -QUIT PID</span><br><span class="line"></span><br><span class="line"><span class="comment"># 「优雅」关闭当前线程</span></span><br><span class="line"><span class="built_in">kill</span> -QUIT `cat /usr/<span class="built_in">local</span>/nginx/logs/nginx.pid`</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>发送 HUP 信号给 master 进程，master 进程会把控制旧的 worker 进程不再接收新的请求，等处理完请求后将旧的 worker 进程关闭掉，然后根据<mark>更改Nginx 的配置文件</mark>重新启动新的 worker 进程</li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重启 worker 进程</span></span><br><span class="line"><span class="built_in">kill</span> -HUP PID </span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启当前 worker 进程</span></span><br><span class="line"><span class="built_in">kill</span> -HUP `cat /usr/<span class="built_in">local</span>/nginx/logs/nginx.pid`</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>发送 USR1 信号给 master 进程，告诉 Nginx 重新开启日志文件。如果日志文件被删除了，可以利用此命令重新打开。</li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重新打开日志文件</span></span><br><span class="line"><span class="built_in">kill</span> -USR1 PID</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新打开当前 Nginx 的日志文件</span></span><br><span class="line"><span class="built_in">kill</span> -USR1 `cat /usr/<span class="built_in">local</span>/nginx/logs/nginx.pid`</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>发送 USR2 信号给 master 进程，告诉 master 进程要平滑升级，这个时候，会重新开启对应的 master 进程和 worker 进程，整个系统中将会有两个master 进程，并且新的 master 进程的 PID 会被记录在 <code>/usr/local/nginx/logs/nginx.pid</code>，而之前的旧的 master 进程 PID 会被记录在 <code>/usr/local/nginx/logs/nginx.pid.oldbin</code> 文件中，接着再次发送 QUIT 信号给旧的 master 进程，让其处理完请求后再进行关闭</li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开启新的进程，但是不删除旧的进程</span></span><br><span class="line"><span class="built_in">kill</span> -USR2 PID</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启新的进程，但是不删除当前进程</span></span><br><span class="line"><span class="built_in">kill</span> -USR2 `cat /usr/<span class="built_in">local</span>/nginx/logs/nginx.pid`</span><br></pre></td></tr></table></figure>
-
-<p>当新进程升级后（完全启动后），再关闭旧的进程，旧进程的 PID 在另一个 <code>nginx.pid.oldbin</code> 文件里</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 关闭旧的线程</span></span><br><span class="line"><span class="built_in">kill</span> -QUIT `cat /usr/<span class="built_in">local</span>/nginx/logs/nginx.pid.oldbin`</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220728/image.5dgklob27do0.webp" alt="image"></p>
-<ol start="6">
-<li>发送 WINCH 信号给 master 进程,让 master 进程控制不让所有的 worker 进程在接收新的请求了，请求处理完后关闭 worker 进程。注意 master 进程不会被关闭掉</li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 停止 worker 进程，但是不停止 master 进程</span></span><br><span class="line"><span class="built_in">kill</span> -WINCH PID </span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止当前 worker 进程，但是不停止 master 进程</span></span><br><span class="line"><span class="built_in">kill</span> -WINCH `cat /usr/<span class="built_in">local</span>/nginx/logs/nginx.pid`</span><br></pre></td></tr></table></figure>
-
-<h3 id="命令行控制"><a href="#命令行控制" class="headerlink" title="命令行控制"></a>命令行控制</h3><p>此方式是通过 Nginx 安装目录下的 sbin 下的可执行文件 nginx(文件名) 来进行对 Nginx 状态的控制，我们可以通过 <code>nginx -h</code> 来查看都有哪些参数可以用</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@master sbin]<span class="comment"># ./nginx -h</span></span><br><span class="line">nginx version: nginx/1.21.6</span><br><span class="line">Usage: nginx [-?hvVtTq] [-s signal] [-p prefix]</span><br><span class="line">             [-e filename] [-c filename] [-g directives]</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -?,-h         : this <span class="built_in">help</span></span><br><span class="line">  -v            : show version and <span class="built_in">exit</span></span><br><span class="line">  -V            : show version and configure options <span class="keyword">then</span> <span class="built_in">exit</span></span><br><span class="line">  -t            : <span class="built_in">test</span> configuration and <span class="built_in">exit</span></span><br><span class="line">  -T            : <span class="built_in">test</span> configuration, dump it and <span class="built_in">exit</span></span><br><span class="line">  -q            : suppress non-error messages during configuration testing</span><br><span class="line">  -s signal     : send signal to a master process: stop, quit, reopen, reload</span><br><span class="line">  -p prefix     : <span class="built_in">set</span> prefix path (default: /usr/<span class="built_in">local</span>/nginx/)</span><br><span class="line">  -e filename   : <span class="built_in">set</span> error <span class="built_in">log</span> file (default: logs/error.log)</span><br><span class="line">  -c filename   : <span class="built_in">set</span> configuration file (default: conf/nginx.conf)</span><br><span class="line">  -g directives : <span class="built_in">set</span> global directives out of configuration file</span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-? 和 -h</td>
-<td>显示帮助信息</td>
-</tr>
-<tr>
-<td>-v</td>
-<td>打印版本号信息并退出</td>
-</tr>
-<tr>
-<td>-V</td>
-<td>打印版本号信息和配置信息并退出</td>
-</tr>
-<tr>
-<td>-t</td>
-<td>测试 Nginx 的配置文件语法是否正确并退出</td>
-</tr>
-<tr>
-<td>-T</td>
-<td>测试 Nginx 的配置文件语法是否正确并列出用到的配置文件信息然后退出</td>
-</tr>
-<tr>
-<td>-q</td>
-<td>在配置测试期间过滤掉非错误消息</td>
-</tr>
-<tr>
-<td>-s</td>
-<td>signal 信号，后面的命令和服务信号控制功能类似：  <code>stop</code>：快速关闭，类似于 TERM/INT 信号的作用 <code>quit</code>：优雅的关闭，类似于 QUIT 信号的作用 <code>reopen</code>：重新打开日志文件类似于 USR1 信号的作用 <code>reload</code>：重启 Nginx，类似于 HUP 信号的作用</td>
-</tr>
-<tr>
-<td>-p</td>
-<td>prefix，指定 Nginx 的默认安装路径，(默认为：/usr/local/nginx/)</td>
-</tr>
-<tr>
-<td>-c</td>
-<td>filename，指定 Nginx 的配置文件路径,(默认为：conf/nginx.conf)</td>
-</tr>
-<tr>
-<td>-g</td>
-<td>用来补充 Nginx 配置文件，向 Nginx 服务指定启动时应用全局的配置</td>
-</tr>
-</tbody></table>
-<ul>
-<li>案例</li>
-</ul>
-<p>如果觉得每次执行 nginx 指令都必须进入 sbin 目录，则将该指令设置为全局使用。</p>
-<ol>
-<li>两个查看版本命令</li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看版本指令 1</span></span><br><span class="line">[root@master sbin]<span class="comment"># nginx -v</span></span><br><span class="line"><span class="comment"># 返回结果</span></span><br><span class="line">nginx version: nginx/1.21.6</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看版本指令 2</span></span><br><span class="line">[root@master sbin]<span class="comment"># nginx -V</span></span><br><span class="line"><span class="comment"># 返回结果</span></span><br><span class="line">nginx version: nginx/1.21.6</span><br><span class="line">built by gcc 4.8.5 20150623 (Red Hat 4.8.5-44) (GCC)</span><br><span class="line">configure arguments: --prefix=/usr/<span class="built_in">local</span>/nginx</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>测试 Nginx 的配置文件语法</li>
-</ol>
-<p>我们首先要知道配置文件的路径在哪，先执行 <code>-t</code> 进行测试</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试 Nginx 的配置文件语法</span></span><br><span class="line">[root@master sbin]<span class="comment"># nginx -t</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#结果 返回 成功</span></span><br><span class="line">nginx: the configuration file /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf syntax is ok</span><br><span class="line">nginx: configuration file /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf <span class="built_in">test</span> is successful</span><br></pre></td></tr></table></figure>
-
-<p>由第 6 行代码可以知道测试成功，第 5 行代码告诉我们配置文件的目录，我们去修改配置文件，然后再进行测试</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master sbin]<span class="comment"># vim /usr/local/nginx/conf/nginx.conf</span></span><br><span class="line"></span><br><span class="line"><span class="comment">###add</span></span><br><span class="line">HelloWorld</span><br></pre></td></tr></table></figure>
-
-<p>重新进行测试</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试 Nginx 的配置文件语法</span></span><br><span class="line">[root@master sbin]<span class="comment"># nginx -t</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 返回结果（失败）</span></span><br><span class="line">nginx: [emerg] unknown directive <span class="string">"HelloWorld"</span> <span class="keyword">in</span> /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf:3</span><br><span class="line">nginx: configuration file /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf <span class="built_in">test</span> failed</span><br></pre></td></tr></table></figure>
-
-<p>由第 6 行代码可以知道，配置文件出错了。验证完了，记得将配置文件改回来。</p>
-<ol start="3">
-<li>指定 Nginx 的默认安装路径</li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -p /usr/<span class="built_in">local</span>/nginx/</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>指定 Nginx 的配置文件路径</li>
-</ol>
-<p>先把配置文件拷贝到另一个目录，然后修改拷贝后的配置文件内容</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 拷贝配置文件</span></span><br><span class="line">cp /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf /opt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改拷贝后的配置文件内容</span></span><br><span class="line">vim /opt/nginx.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># add</span></span><br><span class="line">HelloWorld</span><br></pre></td></tr></table></figure>
-
-<p>测试配置文件的时候，指定拷贝后的配置文件进行测试</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 指定配置文件进行测试</span></span><br><span class="line">[root@master nginx]<span class="comment"># nginx -tc /opt/nginx.conf</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#返回结果</span></span><br><span class="line">nginx: [emerg] unknown directive <span class="string">"HelloWorld"</span> <span class="keyword">in</span> /opt/nginx.conf:3</span><br><span class="line">nginx: configuration file /opt/nginx.conf <span class="built_in">test</span> failed</span><br></pre></td></tr></table></figure>
-
-<p>说明指定配置文件目录生效，只是文件内容语法不对。</p>
-<h2 id="版本升级和新增模块"><a href="#版本升级和新增模块" class="headerlink" title="版本升级和新增模块"></a>版本升级和新增模块</h2><p>如果想对 Nginx 的版本进行更新，或者要应用一些新的模块，最简单的做法就是停止当前的 Nginx 服务，然后开启新的 Nginx 服务。但是这样会导致在一段时间内，用户是无法访问服务器。为了解决这个问题，我们就需要用到 Nginx 服务器提供的平滑升级功能。这个也是 Nginx 的一大特点，使用这种方式，就可以使 Nginx 在 7 * 24 小时不间断的提供服务了。接下来我们分析下需求：</p>
-<blockquote>
-<p>需求：Nginx 的版本最开始使用的是 Nginx-1.14.2，由于服务升级，需要将 Nginx 的版本升级到 Nginx-1.16.1,要求 Nginx 不能中断提供服务。</p>
-</blockquote>
-<p>为了应对上述的需求，这里我们提供两种解决方案:</p>
-<ul>
-<li>使用 Nginx 服务信号完成 Nginx 的升级</li>
-<li>使用 Nginx 安装目录的 make 命令完成升级</li>
-</ul>
-<p>版本升级其实就是替换可执行文件 nginx。</p>
-<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><ol>
-<li>先准备两个版本的 Nginx 分别是 1.14.2 和 1.16.1</li>
-<li>使用 Nginx 源码安装的方式将 1.14.2 版本安装成功并正确访问</li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 解压 1.14.2 版本</span></span><br><span class="line">tar -xzf nginx-1.14.2.tar.gz</span><br><span class="line"><span class="comment"># 进入解压目录</span></span><br><span class="line"><span class="built_in">cd</span> nginx-1.14.2/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行配置文件</span></span><br><span class="line">./configure</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编译安装</span></span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>将 Nginx 1.16.1 版本进行参数配置和编译，不需要进行安装。</li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 解压 1.16.1 版本</span></span><br><span class="line">tar -xzf nginx-1.16.1.tar.gz</span><br><span class="line"><span class="comment"># 进入解压目录</span></span><br><span class="line"><span class="built_in">cd</span> nginx-1.16.1/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行配置文件</span></span><br><span class="line">./configure</span><br><span class="line"></span><br><span class="line"><span class="comment"># 仅仅编译</span></span><br><span class="line">make</span><br></pre></td></tr></table></figure>
-
-<h3 id="服务信号进行升级"><a href="#服务信号进行升级" class="headerlink" title="服务信号进行升级"></a>服务信号进行升级</h3><p>第一步:将 1.14.2 版本的 sbin 目录下的 nginx 进行备份</p>
-<blockquote>
-<p>不是复制一份，是直接修改原来的 nginx。</p>
-</blockquote>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入 sbin 目录下</span></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/nginx/sbin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份为 nginxold 文件</span></span><br><span class="line">mv nginx nginx.backup</span><br></pre></td></tr></table></figure>
-
-<p>第二步：将 Nginx 1.16.1 安装目录编译后的 objs 目录下的 nginx 文件，拷贝到原来 <code>/usr/local/nginx/sbin</code> 目录下</p>
-<p>如果第一步没有备份，那么将会覆盖 1.14.2 的 nginx 文件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入 objs 目录</span></span><br><span class="line"><span class="built_in">cd</span> ~/nginx/core/nginx-1.16.1/objs</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拷贝可执行文件到原来的目录</span></span><br><span class="line">cp nginx /usr/<span class="built_in">local</span>/nginx/sbin</span><br></pre></td></tr></table></figure>
-
-<p>第三步：发送信号 USR2 给 Nginx 的 1.14.2 版本对应的 master 进程</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -USR2 `cat /usr/<span class="built_in">local</span>/logs/nginx.pid`</span><br></pre></td></tr></table></figure>
-
-<p>第四步：发送信号 QUIT 给 Nginx 的 1.14.2 版本对应的 master 进程</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -QUIT `cat /usr/<span class="built_in">local</span>/logs/nginx.pid.oldbin`</span><br></pre></td></tr></table></figure>
-
-<h3 id="安装目录的make命令完成升级"><a href="#安装目录的make命令完成升级" class="headerlink" title="安装目录的make命令完成升级"></a>安装目录的make命令完成升级</h3><p>第一步：将 1.14.2 版本的 sbin 目录下的 nginx 进行备份</p>
-<blockquote>
-<p>不是复制一份，是直接修改原来的 nginx。</p>
-</blockquote>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入 sbin 目录下</span></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/nginx/sbin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份为 nginxold 文件</span></span><br><span class="line">mv nginx nginx.backup</span><br></pre></td></tr></table></figure>
-
-<p>第二步：将 Nginx1.16.1 安装目录编译后的 objs 目录下的 nginx 文件，拷贝到原来 <code>/usr/local/nginx/sbin</code> 目录下</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入 objs 目录</span></span><br><span class="line"><span class="built_in">cd</span> ~/nginx/core/nginx-1.16.1/objs</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拷贝可执行文件到原来的目录</span></span><br><span class="line">cp nginx /usr/<span class="built_in">local</span>/nginx/sbin</span><br></pre></td></tr></table></figure>
-
-<p>第三步：进入到安装目录，执行 <code>make upgrade</code></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make upgrade</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220728/image.2hpc905f42a0.webp" alt="image"></p>
-<p>第四步：查看是否更新成功</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -v</span><br></pre></td></tr></table></figure>
-
-<p>在整个过程中，其实 Nginx 是一直对外提供服务的。并且当 Nginx 的服务器启动成功后，我们是可以通过浏览器进行直接访问的，同时我们可以通过更改 html 目录下的页面来修改我们在页面上所看到的内容，那么问题来了，为什么我们要修改 html 目录下的文件，能不能多添加一些页面是 Nginx 的功能更加丰富，还有前面聊到 Nginx 的前端功能又是如何来实现的，这就需要我们对 <a href="/middleware/Nginx/Nginx_Configuration_file">Nginx 的核心配置文件</a> 进行一个详细的学习。</p>
-</div><hr></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/48/"><i class="fa fa-chevron-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><span class="page-number current">49</span><a class="page-number" href="/page/50/">50</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/50/"><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2015 - 2023 By GeYu</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Enjoy the cyber world!</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+</div><hr></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/48/"><i class="fa fa-chevron-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><span class="page-number current">49</span><a class="page-number" href="/page/50/">50</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/50/"><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2015 - 2023 By GeYu</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Enjoy the cyber world!</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')
 }</script></body></html>

@@ -7,7 +7,614 @@
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">225</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">83</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">46</span></a></div></div></div><nav id="nav" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2022/11/16/Nginx_Lua_learn/">Nginx Lua学习</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-11-16</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Nginx/">Nginx</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/后端/">后端</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Nginx/">Nginx</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/中间件/">中间件</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h1 id="Nginx-Lua学习"><a href="#Nginx-Lua学习" class="headerlink" title="Nginx Lua学习"></a>Nginx Lua学习</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>Nginx 是可扩展的，可用于处理各种使用场景。本内容中，我们一起学习使用 Lua 扩展 Nginx 的功能。</p>
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">226</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">83</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">46</span></a></div></div></div><nav id="nav" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2022/11/16/Nginx_Lua_Expansion_module/">Nginx Lua扩展模块</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-11-16</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Nginx/">Nginx</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/后端/">后端</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Nginx/">Nginx</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/中间件/">中间件</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h1 id="Nginx-Lua扩展模块"><a href="#Nginx-Lua扩展模块" class="headerlink" title="Nginx Lua扩展模块"></a>Nginx Lua扩展模块</h1><h2 id="ngx-lua模块概念"><a href="#ngx-lua模块概念" class="headerlink" title="ngx_lua模块概念"></a>ngx_lua模块概念</h2><p><a href="https://github.com/openresty/lua-nginx-module#readme" target="_blank" rel="noopener">ngx_lua 官方文档</a></p>
+<p><a href="https://www.kancloud.cn/qq13867685/openresty-api-cn/159175" target="_blank" rel="noopener">ngx_lua 中文文档</a></p>
+<p>淘宝开发的 <code>ngx_lua</code> 模块通过将 Lua 解释器集成进 Nginx，可以采用 Lua 脚本实现业务逻辑，由于 Lua 的紧凑、快速以及内建协程，所以在保证高并发服务能力的同时极大地降低了业务逻辑实现成本。</p>
+<h2 id="ngx-lua模块环境准备"><a href="#ngx-lua模块环境准备" class="headerlink" title="ngx_lua模块环境准备"></a>ngx_lua模块环境准备</h2><p>下载 <code>ngx-lua-module</code> 模块有两个方式。</p>
+<ul>
+<li>方式一安装比较繁琐，需要手动下载其他依赖</li>
+<li>方式二安装简单快捷，集成了依赖，不需要手动下载依赖，建议方式二</li>
+</ul>
+<p>不论方式一还是方式二安装，<strong>首先确保你为它安装好了环境，否则会安装报错</strong>。环境分别为：<code>GCC</code>、<code>PCRE</code>、<code>zlib</code>、<code>OpenSSL</code>。<a href="/middleware/Nginx/Nginx_install/#nginx环境安装">环境安装传送门</a>。</p>
+<h3 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h3><p>方式一下载第三方模块 <code>lua-nginx-module</code>，前，需要先下载 <code>LuaJIT</code> 解析器。</p>
+<p><code>LuaJIT</code> 官网地址为：<a href="http://luajit.org/" target="_blank" rel="noopener">http://luajit.org/</a>。</p>
+<ul>
+<li><p>LuaJIT 是采用 C 语言编写的 Lua 代表的解释器，我们先下载它。</p>
+<p>在官网上找到对应的下载地址：<a href="https://luajit.org/download.html" target="_blank" rel="noopener">https://luajit.org/download.html</a></p>
+<p>在 Linux 上使用 wget 来下载: <code>wget http://luajit.org/download/LuaJIT-2.0.5.tar.gz</code>，这里下载在 <code>/opt</code>，下载的版本是 2.0.5。</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt</span><br><span class="line">wget http://luajit.org/download/LuaJIT-2.0.5.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>将下载的资源进行解压</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxf LuaJIT-2.0.5.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>进入解压的目录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> LuaJIT-2.0.5</span><br></pre></td></tr></table></figure>
+
+<p>执行编译和安装:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220807/image.50moe87h8k00.webp" alt="image"></p>
+<ul>
+<li>下载 <code>lua-nginx-module</code></li>
+</ul>
+<p>下载地址：<a href="https://github.com/openresty/lua-nginx-module/tags" target="_blank" rel="noopener">https://github.com/openresty/lua-nginx-module/tags</a></p>
+<p>在 Linux 上使用 wget 来下载: <code>wget https://github.com/openresty/lua-nginx-module/archive/v0.10.16rc4.tar.gz</code>，这里下载在 <code>/opt</code>，版本是 0.10.16rc4。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/openresty/lua-nginx-module/archive/v0.10.16rc4.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>将下载的资源进行解压</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxf lua-nginx-module-0.10.16rc4.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>目录名太长，更改目录名</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv lua-nginx-module-0.10.16rc4 lua-nginx-module</span><br></pre></td></tr></table></figure>
+
+<p>导入环境变量，告诉 Nginx 去哪里找 LuaJIT</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> LUAJIT_LIB=/usr/<span class="built_in">local</span>/lib</span><br><span class="line"><span class="built_in">export</span> LUAJIT_INC=/usr/<span class="built_in">local</span>/include/luajit-2.0</span><br></pre></td></tr></table></figure>
+
+<p>进入 Nginx 的源码目录（安装包目录）执行如下命令：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/<span class="built_in">local</span>/nginx --add-module=/opt/lua-nginx-module</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意事项</strong></p>
+<ol>
+<li>如果启动 Nginx 出现如下错误:</li>
+</ol>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220807/image.3mn8xd7igx20.webp" alt="image"></p>
+<p>解决方案：</p>
+<p>设置软链接，使用如下命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/<span class="built_in">local</span>/lib/libluajit-5.1.so.2 /lib64/libluajit-5.1.so.2</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>如果启动 Nginx 出现以下错误信息</li>
+</ol>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220807/image.6h5kw6afg4w0.webp" alt="image"></p>
+<p>分析原因：因为 <code>lua-nginx-module</code> 是来自 OpenResty，错误中提示的 resty.core 是 OpenRestry 的核心模块，对其下的很多函数进行了优化等工作。以前的版本默认不会把该模块编译进去，所以需要使用的话，我们得手动安装，或者禁用就可以。但是最新的 <code>lua-nginx-module</code> 模块已经强制性安装了该模块，所以此处因为缺少 resty 模块导致的报错信息。</p>
+<p>解决方案有两个：一种是下载对应的模块，另一种则是禁用掉 restry 模块，禁用的方式为：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http&#123;</span><br><span class="line">	<span class="attribute">lua_load_resty_core</span> <span class="literal">off</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>测试</li>
+</ul>
+<p>在 nginx.conf 下配置如下内容:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /lua&#123;</span><br><span class="line">    <span class="attribute">default_type</span> <span class="string">'text/html'</span>;</span><br><span class="line">    <span class="attribute">content_by_lua</span> <span class="string">'ngx.say("&lt;h1&gt;HELLO,LUA&lt;/h1&gt;")'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>配置成功后，启动 Nginx，通过浏览器进行访问，如果获取到如下结果，则证明安装成功。</p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220807/image.6dtqzlgzk5s0.webp" alt="image"></p>
+<h3 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h3><p>方式二使用 OpenRestry 进行安装。OpenRestry 就是我们上面说到的 Nginx 的 Spring 之一。</p>
+<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>前面我们提到过，OpenResty 是由淘宝工程师开发的，所以其官方网站（<a href="http://openresty.org/cn/" target="_blank" rel="noopener">http://openresty.org/</a>）我们读起来是非常的方便。OpenResty 是一个基于 Nginx 与 Lua 的高性能 Web 平台，其内部集成了大量精良的 Lua 库、第三方模块以及大多数的依赖项。用于方便地搭建能够处理超高并发、扩展性极高的动态 Web 应用、Web 服务和动态网关。所以本身 OpenResty 内部就已经集成了 Nginx 和 Lua，所以我们使用起来会更加方便。</p>
+<h4 id="Linux安装"><a href="#Linux安装" class="headerlink" title="Linux安装"></a>Linux安装</h4><p>下载地址：<a href="http://openresty.org/cn/download.html" target="_blank" rel="noopener">http://openresty.org/cn/download.html</a>。这里下载 1.19.9.1 版本。</p>
+<ul>
+<li><p>可以在 Windows 下载 OpenResty：<a href="https://openresty.org/download/openresty-1.19.9.1.tar.gz" target="_blank" rel="noopener">https://openresty.org/download/openresty-1.19.9.1.tar.gz</a>，然后上传到 Linux</p>
+<p>或者直接在 Linux 使用 wget 下载: <code>wget https://openresty.org/download/openresty-1.19.9.1.tar.gz</code></p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/openresty    <span class="comment"># 没有就创建：mkdir /opt/openresty</span></span><br><span class="line"></span><br><span class="line">wget https://openresty.org/download/openresty-1.19.9.1.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>解压缩</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf openresty-1.19.9.1.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>进入 OpenResty 目录</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> openresty-1.19.9.1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行命令</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行命令进行编译和安装</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">gmake &amp;&amp; gmake install</span><br></pre></td></tr></table></figure>
+
+<p>默认安装在 <code>/usr/local/</code> 下。</p>
+<ul>
+<li>进入 OpenResty 的目录，找到 nginx</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/openresty/nginx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在 conf 目录下的 nginx.conf 添加如下内容：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim conf/nginx.conf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /lua &#123;</span><br><span class="line">    <span class="attribute">default_type</span> <span class="string">'text/html'</span>;</span><br><span class="line">    <span class="attribute">content_by_lua</span> <span class="string">'ngx.say("&lt;h1&gt;HELLO,OpenRestry&lt;/h1&gt;")'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>重启 Nginx 配置文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>先把 Nginx 停止运行</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop Nginx</span><br></pre></td></tr></table></figure>
+
+<p>然后在 sbin 目录下启动可执行文件 nginx</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./sbin/nginx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过浏览器访问测试<code>192.168.91.200</code></li>
+</ul>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220807/image.502009iyfd00.webp" alt="image"></p>
+<ul>
+<li>通过浏览器访问测试<code>192.168.91.200/lua</code></li>
+</ul>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220807/image.4r1610qz44g0.webp" alt="image"></p>
+<h3 id="OpenResty卸载"><a href="#OpenResty卸载" class="headerlink" title="OpenResty卸载"></a>OpenResty卸载</h3><p>卸载非常简单粗暴，相信我，这样卸载是对的，没什么问题。</p>
+<ol>
+<li>停止 Nginx 服务</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看 Nginx 是否停止，没有则去停止</span></span><br><span class="line">ps -ef | grep nginx </span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入 sbin 目录</span></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/openresty/nginx/sbin</span><br><span class="line">./nginx -s stop</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>输入以下指令全局查找 OpenResty 相关的文件</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name openresty</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>find / -name openresty</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf  此处跟查找出来的 Openresty 文件</span><br></pre></td></tr></table></figure>
+
+<h2 id="ngx-lua指令图"><a href="#ngx-lua指令图" class="headerlink" title="ngx_lua指令图"></a>ngx_lua指令图</h2><p>使用 Lua 编写 Nginx 脚本的基本构建块是指令。指令用于指定何时运行用户 Lua 代码以及如何使用结果。</p>
+<p>下图显示了执行指令的顺序。</p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220807/image.3xichpazdxy0.webp" alt="image"></p>
+<p>先来解释下 * 的作用</p>
+<ul>
+<li>* 代表 *_by_lua 指令，指令后面跟的是 lua 指令</li>
+<li>*:_file，即 *_by_lua_file 指令，后面跟的是 lua 文件</li>
+<li>*:_block，即 *_by_lua_block 指令，在 0.9.17 版后替换 init_by_lua_file</li>
+</ul>
+<p>如上图所示，OpenResty 的执行阶段分为：</p>
+<ul>
+<li>init_by_lua*：在每次 Nginx 重新加载配置时执行，初始化一些全局配置。</li>
+<li>init_worker_by_lua*：该指令用于启动一些定时任务，如心跳检查、定时拉取服务器配置等。</li>
+<li>set_by_lua* : 流程分支处理判断变量初始化</li>
+<li>rewrite_by_lua* : 转发、重定向、缓存等功能(例如特定请求代理到外网)</li>
+<li>access_by_lua* : IP 准入、接口权限等情况集中处理(例如配合 iptable 完成简单防火墙)</li>
+<li>content_by_lua* : 内容生成</li>
+<li>header_filter_by_lua* : 响应头部过滤处理(例如添加头部信息)</li>
+<li>body_filter_by_lua* : 响应体过滤处理(例如完成应答内容统一成大写)</li>
+<li>log_by_lua* : 会话完成后本地异步完成日志记录(日志可以记录在本地，还可以同步到其他机器)</li>
+</ul>
+<h2 id="语法API"><a href="#语法API" class="headerlink" title="语法API"></a>语法API</h2><h3 id="ngx-say"><a href="#ngx-say" class="headerlink" title="ngx.say"></a>ngx.say</h3><p>返回结果给客户端。</p>
+<p>语法：<code>ngx.say(&quot;&quot;)</code>。</p>
+<figure class="highlight nginx"><figcaption><span>&#123;4&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> / &#123;</span><br><span class="line">    <span class="attribute">default_type</span> <span class="string">'text/plain'</span>;</span><br><span class="line">    <span class="section">content_by_lua_block</span> &#123;</span><br><span class="line">        ngx.say("Hello World")</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你会在网页上看到 Hello World。</p>
+<h3 id="ngx-print"><a href="#ngx-print" class="headerlink" title="ngx.print"></a>ngx.print</h3><p>将输入参数合并发送给 HTTP 客户端 (作为 HTTP 响应体)。如果此时还没有发送响应头信息，本函数将先发送 HTTP 响应头，再输出响应体。</p>
+<p>语法：<code>ok, err = ngx.print(...)</code></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="built_in">table</span> = &#123;</span><br><span class="line">     <span class="string">"hello, "</span>,</span><br><span class="line">     &#123;<span class="string">"world: "</span>, <span class="literal">true</span>, <span class="string">" or "</span>, <span class="literal">false</span>,</span><br><span class="line">         &#123;<span class="string">": "</span>, <span class="literal">nil</span>&#125;&#125;</span><br><span class="line"> &#125;</span><br><span class="line">ok, err = ngx.<span class="built_in">print</span>(<span class="built_in">table</span>)</span><br></pre></td></tr></table></figure>
+
+<p>将输出：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello, world: <span class="literal">true</span> <span class="keyword">or</span> <span class="literal">false</span>: <span class="literal">nil</span></span><br></pre></td></tr></table></figure>
+
+<p>其中 ok 存储着输出的内容，如果输出失败，err 存储失败的原因。</p>
+<p>本函数为异步调用，将立即返回，不会等待所有数据被写入系统发送缓冲区。要以同步模式运行，请在调用 <code>ngx.print</code> 之后调用 <code>ngx.flush</code>。</p>
+<h3 id="ngx-flush"><a href="#ngx-flush" class="headerlink" title="ngx.flush"></a>ngx.flush</h3><p>向客户端刷新响应输出。</p>
+<p>语法：<code>ok, err = ngx.flush(wait)</code></p>
+<p><code>ngx.flush</code> 接受一个布尔型可选参数 <code>wait</code> (默认值 <code>false</code>)。当通过默认参数（<code>false</code>）调用时，本函数发起一个异步调用。当把 <code>wait</code> 参数设置为 <code>true</code> 时，本函数将以同步模式执行。</p>
+<ul>
+<li>异步调用下，直接将数据返回，不等待输出数据被写入系统发送缓冲区。</li>
+<li>同步模式下，本函数不会立即返回，一直到所有输出数据被写入系统输出缓冲区，或到达发送超时 send_timeout 时间。</li>
+</ul>
+<p>这个要和上方的 ngx.print 进行配合使用，开启同步模式，可以优化返回客户端多条数据的速度。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="built_in">table</span> = &#123;</span><br><span class="line">     <span class="string">"hello, "</span>,</span><br><span class="line">     &#123;<span class="string">"world: "</span>, <span class="literal">true</span>, <span class="string">" or "</span>, <span class="literal">false</span>,</span><br><span class="line">         &#123;<span class="string">": "</span>, <span class="literal">nil</span>&#125;&#125;</span><br><span class="line"> &#125;</span><br><span class="line">ok, err = ngx.<span class="built_in">print</span>(<span class="built_in">table</span>)</span><br><span class="line">ngx.<span class="built_in">flush</span>(<span class="literal">true</span>) 		<span class="comment">-- 开启同步模式</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ngx-arg"><a href="#ngx-arg" class="headerlink" title="ngx.arg"></a>ngx.arg</h3><p>获取定义的变量。</p>
+<p>语法：<code>ngx.arg[n]</code>。</p>
+<figure class="highlight nginx"><figcaption><span>&#123;4&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /foo &#123;</span><br><span class="line">    <span class="attribute">set</span> <span class="variable">$a</span> <span class="number">32</span>;</span><br><span class="line">    <span class="attribute">set</span> <span class="variable">$b</span> <span class="number">56</span>;</span><br><span class="line">    <span class="attribute">sum</span> = ngx.arg[<span class="number">1</span>] + ngx.arg[<span class="number">2</span>]  <span class="comment"># 等价于 $a + $b</span></span><br><span class="line">    echo <span class="variable">$sum</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将输出 88，是 32 和 56 的和。</p>
+<h3 id="ngx-var"><a href="#ngx-var" class="headerlink" title="ngx.var"></a>ngx.var</h3><p>读写 Nginx 变量值。</p>
+<p>语法：<code>ngx.var.xxx</code>。</p>
+<figure class="highlight nginx"><figcaption><span>&#123;2,4&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /foo &#123;</span><br><span class="line">    <span class="attribute">set</span> <span class="variable">$my_var</span> <span class="string">''</span>;  <span class="comment"># 创建 $my_var 变量</span></span><br><span class="line">    <span class="attribute">content_by_lua</span> <span class="string">'</span></span><br><span class="line"><span class="string">        ngx.var.my_var = 123;  # 使用 <span class="variable">$my_var</span> 变量</span></span><br><span class="line"><span class="string">    '</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ngx-log"><a href="#ngx-log" class="headerlink" title="ngx.log"></a>ngx.log</h3><p>输出到日志中。格式：<code>ngx.log(ngx.level,...)</code></p>
+<p>可指定多个日志常量 ngx.level。</p>
+<p>ngx.level有：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ngx.STDERR    <span class="comment">-- 例如 ngx.log(ngx.STDERR)</span></span><br><span class="line">ngx.EMERG</span><br><span class="line">ngx.ALERT</span><br><span class="line">ngx.CRIT</span><br><span class="line">ngx.ERR</span><br><span class="line">ngx.WARN</span><br><span class="line">ngx.NOTICE</span><br><span class="line">ngx.INFO</span><br><span class="line">ngx.DEBUG</span><br></pre></td></tr></table></figure>
+
+<h3 id="HTTP-方法常量"><a href="#HTTP-方法常量" class="headerlink" title="HTTP 方法常量"></a>HTTP 方法常量</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ngx.HTTP_GET</span><br><span class="line">ngx.HTTP_HEAD</span><br><span class="line">ngx.HTTP_PUT</span><br><span class="line">ngx.HTTP_POST</span><br><span class="line">ngx.HTTP_DELETE</span><br><span class="line">ngx.HTTP_OPTIONS   (v0<span class="number">.5</span><span class="number">.0</span>rc24 版本加入)</span><br><span class="line">ngx.HTTP_MKCOL     (v0<span class="number">.8</span><span class="number">.2</span> 版本加入)</span><br><span class="line">ngx.HTTP_COPY      (v0<span class="number">.8</span><span class="number">.2</span> 版本加入)</span><br><span class="line">ngx.HTTP_MOVE      (v0<span class="number">.8</span><span class="number">.2</span> 版本加入)</span><br><span class="line">ngx.HTTP_PROPFIND  (v0<span class="number">.8</span><span class="number">.2</span> 版本加入)</span><br><span class="line">ngx.HTTP_PROPPATCH (v0<span class="number">.8</span><span class="number">.2</span> 版本加入)</span><br><span class="line">ngx.HTTP_LOCK      (v0<span class="number">.8</span><span class="number">.2</span> 版本加入)</span><br><span class="line">ngx.HTTP_UNLOCK    (v0<span class="number">.8</span><span class="number">.2</span> 版本加入)</span><br><span class="line">ngx.HTTP_PATCH     (v0<span class="number">.8</span><span class="number">.2</span> 版本加入)</span><br><span class="line">ngx.HTTP_TRACE     (v0<span class="number">.8</span><span class="number">.2</span> 版本加入)</span><br></pre></td></tr></table></figure>
+
+<h3 id="HTTP-状态常量"><a href="#HTTP-状态常量" class="headerlink" title="HTTP 状态常量"></a>HTTP 状态常量</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">value = ngx.HTTP_OK 					(等于 <span class="number">200</span>)</span><br><span class="line">value = ngx.HTTP_CREATED 				(等于 <span class="number">201</span>)</span><br><span class="line">value = ngx.HTTP_SPECIAL_RESPONSE 		(等于 <span class="number">300</span>)</span><br><span class="line">value = ngx.HTTP_MOVED_PERMANENTLY 		(等于 <span class="number">301</span>)</span><br><span class="line">value = ngx.HTTP_MOVED_TEMPORARILY 		(等于 <span class="number">302</span>)</span><br><span class="line">value = ngx.HTTP_SEE_OTHER 				(等于 <span class="number">303</span>)</span><br><span class="line">value = ngx.HTTP_NOT_MODIFIED 			(等于 <span class="number">304</span>)</span><br><span class="line">value = ngx.HTTP_BAD_REQUEST 			(等于 <span class="number">400</span>)</span><br><span class="line">value = ngx.HTTP_UNAUTHORIZED 			(等于 <span class="number">401</span>)</span><br><span class="line">value = ngx.HTTP_FORBIDDEN 				(等于 <span class="number">403</span>)</span><br><span class="line">value = ngx.HTTP_NOT_FOUND 				(等于 <span class="number">404</span>)</span><br><span class="line">value = ngx.HTTP_NOT_ALLOWED 			(等于 <span class="number">405</span>)</span><br><span class="line">value = ngx.HTTP_GONE 					(等于 <span class="number">410</span>)</span><br><span class="line">value = ngx.HTTP_INTERNAL_SERVER_ERROR 	(等于 <span class="number">500</span>)</span><br><span class="line">value = ngx.HTTP_METHOD_NOT_IMPLEMENTED (等于 <span class="number">501</span>)</span><br><span class="line">value = ngx.HTTP_SERVICE_UNAVAILABLE 	(等于 <span class="number">503</span>)</span><br><span class="line">value = ngx.HTTP_GATEWAY_TIMEOUT 		(等于 <span class="number">504</span>) (v0<span class="number">.3</span><span class="number">.1</span>rc38 版本加入)</span><br></pre></td></tr></table></figure>
+
+<h3 id="print"><a href="#print" class="headerlink" title="print"></a>print</h3><p>将参数值以 <code>ngx.NOTICE</code> 日志级别写入 Nginx 的 <code>error.log</code> 文件。</p>
+<p>语法：<code>print(...)</code>。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">"Hello"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>等价于</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ngx.<span class="built_in">log</span>(ngx.NOTICE, <span class="string">"Hello"</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="ngx-ctx"><a href="#ngx-ctx" class="headerlink" title="ngx.ctx"></a>ngx.ctx</h3><p>一个 location 模块里的全局环境变量，存储基于请求的 Lua 环境数据。</p>
+<p>语法：<code>ngx.ctx.xxx</code>。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /sub &#123;</span><br><span class="line">    <span class="attribute">content_by_lua</span> <span class="string">'</span></span><br><span class="line"><span class="string">        ngx.say("sub pre: ", ngx.ctx.blah)</span></span><br><span class="line"><span class="string">        ngx.ctx.blah = 32</span></span><br><span class="line"><span class="string">        ngx.say("sub post: ", ngx.ctx.blah)</span></span><br><span class="line"><span class="string">    '</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="attribute">location</span> /main &#123;</span><br><span class="line">    <span class="attribute">content_by_lua</span> <span class="string">'</span></span><br><span class="line"><span class="string">        ngx.ctx.blah = 73</span></span><br><span class="line"><span class="string">        ngx.say("main pre: ", ngx.ctx.blah)</span></span><br><span class="line"><span class="string">        local res = ngx.location.capture("/sub")</span></span><br><span class="line"><span class="string">        ngx.print(res.body)</span></span><br><span class="line"><span class="string">        ngx.say("main post: ", ngx.ctx.blah)</span></span><br><span class="line"><span class="string">    '</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>访问 <code>GET /main</code> 输出：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">main pre: <span class="number">73</span></span><br><span class="line"><span class="built_in">sub</span> pre: <span class="literal">nil</span></span><br><span class="line"><span class="built_in">sub</span> post: <span class="number">32</span></span><br><span class="line">main post: <span class="number">73</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ngx-exit"><a href="#ngx-exit" class="headerlink" title="ngx.exit"></a>ngx.exit</h3><p>退出某个阶段，如处理请求阶段、重定向阶段等。</p>
+<p>语法：<code>ngx.exit(status)</code>。</p>
+<p><code>status</code> 参数可以是 <code>ngx.OK</code>，<code>ngx.ERROR</code> 等等 <a href="/middleware/Nginx/Nginx_Lua_Expansion_module/#http-状态常量">HTTP 状态常量</a></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ngx.<span class="built_in">status</span> = ngx.HTTP_GONE</span><br><span class="line">ngx.say(<span class="string">"This is our own content"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 退出整个请求而不是当前处理阶段</span></span><br><span class="line">ngx.<span class="built_in">exit</span>(ngx.HTTP_OK)</span><br></pre></td></tr></table></figure>
+
+<p>可以直接使用数字作为参数，例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ngx.<span class="built_in">exit</span>(<span class="number">501</span>)</span><br></pre></td></tr></table></figure>
+
+<p>::: warning</p>
+<p>数字作为参数仅支持 <code>NGX_OK</code> 和 <code>NGX_ERROR</code> 的数字。</p>
+<p>:::</p>
+<h3 id="ngx-sleep"><a href="#ngx-sleep" class="headerlink" title="ngx.sleep"></a>ngx.sleep</h3><p>无阻塞地休眠特定秒。时间可以精确到 0.001 秒 (毫秒)。</p>
+<p>语法：<code>ngx.sleep(seconds)</code>。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ngx.sleep(<span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="请求API"><a href="#请求API" class="headerlink" title="请求API"></a>请求API</h2><h3 id="ngx-req-get-uri-args"><a href="#ngx-req-get-uri-args" class="headerlink" title="ngx.req.get_uri_args"></a>ngx.req.get_uri_args</h3><p>返回一个 Lua table，包含当前请求的所有 URL 查询参数。</p>
+<p>语法：<code>args = ngx.req.get_uri_args([max_args])</code></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> = /test &#123;</span><br><span class="line">     <span class="attribute">content_by_lua</span> <span class="string">'</span></span><br><span class="line"><span class="string">         local args = ngx.req.get_uri_args()</span></span><br><span class="line"><span class="string">         for key, val in pairs(args) do</span></span><br><span class="line"><span class="string">             if type(val) == "table" then</span></span><br><span class="line"><span class="string">                 ngx.say(key, ": ", table.concat(val, ", "))</span></span><br><span class="line"><span class="string">             else</span></span><br><span class="line"><span class="string">                 ngx.say(key, ": ", val)</span></span><br><span class="line"><span class="string">             end</span></span><br><span class="line"><span class="string">         end</span></span><br><span class="line"><span class="string">     '</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>访问 <code>GET /test?foo=bar&amp;bar=baz&amp;bar=blah</code> 将输出：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">foo: bar</span><br><span class="line">bar: baz, blah</span><br></pre></td></tr></table></figure>
+
+<p>多次出现同一个参数 key 时，将生成一个 Lua table，按顺序保存其所有 value。</p>
+<h3 id="ngx-req-set-uri-args"><a href="#ngx-req-set-uri-args" class="headerlink" title="ngx.req.set_uri_args"></a>ngx.req.set_uri_args</h3><p>用 <code>args</code> 参数重写当前请求的 URI 请求参数。</p>
+<p>语法：<code>ngx.req.set_uri_args(args)</code>。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ngx.req.set_uri_args(<span class="string">"a=3&amp;b=hello%20world"</span>)</span><br><span class="line"></span><br><span class="line">ngx.req.set_uri_args(&#123; a = <span class="number">3</span>, b = <span class="string">"hello world"</span> &#125;)</span><br><span class="line"></span><br><span class="line">ngx.req.set_uri_args(&#123; a = <span class="number">3</span>, b = &#123;<span class="number">5</span>, <span class="number">6</span>&#125; &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>在第二种情况下，本方法将根据 URI 转义规则转义参数的 key 和 value。</p>
+<p>在第三种情况下，请求参数字符串为 <code>a=3&amp;b=5&amp;b=6</code>。</p>
+<h3 id="ngx-header-HEADER"><a href="#ngx-header-HEADER" class="headerlink" title="ngx.header.HEADER"></a>ngx.header.HEADER</h3><p>修改、添加、或清除当前请求待发送的 <code>HEADER</code> 响应头信息。</p>
+<p>语法：<code>ngx.header.HEADER = VALUE</code>。</p>
+<p><code>HEADER</code> 响应头信息不是自定义的，是请求头带有的。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 与 ngx.header["Content-Type"] = 'text/plain' 相同</span></span><br><span class="line">ngx.header.content_type = <span class="string">'text/plain'</span>;</span><br><span class="line"></span><br><span class="line">ngx.header[<span class="string">"X-My-Header"</span>] = <span class="string">'blah blah'</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ngx-req-get-method"><a href="#ngx-req-get-method" class="headerlink" title="ngx.req.get_method"></a>ngx.req.get_method</h3><p>获取当前请求的 HTTP 请求方法名称。结果为类似 <code>&quot;GET&quot;</code> 和 <code>&quot;POST&quot;</code> 的字符串。</p>
+<p>语法：<code>ngx.req.get_method</code>。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">value = ngx.req.get_method</span><br></pre></td></tr></table></figure>
+
+<h3 id="ngx-req-set-method"><a href="#ngx-req-set-method" class="headerlink" title="ngx.req.set_method"></a>ngx.req.set_method</h3><p>用 <code>method_id</code> 参数的值改写当前请求的 HTTP 请求方法。当前仅支持 <a href="/middleware/Nginx/Nginx_Lua_Expansion_module/#http-方法常量">HTTP 请求方法</a> 中定义的数值常量。</p>
+<p>语法：<code>ngx.req.set_method(method_id)</code>。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ngx.req.set_method(method_id)</span><br><span class="line"></span><br><span class="line">ngx.req.set_method(ngx.HTTP_GET)</span><br></pre></td></tr></table></figure>
+
+<h3 id="ngx-req-read-body"><a href="#ngx-req-read-body" class="headerlink" title="ngx.req.read_body"></a>ngx.req.read_body</h3><p>同步读取客户端请求体，不阻塞 Nginx 事件循环。</p>
+<p>语法：<code>ngx.req.read_body()</code>。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ngx.req.read_body()</span><br><span class="line"><span class="keyword">local</span> args = ngx.req.get_post_args()</span><br></pre></td></tr></table></figure>
+
+<h3 id="ngx-req-get-post-args"><a href="#ngx-req-get-post-args" class="headerlink" title="ngx.req.get_post_args"></a>ngx.req.get_post_args</h3><p>返回一个 Lua table，包含当前请求的所有 POST 查询参数。</p>
+<p>语法：<code>args, err = ngx.req.get_post_args(max_args?)</code></p>
+<p>::: warning</p>
+<p>使用 <code>ngx.req.get_post_args</code> 获取参数前，必须使用 <code>ngx.req.read_body</code> 读取请求体。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">location = /test &#123;</span><br><span class="line">    content_by_lua <span class="string">'</span></span><br><span class="line"><span class="string">        ngx.req.read_body()</span></span><br><span class="line"><span class="string">        local args, err = ngx.req.get_post_args()</span></span><br><span class="line"><span class="string">        if not args then</span></span><br><span class="line"><span class="string">            ngx.say("failed to get post args: ", err)</span></span><br><span class="line"><span class="string">            return</span></span><br><span class="line"><span class="string">        end</span></span><br><span class="line"><span class="string">        for key, val in pairs(args) do</span></span><br><span class="line"><span class="string">            if type(val) == "table" then</span></span><br><span class="line"><span class="string">                ngx.say(key, ": ", table.concat(val, ", "))</span></span><br><span class="line"><span class="string">            else</span></span><br><span class="line"><span class="string">                ngx.say(key, ": ", val)</span></span><br><span class="line"><span class="string">            end</span></span><br><span class="line"><span class="string">        end</span></span><br><span class="line"><span class="string">    '</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>请求</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Post request with the body 'foo=bar&amp;bar=baz&amp;bar=blah'</span></span><br><span class="line">$ curl --data <span class="string">'foo=bar&amp;bar=baz&amp;bar=blah'</span> localhost/<span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+
+<p>将输出：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">foo: bar</span><br><span class="line">bar: baz, blah</span><br></pre></td></tr></table></figure>
+
+<p>多次出现同一个参数 key 时，将生成一个 Lua table，按顺序保存其所有 value。</p>
+<h3 id="ngx-redirect"><a href="#ngx-redirect" class="headerlink" title="ngx.redirect"></a>ngx.redirect</h3><p>发出一个 HTTP <code>301</code> 或 <code>302</code> 重定向到 <code>uri</code>。</p>
+<p>可选项 <code>status</code> 参数指定 <code>301</code> 或 <code>302</code> 哪个被使用。 默认使用 <code>302</code>。</p>
+<p>语法：<code>ngx.redirect(uri, [status])</code>。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> ngx.redirect(<span class="string">"/foo"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 等价于</span></span><br><span class="line"><span class="keyword">return</span> ngx.redirect(<span class="string">"/foo"</span>, <span class="number">301</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 等价于</span></span><br><span class="line"><span class="keyword">return</span> ngx.redirect(<span class="string">"/foo"</span>, ngx.HTTP_MOVED_TEMPORARILY)</span><br></pre></td></tr></table></figure>
+
+<p>重定向到任意外部 URL 也是支持的，例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> ngx.redirect(<span class="string">"http://www.baidu.com"</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="ngx-exec"><a href="#ngx-exec" class="headerlink" title="ngx.exec"></a>ngx.exec</h3><p>使用 <code>uri</code>、<code>args</code> 参数执行一个内部跳转。内部指的是 Nginx 的某个 location 模块。</p>
+<p>语法：<code>ngx.exec(uri, [args])</code></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /foo &#123;</span><br><span class="line">     <span class="attribute">content_by_lua</span> <span class="string">'</span></span><br><span class="line"><span class="string">         ngx.exec("/bar", "a=goodbye");</span></span><br><span class="line"><span class="string">     '</span>;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="attribute">location</span> /bar &#123;</span><br><span class="line">     <span class="attribute">content_by_lua</span> <span class="string">'</span></span><br><span class="line"><span class="string">         local args = ngx.req.get_uri_args()</span></span><br><span class="line"><span class="string">         for key, val in pairs(args) do</span></span><br><span class="line"><span class="string">             if key == "a" then</span></span><br><span class="line"><span class="string">                 ngx.say(val)</span></span><br><span class="line"><span class="string">             end</span></span><br><span class="line"><span class="string">         end</span></span><br><span class="line"><span class="string">     '</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>访问 <code>GET /foo/file.php?a=hello</code>，将返回 『 hello 』 ，而不是 『 goodbye 』</p>
+<p>::: warning</p>
+<p><code>ngx.exec</code> 方法与 <a href="/middleware/Nginx/Nginx_Lua_Expansion_module#nginx-redirect">ngx.redirect</a> 是完全不同的，前者是个纯粹的内部跳转并且没有引入任何额外 HTTP 信号。</p>
+<p>此方法的调用终止当前请求的处理。</p>
+<h3 id="ngx-location-capture"><a href="#ngx-location-capture" class="headerlink" title="ngx.location.capture"></a>ngx.location.capture</h3><p>向 <code>uri</code> 发起一个同步非阻塞 Nginx 子请求。</p>
+<p>语法：<code>ngx.location.capture(uri,[options])</code>。</p>
+<p>::: warning</p>
+<p>它会请求 Nginx 的其他 location 模块，location 模块可以是其他文件目录的配置文件中，或任何其他 Nginx 模块。</p>
+<p>:::</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">res = ngx.location.capture(uri,[options])</span><br></pre></td></tr></table></figure>
+
+<p><code>res</code> 是返回的结果，它是一个「对象」，将包含四个元素的 Lua 表 (<code>res.status</code>, <code>res.header</code>, <code>res.body</code>, 和 <code>res.truncated</code>)。</p>
+<ul>
+<li><code>res.status</code> (状态) 保存子请求的响应状态码。</li>
+<li><code>res.header</code> (头) 用一个标准 Lua 表储子请求响应的所有头信息。如果是“多值”响应头，这些值将使用 Lua (数组) 表顺序存储。</li>
+</ul>
+<p>如果子请求响应头包含下面的行：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: a=<span class="number">3</span></span><br><span class="line">Set-Cookie: foo=bar</span><br><span class="line">Set-Cookie: baz=blah</span><br></pre></td></tr></table></figure>
+
+<p>则 <code>res.header[&quot;Set-Cookie&quot;]</code> 将存储 Lua 表 <code>{&quot;a=3&quot;, &quot;foo=bar&quot;, &quot;baz=blah&quot;}</code>。</p>
+<p><strong>options 选项</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>method</td>
+<td>指定子请求的请求方法, 只接受类似 <code>ngx.HTTP_POST</code> 的常量</td>
+</tr>
+<tr>
+<td>body</td>
+<td>指定子请求的请求体 (仅接受字符串值)</td>
+</tr>
+<tr>
+<td>args</td>
+<td>指定子请求的 URI 请求参数 (可以是字符串或者 Lua 表)</td>
+</tr>
+<tr>
+<td>ctx</td>
+<td>指定一个 Lua 表作为子请求的 ngx.ctx 表，可以是当前请求的 ngx.ctx 表</td>
+</tr>
+<tr>
+<td>vars</td>
+<td>用一个 Lua 表设置子请求中的 Nginx 变量值</td>
+</tr>
+<tr>
+<td>copy_all_vars</td>
+<td>设置是否复制所有当前请求的 Nginx 变量值到子请求中，修改子请求的 nginx 变量值不影响当前 (父) 请求</td>
+</tr>
+<tr>
+<td>share_all_vars</td>
+<td>设置是否共享所有当前 (父) 请求的 Nginx 变量值到子请求中，修改子请求的 nginx 变量值将影响当前 (父) 请求</td>
+</tr>
+<tr>
+<td>always_forward_body</td>
+<td>当设置为 true 时，如果没有设置 <code>body</code> 选项，当前 (父) 请求的请求体将被转发给子请求</td>
+</tr>
+</tbody></table>
+<p>例如，发送一个 POST 子请求，可以这样做：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">res</span> = ngx.location.capture(</span><br><span class="line">    <span class="string">'/foo/bar'</span>,</span><br><span class="line">    &#123; <span class="attribute">method</span> = ngx.HTTP_POST, args = &#123; <span class="attribute">a</span> = <span class="number">1</span>,b = <span class="number">3</span>&#125;, body = <span class="string">'Hello，World'</span> &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>等价于：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">res = ngx.location.capture(<span class="string">'/foo/bar?a=1&amp;b=3'</span>)</span><br></pre></td></tr></table></figure>
+
+<p><code>method</code> 选项默认值是 <code>ngx.HTTP_GET</code>。</p>
+<p>其他内容具体看中文文档，开头有转送门。</p>
+<p>::: tip ngx.exec 和 ngx.location.capture 区别</p>
+<p><code>ngx.exec</code> 只会访问同一个配置文件的 location 模块。</p>
+<p><code>ngx.location.capture</code> 不仅如此，还可以访问其他配置文件的 location 模块。</p>
+<h3 id="ngx-req-set-uri"><a href="#ngx-req-set-uri" class="headerlink" title="ngx.req.set_uri"></a>ngx.req.set_uri</h3><p>语法：<code>ngx.req.set_uri(uri, jump?)</code></p>
+<p>通过参数 uri 重写当前请求的 uri；参数 jump，表明是否进行 locations 的重新匹配。当 jump 为 true 时，调用 <code>ngx.req.set_uri</code> 后，Nginx 将会根据修改后的 uri，重新匹配新的 locations；如果 jump 为 false，将不会进行 locations 的重新匹配，而仅仅是修改了当前请求的 URI 而已。jump 的默认值为 false。</p>
+<ul>
+<li>jump 为 true，等价于 rewrite…last</li>
+<li>jump 为 false，等价于 rewrite…break</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ngx.req.set_uri(<span class="string">"/foo"</span>, <span class="literal">true</span>)  === rewrite ^ /foo last;</span><br><span class="line"></span><br><span class="line">ngx.req.set_uri(<span class="string">"/foo"</span>, <span class="literal">false</span>)  ===  rewrite ^ /foo <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="指令API"><a href="#指令API" class="headerlink" title="指令API"></a>指令API</h2><h3 id="init-by-lua"><a href="#init-by-lua" class="headerlink" title="init_by_lua"></a>init_by_lua</h3><p>该指令在每次 Nginx 重新加载配置时执行，可以用来完成一些耗时模块的加载，或者初始化一些全局配置。</p>
+<p>这是一个公共模块，把所有都用到的代码放到这个模块里，避免重复使用相同的代码。</p>
+<p>比如每个模块都需要 MySQL 和 Redis，则在这个公共模块进行引用。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">init_by_lua_block&#123;</span><br><span class="line">    <span class="attribute">mysql</span> = require <span class="string">"resty.mysql"</span></span><br><span class="line">	redis = require <span class="string">"resty.redis"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># 下方直接使用 MySQL 和 Redis 的 API</span></span><br></pre></td></tr></table></figure>
+
+<p>如果不喜欢直接写 Lua 语法，把 Lua 语法 放到 Lua 文件里，使用 <code>init_by_lua_file</code> 引用 Lua 文件。</p>
+<h3 id="init-worker-by-lua"><a href="#init-worker-by-lua" class="headerlink" title="init_worker_by_lua"></a>init_worker_by_lua</h3><p>该指令用于启动一些定时任务，如心跳检查、定时拉取服务器配置等。</p>
+<p>例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">init_worker_by_lua <span class="string">'</span></span><br><span class="line"><span class="string">    local delay = 3  -- in seconds</span></span><br><span class="line"><span class="string">    local new_timer = ngx.timer.at</span></span><br><span class="line"><span class="string">    local log = ngx.log</span></span><br><span class="line"><span class="string">    local ERR = ngx.ERR</span></span><br><span class="line"><span class="string">    local check</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    check = function(premature)</span></span><br><span class="line"><span class="string">        if not premature then</span></span><br><span class="line"><span class="string">            -- do the health check or other routine work</span></span><br><span class="line"><span class="string">            local ok, err = new_timer(delay, check)</span></span><br><span class="line"><span class="string">            if not ok then</span></span><br><span class="line"><span class="string">                log(ERR, "failed to create timer: ", err)</span></span><br><span class="line"><span class="string">                return</span></span><br><span class="line"><span class="string">            end</span></span><br><span class="line"><span class="string">        end</span></span><br><span class="line"><span class="string">    end</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    local ok, err = new_timer(delay, check)</span></span><br><span class="line"><span class="string">    if not ok then</span></span><br><span class="line"><span class="string">        log(ERR, "failed to create timer: ", err)</span></span><br><span class="line"><span class="string">        return</span></span><br><span class="line"><span class="string">    end</span></span><br><span class="line"><span class="string">'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>如果不喜欢直接写 Lua 语法，把 Lua 语法 放到 Lua 文件里，使用 <code>init_worker_by_lua_file</code> 引用 Lua 文件。</p>
+<h3 id="set-by-lua"><a href="#set-by-lua" class="headerlink" title="set_by_lua"></a>set_by_lua</h3><p>该指令只要用来做变量赋值，这个指令一次只能返回一个值，并将结果赋值给 Nginx 中指定的变量。</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>set_by_lua* &lt;key&gt; &lt;value&gt;</td>
+<td>key要加上 $ 符号，value 是 Lua 语言的格式</td>
+</tr>
+</tbody></table>
+<p>例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">set_by_lua $name <span class="string">"</span></span><br><span class="line"><span class="string">		local uri_args = ngx.req.get_uri_args()   -- 获取请求 ? 后的参数</span></span><br><span class="line"><span class="string">		name = uri_args['name']   -- 获取 key 为 name 的参数</span></span><br><span class="line"><span class="string">		return name..'先生'   -- 在 name 后面加上 先生，作为 $name 的 value 返回给客户端</span></span><br><span class="line"><span class="string">	"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>此时 key 为 <code>$name</code> 的 value 值是 URL 的参数 name 加上「先生」。</p>
+<p>如果不喜欢直接写 Lua 语法，把 Lua 语法 放到 Lua 文件里，使用 <code>set_by_lua_file</code> 引用 Lua 文件。</p>
+<h3 id="rewrite-by-lua"><a href="#rewrite-by-lua" class="headerlink" title="rewrite_by_lua"></a>rewrite_by_lua</h3><p>该指令用于执行内部 URL 重写或者外部重定向，典型的如伪静态化 URL 重写，本阶段在 Rewrite 处理阶段的最后默认执行。</p>
+<p>例如：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /foo &#123;</span><br><span class="line">    <span class="attribute">set</span> <span class="variable">$a</span> <span class="number">12</span>; <span class="comment"># 创建变量 $a</span></span><br><span class="line">    <span class="attribute">set</span> <span class="variable">$b</span> <span class="string">""</span>; <span class="comment"># 创建变量 $b</span></span><br><span class="line">    <span class="attribute">rewrite_by_lua</span> <span class="string">'</span></span><br><span class="line"><span class="string">         ngx.var.b = tonumber(ngx.var.a) + 1  # 此时 b = 13</span></span><br><span class="line"><span class="string">         if tonumber(ngx.var.b) == 13 then</span></span><br><span class="line"><span class="string">             return ngx.redirect("/bar");   # 重定向到 /bar</span></span><br><span class="line"><span class="string">         end</span></span><br><span class="line"><span class="string">     '</span>;</span><br><span class="line">    <span class="attribute">echo</span> <span class="string">"res = <span class="variable">$b</span>"</span>;  <span class="comment"># res = 13</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果不喜欢直接写 Lua 语法，把 Lua 语法 放到 Lua 文件里，使用 <code>rewrite_by_lua_file</code> 引用 Lua 文件。</p>
+<h3 id="access-by-lua"><a href="#access-by-lua" class="headerlink" title="access_by_lua"></a>access_by_lua</h3><p>该指令用于访问控制。例如，如果只允许内网 IP 访问。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> / &#123;</span><br><span class="line">    <span class="attribute">access_by_lua</span> <span class="string">'</span></span><br><span class="line"><span class="string">        local res = ngx.location.capture("/auth")</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        if res.status == ngx.HTTP_OK then</span></span><br><span class="line"><span class="string">        return</span></span><br><span class="line"><span class="string">        end</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        if res.status == ngx.HTTP_FORBIDDEN then</span></span><br><span class="line"><span class="string">        ngx.exit(res.status)</span></span><br><span class="line"><span class="string">        end</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        ngx.exit(ngx.HTTP_INTERNAL_SERVER_ERROR)</span></span><br><span class="line"><span class="string">        '</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># proxy_pass/fastcgi_pass/postgres_pass/...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意，在 access_by_lua 处理内部，当调用 <code>ngx.exit(ngx.OK)</code> 时，nginx 请求将继续下一阶段的内容处理。要在 access_by_lua 处理中终结当前请求，调用 ngx.exit ，成功的请求设定 status &gt;= 200 (<code>ngx.HTTP_OK</code>) 并 status &lt; 300 (<code>ngx.HTTP_SPECIAL_RESPONSE</code>)，失败的请求设定<code>ngx.exit(ngx.HTTP_INTERNAL_SERVER_ERROR)</code> (或其他相关的)。</p>
+<p>如果不喜欢直接写 Lua 语法，把 Lua 语法 放到 Lua 文件里，使用 <code>access_by_lua_file</code> 引用 Lua 文件。</p>
+<h3 id="content-by-lua"><a href="#content-by-lua" class="headerlink" title="content_by_lua"></a>content_by_lua</h3><p><strong>该指令是应用最多的指令</strong>，大部分任务是在这个阶段完成的，其他的过程往往为这个阶段准备数据，正式处理基本都在本阶段。</p>
+<p>这个指令就相当于 Java 的一个方法，所有的代码都需要一个方法体作为环境。</p>
+<p>例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">content_by_lua_block &#123;</span><br><span class="line">    set_by_lua $name <span class="string">"</span></span><br><span class="line"><span class="string">        local uri_args = ngx.req.get_uri_args()   -- 获取请求 ? 后的参数</span></span><br><span class="line"><span class="string">        name = uri_args['name']   -- 获取 key 为 name 的参数</span></span><br><span class="line"><span class="string">        return name..'先生'   -- 在 name 后面加上 先生，作为 $name 的 value 返回给客户端</span></span><br><span class="line"><span class="string">    "</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果不喜欢直接写 Lua 语法，把 Lua 语法 放到 Lua 文件里，使用 <code>content_by_lua_file</code> 引用 Lua 文件。</p>
+<h3 id="header-filter-by-lua"><a href="#header-filter-by-lua" class="headerlink" title="header_filter_by_lua"></a>header_filter_by_lua</h3><p>该指令用于设置应答消息的头部信息。</p>
+<p>例如：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> / &#123;</span><br><span class="line">	 <span class="attribute">proxy_pass</span> http://mybackend;</span><br><span class="line">	 <span class="attribute">header_filter_by_lua</span> <span class="string">'ngx.header.username = "frx"'</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>你会在请求头看到 name 为 frx</p>
+<p>如果不喜欢直接写 Lua 语法，把 Lua 语法 放到 Lua 文件里，使用 <code>header_filter_by_lua_file</code> 引用 Lua 文件。</p>
+<h3 id="body-filter-by-lua"><a href="#body-filter-by-lua" class="headerlink" title="body_filter_by_lua"></a>body_filter_by_lua</h3><p>该指令是对响应数据进行过滤，如截断、替换。</p>
+<p>例如，在输出体转换所有的小写字母，我们可以这样用：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">    proxy_pass http://mybackend;</span><br><span class="line">    body_filter_by_lua <span class="string">'ngx.arg[1] = string.upper(ngx.arg[1])'</span>;  <span class="comment"># 转小写</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果不喜欢直接写 Lua 语法，把 Lua 语法 放到 Lua 文件里，使用 <code>body_filter_by_lua_file</code> 引用 Lua 文件。</p>
+<h3 id="log-by-lua"><a href="#log-by-lua" class="headerlink" title="log_by_lua"></a>log_by_lua</h3><p>该指令用于在 log 请求处理阶段，用 Lua 代码处理日志，但并不替换原有 log 处理。</p>
+<p>例如：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://mybackend;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">log_by_lua</span> <span class="string">'</span></span><br><span class="line"><span class="string">            local log_dict = ngx.shared.log_dict</span></span><br><span class="line"><span class="string">            local upstream_time = tonumber(ngx.var.upstream_response_time)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            local sum = log_dict:get("upstream_time-sum") or 0</span></span><br><span class="line"><span class="string">            sum = sum + upstream_time</span></span><br><span class="line"><span class="string">            log_dict:set("upstream_time-sum", sum)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            local newval, err = log_dict:incr("upstream_time-nb", 1)</span></span><br><span class="line"><span class="string">            if not newval and err == "not found" then</span></span><br><span class="line"><span class="string">            log_dict:add("upstream_time-nb", 0)</span></span><br><span class="line"><span class="string">            log_dict:incr("upstream_time-nb", 1)</span></span><br><span class="line"><span class="string">            end</span></span><br><span class="line"><span class="string">            '</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果不喜欢直接写 Lua 语法，把 Lua 语法 放到 Lua 文件里，使用 <code>log_by_lua_file</code> 引用 Lua 文件。</p>
+<h3 id="balancer-by-lua"><a href="#balancer-by-lua" class="headerlink" title="balancer_by_lua"></a>balancer_by_lua</h3><p> 该指令主要的作用是用来实现上游服务器的负载均衡器算法</p>
+<h3 id="ssl-certificate-by"><a href="#ssl-certificate-by" class="headerlink" title="ssl_certificate_by"></a>ssl_certificate_by</h3><p>该指令作用在 Nginx 和下游服务开始一个 SSL 握手操作时将允许本配置项的 Lua 代码。</p>
+<h2 id="简单案例"><a href="#简单案例" class="headerlink" title="简单案例"></a>简单案例</h2><h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>发送请求：<code>http://192.168.91.200?name=张三&amp;gender=1</code></p>
+<p>Nginx 接收到请求后，根据 gender 传入的值进行判断，如果 gender 传入的是 1，则在页面上展示张三先生,如果 gender 传入的是 0，则在页面上展示张三女士，如果未传或者传入的不是 1 和 2，则在页面上展示张三。</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>在配置文件进行如下配置：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /getByGender &#123;</span><br><span class="line">	<span class="attribute">default_type</span> <span class="string">'text/html'</span>;</span><br><span class="line">    </span><br><span class="line">	<span class="attribute">set_by_lua</span> <span class="variable">$name</span> <span class="string">"</span></span><br><span class="line"><span class="string">		local uri_args = ngx.req.get_uri_args()</span></span><br><span class="line"><span class="string">		gender = uri_args['gender']</span></span><br><span class="line"><span class="string">		name = uri_args['name']</span></span><br><span class="line"><span class="string">		if gender=='1' then</span></span><br><span class="line"><span class="string">			return name..'先生'</span></span><br><span class="line"><span class="string">		elseif gender=='0' then</span></span><br><span class="line"><span class="string">			return name..'女士'</span></span><br><span class="line"><span class="string">		else</span></span><br><span class="line"><span class="string">			return name</span></span><br><span class="line"><span class="string">		end</span></span><br><span class="line"><span class="string">	"</span>;</span><br><span class="line">	<span class="attribute">header_filter_by_lua</span> <span class="string">"</span></span><br><span class="line"><span class="string">		ngx.header.aaa='bbb'</span></span><br><span class="line"><span class="string">	"</span>;</span><br><span class="line">	<span class="attribute">charset</span> utf-<span class="number">8</span>;</span><br><span class="line">	<span class="attribute">return</span> <span class="number">200</span> <span class="variable">$name</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>访问测试：<code>http://192.168.91.200/getByGender?name=冯荣旭&amp;gender=1</code></p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220807/image.43wr3kwp3ag0.webp" alt="image"></p>
+<p>访问测试：<code>http://192.168.91.200/getByGender?name=冯荣旭</code></p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220807/image.44pzvk2lzlk0.webp" alt="image"></p>
+<h2 id="ngx-lua操作Redis"><a href="#ngx-lua操作Redis" class="headerlink" title="ngx_lua操作Redis"></a>ngx_lua操作Redis</h2><p>Redis 在系统中经常作为数据缓存、内存数据库使用，在大型系统中扮演着非常重要的作用。</p>
+<p>在 Nginx 核心系统中，Redis 是常备组件。Nginx 支持 3 种方法访问 Redis，分别是 HttpRedis 模块、HttpRedis2Module 模块、lua-resty-redis 库。</p>
+<p>这三种方式中 HttpRedis 模块提供的指令少，功能单一，适合做简单缓存。HttpRedis2Module 模块比 HttpRedis 模块操作更灵活，功能更强大。而Lua-resty-redis 库是 OpenResty 提供的一个操作 Redis 的接口库，可根据自己的业务情况做一些逻辑处理，适合做复杂的业务逻辑。</p>
+<p>本内容将主要以 Lua-resty-redis 来进行讲解。</p>
+<h3 id="Redis环境准备"><a href="#Redis环境准备" class="headerlink" title="Redis环境准备"></a>Redis环境准备</h3><p>准备一个 Redis 环境，并确保正常连接</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 连接地址</span></span><br><span class="line">host= 192.168.91.200</span><br><span class="line">port=6379</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master <span class="built_in">local</span>]<span class="comment"># /usr/local/bin/redis-server /etc/redis.conf</span></span><br><span class="line">[root@master <span class="built_in">local</span>]<span class="comment"># redis-cli</span></span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="API学习"><a href="#API学习" class="headerlink" title="API学习"></a>API学习</h3><p><code>lua-resty-redis</code> 提供了访问 Redis 的详细 API，包括创建对接、连接、操作、数据处理等。这些 API 基本上与 Redis 的操作一一对应。</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>redis = require “resty.redis”</td>
+<td>引入 Redis 模块，类似于 Java 的 import。</td>
+</tr>
+<tr>
+<td>redis,err = redis:new()</td>
+<td>创建一个 Redis 对象给 redis，err 记录创建失败的原因。</td>
+</tr>
+<tr>
+<td>ok,err=redis:connect(host,port[,options_table])</td>
+<td>设置连接 Redis 的连接信息。 ok：连接成功返回 1，连接失败返回 nil。 err：返回对应的错误信息。</td>
+</tr>
+<tr>
+<td>redis:set_timeout(time)</td>
+<td>设置请求操作 Redis 的超时时间，单位毫秒。</td>
+</tr>
+<tr>
+<td>ok,err = redis:close()</td>
+<td>关闭当前连接。 ok：连接成功返回 1，连接失败返回 nil。 err：返回对应的错误信息。</td>
+</tr>
+<tr>
+<td>原生 Redis 命令如 get、set、lpush 等</td>
+<td>所有的 Redis 命令都有自己的方法，方法名字和命令名字相同，只是全部为小写。</td>
+</tr>
+</tbody></table>
+<h3 id="效果实现"><a href="#效果实现" class="headerlink" title="效果实现"></a>效果实现</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">location /redis &#123;</span><br><span class="line">    default_type <span class="string">"text/html"</span>;</span><br><span class="line">    content_by_lua_block &#123;</span><br><span class="line">        <span class="keyword">local</span> redis = <span class="built_in">require</span> <span class="string">"resty.redis"</span> 	<span class="comment">-- 引入 Redis</span></span><br><span class="line">        <span class="keyword">local</span> redisObj = redis:new()  			<span class="comment">-- 创建 Redis 对象</span></span><br><span class="line">        redisObj:set_timeout(<span class="number">1000</span>) 				<span class="comment">-- 设置超时数据为 1s</span></span><br><span class="line">        <span class="keyword">local</span> ok,err = redisObj:connect(<span class="string">"192.168.91.200"</span>,<span class="number">6379</span>) <span class="comment">-- 设置 Redis 连接信息</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> ok <span class="keyword">then</span> 							<span class="comment">-- 判断是否连接成功</span></span><br><span class="line">            ngx.say(<span class="string">"failed to connection redis"</span>,err)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        ok,err = redisObj:set(<span class="string">"username"</span>,<span class="string">"TOM"</span>)	<span class="comment">-- 存入数据</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> ok <span class="keyword">then</span> 							<span class="comment">-- 判断是否存入成功</span></span><br><span class="line">            ngx.say(<span class="string">"failed to set username"</span>,err)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">local</span> res,err = redisObj:get(<span class="string">"username"</span>) <span class="comment">-- 从 Redis 中获取数据</span></span><br><span class="line">        ngx.say(res)							 <span class="comment">-- 将数据写会消息体中</span></span><br><span class="line">        redisObj:<span class="built_in">close</span>()						 <span class="comment">-- 关闭 Redis 连接</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行测试效果</p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220807/image.4iflh85c7ma0.webp" alt="image"></p>
+<ul>
+<li>查询redis</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master conf]<span class="comment"># redis-cli</span></span><br><span class="line">127.0.0.1:6379&gt; get username</span><br><span class="line"><span class="string">"TOM"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="ngx-lua操作Mysql"><a href="#ngx-lua操作Mysql" class="headerlink" title="ngx_lua操作Mysql"></a>ngx_lua操作Mysql</h2><p>MySQL 是一个使用广泛的关系型数据库。在 ngx_lua 中，MySQL 有两种访问模式，分别是是：</p>
+<ul>
+<li>用 <code>ngx_lua</code> 模块和 <code>lua-resty-mysql</code> 模块，这两个模块是安装 OpenResty 时默认安装的。</li>
+<li>使用 <code>drizzle_nginx_module</code>（HttpDrizzleModule）模块，需要单独安装，这个库现不在 OpenResty 中。</li>
+</ul>
+<h3 id="lua-resty-mysql"><a href="#lua-resty-mysql" class="headerlink" title="lua-resty-mysql"></a>lua-resty-mysql</h3><p>这里使用的是 <code>lua-resty-mysql</code> 模块。</p>
+<p><code>lua-resty-mysql</code> 是 OpenResty 开发的模块，使用灵活、功能强大，适合复杂的业务场景，同时支持存储过程的访问。</p>
+<h3 id="MySQL环境准备"><a href="#MySQL环境准备" class="headerlink" title="MySQL环境准备"></a>MySQL环境准备</h3><p>准备 MySQL，确保能正常连接</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">host: 192.168.91.200</span><br><span class="line">port: 3306</span><br><span class="line">username: root</span><br><span class="line">password: 12345678</span><br></pre></td></tr></table></figure>
+
+<h3 id="API学习-1"><a href="#API学习-1" class="headerlink" title="API学习"></a>API学习</h3><ul>
+<li><p><code>mysql = require &quot;resty.mysql&quot;</code></p>
+<p>引入 MySQL 模块，类似于 Java 的 import。</p>
+</li>
+<li><p><code>db,err = mysql:new()</code></p>
+<p>创建一个 MySQL 连接对象给 db，连接对象遇到错误时，db 为nil，err 为错误描述信息。</p>
+</li>
+<li><p><code>ok,err = db:connect(Options)</code></p>
+<p>尝试连接到一个MySQL服务器。Options 是一个参数的 Lua 表结构，里面包含数据库连接的相关信息。</p>
+<p>Options 选项：</p>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">host：服务器主机名或IP地址</span><br><span class="line">port：服务器监听端口，默认为3306</span><br><span class="line">user：登录的用户名</span><br><span class="line">password：登录密码</span><br><span class="line">database：使用的数据库名</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>db:set_timeout(time)</code></p>
+<p>设置子请求的超时时间，单位毫秒。</p>
+</li>
+<li><p><code>ok,err = db:close()</code></p>
+<p>关闭当前 MySQL 连接并返回状态。</p>
+</li>
+</ul>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ok：如果成功，则返回 <span class="number">1</span>；如果出现任何错误，则将返回 <span class="literal">nil</span>。</span><br><span class="line">err：如果出现任何错误，返回错误描述。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>bytes,err=db:send_query(sql)</code></p>
+<p>异步向远程 MySQL 发送一个查询。</p>
+<p>如果成功则返回成功发送的字节数；如果错误，则返回 nil 和错误描述。</p>
+</li>
+<li><p><code>res, err, errcode, sqlstate = db:read_result([rows])</code></p>
+<p>从 MySQL 服务器返回结果中读取一行数据。</p>
+<p><code>rows</code> 指定返回结果集的最大值，默认为 4，可不写。</p>
+</li>
+</ul>
+<p>返回值：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">res：操作的结果集，返回一个描述 OK 包或结果集包的 Lua 表</span><br><span class="line">err：错误信息</span><br><span class="line">errcode：MySQL 的错误码，比如 <span class="number">1064</span></span><br><span class="line">sqlstate：返回由 <span class="number">5</span> 个字符组成的标准 SQL 错误码，比如 <span class="number">42000</span></span><br></pre></td></tr></table></figure>
+
+<p>如果是查询，则返回一个容纳多行的数组。每行是一个数据列的key-value对，如下:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &#123;id=1,username="TOM",birthday="1988-11-11",salary=10000.0&#125;,</span><br><span class="line">	&#123;id=2,username="JERRY",birthday="1989-11-11",salary=20000.0&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果是增删改，则返回类上如下数据</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    insert_id = 0,</span><br><span class="line">    server_status=2,</span><br><span class="line">    warning_count=1,</span><br><span class="line">    affected_rows=2,</span><br><span class="line">    message=nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>数据库连接四要素:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">driverClass=com.mysql.jdbc.Driver</span><br><span class="line">url=jdbc:mysql://192.168.91.200:3306/nginx_db</span><br><span class="line">username=root</span><br><span class="line">password=12345678</span><br></pre></td></tr></table></figure>
+
+<h3 id="表创建并插入数据"><a href="#表创建并插入数据" class="headerlink" title="表创建并插入数据"></a>表创建并插入数据</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">users</span>(<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,<span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">20</span>));</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">users</span>(<span class="keyword">id</span>,<span class="keyword">name</span>) <span class="keyword">values</span>(<span class="literal">null</span>,<span class="string">"TOM"</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">users</span>(<span class="keyword">id</span>,<span class="keyword">name</span>) <span class="keyword">values</span>(<span class="literal">null</span>,<span class="string">"JERRY"</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">users</span>(<span class="keyword">id</span>,<span class="keyword">name</span>) <span class="keyword">values</span>(<span class="literal">null</span>,<span class="string">"ROWS"</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">users</span>(<span class="keyword">id</span>,<span class="keyword">name</span>) <span class="keyword">values</span>(<span class="literal">null</span>,<span class="string">"LUCY"</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">users</span>(<span class="keyword">id</span>,<span class="keyword">name</span>) <span class="keyword">values</span>(<span class="literal">null</span>,<span class="string">"JACK"</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据查询"><a href="#数据查询" class="headerlink" title="数据查询"></a>数据查询</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">location /testMysql &#123;</span><br><span class="line">    content_by_lua_block&#123;</span><br><span class="line">        local mysql = require "resty.mysql"</span><br><span class="line">        local db, err = mysql:new()  			<span class="comment">-- 创建实例  </span></span><br><span class="line">        if not db then  </span><br><span class="line">            ngx.say("new mysql error : ", err)  </span><br><span class="line">            return  </span><br><span class="line">        <span class="keyword">end</span>  </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">local</span> ok,err = db:<span class="keyword">connect</span>&#123;</span><br><span class="line">            host=<span class="string">"192.168.91.200"</span>,</span><br><span class="line">            port=<span class="number">3306</span>,</span><br><span class="line">            <span class="keyword">user</span>=<span class="string">"root"</span>,</span><br><span class="line">            <span class="keyword">password</span>=<span class="string">"12345678"</span>,</span><br><span class="line">            <span class="keyword">database</span>=<span class="string">"nginx_db"</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        db:set_timeout(<span class="number">1000</span>)			<span class="comment">-- 设置超时时间(毫秒)  </span></span><br><span class="line">        <span class="comment">-- 查询语句</span></span><br><span class="line">		<span class="keyword">local</span> query_sql = <span class="string">"select * from users"</span></span><br><span class="line">        db:send_query(query_sql)</span><br><span class="line">        <span class="keyword">local</span> res,err,errcode,<span class="keyword">sqlstate</span> = db:read_result()</span><br><span class="line">        </span><br><span class="line">        <span class="comment">-- 返回数据 .. 代表拼接</span></span><br><span class="line">        ngx.say(res[<span class="number">1</span>].id..<span class="string">","</span>..res[<span class="number">1</span>].name)</span><br><span class="line">    	db:<span class="keyword">close</span>()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>问题</strong></p>
+<p>上面返回的是需要我们指定返回的数据，但是我们根本不知道查询的数据有多少条，长什么样子。</p>
+<ul>
+<li>如何获取返回数据的内容</li>
+<li>如何实现查询多条数据</li>
+<li>如何实现数据库的删改操作</li>
+</ul>
+<h3 id="lua-cjson处理查询结果"><a href="#lua-cjson处理查询结果" class="headerlink" title="lua-cjson处理查询结果"></a>lua-cjson处理查询结果</h3><p>通过上述的案例学习，read_result() 得到的结果 res 都是 table 类型，要想在页面上展示，就必须知道 table 的具体数据结构才能进行遍历获取。处理起来比较麻烦。</p>
+<p>接下来我们使用一种简单方式 cjson，使用它就可以将 table 类型的数据转换成 Json 字符串，把 Json 字符串展示在页面上即可。</p>
+<p>步骤一：引入 cjson 模块</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> cjson = <span class="built_in">require</span> <span class="string">"cjson"</span></span><br></pre></td></tr></table></figure>
+
+<p>步骤二：调用 cjson 的 encode 方法进行类型转换</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cjson.encode(res)</span><br></pre></td></tr></table></figure>
+
+<p>步骤三：测试</p>
+<figure class="highlight lua"><figcaption><span>&#123;20-27&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">location /testMysql &#123;</span><br><span class="line">    content_by_lua_block&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">local</span> mysql = <span class="built_in">require</span> <span class="string">"resty.mysql"</span></span><br><span class="line">        <span class="keyword">local</span> cjson = <span class="built_in">require</span> <span class="string">"cjson"</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">local</span> db = mysql:new()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">local</span> ok,err = db:connect&#123;</span><br><span class="line">            host=<span class="string">"192.168.199.27"</span>,</span><br><span class="line">            port=<span class="number">3306</span>,</span><br><span class="line">            user=<span class="string">"root"</span>,</span><br><span class="line">            password=<span class="string">"123456"</span>,</span><br><span class="line">            database=<span class="string">"nginx_db"</span></span><br><span class="line">        &#125;</span><br><span class="line">        db:set_timeout(<span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">-- db:send_query("select * from users where id = 1")</span></span><br><span class="line">        </span><br><span class="line">        db:send_query(<span class="string">"select * from users"</span>)</span><br><span class="line">        <span class="keyword">local</span> res,err,errcode,sqlstate = db:read_result()</span><br><span class="line">        </span><br><span class="line">        ngx.say(cjson.encode(res))   <span class="comment">-- 转为 JSON 字符串格式</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">ipairs</span>(res) <span class="keyword">do</span>     <span class="comment">-- 循环来返回数据</span></span><br><span class="line">            ngx.say(<span class="string">"返回的数据："</span>，v.id..<span class="string">","</span>..v.name)</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        </span><br><span class="line">        db:<span class="built_in">close</span>()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据库删改"><a href="#数据库删改" class="headerlink" title="数据库删改"></a>数据库删改</h3><p>优化 <code>send_query</code> 和 <code>read_result</code>，两个可以变成一体。</p>
+<p>本方法是 <code>send_query</code> 和 <code>read_result</code> 组合的快捷方法。</p>
+<p>语法:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">res, err, errcode, sqlstate = db:query(sql[,rows])</span><br></pre></td></tr></table></figure>
+
+<p>有了该 API，上面的代码我们就可以进行对应的优化，如下：</p>
+<figure class="highlight lua"><figcaption><span>&#123;22,24&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">location /testMysql &#123;</span><br><span class="line">    content_by_lua_block&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">local</span> mysql = <span class="built_in">require</span> <span class="string">"resty.mysql"</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">local</span> db = mysql:new()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">local</span> ok,err = db:connect&#123;</span><br><span class="line">            host=<span class="string">"192.168.91.200"</span>,</span><br><span class="line">            port=<span class="number">3306</span>,</span><br><span class="line">            user=<span class="string">"root"</span>,</span><br><span class="line">            password=<span class="string">"12345678"</span>,</span><br><span class="line">            database=<span class="string">"nginx_db"</span>,</span><br><span class="line">            max_packet_size=<span class="number">1024</span>,</span><br><span class="line">            compact_arrays=<span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        db:set_timeout(<span class="number">1000</span>)</span><br><span class="line">        <span class="comment">-- 查询操作</span></span><br><span class="line">        <span class="keyword">local</span> res,err,errcode,sqlstate = db:send_query(<span class="string">"select * from users where id = 1"</span>)</span><br><span class="line">        <span class="comment">-- 修改操作</span></span><br><span class="line">        <span class="keyword">local</span> res,err,errcode,sqlstate = db:query(<span class="string">"update users set name = 'bing' where id = 1"</span>)</span><br><span class="line">        <span class="comment">-- 删除操作</span></span><br><span class="line">        <span class="keyword">local</span> res,err,errcode,sqlstate = db:query(<span class="string">"delete from users where id = 1"</span>)</span><br><span class="line">        <span class="comment">-- 插入操作</span></span><br><span class="line">        <span class="keyword">local</span> insert_sql = <span class="string">"insert into users(id,name) values(null,'kele')"</span></span><br><span class="line">        db:<span class="built_in">close</span>()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 综合小案例</p>
+<p>使用 ngx_lua 模块完成查询 MySQL 数据，然后在 Redis 缓存预热。</p>
+<p>分析:</p>
+<ol>
+<li>先得有一张表（users），上面已经创建</li>
+<li>浏览器输入如下地址</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://191.168.91.200?name=frx</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>从MySQL 表中查询出符合条件的数据，此时获取的结果为 table 类型</li>
+<li>使用 cjson 将 table 数据转换成 json 字符串</li>
+<li>将查询的结果数据存入 Redis 中</li>
+</ol>
+<p>这里利用到 <code>init_by_lua_block</code> 指令，该指令上面介绍过，用于初始化全局变量。这里用于初始化 MySQL、Redis、cjson 模块。</p>
+<p>还是使用了 <code>quote_sql_str</code> 指令，防止「拼」SQL，导致 SQL 注入。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">init_by_lua_block&#123;</span><br><span class="line">    redis = <span class="built_in">require</span> <span class="string">"resty.redis"</span></span><br><span class="line">    mysql = <span class="built_in">require</span> <span class="string">"resty.mysql"</span></span><br><span class="line">    cjson = <span class="built_in">require</span> <span class="string">"cjson"</span></span><br><span class="line">&#125;</span><br><span class="line">location /testMysql &#123;</span><br><span class="line">    default_type <span class="string">"text/html"</span>;</span><br><span class="line">    content_by_lua_block&#123;</span><br><span class="line">        <span class="comment">-- 获取请求的参数 name</span></span><br><span class="line">        <span class="keyword">local</span> param = ngx.req.get_uri_args()[<span class="string">"name"</span>]</span><br><span class="line">        <span class="comment">-- 建立 mysql 数据库的连接</span></span><br><span class="line">        <span class="keyword">local</span> db = mysql:new()</span><br><span class="line">        <span class="keyword">local</span> ok,err = db:connect&#123;</span><br><span class="line">            host=<span class="string">"192.168.91.200"</span>,</span><br><span class="line">            port=<span class="number">3306</span>,</span><br><span class="line">            user=<span class="string">"root"</span>,</span><br><span class="line">            password=<span class="string">"12345678"</span>,</span><br><span class="line">            database=<span class="string">"nginx_db"</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> ok <span class="keyword">then</span></span><br><span class="line">            ngx.say(<span class="string">"failed connect to mysql:"</span>,err)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">-- 设置连接超时时间</span></span><br><span class="line">        db:set_timeout(<span class="number">1000</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">-- 查询数据</span></span><br><span class="line">        <span class="keyword">local</span> sql = <span class="string">""</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> param <span class="keyword">then</span></span><br><span class="line">            sql=<span class="string">"select * from users"</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            sql=<span class="string">"select * from users where name="</span> .. <span class="string">"'"</span> .. param ..<span class="string">"'"</span> <span class="comment">-- sql 注入 ，不建议</span></span><br><span class="line">            sql=<span class="string">"select * from users where name="</span> .. ngx.quote_sql_str(ch_param) <span class="comment">-- 防止 sql 注入</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">local</span> res,err,errcode,sqlstate=db:query(sql)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> res <span class="keyword">then</span></span><br><span class="line">            ngx.say(<span class="string">"failed to query from mysql:"</span>,err)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">-- 连接redis</span></span><br><span class="line">        <span class="keyword">local</span> rd = redis:new()</span><br><span class="line">        ok,err = rd:connect(<span class="string">"192.168.91.200"</span>,<span class="number">6379</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> ok <span class="keyword">then</span></span><br><span class="line">            ngx.say(<span class="string">"failed to connect to redis:"</span>,err)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        </span><br><span class="line">        rd:set_timeout(<span class="number">1000</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">-- 循环遍历数据</span></span><br><span class="line">        <span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">ipairs</span>(res) <span class="keyword">do</span></span><br><span class="line">            rd:set(<span class="string">"user_"</span>..v.username,cjson.encode(v))</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        </span><br><span class="line">        ngx.say(<span class="string">"success"</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">-- 关闭 MySQL 和 Rdis 的连接</span></span><br><span class="line">        rd:<span class="built_in">close</span>()</span><br><span class="line">        db:<span class="built_in">close</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2022/11/16/Nginx_Lua_learn/">Nginx Lua学习</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-11-16</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Nginx/">Nginx</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/后端/">后端</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Nginx/">Nginx</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/中间件/">中间件</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h1 id="Nginx-Lua学习"><a href="#Nginx-Lua学习" class="headerlink" title="Nginx Lua学习"></a>Nginx Lua学习</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>Nginx 是可扩展的，可用于处理各种使用场景。本内容中，我们一起学习使用 Lua 扩展 Nginx 的功能。</p>
 <p>Lua 是一种轻量、小巧的脚本语言，用标准 C 语言编写并以源代码形式开发。设计的目的是为了嵌入到其他应用程序中，从而为应用程序提供灵活的扩展和定制功能。</p>
 <h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><p>跟其他语言进行比较，Lua 有其自身的特点：</p>
 <ul>
@@ -488,334 +1095,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExtendsDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Cat c = <span class="keyword">new</span> Cat();</span><br><span class="line">        Animal a = <span class="keyword">new</span> Cat();</span><br><span class="line"></span><br><span class="line">        c.test();</span><br><span class="line">        a.test();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String schoolName = <span class="string">"白猫"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(schoolName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String schoolName =<span class="string">"黑猫"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(schoolName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 输出结果：</span></span><br><span class="line"><span class="comment"> * 白猫</span></span><br><span class="line"><span class="comment"> * 黑猫</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
 
 <p>这段代码表明，虽然静态成员可以被继承，但是和子类的同名静态方法并不构成重写关系，子类的同名静态方法会将父类同名静态方法隐藏，因此也不支持多态。</p>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2022/11/15/Nginx_Deployment_and_cluster/">Nginx 部署与集群</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-11-15</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Nginx/">Nginx</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/后端/">后端</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Nginx/">Nginx</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/中间件/">中间件</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h1 id="Nginx-部署与集群"><a href="#Nginx-部署与集群" class="headerlink" title="Nginx 部署与集群"></a>Nginx 部署与集群</h1><h2 id="Nginx与Tomcat部署"><a href="#Nginx与Tomcat部署" class="headerlink" title="Nginx与Tomcat部署"></a>Nginx与Tomcat部署</h2><p>前面已经将 Nginx 的大部分内容进行了讲解，我们都知道了 Nginx 在高并发场景和处理静态资源是非常高性能的，但是在实际项目中除了静态资源还有就是后台业务代码模块，一般后台业务都会被部署在 Tomcat、weblogic 或者是 websphere 等 Web 服务器上。那么如何使用 Nginx 接收用户的请求并把请求转发到后台 Web 服务器？</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.iachagf6u0g.webp" alt="image"></p>
-<p>步骤分析:</p>
-<ul>
-<li>在服务器 A 上准备 Tomcat 环境，并在 Tomcat 上部署一个 Web 项目。这步骤在 <a href="/middleware/Nginx/Nginx_Deployment_and_cluster/#环境准备-tomcat">环境准备(Tomcat)</a></li>
-<li>在服务器 B 上准备 Nginx 环境，使用 Nginx 接收请求，并把请求分发到 Tomcat 上。这步骤在 <a href="/middleware/Nginx/Nginx_Deployment_and_cluster/#环境准备-nginx">环境准备(Nginx)</a></li>
-</ul>
-<h3 id="环境准备-Tomcat"><a href="#环境准备-Tomcat" class="headerlink" title="环境准备(Tomcat)"></a>环境准备(Tomcat)</h3><p>本次将采用 Tomcat 作为后台 Web 服务器。</p>
-<ul>
-<li>在 服务器 A 上准备一个 Tomcat<ul>
-<li>Tomcat 官网地址：<a href="https://tomcat.apache.org/" target="_blank" rel="noopener">https://tomcat.apache.org/</a></li>
-</ul>
-</li>
-<li>下载 Tomcat，这里使用的是 <code>apache-tomcat-9.0.54.tar.gz</code></li>
-<li>进入上传目录，将 Tomcat 进行解压缩</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir /usr/<span class="built_in">local</span>/tomcat</span><br><span class="line"></span><br><span class="line">tar -zxf apache-tomcat-9.0.54.tar.gz -C /usr/<span class="built_in">local</span>/tomcat</span><br></pre></td></tr></table></figure>
-
-<p>准备一个 Web 项目，将其打包为 War 包，这里是 demo.war</p>
-<ul>
-<li>将写好的 War 包上传到 Tomcat 目录下的 webapps 包下</li>
-<li>将 Tomcat 进行启动，进入 Tomcat 的 bin 目录下，执行命令：</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./startup.sh</span><br></pre></td></tr></table></figure>
-
-<p>启动完成 Tomcat 后，进行访问测试</p>
-<p>浏览器访问：</p>
-<ul>
-<li>静态资源：<code>http://192.168.200.146:8080/demo/index.html</code></li>
-</ul>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.pln0ovd1h1c.webp" alt="image"></p>
-<ul>
-<li>动态资源：<code>http://192.168.200.146:8080/demo/getAddress</code></li>
-</ul>
-<p>动态资源可以是端口号，此时的端口是 8080<img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.31nc8e1cdee0.webp" alt="image"></p>
-<p>自此，服务器 A 的 Tomcat 部署已经实现。</p>
-<p><strong>demo.war 的内容有什么呢？</strong></p>
-<p>其实你可以自己制作一个 war 包，这里说明一下，demo.war 里有两个图片，和一个 index.html</p>
-<p>index.html 文件引用了两个图片：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/jquery.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">           $.<span class="keyword">get</span>('http://192.168.200.133/demo/getAddress',function(data)&#123;</span></span><br><span class="line"><span class="javascript">               $(<span class="string">"#msg"</span>).html(data);</span></span><br><span class="line">           &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"images/logo.png"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Nginx如何将请求转发到后端服务器<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h3</span> <span class="attr">id</span>=<span class="string">"msg"</span>&gt;</span><span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"images/mv.png"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>可以看出，当访问 index.html 时，它会主动去请求 <code>/getAddress</code>，这个请求返回端口号，即把 8080 当作动态资源，显示到页面上，如果是 9090 端口访问，则返回 9090 显示页面上。你也可以直接访问 <code>/getAddress</code>，直接获取端口号。</p>
-<h3 id="环境准备-Nginx"><a href="#环境准备-Nginx" class="headerlink" title="环境准备(Nginx)"></a>环境准备(Nginx)</h3><p>我们已经在 Tomcat 实现了两个效果，那么现在需要把 Tomcat 的地址放到 Nginx 里，由 Nginx 帮我们代理这个 Tomcat 地址，这样我们访问 Nginx，实际上就是访问 Tomcat。</p>
-<ol>
-<li>使用 Nginx 的反向代理，将请求转给 Tomcat 进行处理。</li>
-</ol>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">upstream</span> webservice &#123;</span><br><span class="line">	<span class="attribute">server</span> <span class="number">192.168.200.146:8080</span>;  <span class="comment"># 服务器 A 的 Tomcat  地址</span></span><br><span class="line">&#125;</span><br><span class="line">server&#123;</span><br><span class="line">    <span class="attribute">listen</span>		<span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> localhost;</span><br><span class="line">    <span class="attribute">location</span> /demo &#123;</span><br><span class="line">    	<span class="attribute">proxy_pass</span> http://webservice;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>启动访问服务器 B，测试是否代理到服务器 A 的 Tomcat，效果如图：</li>
-</ol>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.6taygwj4nt80.webp" alt="image"></p>
-<p>学习到这，可能大家会有一个困惑，明明直接通过 Tomcat 就能访问，为什么还需要多加一个 Nginx，这样不是反而是系统的复杂度变高了么? 那接下来我们从两个方便给大家分析下这个问题，</p>
-<ul>
-<li>第一个使用 Nginx 实现动静分离</li>
-<li>第二个使用 Nginx 搭建 Tomcat 的集群</li>
-</ul>
-<h2 id="动静分离"><a href="#动静分离" class="headerlink" title="动静分离"></a>动静分离</h2><p><strong>什么是动静分离？</strong></p>
-<ul>
-<li>动：后台应用程序的业务处理</li>
-<li>静：网站的静态资源（html，javaScript，css，images 等文件）</li>
-<li>分离：将两者进行分开部署访问，提供用户进行访问。</li>
-</ul>
-<p><strong>举例说明就是以后所有和静态资源相关的内容都交给 Nginx 来部署访问，非静态内容则交个类似于 Tomcat 的服务器来部署访问。</strong></p>
-<p><strong>为什么要动静分离？</strong></p>
-<p>前面我们介绍过 Nginx 在处理静态资源的时候，效率是非常高的，而且 Nginx 的并发访问量也是名列前茅，而 Tomcat 则相对比较弱一些，所以把静态资源交给 Nginx 后，可以减轻 Tomcat 服务器的访问压力并提高静态资源的访问速度。</p>
-<p>动静分离以后，降低了动态资源和静态资源的耦合度。如动态资源宕机了也不影响静态资源的展示。</p>
-<p><strong>如何实现动静分离?</strong></p>
-<p>实现动静分离的方式很多，比如静态资源可以部署到 CDN、Nginx 等服务器上，动态资源可以部署到 Tomcat、weblogic 或者 websphere 上。这里使用 Nginx + Tomcat 来实现动静分离。</p>
-<h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h3><p>如下图，因为 Nginx 处理静态资源性能高，所以我们把静态资源放在 Nginx 服务器上，然后把动态资源放到 Tomcat 服务器上。当访问 Nginx 的静态资源时，Nginx 会去访问 Tocmat 获取动态资源。实现动静分离。</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.2v1uen08t3c0.webp" alt="image"></p>
-<h3 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h3><ul>
-<li><p>将 demo.war 项目中的静态资源（两个图片）都删除掉，重新打包生成一个 War 包</p>
-<p>这时候 War 包只留下动态资源，而静态资源要放到 Nginx 上。</p>
-</li>
-<li><p>将新的 War 包部署到 Tomcat 中，把之前部署的内容删除掉</p>
-<ul>
-<li>进入到 tomcat 的 webapps 目录下，将之前的 demo 目录和 demo.war 包删除掉</li>
-<li>将新的 War 包复制到 webapps 下</li>
-<li>将 tomcat 启动</li>
-</ul>
-</li>
-<li><p>在 Nginx 所在的服务器 B 上创建如下目录，并将对应的静态资源放入指定的位置</p>
-</li>
-</ul>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.3e4j68pre4k0.webp" alt="image"></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir /usr/<span class="built_in">local</span>/nginx/html/web/images</span><br><span class="line">mkdir /usr/<span class="built_in">local</span>/nginx/html/web/js</span><br><span class="line"></span><br><span class="line">cp logo.png /usr/<span class="built_in">local</span>/nginx/html/web/images</span><br><span class="line">cp mv.png /usr/<span class="built_in">local</span>/nginx/html/web/images</span><br><span class="line">cp jquery.min.js /usr/<span class="built_in">local</span>/nginx/html/web/js</span><br><span class="line"></span><br><span class="line">vim /usr/<span class="built_in">local</span>/nginx/html/web/index.html</span><br></pre></td></tr></table></figure>
-
-<p>其中 index.html 页面的内容如下:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/jquery.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">           $.<span class="keyword">get</span>('http://192.168.200.133/demo/getAddress',function(data)&#123;</span></span><br><span class="line"><span class="javascript">               $(<span class="string">"#msg"</span>).html(data);</span></span><br><span class="line">           &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"images/logo.png"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Nginx如何将请求转发到后端服务器<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h3</span> <span class="attr">id</span>=<span class="string">"msg"</span>&gt;</span><span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"images/mv.png"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>第 9 行代码，它访问的这个地址是服务器 B 的 Nginx，通过这个地址让 Nginx 去获取服务器 A 的 Tomcat 动态资源。</p>
-<ul>
-<li>在配置文件配置 Nginx 的静态资源与动态资源的访问</li>
-</ul>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">upstream</span> webservice&#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.200.146:8080</span>;  <span class="comment"># 服务器 A 的 Tocmat</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span>       <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span>  localhost;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 动态资源从 Tomcat 获取</span></span><br><span class="line">    <span class="attribute">location</span> /demo &#123;     		 <span class="comment"># index.html 第 9 行代码触发该 location</span></span><br><span class="line">        <span class="attribute">proxy_pass</span> http://webservice;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># 静态资源从自己身上获取</span></span><br><span class="line">    <span class="attribute">location</span> ~/.*\.(png|jpg|gif|js)&#123;</span><br><span class="line">        <span class="attribute">root</span> html/web;</span><br><span class="line">        <span class="attribute">gzip</span> <span class="literal">on</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">root</span>   html/web;</span><br><span class="line">        <span class="attribute">index</span>  index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>启动测试，访问 <code>http://192.168.200.133</code></li>
-</ul>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.2yip3al9lva0.webp" alt="image"></p>
-<p>假如某个时间点，由于某个原因导致 Tomcat 后的服务器宕机了，我们再次访问 Nginx，会得到如下效果：</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.3s0ttch8r4i0.webp" alt="image"></p>
-<p>用户还是能看到页面，只是缺失 Tomcat 的动态资源，这就是前后端耦合度降低的效果，并且整个请求只和后的服务器交互了一次，js 和 images 都直接从 Nginx 服务器里返回，提供了效率，降低了后端服务器的压力。</p>
-<h2 id="Tomcat集群搭建"><a href="#Tomcat集群搭建" class="headerlink" title="Tomcat集群搭建"></a>Tomcat集群搭建</h2><p>在使用 Nginx 和 Tomcat 部署项目的时候，我们使用的是一台 Nginx 服务器和一台 Tomcat 服务器，效果图如下：</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.4ukvicg3of80.webp" alt="image"></p>
-<p>那么问题来了，如果 Tomcat 的真的宕机了，整个系统就会不完整，所以如何解决上述问题？</p>
-<p>一台服务器容易宕机，那就多搭建几台 Tomcat 服务器，这样的话就提升了后的服务器的可用性。这也就是我们常说的集群，搭建 Tomcat 的集群需要用到了 Nginx 的反向代理和赋值均衡的知识，具体如何来实现？</p>
-<p>我们先来分析下原理：</p>
-<p>用户请求到 Nginx，Nginx 使用负载均衡对三个 Tomcat 服务器进行访问，如果一个 Tomcat 服务器宕机了，那么还有两个 Tomcat 服务器可以使用。</p>
-<p>如图：</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.664h3o0m8y00.webp" alt="image"></p>
-<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><ol>
-<li>准备 3 台 Tomcat 服务器，使用端口进行区分（实际环境应该是三台服务器），修改 Tomcat 的 server.xml，将端口修改分别修改为 8080、8180、8280</li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp -r apache-tomcat-9.0.54 tomcat01</span><br><span class="line">cp -r apache-tomcat-9.0.54 tomcat02</span><br><span class="line">cp -r apache-tomcat-9.0.54 tomcat03</span><br></pre></td></tr></table></figure>
-
-<p>修改三个 Tocmat 配置文件的端口</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim tomcat01/conf/server.xml</span><br><span class="line">vim tomcat02/conf/server.xml</span><br><span class="line">vim tomcat03/conf/server.xml</span><br></pre></td></tr></table></figure>
-
-<p>修改的内容位置如下：</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.76l3jwkc3b40.webp" alt="image"></p>
-<ol start="2">
-<li>在 Nginx 对应的配置文件中添加如下内容:</li>
-</ol>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">upstream</span> webservice&#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.200.146:8080</span>;     <span class="comment"># tomcat01</span></span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.200.146:8180</span>; 	 <span class="comment"># tomcat02</span></span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.200.146:8280</span>;	 <span class="comment"># tomcat03</span></span><br><span class="line">&#125;</span><br><span class="line">server&#123;</span><br><span class="line">    <span class="attribute">listen</span>		<span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> localhost;</span><br><span class="line">    <span class="attribute">location</span> /demo &#123;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://webservice;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>启动 Tomcat 并访问测试</li>
-</ol>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">http://192.168.200.146:8080/demo/getAddress</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.2389oc46sdxc.webp" alt="image"></p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">http://192.168.200.146:8180/demo/getAddress</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.1sjv5fphqk8w.webp" alt="image"></p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">http://192.168.200.146:8280/demo/getAddress</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.6uckjob0ptc0.webp" alt="image"></p>
-<p>好了，完成了上述环境的部署，我们已经解决了 Tomcat 的高可用性，一台服务器宕机，还有其他两条对外提供服务，同时也可以实现后台服务器的不间断更新。</p>
-<p><strong>但是新问题出现了，上述环境中，如果是 Nginx 宕机了呢，那么整套系统都将服务对外提供服务了，这个如何解决？</strong></p>
-<h2 id="Nginx集群搭建"><a href="#Nginx集群搭建" class="headerlink" title="Nginx集群搭建"></a>Nginx集群搭建</h2><p>针对于上面提到的问题，我们来分析下要想解决上述问题，需要面临哪些问题？</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.664h3o0m8y00.webp" alt="image"></p>
-<p>需要两台以上的 Nginx 服务器对外提供服务，这样的话就可以解决其中一台宕机了，另外一台还能对外提供服务，但是如果是两台 Nginx 服务器的话，会有两个 IP 地址，用户该访问哪台服务器，用户怎么知道哪台是好的，哪台是宕机了的？</p>
-<h3 id="Keepalived"><a href="#Keepalived" class="headerlink" title="Keepalived"></a>Keepalived</h3><p>使用 Keepalived 来解决，Keepalived 软件由 C 编写的，最初是专为 LVS 负载均衡软件设计的，Keepalived 软件主要是通过 VRRP 协议实现高可用功能。</p>
-<h3 id="VRRP介绍"><a href="#VRRP介绍" class="headerlink" title="VRRP介绍"></a>VRRP介绍</h3><p>VRRP（Virtual Route Redundancy Protocol）协议，翻译过来为虚拟路由冗余协议。VRRP 协议将两台或多台路由器设备虚拟成一个设备，对外提供虚拟路由器 IP，而在路由器组内部，如果实际拥有这个对外 IP 的路由器如果工作正常的话就是 MASTER，MASTER 实现针对虚拟路由器IP的各种网络功能。其他设备不拥有该虚拟 IP，状态为 BACKUP，处了接收 MASTER 的 VRRP 状态通告信息以外，不执行对外的网络功能。当主机失效时，BACKUP 将接管原先 MASTER 的网络功能。</p>
-<p>看图分析：VRRP 把两个 Nginx 分成两个路由（VRRP 路由 1 和 VRRP 路由 2），并生成一个 Virtual 路由，用户访问的是 Virtual 路由，该路由会去访问两个 Nginx 生成的 VRRP 路由。那么到底访问谁呢？VRRP 会给两个路由分配角色，一个是 Master（老大），另一个是 Backup（备份），所以访问的是 Master 角色的路由，当 Master 角色路由宕机了，才会找到 Backup 备份路由。</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.zc2md5tuu0w.webp" alt="image"></p>
-<p>从上面的介绍信息获取到的内容就是 VRRP 是一种协议，那这个协议是用来干什么的？</p>
-<ol>
-<li><p>选择协议</p>
-<p>VRRP 可以把一个虚拟路由器的责任动态分配到局域网上的 VRRP 路由器中的一台。其中的虚拟路由即 Virtual 路由是由 VRRP 路由群组创建的一个不真实存在的路由，这个虚拟路由也是有对应的 IP 地址。而且 VRRP 路由 1 和 VRRP 路由 2 之间会有竞争选择，通过选择会产生一个 Master 路由和一个 Backup 路由。</p>
-</li>
-<li><p>路由容错协议</p>
-<p>Master 路由和 Backup 路由之间会有一个心跳检测，Master 会定时告知 Backup 自己的状态，如果在指定的时间内，Backup 没有接收到这个通知内容，Backup 就会替代 Master 成为新的 Master。Master 路由有一个特权就是虚拟路由和后端服务器都是通过 Master 进行数据传递交互的，而备份节点则会直接丢弃这些请求和数据，不做处理，只是去监听 Master 的状态。</p>
-</li>
-</ol>
-<p>用了 Keepalived 后，解决方案如图下:</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.3n6clkv1blk0.webp" alt="image"></p>
-<p>看图分析：VIP 是虚拟路由，是专门给用户发送请求。一旦用户发送请求到 VIP，VIP 就会发送给 Master（主）的 Nginx，如果 Master（主）Nginx 宕机了，才会发送给 Backup（备份） Nginx 路由。</p>
-<h3 id="环境搭建-1"><a href="#环境搭建-1" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>环境准备</p>
-<table>
-<thead>
-<tr>
-<th>VIP IP</th>
-<th>Nginx IP</th>
-<th>主机名</th>
-<th>主/从</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td>192.168.200.133（服务器 A）</td>
-<td>keepalived1</td>
-<td>Master</td>
-</tr>
-<tr>
-<td>192.168.200.222</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>192.168.200.122（服务器 B）</td>
-<td>keepalived2</td>
-<td>Backup</td>
-</tr>
-</tbody></table>
-<p><strong>确保服务器 A 和服务器 B 的 Nginx 配置保持一致。</strong></p>
-<p>keepalived 的安装步骤如下：</p>
-<ul>
-<li>步骤1：从官方网站下载 keepalived，官网地址 <a href="https://keepalived.org/" target="_blank" rel="noopener">https://keepalived.org/</a></li>
-<li>步骤2：将下载的资源上传到服务器，这里是 <code>keepalived-2.0.20.tar.gz</code></li>
-<li>步骤3：在 <code>/opt</code> 目录下创建 keepalived 目录，方便管理资源</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /opt/keepalived</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>步骤4：将压缩文件进行解压缩，解压缩到指定的目录</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxf keepalived-2.0.20.tar.gz -C /opt/keepalived</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>步骤5：对 keepalived 进行配置，编译和安装</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/keepalived/keepalived-2.0.20</span><br><span class="line"></span><br><span class="line">./configure --sysconf=/etc --prefix=/usr/<span class="built_in">local</span>   <span class="comment"># 安装到 /usr/local 目录下，可修改</span></span><br><span class="line"></span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
-
-<p><strong>两台 Nginx 服务器都要安装 keepalive。</strong></p>
-<p>安装完成后，有两个文件需要我们认识下：</p>
-<ul>
-<li><code>/etc/keepalived/keepalived.conf</code>：keepalived 的系统配置文件，我们主要操作的就是该文件</li>
-</ul>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.5hd9zg18lp80.webp" alt="image"></p>
-<ul>
-<li><code>/usr/local/sbin</code> 目录下的 <code>keepalived</code>：这是系统配置脚本，用来启动和关闭 keepalived</li>
-</ul>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.54vzhzf4avw0.webp" alt="image"></p>
-<h3 id="Keepalived配置文件介绍"><a href="#Keepalived配置文件介绍" class="headerlink" title="Keepalived配置文件介绍"></a>Keepalived配置文件介绍</h3><p>打开 keepalived.conf 配置文件</p>
-<p>这里面会分三部：</p>
-<ul>
-<li>第一部分是 global 全局配置</li>
-<li>第二部分是 vrrp 相关配置</li>
-<li>第三部分是 LVS 相关配置。</li>
-</ul>
-<p>这里主要是使用 keepalived 实现高可用部署，没有用到 LVS，所以我们重点关注的是前两部分。</p>
-<p>打开 keepalived.conf 文件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/keepalived/keepalived.conf</span><br></pre></td></tr></table></figure>
-
-<p>文件内容部分介绍如下：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># global全局部分</span></span><br><span class="line"><span class="section">global_defs</span> &#123;</span><br><span class="line">    </span><br><span class="line">   <span class="section">notification_email</span> &#123;  <span class="comment"># 通知邮件，当 keepalived 切换 Master 和 Backup 时需要发 email 给具体的邮箱地址</span></span><br><span class="line">     tom@itcast.cn</span><br><span class="line">     jerry@itcast.cn</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="attribute">notification_email_from</span> kele<span class="variable">@youngkbt</span>.com   <span class="comment"># 设置发件人的邮箱信息</span></span><br><span class="line">   </span><br><span class="line">   smtp_server <span class="number">192.168.200.1</span>   <span class="comment"># 指定 smpt 服务地址</span></span><br><span class="line">   </span><br><span class="line">   smtp_connect_timeout <span class="number">30</span>   <span class="comment"># 指定 smpt 服务连接超时时间</span></span><br><span class="line">   </span><br><span class="line">   router_id LVS_DEVEL   <span class="comment"># 运行 keepalived 服务器的一个标识，可以用作发送邮件的主题信息</span></span><br><span class="line">   </span><br><span class="line">   <span class="comment"># 默认是不跳过检查。检查收到的 VRRP 通告中的所有地址可能会比较耗时，设置此命令的意思是，如果通告与接收的上一个通告来自相同的 master 路由器，则不执行检查(跳过检查)</span></span><br><span class="line">   vrrp_skip_check_adv_addr</span><br><span class="line">   </span><br><span class="line">   vrrp_strict    <span class="comment"># 严格遵守 VRRP 协议</span></span><br><span class="line">  </span><br><span class="line">   vrrp_garp_interval <span class="number">0</span>   <span class="comment"># 在一个接口发送的两个免费 ARP 之间的延迟。可以精确到毫秒级。默认是 0</span></span><br><span class="line">   </span><br><span class="line">   vrrp_gna_interval <span class="number">0</span>  <span class="comment"># 在一个网卡上每组消息之间的延迟时间，默认为 0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里需要修改的是 5、6、8 行代码。</p>
-<p>VRRP 部分可以包含以下四个子模块：</p>
-<ol>
-<li>vrrp_script</li>
-<li>vrrp_sync_group</li>
-<li>garp_group</li>
-<li>vrrp_instance</li>
-</ol>
-<p>我们会用到第一个（<a href="/middleware/Nginx/Nginx_Deployment_and_cluster/#vrrp-script">vrrp_script</a>）和第四个（<a href="/middleware/Nginx/Nginx_Deployment_and_cluster/#vrrp-instance">vrrp_instance</a>）。</p>
-<h3 id="vrrp-instance"><a href="#vrrp-instance" class="headerlink" title="vrrp_instance"></a>vrrp_instance</h3><p><code>vrrp_instance</code> 模块内容：</p>
-<figure class="highlight nginx"><figcaption><span>&#123;3,5,6,7,13&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置 keepalived 实例的相关信息，VI_1 为 VRRP 实例名称</span></span><br><span class="line"><span class="attribute">vrrp_instance</span> VI_1 &#123;</span><br><span class="line">    <span class="attribute">state</span> MASTER  		  <span class="comment"># 有两个值可选 MASTER 主，BACKUP 备</span></span><br><span class="line">    interface ens33		  <span class="comment"># vrrp 实例绑定的接口，用于发送 VRRP 包[当前服务器使用的网卡名称]</span></span><br><span class="line">    virtual_router_id <span class="number">51</span>  <span class="comment"># 指定 VRRP 实例 ID，范围是 0-255</span></span><br><span class="line">    priority <span class="number">100</span>		  <span class="comment"># 指定优先级，优先级高的将成为 MASTER</span></span><br><span class="line">    advert_int <span class="number">1</span>		  <span class="comment"># 指定发送 VRRP 通告的间隔，单位是秒。这里是心跳检查的时间</span></span><br><span class="line">    authentication &#123;	  <span class="comment"># vrrp 之间通信的认证信息</span></span><br><span class="line">        <span class="attribute">auth_type</span> PASS	  <span class="comment"># 指定认证方式。PASS 简单密码认证(推荐)</span></span><br><span class="line">        auth_pass <span class="number">1111</span>	  <span class="comment"># 指定认证使用的密码，最多 8 位</span></span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;   <span class="comment"># 虚拟 IP 地址设置虚拟 IP 地址，供用户访问使用，可设置多个，一行一个</span></span><br><span class="line">        192.168.200.222</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>vrrp_instance</code> 模块中我们修改的是第 3、5、6、7、13 行代码。</p>
-<p>第 3 行代码是说明当前 Nginx 服务器的角色是 Master 还是 Backup。分别在服务器 A 和 B 进行角色配置。</p>
-<p>第 5 行代码是 VIP 的 ID，如果使用相同的虚拟路由 VIP，请保持 ID 一致。</p>
-<p>第 6 行代码是优先级，请让 Master 服务器的优先级大于 Backup 服务器的优先级。如 100 &gt; 90。</p>
-<p>第 7 行代码是 Master 和 Backup 之间通信的间隔时间，如果无法通信，说明 Master 已经宕机，则切换为 Backup。</p>
-<p>第 13 行代码是用户访问的虚拟 IP 地址，即 VIP，它会发送给 Nginx 服务器。</p>
-<h3 id="服务器配置"><a href="#服务器配置" class="headerlink" title="服务器配置"></a>服务器配置</h3><p>Keepalived 的具体配置内容如下：</p>
-<p><strong>服务器A</strong></p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">global_defs</span> &#123;</span><br><span class="line">   <span class="section">notification_email</span> &#123;</span><br><span class="line">        tom@itcast.cn</span><br><span class="line">        jerry@itcast.cn</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="attribute">notification_email_from</span> zhaomin<span class="variable">@itcast</span>.cn</span><br><span class="line">   smtp_server <span class="number">192.168.200.1</span></span><br><span class="line">   smtp_connect_timeout <span class="number">30</span></span><br><span class="line">   router_id keepalived1</span><br><span class="line">   vrrp_skip_check_adv_addr</span><br><span class="line">   vrrp_strict</span><br><span class="line">   vrrp_garp_interval <span class="number">0</span></span><br><span class="line">   vrrp_gna_interval <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    <span class="attribute">state</span> MASTER</span><br><span class="line">    interface ens33</span><br><span class="line">    virtual_router_id <span class="number">51</span></span><br><span class="line">    priority <span class="number">100</span></span><br><span class="line">    advert_int <span class="number">1</span></span><br><span class="line">    authentication &#123;</span><br><span class="line">        <span class="attribute">auth_type</span> PASS</span><br><span class="line">        auth_pass <span class="number">1111</span></span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.200.222</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>服务器B</strong></p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line"><span class="section">global_defs</span> &#123;</span><br><span class="line">   <span class="section">notification_email</span> &#123;</span><br><span class="line">        tom@itcast.cn</span><br><span class="line">        jerry@itcast.cn</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="attribute">notification_email_from</span> zhaomin<span class="variable">@itcast</span>.cn</span><br><span class="line">   smtp_server <span class="number">192.168.200.1</span></span><br><span class="line">   smtp_connect_timeout <span class="number">30</span></span><br><span class="line">   router_id keepalived2</span><br><span class="line">   vrrp_skip_check_adv_addr</span><br><span class="line">   vrrp_strict</span><br><span class="line">   vrrp_garp_interval <span class="number">0</span></span><br><span class="line">   vrrp_gna_interval <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    <span class="attribute">state</span> BACKUP</span><br><span class="line">    interface ens33</span><br><span class="line">    virtual_router_id <span class="number">51</span></span><br><span class="line">    priority <span class="number">90</span></span><br><span class="line">    advert_int <span class="number">1</span></span><br><span class="line">    authentication &#123;</span><br><span class="line">        <span class="attribute">auth_type</span> PASS</span><br><span class="line">        auth_pass <span class="number">1111</span></span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.200.222</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="访问测试"><a href="#访问测试" class="headerlink" title="访问测试"></a>访问测试</h3><ol>
-<li>启动 keepalived 之前，先使用命令 <code>ip a</code>，查看 <code>192.168.200.133</code> 和 <code>192.168.200.122</code> 这两台服务器的 IP 情况</li>
-</ol>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.4lh36tkt0kk0.webp" alt="image"></p>
-<ol start="2">
-<li>分别启动两台服务器的 keepalived</li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/sbin</span><br><span class="line"></span><br><span class="line">./keepalived</span><br></pre></td></tr></table></figure>
-
-<p>再次通过 <code>ip a</code> 查看 IP</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.79pu8lyco700.webp" alt="image"></p>
-<p>此时发现服务器 A 多出了 <code>192.168.200.222</code>，正是配置的虚拟路由 VIP，而服务器 B 并没有，说明服务器 A 是 Master，优先级高于服务器 B。</p>
-<ol start="3">
-<li>当把 <code>192.168.200.133</code> 服务器 A 上的 keepalived 关闭后，再次查看 IP</li>
-</ol>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.qwb7iteldn4.webp" alt="image"></p>
-<p>说明当 Master 服务器 A 宕机后，服务器 B 由 Backup 晋升为 Master。</p>
-<p>通过上述的测试，我们会发现，虚拟 IP(VIP)会在 Master 节点上，当 Master 节点上的 keepalived 出问题以后，因为 Backup 无法收到 Master 发出的 VRRP 状态通过信息，就会直接升为 Master 。VIP 也会「漂移」到新的 Master 。</p>
-<p><strong>上面测试和 Nginx 有什么关系?</strong></p>
-<p>我们把 <code>192.168.200.133</code> 服务器 A 的 keepalived 再次启动下，由于它的优先级高于 <code>192.168.200.122</code> 服务器 B，所有它会再次成为 Master，VIP 也会「漂移」过去。</p>
-<p>我们通过浏览器访问：</p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">http://192.168.200.222/</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.6xosmovingw0.webp" alt="image"></p>
-<p>如果把 <code>192.168.200.133</code> 服务器 A 的 keepalived 进程关闭掉</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> keepalived</span><br></pre></td></tr></table></figure>
-
-<p>再次访问相同的地址，效果如图：</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.60wzzgrveak0.webp" alt="image"></p>
-<p>虽然效果成功实现了，但是此时是我们手动把服务器上的 keepalived 关闭，才让 VIP 进行切换。</p>
-<p><strong>而什么时候关闭 keepalived 呢？</strong></p>
-<p>应该是在 keepalived 所在服务器的 Nginx 出现问题后，把 keepalived 关闭掉，就可以让 VIP 执行另外一台服务器。<strong>但是现在这所有的操作都是通过手动来完成的</strong>，我们如何能让系统自动判断当前服务器的 Nginx 是否正确启动，如果没有，要能让 VIP 自动进行「漂移」，这个问题该如何解决？往下看。</p>
-<h3 id="vrrp-script"><a href="#vrrp-script" class="headerlink" title="vrrp_script"></a>vrrp_script</h3><p>keepalived 只能做到对网络故障和 keepalived 本身的监控，即当出现网络故障或者 keepalived 本身出现问题时，进行切换。但是这些还不够，我们还需要监控 keepalived 所在服务器上的其他业务，比如 Nginx，如果 Nginx 出现异常了，而 keepalived 却保持正常，是无法完成系统的正常工作的，因此需要根据业务进程的运行状态决定是否需要进行主备切换，这个时候，我们可以通过编写脚本对业务进程进行检测监控。</p>
-<p>首先我们要知道 keepalived 的 vrrp_script 的配置模板：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">vrrp_script</span> 脚本名称</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attribute">script</span> <span class="string">"脚本位置"</span></span><br><span class="line">    interval <span class="number">3</span> <span class="comment"># 执行时间间隔</span></span><br><span class="line">    weight -<span class="number">20</span> <span class="comment"># 动态调整 vrrp_instance 的优先级</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>实现步骤：</p>
-<ul>
-<li>编写脚本，这里的脚本名是 <code>ck_nginx.sh</code>，位置在 <code>/etc/keepalived</code> 路径下</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">num=`ps -C nginx --no-header | wc -l`  # 查询 Nginx 的进程数</span><br><span class="line"></span><br><span class="line">if [ $num -eq 0 ];then       	       # 如果 Nginx 的进程数等于 0</span><br><span class="line">/usr/local/nginx/sbin/nginx			   # 则可执行文件 nginx，启动 Nginx 服务</span><br><span class="line"></span><br><span class="line">sleep 2								   # 阻塞 2 秒 </span><br><span class="line"></span><br><span class="line">if [ `ps -C nginx --no-header | wc -l` -eq 0 ]; then  # 再次查询 Nginx 的进程数</span><br><span class="line">killall keepalived		# 如果 Nginx 的进程数不等于 0，则杀死 keepalived 进程</span><br><span class="line"></span><br><span class="line">fi</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>ps 命令用于显示当前进程 (process) 的状态。</li>
-<li>-C(command)：指定命令的所有进程</li>
-<li>–no-header：排除标题</li>
-</ul>
-<p>命令的效果如图：</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20220806/image.1ypeqh0nut8g.webp" alt="image"></p>
-<p>代表目前的 num = 3。</p>
-<p>这个脚本其实就是判断 Nginx 是否启动还是宕机了，如果没有启动，则重新启动。重新启动后再次查看 Nginx 是否启动成功，如果没有启动，说明 Nginx 宕机了，则杀死 keepalived 进程，这样，另一台服务器的 Nginx 就晋升为 Master。</p>
-<ul>
-<li>为脚本文件设置权限</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 755 ck_ngi</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>将脚本添加到 Master 服务器 A 的 keepalived 的配置文件里</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/keepalived/keepalived.conf</span><br></pre></td></tr></table></figure>
-
-<p>添加如下内容：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">vrrp_script</span> ck_nginx &#123;</span><br><span class="line">   <span class="attribute">script</span> <span class="string">"/etc/keepalived/ck_nginx.sh"</span> <span class="comment"># 执行脚本的位置</span></span><br><span class="line">   interval <span class="number">2</span>		<span class="comment"># 执行脚本的周期，秒为单位</span></span><br><span class="line">   weight -<span class="number">20</span>		<span class="comment"># 权重的计算方式</span></span><br><span class="line">&#125;</span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    <span class="attribute">state</span> MASTER</span><br><span class="line">    interface ens33</span><br><span class="line">    virtual_router_id <span class="number">10</span></span><br><span class="line">    priority <span class="number">100</span></span><br><span class="line">    advert_int <span class="number">1</span></span><br><span class="line">    authentication &#123;</span><br><span class="line">        <span class="attribute">auth_type</span> PASS</span><br><span class="line">        auth_pass <span class="number">1111</span></span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.200.111</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="section">track_script</span> &#123;</span><br><span class="line">      ck_nginx</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>如果效果没有出来，可以使用 <code>tail -f /var/log/messages</code> 查看日志信息，找对应的错误信息</li>
-<li>两个 Nginx 启动后，关闭 Master 的 Nginx，通过 <code>ip a</code> 查看 Backup 的 Nginx 的IP，是否晋升为 Master</li>
-</ul>
-<p><strong>问题思考</strong></p>
-<p>通常如果 Master 服务死掉后，Backup 会变成 Master，但是当原来的 Master 服务又恢复了，它会和原来的 Backup 会抢占 VIP，这样就会发生两次切换，这对业务繁忙的网站来说是不好的。所以我们要在配置文件加入 nopreempt 非抢占，但是这个参数只能用于 Backup 的服务器，所以我们在用配置的时候，最好 Master 和 Backup 的 state 都设置成 Backup，这样它们只能通过 priority 优先级来竞争。</p>
-</div><hr></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/45/"><i class="fa fa-chevron-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/45/">45</a><span class="page-number current">46</span><a class="page-number" href="/page/47/">47</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/47/"><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2015 - 2023 By GeYu</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Enjoy the cyber world!</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+</div><hr></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/45/"><i class="fa fa-chevron-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/45/">45</a><span class="page-number current">46</span><a class="page-number" href="/page/47/">47</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/47/"><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2015 - 2023 By GeYu</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Enjoy the cyber world!</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')
 }</script></body></html>

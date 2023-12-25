@@ -7,7 +7,92 @@
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">225</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">83</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">46</span></a></div></div></div><nav id="nav" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2023/06/06/JVM-垃圾回收器/">JVM-垃圾回收器</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-06-06</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="垃圾回收器"><a href="#垃圾回收器" class="headerlink" title="垃圾回收器"></a>垃圾回收器</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><blockquote>
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">226</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">83</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">46</span></a></div></div></div><nav id="nav" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2023/06/06/JVM-分代垃圾回收/">JVM-分代垃圾回收</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-06-06</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="分代思想"><a href="#分代思想" class="headerlink" title="分代思想"></a>分代思想</h2><h3 id="分代介绍"><a href="#分代介绍" class="headerlink" title="分代介绍"></a>分代介绍</h3><p>Java8 时，堆被分为了两份：新生代和老年代（1:2），在 Java7 时，还存在一个永久代</p>
+<ul>
+<li>新生代使用：复制算法</li>
+<li>老年代使用：标记 - 清除 或者 标记 - 整理 算法</li>
+</ul>
+<p><strong>Minor GC 和 Full GC</strong>：</p>
+<ul>
+<li><p>Minor GC：回收新生代，新生代对象存活时间很短，所以 Minor GC 会频繁执行，执行的速度比较快</p>
+</li>
+<li><p>Full GC：回收老年代和新生代，老年代对象其存活时间长，所以 Full GC 很少执行，执行速度会比 Minor GC 慢很多</p>
+<p>Eden 和 Survivor 大小比例默认为 8:1:1</p>
+</li>
+</ul>
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-分代收集算法.png" style="zoom: 67%;">
+
+<h3 id="分代分配"><a href="#分代分配" class="headerlink" title="分代分配"></a>分代分配</h3><p>工作机制：</p>
+<ul>
+<li><strong>对象优先在 Eden 分配</strong>：当创建一个对象的时候，对象会被分配在新生代的 Eden 区，当 Eden 区要满了时候，触发 Minor GC</li>
+<li>当进行 Minor GC 后，此时在 Eden 区存活的对象被移动到 to 区，并且当前对象的年龄会加 1，清空 Eden 区</li>
+<li>当再一次触发 Minor GC 的时候，会把 Eden 区中存活下来的对象和 to 中的对象，移动到 from 区中，这些对象的年龄会加 1，清空 Eden 区和 to 区</li>
+<li>To 区永远是空 Survivor 区，From 区是有数据的，每次 MinorGC 后两个区域互换</li>
+<li>From 区和 To 区 也可以叫做 S0 区和 S1 区</li>
+</ul>
+<p>晋升到老年代：</p>
+<ul>
+<li><p><strong>长期存活的对象进入老年代</strong>：为对象定义年龄计数器，对象在 Eden 出生并经过 Minor GC 依然存活，将移动到 Survivor 中，年龄就增加 1 岁，增加到一定年龄则移动到老年代中</p>
+<p><code>-XX:MaxTenuringThreshold</code>：定义年龄的阈值，对象头中用 4 个 bit 存储，所以最大值是 15，默认也是 15</p>
+</li>
+<li><p><strong>大对象直接进入老年代</strong>：需要连续内存空间的对象，最典型的大对象是很长的字符串以及数组；避免在 Eden 和 Survivor 之间的大量复制；经常出现大对象会提前触发 GC 以获取足够的连续空间分配给大对象</p>
+<p><code>-XX:PretenureSizeThreshold</code>：大于此值的对象直接在老年代分配</p>
+</li>
+<li><p><strong>动态对象年龄判定</strong>：如果在 Survivor 区中相同年龄的对象的所有大小之和超过 Survivor 空间的一半，年龄大于等于该年龄的对象就可以直接进入老年代</p>
+</li>
+</ul>
+<p>空间分配担保：</p>
+<ul>
+<li>在发生 Minor GC 之前，虚拟机先检查老年代最大可用的连续空间是否大于新生代所有对象总空间，如果条件成立的话，那么 Minor GC 可以确认是安全的</li>
+<li>如果不成立，虚拟机会查看 HandlePromotionFailure 的值是否允许担保失败，如果允许那么就会继续检查老年代最大可用的连续空间是否大于历次晋升到老年代对象的平均大小，如果大于将尝试着进行一次 Minor GC；如果小于或者 HandlePromotionFailure 的值不允许冒险，那么就要进行一次 Full GC</li>
+</ul>
+<h3 id="回收策略"><a href="#回收策略" class="headerlink" title="回收策略"></a>回收策略</h3><h4 id="触发条件"><a href="#触发条件" class="headerlink" title="触发条件"></a>触发条件</h4><p>内存垃圾回收机制主要集中的区域就是线程共享区域：<strong>堆和方法区</strong></p>
+<p>Minor GC 触发条件非常简单，当 Eden 空间满时，就将触发一次 Minor GC</p>
+<p>FullGC 同时回收新生代、老年代和方法区，只会存在一个 FullGC 的线程进行执行，其他的线程全部会被<strong>挂起</strong>，有以下触发条件：</p>
+<ul>
+<li><p>调用 System.gc()：</p>
+<ul>
+<li>在默认情况下，通过 System.gc() 或 Runtime.getRuntime().gc() 的调用，会显式触发 FullGC，同时对老年代和新生代进行回收，但是虚拟机不一定真正去执行，无法保证对垃圾收集器的调用</li>
+<li>不建议使用这种方式，应该让虚拟机管理内存。一般情况下，垃圾回收应该是自动进行的，无须手动触发；在一些特殊情况下，如正在编写一个性能基准，可以在运行之间调用 System.gc() </li>
+</ul>
+</li>
+<li><p>老年代空间不足：</p>
+<ul>
+<li>为了避免引起的 Full GC，应当尽量不要创建过大的对象以及数组</li>
+<li>通过 -Xmn 参数调整新生代的大小，让对象尽量在新生代被回收掉不进入老年代，可以通过 <code>-XX:MaxTenuringThreshold</code> 调大对象进入老年代的年龄，让对象在新生代多存活一段时间</li>
+</ul>
+</li>
+<li><p>空间分配担保失败</p>
+</li>
+<li><p>JDK 1.7 及以前的永久代（方法区）空间不足</p>
+</li>
+<li><p>Concurrent Mode Failure：执行 CMS GC 的过程中同时有对象要放入老年代，而此时老年代空间不足（可能是 GC 过程中浮动垃圾过多导致暂时性的空间不足），便会报 Concurrent Mode Failure 错误，并触发 Full GC</p>
+</li>
+</ul>
+<h3 id="安全区域"><a href="#安全区域" class="headerlink" title="安全区域"></a>安全区域</h3><blockquote>
+<p>安全点 (Safepoint)：程序执行时并非在所有地方都能停顿下来开始 GC，只有在安全点才能停下</p>
+</blockquote>
+<ul>
+<li>Safe Point 的选择很重要，如果太少可能导致 GC 等待的时间太长，如果太多可能导致运行时的性能问题</li>
+<li>大部分指令的执行时间都非常短，通常会根据是否具有让程序长时间执行的特征为标准，选择些执行时间较长的指令作为 Safe Point， 如方法调用、循环跳转和异常跳转等</li>
+</ul>
+<p>在 GC 发生时，让所有线程都在最近的安全点停顿下来的方法：</p>
+<ul>
+<li>抢先式中断：没有虚拟机采用，首先中断所有线程，如果有线程不在安全点，就恢复线程让线程运行到安全点</li>
+<li>主动式中断：设置一个中断标志，各个线程运行到各个 Safe Point 时就轮询这个标志，如果中断标志为真，则将自己进行中断挂起</li>
+</ul>
+<p>问题：Safepoint 保证程序执行时，在不太长的时间内就会遇到可进入 GC 的 Safepoint，但是当线程处于 Waiting 状态或 Blocked 状态，线程无法响应 JVM 的中断请求，运行到安全点去中断挂起，JVM 也不可能等待线程被唤醒，对于这种情况，需要安全区域来解决</p>
+<blockquote>
+<p>安全区域 (Safe Region)：指在一段代码片段中，<strong>对象的引用关系不会发生变化</strong>，在这个区域中的任何位置开始 GC 都是安全的</p>
+</blockquote>
+<p>运行流程：</p>
+<ul>
+<li><p>当线程运行到 Safe Region 的代码时，首先标识已经进入了 Safe Region，如果这段时间内发生 GC，JVM 会忽略标识为 Safe Region 状态的线程</p>
+</li>
+<li><p>当线程即将离开 Safe Region 时，会检查 JVM 是否已经完成 GC，如果完成了则继续运行，否则线程必须等待 GC 完成，收到可以安全离开 SafeRegion 的信号</p>
+</li>
+</ul>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2023/06/06/JVM-垃圾回收器/">JVM-垃圾回收器</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-06-06</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="垃圾回收器"><a href="#垃圾回收器" class="headerlink" title="垃圾回收器"></a>垃圾回收器</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><blockquote>
 <p>java的垃圾回收器具体是什么？是线程吗？</p>
 </blockquote>
 <p>Java中的垃圾回收器（Garbage Collector）是一种自动内存管理机制，用于回收不再使用的对象所占用的内存空间。它是Java虚拟机（JVM）的一部分，负责在运行时自动检测和回收不再被引用的对象，并释放它们所占用的内存。</p>
@@ -346,119 +431,7 @@
 </ul>
 </li>
 </ul>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2023/06/05/JVM-虚拟机栈/">JVM-虚拟机栈和本地方法栈</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-06-05</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h2><h3 id="Java-栈"><a href="#Java-栈" class="headerlink" title="Java 栈"></a>Java 栈</h3><p>Java 虚拟机栈：Java Virtual Machine Stacks，<strong>每个线程</strong>运行时所需要的内存</p>
-<ul>
-<li><p>每个方法被执行时，都会在虚拟机栈中创建一个栈帧 stack frame（<strong>一个方法一个栈帧</strong>）</p>
-</li>
-<li><p>Java 虚拟机规范允许 <strong>Java 栈的大小是动态的或者是固定不变的</strong></p>
-</li>
-<li><p>虚拟机栈是<strong>每个线程私有的</strong>，每个线程只能有一个活动栈帧，对应方法调用到执行完成的整个过程</p>
-</li>
-<li><p>每个栈由多个栈帧（Frame）组成，对应着每次方法调用时所占用的内存，每个栈帧中存储着：</p>
-<ul>
-<li>局部变量表：存储方法里的 Java 基本数据类型以及对象的引用</li>
-<li>动态链接：也叫指向运行时常量池的方法引用</li>
-<li>方法返回地址：方法正常退出或者异常退出的定义</li>
-<li>操作数栈或表达式栈和其他一些附加信息</li>
-</ul>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-虚拟机栈.png" style="zoom:50%;">
-
-</li>
-</ul>
-<p>设置栈内存大小：<code>-Xss size</code>   <code>-Xss 1024k</code></p>
-<ul>
-<li>在 JDK 1.4 中默认为 256K，而在 JDK 1.5+ 默认为 1M</li>
-</ul>
-<p>虚拟机栈特点：</p>
-<ul>
-<li><p>栈内存<strong>不需要进行GC</strong>，方法开始执行的时候会进栈，方法调用后自动弹栈，相当于清空了数据</p>
-</li>
-<li><p>栈内存分配越大越大，可用的线程数越少（内存越大，每个线程拥有的内存越大）</p>
-</li>
-<li><p>方法内的局部变量是否<strong>线程安全</strong>：</p>
-<ul>
-<li>如果方法内局部变量没有逃离方法的作用访问，它是线程安全的（逃逸分析）</li>
-<li>如果是局部变量引用了对象，并逃离方法的作用范围，需要考虑线程安全</li>
-</ul>
-</li>
-</ul>
-<p>异常：</p>
-<ul>
-<li>栈帧过多导致栈内存溢出 （超过了栈的容量），会抛出 OutOfMemoryError 异常</li>
-<li>当线程请求的栈深度超过最大值，会抛出 StackOverflowError 异常</li>
-</ul>
-<h3 id="局部变量【locals】"><a href="#局部变量【locals】" class="headerlink" title="局部变量【locals】"></a>局部变量【locals】</h3><p>局部变量表也被称之为局部变量数组或本地变量表，本质上定义为一个数字数组，主要用于存储方法参数和定义在方法体内的局部变量</p>
-<ul>
-<li>表是建立在线程的栈上，是线程私有的数据，因此不存在数据安全问题（但是逃逸情况下会不安全）</li>
-<li>表的容量大小是在编译期确定的，保存在方法的 Code 属性的 maximum local variables 数据项中</li>
-<li>表中的变量只在当前方法调用中有效，方法结束栈帧销毁，局部变量表也会随之销毁</li>
-<li>表中的变量也是重要的垃圾回收根节点，只要被表中数据直接或间接引用的对象都不会被回收</li>
-</ul>
-<p>局部变量表最基本的存储单元是 <strong>slot（变量槽）</strong>：</p>
-<ul>
-<li>参数值的存放总是在局部变量数组的 index0 开始，到数组长度 -1 的索引结束，JVM 为每一个 slot 都分配一个访问索引，通过索引即可访问到槽中的数据</li>
-<li>存放编译期可知的各种基本数据类型（8种），引用类型（reference），returnAddress 类型的变量</li>
-<li>32 位以内的类型只占一个 slot（包括 returnAddress 类型），64 位的类型（long 和 double）占两个 slot</li>
-<li>局部变量表中的槽位是可以<strong>重复利用</strong>的，如果一个局部变量过了其作用域，那么之后申明的新的局部变量就可能会复用过期局部变量的槽位，从而达到节省资源的目的</li>
-</ul>
-<p><a href="https://imgloc.com/i/VHDqjJ" target="_blank" rel="noopener"><img src="https://i.imgloc.com/2023/06/12/VHDqjJ.jpeg" alt></a></p>
-<p><img src="https://i.imgloc.com/2023/06/12/VHDoV5.png" alt></p>
-<h3 id="操作数栈【stack】"><a href="#操作数栈【stack】" class="headerlink" title="操作数栈【stack】"></a>操作数栈【stack】</h3><p>栈：可以使用数组或者链表来实现</p>
-<p>操作数栈：在方法执行过程中，根据字节码指令，往栈中写入数据或提取数据，即入栈（push）或出栈（pop）</p>
-<ul>
-<li><p>保存计算过程的中间结果，同时作为计算过程中变量临时的存储空间，是执行引擎的一个工作区</p>
-</li>
-<li><p>Java 虚拟机的解释引擎是基于栈的执行引擎，其中的栈指的就是操作数栈</p>
-</li>
-<li><p>如果被调用的方法带有返回值的话，其<strong>返回值将会被压入当前栈帧的操作数栈中</strong></p>
-</li>
-</ul>
-<p>栈顶缓存技术 ToS（Top-of-Stack Cashing）：将栈顶元素全部缓存在 CPU 的寄存器中，以此降低对内存的读/写次数，提升执行的效率</p>
-<p>基于栈式架构的虚拟机使用的零地址指令更加紧凑，完成一项操作需要使用很多入栈和出栈指令，所以需要更多的指令分派（instruction dispatch）次数和内存读/写次数，由于操作数是存储在内存中的，因此频繁地执行内存读/写操作必然会影响执行速度，所以需要栈顶缓存技术</p>
-<h3 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a>动态链接</h3><p>动态链接是指向运行时常量池的方法引用，涉及到栈操作已经是类加载完成，这个阶段的解析是<strong>动态绑定</strong></p>
-<ul>
-<li><p>为了支持当前方法的代码能够实现动态链接，每一个栈帧内部都包含一个指向运行时常量池或该栈帧所属方法的引用</p>
-<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E7%AC%A6%E5%8F%B7%E5%BC%95%E7%94%A8.png" alt></p>
-</li>
-<li><p>在 Java 源文件被编译成的字节码文件中，所有的变量和方法引用都作为符号引用保存在 class 的常量池中</p>
-<p>常量池的作用：提供一些符号和常量，便于指令的识别</p>
-<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E8%BF%90%E8%A1%8C%E6%97%B6%E5%B8%B8%E9%87%8F%E6%B1%A0.png" alt></p>
-</li>
-</ul>
-<h3 id="返回地址"><a href="#返回地址" class="headerlink" title="返回地址"></a>返回地址</h3><p>Return Address：存放调用该方法的 PC 寄存器的值</p>
-<p>方法的结束有两种方式：正常执行完成、出现未处理的异常，在方法退出后都返回到该方法被调用的位置</p>
-<ul>
-<li>正常：调用者的 PC 计数器的值作为返回地址，即调用该方法的指令的<strong>下一条指令的地址</strong></li>
-<li>异常：返回地址是要通过异常表来确定</li>
-</ul>
-<p>正常完成出口：执行引擎遇到任意一个方法返回的字节码指令（return），会有返回值传递给上层的方法调用者</p>
-<p>异常完成出口：方法执行的过程中遇到了异常（Exception），并且这个异常没有在方法内进行处理，本方法的异常表中没有搜素到匹配的异常处理器，导致方法退出</p>
-<p>两者区别：通过异常完成出口退出的不会给上层调用者产生任何的返回值</p>
-<h3 id="附加信息"><a href="#附加信息" class="headerlink" title="附加信息"></a>附加信息</h3><p>栈帧中还允许携带与 Java 虚拟机实现相关的一些附加信息，例如对程序调试提供支持的信息</p>
-<h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><p>本地方法栈是为虚拟机执行本地方法时提供服务的</p>
-<p>JNI：Java Native Interface，通过使用 Java 本地接口程序，可以确保代码在不同的平台上方便移植</p>
-<ul>
-<li><p>不需要进行 GC，与虚拟机栈类似，也是线程私有的，有 StackOverFlowError 和 OutOfMemoryError 异常</p>
-</li>
-<li><p>虚拟机栈执行的是 Java 方法，在 HotSpot JVM 中，直接将本地方法栈和虚拟机栈合二为一</p>
-</li>
-<li><p>本地方法一般是由其他语言编写，并且被编译为基于本机硬件和操作系统的程序</p>
-</li>
-<li><p>当某个线程调用一个本地方法时，就进入了不再受虚拟机限制的世界，和虚拟机拥有同样的权限</p>
-<ul>
-<li>本地方法可以通过本地方法接口来<strong>访问虚拟机内部的运行时数据区</strong></li>
-<li>直接从本地内存的堆中分配任意数量的内存</li>
-<li>可以直接使用本地处理器中的寄存器</li>
-</ul>
-</li>
-</ul>
-<p>原理：将本地的 C 函数（如 foo）编译到一个共享库（foo.so）中，当正在运行的 Java 程序调用 foo 时，Java 解释器利用 dlopen 接口动态链接和加载 foo.so 后再调用该函数</p>
-<ul>
-<li>dlopen 函数：Linux 系统加载和链接共享库</li>
-<li>dlclose 函数：卸载共享库</li>
-</ul>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JVM-本地方法栈.png" style="zoom:67%;">
-</div><hr></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-chevron-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2015 - 2023 By GeYu</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Enjoy the cyber world!</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+</div><hr></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-chevron-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2015 - 2023 By GeYu</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Enjoy the cyber world!</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')
 }</script></body></html>
