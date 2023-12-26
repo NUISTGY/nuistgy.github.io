@@ -7,7 +7,97 @@
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">226</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">83</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">46</span></a></div></div></div><nav id="nav" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2023/04/11/JUC-CAS和自旋的概念区别/">JUC-CAS和自旋到底是一个概念吗</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-04-11</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JUC/">JUC</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/并发编程/">并发编程</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JUC/">JUC</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="问题"><a href="#问题" class="headerlink" title="问题:"></a>问题:</h2><p>CAS是<strong>compare and swap</strong> ,就是一个比较工作内存和主内存的值是否相同，相同的话，就用新值来替换这么一个操作。</p>
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">227</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">83</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">46</span></a></div></div></div><nav id="nav" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2023/04/13/JUC-轻量级锁/">JUC-轻量级锁</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-04-13</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JUC/">JUC</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/并发编程/">并发编程</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JUC/">JUC</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>轻量级锁是JDK1.6之中加入的新型锁机制，它名字中的“轻量级”是相对于使用操作系统互斥量来实现的传统锁而言的，因此传统的锁机制就称为“重量级”锁。首先需要强调一点的是，轻量级锁并不是用来代替重量级锁的，它的本意是在没有多线程竞争的前提下，减少传统的重量级锁使用操作系统互斥量产生的性能消耗。</p>
+<p>轻量级锁能够提升程序性能的依据是“对绝大部分的锁，在整个同步周期内都不存在竞争”，注意这是经验数据。需要了解的是，轻量级锁所适应的场景是线程交替执行同步块的场合，如果存在同一时间访问同一锁的场合，就会导致轻量级锁膨胀为重量级锁。</p>
+<h2 id="引入轻量级锁的目的"><a href="#引入轻量级锁的目的" class="headerlink" title="引入轻量级锁的目的"></a>引入轻量级锁的目的</h2><p><strong>轻量级锁的目标是，减少无实际竞争情况下，使用重量级锁产生的性能消耗</strong>，包括系统调用引起的内核态与用户态切换、线程阻塞造成的线程切换等。</p>
+<p>顾名思义，轻量级锁是相对于重量级锁而言的。使用轻量级锁时，不需要申请互斥量，仅仅<em>将Mark Word中的部分字节CAS更新指向线程栈中的Lock Record，如果更新成功，则轻量级锁获取成功</em>，记录锁状态为轻量级锁；<em>否则，说明已经有线程获得了轻量级锁，目前发生了锁竞争（不适合继续使用轻量级锁），接下来膨胀为重量级锁</em>。</p>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><p>竞争的线程不会阻塞，使用自选，提高程序响应速度。</p>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>如果一直不能获取到锁，长时间的自旋会造成CPU消耗。</p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><p>适用于少量线程竞争锁对象，且线程持有锁的时间不长，追求响应速度的场景。</p>
+<h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><p><img src="https://i.328888.xyz/2023/04/13/iXQMda.png" alt></p>
+<h2 id="入口"><a href="#入口" class="headerlink" title="入口"></a>入口</h2><p>轻量级锁的进入方式有三种</p>
+<ul>
+<li>对象处于未锁定不可偏状态。此状态下对象不能进入偏向锁模式，当有线程尝试获取锁时，会通过轻量级锁的方式获取锁。</li>
+</ul>
+<p><img src="https://i.328888.xyz/2023/04/13/iXYYbc.png" alt></p>
+<ul>
+<li>对象锁已经偏向于线程（不考虑重偏向情况）。当锁已经偏向于线程，且线程处于锁定状态或处于未锁定但不允许重偏向的情况下，其它的线程尝试获取锁时，会触发偏向锁撤销，然后升级为轻量级或重量级锁定。</li>
+</ul>
+<p><img src="https://i.328888.xyz/2023/04/13/iXq4Ub.png" alt></p>
+<ul>
+<li>对象已被轻量级锁定。</li>
+</ul>
+<blockquote>
+<p>当对象已经被轻量级锁定的时候，会判断是否是锁重入，如果是重入的话，会记录一条Displaced Mark Word为空的Lock Record。如果不是重入，会膨胀为重量级锁。需要注意的是，即使膨胀为重量级锁，没有获取到锁的线程也不会马上阻塞，而是通过适应性自旋尝试获取锁，当自旋次数达到临界值后，才会阻塞未获取到的线程。JVM认为获取到锁的线程大概率会很快的释放锁，这样做是为了尽可能的避免用户态到内核态的切换。</p>
+</blockquote>
+<h2 id="加锁过程"><a href="#加锁过程" class="headerlink" title="加锁过程"></a>加锁过程</h2><ol>
+<li><p>判断对象是否是无锁状态（低三位 = 001），如果是，执行 2，如果不是，执行 4。</p>
+</li>
+<li><p>在栈中建立一个Lock Record，将无锁状态的Mark Word拷贝到锁记录的Displaced Mark Word中，将owner指向当前对象。</p>
+</li>
+<li><p>尝试通过CAS 将锁对象的 Mark Word 更新为指向Lock Record的指针，如果更新成功，该线程获取到轻量级锁，并且需要把对象头的Mark Word的低两位改成10（注意这里修改的是对象头的Mark Word，Lock Record中记录的还是无锁状态的Mark Word）；如果更新失败，执行 4。</p>
+</li>
+<li><p>对象是轻量级锁定状态，判断对象头的 Mark Word是否指向当前线程的栈帧。如果是，则这次为锁重入，将刚刚建立的Lock Record中的Displaced Mark Word设置为null，记录重入，该线程重入轻量级锁。如果不是，执行 5。</p>
+</li>
+<li><p>线程获取轻量级锁失败，锁膨胀为重量级锁，对象头的Mark Word改为指向重量级锁monitor的指针。获取失败的线程不会立即阻塞，先<strong>适应性自旋</strong>，尝试获取锁。到达临界值后，阻塞该线程，直到被唤醒。</p>
+</li>
+</ol>
+<h3 id="关于适应性自旋"><a href="#关于适应性自旋" class="headerlink" title="关于适应性自旋"></a>关于适应性自旋</h3><p>自适应意味着自旋的时间（次数）不再固定，而是由前一次在同一个锁上的自旋时间及锁的拥有者的状态来决定。如果在同一个锁对象上，自旋等待刚刚成功获得过锁，并且持有锁的线程正在运行中，那么虚拟机就会认为这次自旋也是很有可能再次成功，进而它将允许自旋等待持续相对更长的时间。如果对于某个锁，自旋很少成功获得过，那在以后尝试获取这个锁时将可能省略掉自旋过程，直接阻塞线程，避免浪费处理器资源。</p>
+<h3 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h3><h4 id="无锁状态时获取锁的流程"><a href="#无锁状态时获取锁的流程" class="headerlink" title="无锁状态时获取锁的流程"></a>无锁状态时获取锁的流程</h4><blockquote>
+<p>线程执行到同步块时，同步对象处于无锁状态，锁标志位为<code>01</code>，偏向标志位为<code>0</code>，偏向锁被禁用，对象处于无锁态。</p>
+</blockquote>
+<p><a href="https://imgloc.com/i/iXqgoX" target="_blank" rel="noopener"><img src="https://i.328888.xyz/2023/04/13/iXqgoX.png" alt></a></p>
+<blockquote>
+<p>在加锁前，虚拟机需要在当前线程的栈帧中建立<strong>锁记录</strong>（Lock Record）的空间。Lock Record 中包含一个 <code>_displaced_header</code> 属性，用于存储锁对象的 Mark Word 的拷贝。</p>
+</blockquote>
+<p><a href="https://imgloc.com/i/iXqXRP" target="_blank" rel="noopener"><img src="https://i.328888.xyz/2023/04/13/iXqXRP.png" alt></a></p>
+<blockquote>
+<p>将锁对象的 Mark Word 复制到锁记录中，这个复制过来的记录叫做 Displaced Mark Word。具体来讲，是将 mark word 放到锁记录的 <code>_displaced_header</code> 属性中，将Owner指向当前对象。</p>
+</blockquote>
+<p><a href="https://imgloc.com/i/iXq7ft" target="_blank" rel="noopener"><img src="https://i.328888.xyz/2023/04/13/iXq7ft.png" alt></a></p>
+<blockquote>
+<p>虚拟机使用 CAS 操作尝试将锁对象的 Mark Word 更新为指向锁记录的指针。如果更新成功，这个线程就获得了该对象的锁。</p>
+</blockquote>
+<p><a href="https://imgloc.com/i/iXqEjJ" target="_blank" rel="noopener"><img src="https://i.328888.xyz/2023/04/13/iXqEjJ.png" alt></a></p>
+<blockquote>
+<p>更新成功后，需要修改原对象头Mark Word中的锁状态标志位为00，目的是告诉其它线程此对象已经被轻量级锁定。</p>
+</blockquote>
+<p><a href="https://imgloc.com/i/iXqeFc" target="_blank" rel="noopener"><img src="https://i.328888.xyz/2023/04/13/iXqeFc.png" alt></a></p>
+<h4 id="重入锁流程"><a href="#重入锁流程" class="headerlink" title="重入锁流程"></a>重入锁流程</h4><blockquote>
+<p>当对象处于加锁状态时，会去检验<code>Mark Word</code>是否指向当前线程的栈帧，如果是则将刚刚建立的<code>Lock Record</code>中的<code>Displaced Mark Word</code>设置为<code>null</code>，记录线程重入锁。</p>
+</blockquote>
+<p><img src="https://i.328888.xyz/2023/04/13/igZxzc.png" alt></p>
+<h4 id="非重入锁"><a href="#非重入锁" class="headerlink" title="非重入锁"></a>非重入锁</h4><blockquote>
+<p>如果指向的不是当前线程的栈帧则会触发锁膨胀，膨胀为重量级锁。</p>
+</blockquote>
+<p><a href="https://imgloc.com/i/igZzXN" target="_blank" rel="noopener"><img src="https://i.328888.xyz/2023/04/13/igZzXN.png" alt></a><br><a href="https://imgloc.com/i/igZe0o" target="_blank" rel="noopener"><img src="https://i.328888.xyz/2023/04/13/igZe0o.png" alt></a></p>
+<h2 id="解锁过程"><a href="#解锁过程" class="headerlink" title="解锁过程"></a>解锁过程</h2><p>轻量级锁加锁时有锁重入的可能，同样的，在解锁时也需要判断是否是锁重入解锁。</p>
+<ol>
+<li><p>检索当前线程栈中的锁记录空间，从低位往高位找到第一条和此对象有关的Lock Record。加锁时，如果是锁重入，会将 Displaced Mark Word 设置为 null，相应的，在解锁时需要判断Displaced Mark Word是否为 null，如果是，则说明是锁重入解锁，移除onwer的指向，不做替换操作；如果不是，执行 2。</p>
+</li>
+<li><p>通过CAS把当前线程栈帧Lock Record中的Displaced Mark Word替换到对象头的Mark Word中去，如果替换成功，则轻量级解锁成功；如果替换失败，则说明发生了锁膨胀，对象现在是重量级锁定状态，执行 3。</p>
+</li>
+<li><p>执行重量级锁释放流程，释放重量级锁，同时唤醒被阻塞的线程去获取锁。</p>
+</li>
+</ol>
+<h3 id="图解-1"><a href="#图解-1" class="headerlink" title="图解"></a>图解</h3><h4 id="非重入释放锁"><a href="#非重入释放锁" class="headerlink" title="非重入释放锁"></a>非重入释放锁</h4><blockquote>
+<p>解锁的思路是使用 CAS 操作把当前线程的栈帧中的 <code>Displaced Mark Word</code> 替换回锁对象中去，如果替换成功，则解锁成功。</p>
+</blockquote>
+<p><a href="https://imgloc.com/i/igZLKp" target="_blank" rel="noopener"><img src="https://i.328888.xyz/2023/04/13/igZLKp.png" alt></a></p>
+<h5 id="CAS成功"><a href="#CAS成功" class="headerlink" title="CAS成功"></a>CAS成功</h5><p><a href="https://imgloc.com/i/igZKXL" target="_blank" rel="noopener"><img src="https://i.328888.xyz/2023/04/13/igZKXL.png" alt></a></p>
+<h5 id="CAS失败"><a href="#CAS失败" class="headerlink" title="CAS失败"></a>CAS失败</h5><p><a href="https://imgloc.com/i/igZPUU" target="_blank" rel="noopener"><img src="https://i.328888.xyz/2023/04/13/igZPUU.png" alt></a><br><a href="https://imgloc.com/i/igZT3v" target="_blank" rel="noopener"><img src="https://i.328888.xyz/2023/04/13/igZT3v.png" alt></a></p>
+<p>轻量级锁未释放前被其它线程尝试获取，此时Mark Word指针已经被替换为指向Monitor，释放锁时CAS会失败，此时需要走重量级解锁流程。</p>
+<h4 id="重入锁释放"><a href="#重入锁释放" class="headerlink" title="重入锁释放"></a>重入锁释放</h4><blockquote>
+<p>加锁时，如果是锁重入，会将 <code>Displaced Mark Word</code> 设置为 null。相对应地，解锁时，如果判断 <code>Displaced Mark Word</code> 为 null 则说明是锁重入，不做替换操作。</p>
+</blockquote>
+<p><img src="https://i.328888.xyz/2023/04/13/igiVgH.png" alt></p>
+<h2 id="归纳总结"><a href="#归纳总结" class="headerlink" title="归纳总结"></a>归纳总结</h2><h3 id="轻量级锁的适用场景"><a href="#轻量级锁的适用场景" class="headerlink" title="轻量级锁的适用场景"></a>轻量级锁的适用场景</h3><p>少量的线程竞争锁，且所有者线程占用锁的事件补偿，追求响应速度的场景。</p>
+<h3 id="什么时候会升级为轻量级锁"><a href="#什么时候会升级为轻量级锁" class="headerlink" title="什么时候会升级为轻量级锁"></a>什么时候会升级为轻量级锁</h3><p>当对象的偏向模式被关闭、对象处于已偏向已锁定、已偏向未锁定但不支持重偏向的场景下，就会升级为轻量级锁。</p>
+<h3 id="什么时候会升级为重量级锁"><a href="#什么时候会升级为重量级锁" class="headerlink" title="什么时候会升级为重量级锁"></a>什么时候会升级为重量级锁</h3><p>当竞争产生时就会升级为重量级锁，比如，两个线程同时获取锁，成功的线程会获取到轻量级锁，失败的线程会执行锁膨胀，升级为重量级锁。</p>
+<h3 id="轻量级锁怎样实现锁重入"><a href="#轻量级锁怎样实现锁重入" class="headerlink" title="轻量级锁怎样实现锁重入"></a>轻量级锁怎样实现锁重入</h3><p>当轻量级锁已经被线程持有，且对象头的Mark Word指向的是当前线程的栈帧时，会把本条Lock Record的Displaced Mark Word 设置为 null，实现锁重入。当重入解锁时，只需要修改所有者onwer的指向。</p>
+<h3 id="轻量级锁是否会自旋"><a href="#轻量级锁是否会自旋" class="headerlink" title="轻量级锁是否会自旋"></a>轻量级锁是否会自旋</h3><p>轻量级锁流程不会自旋，自旋发生在产生竞争后，获取失败的线程将锁膨胀为重量级锁。失败的线程不会立刻阻塞，而是先尝试适应性自旋，等待所有者释放锁，当到达临界值后再阻塞。</p>
+<h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>轻量级锁可以看作是偏向锁重偏向的升级版，加入了有锁到无锁的状态转换，即使当竞争产生时升级到重量级锁，也不会马上阻塞线程，而是通过适应性自旋来决定是否阻塞，提高了性能。轻量级锁相较于偏向锁来说，简单一些，下一篇会着重介绍重量级锁，以及自旋的线程是怎样进入重量级锁的等待队列的。</p>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2023/04/11/JUC-CAS和自旋的概念区别/">JUC-CAS和自旋到底是一个概念吗</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-04-11</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JUC/">JUC</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/并发编程/">并发编程</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JUC/">JUC</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="问题"><a href="#问题" class="headerlink" title="问题:"></a>问题:</h2><p>CAS是<strong>compare and swap</strong> ,就是一个比较工作内存和主内存的值是否相同，相同的话，就用新值来替换这么一个操作。</p>
 <p>但是，为什么好多地方都说这是自旋呢？</p>
 <p>我的理解是，比较一次的话，成功就返回true了，失败，那么就返回false。如果没有for循环的话，这就是一次操作啊，它本身不会去重试吧？只有在for死循环里边，才可以重试啊，很多底层都是这样做的。</p>
 <p>所以，仅仅是CAS的话，就是一次操作，为什么叫做自旋呢。自旋的概念到底就是说是CAS，还是说有for循环的才叫CAS。</p>
@@ -91,82 +181,6 @@
 <li><code>compareAndSet</code>方法，这就是实现 CAS 的核心方法了，在使用 AtomicBoolean 的这个方法时，只需要传递期望值和待更新的值即可，而它里面调用了 unsafe.compareAndSwapInt(this, valueOffset, e, u) 方法，它是个 native 方法，用 c++ 实现，具体的代码就不贴了，总之是利用了 CPU 的 cmpxchg 指令完成比较并替换，当然根据具体的系统版本不同，实现起来也有所区别，感兴趣的可以自行搜一下相关文章。</li>
 <li><strong>CAS 必须借助 volatile 才能读取到共享变量的最新值来实现比较并交换的效果</strong></li>
 </ol>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2023/04/11/JUC-锁相关基础知识/">JUC-锁相关基础知识</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-04-11</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JUC/">JUC</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/并发编程/">并发编程</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JUC/">JUC</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="基础知识之一：锁的类型"><a href="#基础知识之一：锁的类型" class="headerlink" title="基础知识之一：锁的类型"></a>基础知识之一：锁的类型</h2><p>锁从宏观上分类，分为悲观锁与乐观锁。</p>
-<h3 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h3><p>乐观锁是一种乐观思想，即认为读多写少，遇到并发写的可能性低，每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在更新的时候会判断一下在此期间别人有没有去更新这个数据，采取在写时先读出当前版本号，然后加锁操作（比较跟上一次的版本号，如果一样则更新），如果失败则要重复读-比较-写的操作。</p>
-<p>Java中的乐观锁基本都是通过CAS操作实现的，CAS是一种更新的原子操作，比较当前值跟传入值是否一样，一样则更新，否则失败。</p>
-<h4 id="Java中乐观锁的案例"><a href="#Java中乐观锁的案例" class="headerlink" title="Java中乐观锁的案例"></a>Java中乐观锁的案例</h4><h5 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h5><p>ConcurrentHashMap是Java中的一个线程安全的哈希表实现，它使用分离锁（Segment）来保证线程安全。每个Segment都是一个独立的哈希表，每个操作只锁定相关的Segment，因此可以支持更高的并发性。</p>
-<p>ConcurrentHashMap使用了一种基于CAS的技术来实现乐观锁，它通过比较当前的value和预期的value是否相等来判断是否存在冲突。如果存在，则返回失败；如果不存在，则执行更新操作。</p>
-<h5 id="LongAdder"><a href="#LongAdder" class="headerlink" title="LongAdder"></a>LongAdder</h5><p>在 JDK1.8 中，Java 提供了一个新的原子类 LongAdder。LongAdder 在高并发场景下会比 AtomicInteger 和 AtomicLong 的性能更好，代价就是会消耗更多的内存空间。</p>
-<p>LongAdder 的原理就是降低操作共享变量的并发数，也就是将对单一共享变量的操作压力分散到多个变量值上，将竞争的每个写线程的 value 值分散到一个数组中，不同线程会命中到数组的不同槽中，各个线程只对自己槽中的 value 值进行 CAS 操作，最后在读取值的时候会将原子操作的共享变量与各个分散在数组的 value 值相加，返回一个近似准确的数值。</p>
-<h5 id="数据库并发控制"><a href="#数据库并发控制" class="headerlink" title="数据库并发控制"></a>数据库并发控制</h5><p>在日常开发中，使用乐观锁最常见的场景就是数据库的更新操作了。</p>
-<p>为了保证操作数据库的原子性，我们常常会为每一条数据定义一个版本号，并在更新前获取到它，到了更新数据库的时候，还要判断下已经获取的版本号是否被更新过，如果没有，则执行该操作。</p>
-<p>CAS 乐观锁在平常使用时比较受限，它只能保证单个变量操作的原子性，当涉及到多个变量时，CAS 就无能为力了。</p>
-<h3 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h3><p>悲观锁是就是悲观思想，即认为写多，遇到并发写的可能性高，每次去拿数据的时候都认为别人会修改，所以每次在读写数据的时候都会上锁，这样别人想读写这个数据就会block直到拿到锁。Java中的悲观锁就是Synchronized, AQS框架下的锁则是先尝试cas乐观锁去获取锁，获取不到，才会转换为悲观锁，如RetreenLock。</p>
-<h3 id="Java中的锁机制"><a href="#Java中的锁机制" class="headerlink" title="Java中的锁机制"></a>Java中的锁机制</h3><p>在 Java 中主要2种加锁机制:</p>
-<ol>
-<li><p>synchronized 关键字</p>
-</li>
-<li><p>java.util.concurrent.Lock （Lock是一个接口，ReentrantLock是该接口一个很常用的实现）</p>
-</li>
-</ol>
-<p>这两种机制的底层原理存在一定的差别</p>
-<ul>
-<li>synchronized 关键字通过一对字节码指令 monitorenter/monitorexit 实现， 这对指令被 JVM 规范所描述。</li>
-<li>java.util.concurrent.Lock 通过 Java 代码搭配sun.misc.Unsafe 中的本地调用实现的</li>
-</ul>
-<h2 id="基础知识之二：Java线程阻塞的代价"><a href="#基础知识之二：Java线程阻塞的代价" class="headerlink" title="基础知识之二：Java线程阻塞的代价"></a>基础知识之二：Java线程阻塞的代价</h2><p>java的线程是映射到操作系统原生线程之上的，如果要阻塞或唤醒一个线程就需要操作系统介入，需要在户态与核心态之间切换，这种切换会消耗大量的系统资源，因为用户态与内核态都有各自专用的内存空间，专用的寄存器等，用户态切换至内核态需要传递给许多变量、参数给内核，内核也需要保护好用户态在切换时的一些寄存器值、变量等，以便内核态调用结束后切换回用户态继续工作。</p>
-<ul>
-<li><p>如果线程状态切换是一个高频操作时，这将会消耗很多CPU处理时间；</p>
-</li>
-<li><p>如果对于那些需要同步的简单的代码块，获取锁挂起操作消耗的时间比用户代码执行的时间还要长，这种同步策略显然非常糟糕的。</p>
-</li>
-</ul>
-<p>synchronized会导致争用不到锁的线程进入阻塞状态，所以说它是java语言中一个重量级的同步操纵，被称为重量级锁，为了缓解上述性能问题，JVM从1.6开始，引入了轻量锁与偏向锁，默认启用了自旋锁，他们都属于乐观锁。</p>
-<p><strong>明确java线程切换的代价，是理解java中各种锁的优缺点的基础之一</strong>。</p>
-<h2 id="基础知识之三：Mark-word"><a href="#基础知识之三：Mark-word" class="headerlink" title="基础知识之三：Mark word"></a>基础知识之三：Mark word</h2><h3 id="Java对象结构"><a href="#Java对象结构" class="headerlink" title="Java对象结构"></a>Java对象结构</h3><p>在讲到锁之前，先来简单了解一下Java的对象结构。Java的对象结构主要包括对象头，实例数据，对齐填充三大部分。</p>
-<p><a href="https://imgloc.com/i/ipWRRH" target="_blank" rel="noopener"><img src="https://i.328888.xyz/2023/04/11/ipWRRH.md.png" alt></a></p>
-<h3 id="对象头"><a href="#对象头" class="headerlink" title="对象头"></a>对象头</h3><p>对象头中存储了对象的Mark word，类型指针（元数据指针，指向方法区中的类元信息）和数组长度（只有当前对象为数组对象时才会有）。而Mark word又包括对象的Hashcode码，对象的分代年龄，对象的偏向锁ID，获取偏向锁的时间戳，锁标志位等。</p>
-<p>Mark word主要用于存储对象自身运行时的数据，并且Mark word字段的长度与JVM的位数有关，32位的JVM虚拟机中Mark word占用32位的存储空间，64位的JVM虚拟机中占用64位的储存空间。</p>
-<p>以32位的JVM虚拟机为例：</p>
-<p><img src="https://i.328888.xyz/2023/04/11/ipWgQX.png" alt></p>
-<blockquote>
-<ul>
-<li>是否是偏向锁表示：当值为0时，标记对象没有开启偏向锁，值为1表示开启了偏向锁。</li>
-<li>锁标志位表示：当前线程拥有的锁，不同状态下拥有的锁不同。</li>
-<li>对象分代年龄表示：当JVM发生GC垃圾回收时，新生代未被回收的对象在Eden区和Survivor之间的复制，每次复制是的分代年龄+1，默认情况下分代年龄达到15会被移到老年代区域，当然这个参数也可以自行设置。</li>
-<li>对象的Hashcode值：主要存储对象的Hashcode值。</li>
-<li>线程ID：表示在偏向锁状态下，持有偏向锁的线程编号。</li>
-<li>指向栈中锁记录的指针：在轻量级锁状态下，指向栈中所记录的指针。</li>
-<li>指向（互斥量）重量级锁的指针：在重量级锁状态下，指向对象监视器Monitor的指针。</li>
-</ul>
-</blockquote>
-<h3 id="实例数据"><a href="#实例数据" class="headerlink" title="实例数据"></a>实例数据</h3><p>实例数据主要存储了对象的成员变量信息，比如成员变量的具体值，父类成员变量的具体值等。</p>
-<h3 id="对象填充"><a href="#对象填充" class="headerlink" title="对象填充"></a>对象填充</h3><p>在HotSpot虚拟机中，对象的起始地址必须为8的整数倍，如果当前对象的实例变量占用的储存空间不是8的整数倍，则需要使用填充数据来保证对齐。</p>
-<h2 id="基础知识之四：JVM锁升级机制"><a href="#基础知识之四：JVM锁升级机制" class="headerlink" title="基础知识之四：JVM锁升级机制"></a>基础知识之四：JVM锁升级机制</h2><blockquote>
-<p>synchronized 关键字之锁的升级（偏向锁-&gt;轻量级锁-&gt;重量级锁）</p>
-<p>synchronized详解：<a href="https://juejin.cn/post/6977744582725681182" target="_blank" rel="noopener">https://juejin.cn/post/6977744582725681182</a></p>
-</blockquote>
-<p>前面提到过， synchronized 代码块是由一对 *<em>monitorenter/moniterexit *</em> 字节码指令实现， monitor 是其同步实现的基础， Java SE1.6 为了改善性能， 使得 JVM 会根据竞争情况， 使用如下 3 种不同的锁机制</p>
-<ol>
-<li>偏向锁（Biased Lock ）</li>
-<li>轻量级锁（ Lightweight Lock）</li>
-<li>重量级锁（Heavyweight Lock）</li>
-</ol>
-<p>上面几种锁都是JVM自己内部实现，当我们执行synchronized同步块的时候jvm会根据启用的锁和当前线程的争用情况，决定如何执行同步操作。这三种机制的切换是根据竞争激烈程度进行， 在几乎无竞争的条件下， 会使用偏向锁， 在轻度竞争的条件下， 会由偏向锁升级为轻量级锁， 在重度竞争的情况下， 会升级到重量级锁。</p>
-<p>synchronized的执行过程： </p>
-<ol>
-<li>检测Mark Word里面是不是当前线程的ID，如果是，表示当前线程处于偏向锁 </li>
-<li>如果不是，则使用CAS将当前线程的ID替换Mard Word，如果成功则表示当前线程获得偏向锁，置偏向标志位1 </li>
-<li>如果失败，则说明发生竞争，撤销偏向锁，进而升级为轻量级锁。 </li>
-<li>当前线程使用CAS将对象头的Mark Word替换为锁记录指针，如果成功，当前线程获得锁 </li>
-<li>如果失败，表示其他线程竞争锁，当前线程便尝试使用自旋来获取锁。 </li>
-<li>如果自旋成功则依然处于轻量级状态。 </li>
-<li>如果自旋失败，则升级为重量级锁。</li>
-</ol>
-<p><strong>详细图</strong></p>
-<p><img src="https://i.328888.xyz/2023/04/13/igVSTx.png" alt></p>
-<p><strong>简略图</strong></p>
-<p><img src="https://i.328888.xyz/2023/04/13/ig81kk.png" alt></p>
 </div><hr></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/19/"><i class="fa fa-chevron-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/21/"><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2015 - 2023 By GeYu</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Enjoy the cyber world!</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')
