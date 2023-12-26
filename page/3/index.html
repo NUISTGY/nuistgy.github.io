@@ -7,7 +7,274 @@
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">227</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">83</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">46</span></a></div></div></div><nav id="nav" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2023/06/26/IO-传统BIO下网络编程/">IO模型-基于BIO的Java网络编程</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-06-26</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/IO/">IO</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/IO/">IO</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h3 id="InetAddress"><a href="#InetAddress" class="headerlink" title="InetAddress"></a>InetAddress</h3><p>一个 InetAddress 类的对象就代表一个 IP 地址对象</p>
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">228</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">83</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">46</span></a></div></div></div><nav id="nav" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2023/07/03/IO-操作系统IO模型/">IO模型-Linux操作系统中的IO模型</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-07-03</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/IO/">IO</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/IO/">IO</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h2><blockquote>
+<p><a href="https://blog.csdn.net/m0_73257876/article/details/126403791" target="_blank" rel="noopener">https://blog.csdn.net/m0_73257876/article/details/126403791</a></p>
+<p><a href="https://juejin.cn/post/7136110312440201223" target="_blank" rel="noopener">https://juejin.cn/post/7136110312440201223</a></p>
+</blockquote>
+<h3 id="五种模型"><a href="#五种模型" class="headerlink" title="五种模型"></a>五种模型</h3><p>对于一个套接字上的输入操作，第一步是等待数据从网络中到达，当数据到达时被复制到内核中的某个缓冲区。第二步就是把数据从内核缓冲区复制到应用进程缓冲区</p>
+<p>Linux 有五种 I/O 模型：</p>
+<ul>
+<li>阻塞式 I/O</li>
+<li>非阻塞式 I/O</li>
+<li>I/O 复用（select 和 poll）</li>
+<li>信号驱动式 I/O（SIGIO）</li>
+<li>异步 I/O（AIO）</li>
+</ul>
+<p>五种模型对比：</p>
+<ul>
+<li>同步 I/O 包括阻塞式 I/O、非阻塞式 I/O、I/O 复用和信号驱动 I/O ，它们的主要区别在第一个阶段，非阻塞式 I/O 、信号驱动 I/O 和异步 I/O 在第一阶段不会阻塞</li>
+</ul>
+<ul>
+<li>同步 I/O：将数据从内核缓冲区复制到应用进程缓冲区的阶段（第二阶段），应用进程会阻塞</li>
+<li>异步 I/O：第二阶段应用进程不会阻塞</li>
+</ul>
+<h4 id="阻塞式IO"><a href="#阻塞式IO" class="headerlink" title="阻塞式IO"></a>阻塞式IO</h4><p>应用进程通过系统调用 recvfrom 接收数据，会被阻塞，直到数据从内核缓冲区复制到应用进程缓冲区中才返回。阻塞不意味着整个操作系统都被阻塞，其它应用进程还可以执行，只是当前阻塞进程不消耗 CPU 时间，这种模型的 CPU 利用率会比较高</p>
+<p>recvfrom() 用于<strong>接收 Socket 传来的数据，并复制到应用进程的缓冲区 buf 中</strong>，把 recvfrom() 当成系统调用</p>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/IO%E6%A8%A1%E5%9E%8B-%E9%98%BB%E5%A1%9E%E5%BC%8FIO.png" alt></p>
+<h4 id="非阻塞式"><a href="#非阻塞式" class="headerlink" title="非阻塞式"></a>非阻塞式</h4><p>应用进程通过 recvfrom 调用不停的去和内核交互，直到内核准备好数据。如果没有准备好数据，内核返回一个错误码，过一段时间应用进程再执行 recvfrom 系统调用，在两次发送请求的时间段，进程可以进行其他任务，这种方式称为轮询（polling）</p>
+<p>由于 CPU 要处理更多的系统调用，因此这种模型的 CPU 利用率比较低</p>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/IO%E6%A8%A1%E5%9E%8B-%E9%9D%9E%E9%98%BB%E5%A1%9E%E5%BC%8FIO.png" alt></p>
+<h4 id="信号驱动"><a href="#信号驱动" class="headerlink" title="信号驱动"></a>信号驱动</h4><p>应用进程使用 sigaction 系统调用，内核立即返回，应用进程可以继续执行，等待数据阶段应用进程是非阻塞的。当内核数据准备就绪时向应用进程发送 SIGIO 信号，应用进程收到之后在信号处理程序中调用 recvfrom 将数据从内核复制到应用进程中</p>
+<p>相比于非阻塞式 I/O 的轮询方式，信号驱动 I/O 的 CPU 利用率更高</p>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/IO%E6%A8%A1%E5%9E%8B-%E4%BF%A1%E5%8F%B7%E9%A9%B1%E5%8A%A8IO.png" alt></p>
+<h4 id="IO-复用"><a href="#IO-复用" class="headerlink" title="IO 复用"></a>IO 复用</h4><p>IO 复用模型使用 select 或者 poll 函数等待数据，select 会监听所有注册好的 IO，<strong>等待多个套接字中的任何一个变为可读</strong>，等待过程会被阻塞，当某个套接字准备好数据变为可读时 select 调用就返回，然后调用 recvfrom 把数据从内核复制到进程中</p>
+<p>IO 复用让单个进程具有处理多个 I/O 事件的能力，又被称为 Event Driven I/O，即<strong>事件驱动 I/O</strong></p>
+<p>如果一个 Web 服务器没有 I/O 复用，那么每一个 Socket 连接都要创建一个线程去处理，如果同时有几万个连接，就需要创建相同数量的线程。相比于多进程和多线程技术，I/O 复用不需要进程线程创建和切换的开销，系统开销更小</p>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/IO%E6%A8%A1%E5%9E%8B-IO%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B.png" alt></p>
+<h4 id="异步-IO"><a href="#异步-IO" class="headerlink" title="异步 IO"></a>异步 IO</h4><p>应用进程执行 aio_read 系统调用会立即返回，给内核传递描述符、缓冲区指针、缓冲区大小等。应用进程可以继续执行不会被阻塞，内核会在所有操作完成之后向应用进程发送信号</p>
+<p>异步 I/O 与信号驱动 I/O 的区别在于，异步 I/O 的信号是通知应用进程 I/O 完成，而信号驱动 I/O 的信号是通知应用进程可以开始 I/O</p>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/IO%E6%A8%A1%E5%9E%8B-%E5%BC%82%E6%AD%A5IO%E6%A8%A1%E5%9E%8B.png" alt></p>
+<h3 id="多路复用"><a href="#多路复用" class="headerlink" title="多路复用"></a>多路复用</h3><h4 id="select"><a href="#select" class="headerlink" title="select"></a>select</h4><h5 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h5><p>Socket 不是文件，只是一个标识符，但是 Unix 操作系统把所有东西都<strong>看作</strong>是文件，所以 Socket 说成 file descriptor，也就是 fd</p>
+<p>select 允许应用程序监视一组文件描述符，等待一个或者多个描述符成为就绪状态，从而完成 I/O 操作。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(<span class="keyword">int</span> n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>fd_set 使用 <strong>bitmap 数组</strong>实现，数组大小用 FD_SETSIZE 定义，<strong>单进程</strong>只能监听少于 FD_SETSIZE 数量的描述符，32 位机默认是 1024 个，64 位机默认是 2048，可以对进行修改，然后重新编译内核</p>
+</li>
+<li><p>fd_set 有三种类型的描述符：readset、writeset、exceptset，对应读、写、异常条件的描述符集合</p>
+</li>
+<li><p>n 是监测的 socket 的最大数量</p>
+</li>
+<li><p>timeout 为超时参数，调用 select 会一直<strong>阻塞</strong>直到有描述符的事件到达或者等待的时间超过 timeout</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">timeval</span>&#123;</span></span><br><span class="line">    <span class="keyword">long</span> tv_sec; 	<span class="comment">//秒</span></span><br><span class="line">    <span class="keyword">long</span> tv_usec;	<span class="comment">//微秒</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>timeout == null：等待无限长的时间</li>
+<li>tv_sec == 0 &amp;&amp; tv_usec == 0：获取后直接返回，不阻塞等待</li>
+<li>tv_sec != 0 || tv_usec != 0：等待指定时间</li>
+</ul>
+</li>
+<li><p>方法成功调用返回结果为<strong>就绪的文件描述符个数</strong>，出错返回结果为 -1，超时返回结果为 0</p>
+</li>
+</ul>
+<p>Linux 提供了一组宏为 fd_set 进行赋值操作：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">FD_ZERO</span><span class="params">(fd_set *fdset)</span></span>;			<span class="comment">// 将一个 fd_set 类型变量的所有值都置为 0</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">FD_CLR</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;	<span class="comment">// 将一个 fd_set 类型变量的 fd 位置为 0</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">FD_SET</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;	<span class="comment">// 将一个 fd_set 类型变量的 fd 位置为 1</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">FD_ISSET</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;<span class="comment">// 判断 fd 位是否被置为 1</span></span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">sockfd = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line"><span class="built_in">memset</span>(&amp;addr, <span class="number">0</span>, <span class="keyword">sizeof</span>(addr)));</span><br><span class="line">addr.sin_family = AF_INET;</span><br><span class="line">addr.sin_port = htons(<span class="number">2000</span>);</span><br><span class="line">addr.sin_addr.s_addr = INADDR_ANY;</span><br><span class="line">bind(sockfd, (struct sockaddr*)&amp;addr, <span class="keyword">sizeof</span>(addr));<span class="comment">//绑定连接</span></span><br><span class="line">listen(sockfd, <span class="number">5</span>);<span class="comment">//监听5个端口</span></span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">	<span class="built_in">memset</span>(&amp;client, e, <span class="keyword">sizeof</span>(client));</span><br><span class="line">    addrlen = <span class="keyword">sizeof</span>(client);</span><br><span class="line">	fds[i] = accept(sockfd, (struct sockaddr*)&amp;client, &amp;addrlen);</span><br><span class="line">    <span class="comment">//将监听的对应的文件描述符fd存入fds：[3,4,5,6,7]</span></span><br><span class="line">    <span class="keyword">if</span>(fds[i] &gt; max)</span><br><span class="line">		max = fds[i];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">    FD_ZERO(&amp;rset);<span class="comment">//置为0</span></span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    	FD_SET(fds[i], &amp;rset);<span class="comment">//对应位置1 [0001 1111 00.....]</span></span><br><span class="line">	&#125;</span><br><span class="line">	print(<span class="string">"round again"</span>);</span><br><span class="line">	select(max + <span class="number">1</span>, &amp;rset, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);<span class="comment">//监听</span></span><br><span class="line">    </span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt;<span class="number">5</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(FD_ISSET(fds[i], &amp;rset)) &#123;<span class="comment">//判断监听哪一个端口</span></span><br><span class="line">            <span class="built_in">memset</span>(buffer, <span class="number">0</span>, MAXBUF);</span><br><span class="line">            read(fds[i], buffer, MAXBUF);<span class="comment">//进入内核态读数据</span></span><br><span class="line">            print(buffer);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参考视频：<a href="https://www.bilibili.com/video/BV19D4y1o797" target="_blank" rel="noopener">https://www.bilibili.com/video/BV19D4y1o797</a></p>
+<h5 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h5><p>select 调用流程图：</p>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/IO-select%E8%B0%83%E7%94%A8%E8%BF%87%E7%A8%8B.png" alt></p>
+<ol>
+<li>使用 copy_from_user 从用户空间拷贝 fd_set 到内核空间，进程阻塞</li>
+<li>注册回调函数 _pollwait</li>
+<li>遍历所有 fd，调用其对应的 poll 方法判断当前请求是否准备就绪，对于 socket，这个 poll 方法是 sock_poll，sock_poll 根据情况会调用到 tcp_poll、udp_poll 或者 datagram_poll，以 tcp_poll 为例，其核心实现就是 _pollwait</li>
+<li>_pollwait 把 <strong>current（调用 select 的进程）</strong>挂到设备的等待队列，不同设备有不同的等待队列，对于 tcp_poll ，其等待队列是 sk → sk_sleep（把进程挂到等待队列中并不代表进程已经睡眠），在设备收到消息（网络设备）或填写完文件数据（磁盘设备）后，会唤醒设备等待队列上睡眠的进程，这时 current 便被唤醒，进入就绪队列</li>
+<li>poll 方法返回时会返回一个描述读写操作是否就绪的 mask 掩码，根据这个 mask 掩码给 fd_set 赋值</li>
+<li>如果遍历完所有的 fd，还没有返回一个可读写的 mask 掩码，则会调用 schedule_timeout 让 current 进程进入睡眠。当设备驱动发生自身资源可读写后，会唤醒其等待队列上睡眠的进程，如果超过一定的超时时间（schedule_timeout）没有其他线程唤醒，则调用 select 的进程会重新被唤醒获得 CPU，进而重新遍历 fd，判断有没有就绪的 fd</li>
+<li>把 fd_set 从内核空间拷贝到用户空间，阻塞进程继续执行</li>
+</ol>
+<p>参考文章：<a href="https://www.cnblogs.com/anker/p/3265058.html" target="_blank" rel="noopener">https://www.cnblogs.com/anker/p/3265058.html</a></p>
+<p>其他流程图：<a href="https://www.processon.com/view/link/5f62b9a6e401fd2ad7e5d6d1" target="_blank" rel="noopener">https://www.processon.com/view/link/5f62b9a6e401fd2ad7e5d6d1</a></p>
+<h4 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h4><p>poll 的功能与 select 类似，也是等待一组描述符中的一个成为就绪状态</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">poll</span><span class="params">(struct pollfd *fds, <span class="keyword">unsigned</span> <span class="keyword">int</span> nfds, <span class="keyword">int</span> timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>poll 中的描述符是 pollfd 类型的数组，pollfd 的定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">pollfd</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span>   fd;         <span class="comment">/* file descriptor */</span></span><br><span class="line">    <span class="keyword">short</span> events;     <span class="comment">/* requested events */</span></span><br><span class="line">    <span class="keyword">short</span> revents;    <span class="comment">/* returned events */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>select 和 poll 对比：</p>
+<ul>
+<li>select 会修改描述符，而 poll 不会</li>
+<li>select 的描述符类型使用数组实现，有描述符的限制；而 poll 使用<strong>链表</strong>实现，没有描述符数量的限制</li>
+<li>poll 提供了更多的事件类型，并且对描述符的重复利用上比 select 高</li>
+</ul>
+<ul>
+<li>select 和 poll 速度都比较慢，<strong>每次调用</strong>都需要将全部描述符数组 fd 从应用进程缓冲区复制到内核缓冲区，同时每次都需要在内核遍历传递进来的所有 fd ，这个开销在 fd 很多时会很大</li>
+<li>几乎所有的系统都支持 select，但是只有比较新的系统支持 poll</li>
+<li>select 和 poll 的时间复杂度 O(n)，对 socket 进行扫描时是线性扫描，即采用轮询的方法，效率较低，因为并不知道具体是哪个 socket 具有事件，所以随着 fd 数量的增加会造成遍历速度慢的<strong>线性下降</strong>性能问题</li>
+<li>poll 还有一个特点是水平触发，如果报告了 fd 后，没有被处理，那么下次 poll 时会再次报告该 fd</li>
+<li>如果一个线程对某个描述符调用了 select 或者 poll，另一个线程关闭了该描述符，会导致调用结果不确定</li>
+</ul>
+<p>参考文章：<a href="https://github.com/CyC2018/CS-Notes/blob/master/notes/Socket.md" target="_blank" rel="noopener">https://github.com/CyC2018/CS-Notes/blob/master/notes/Socket.md</a></p>
+<h4 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h4><h5 id="函数-1"><a href="#函数-1" class="headerlink" title="函数"></a>函数</h5><p>epoll 使用事件的就绪通知方式，通过 epoll_ctl() 向内核注册新的描述符或者是改变某个文件描述符的状态。已注册的描述符在内核中会被维护在一棵<strong>红黑树</strong>上，一旦该 fd 就绪，<strong>内核通过 callback 回调函数将 I/O 准备好的描述符加入到一个链表中</strong>管理，进程调用 epoll_wait() 便可以得到事件就绪的描述符</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_create</span><span class="params">(<span class="keyword">int</span> size)</span></span>;</span><br><span class="line">int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event)；</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_wait</span><span class="params">(<span class="keyword">int</span> epfd, struct epoll_event * events, <span class="keyword">int</span> maxevents, <span class="keyword">int</span> timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>epall_create：一个系统函数，函数将在内核空间内创建一个 epoll 数据结构，可以理解为 epoll 结构空间，返回值为 epoll 的文件描述符编号，以后有 client 连接时，向该 epoll 结构中添加监听，所以 epoll 使用一个文件描述符管理多个描述符</p>
+</li>
+<li><p>epall_ctl：epoll 的事件注册函数，select 函数是调用时指定需要监听的描述符和事件，epoll 先将用户感兴趣的描述符事件注册到 epoll 空间。此函数是非阻塞函数，用来增删改 epoll 空间内的描述符，参数解释：</p>
+<ul>
+<li><p>epfd：epoll 结构的进程 fd 编号，函数将依靠该编号找到对应的 epoll 结构</p>
+</li>
+<li><p>op：表示当前请求类型，有三个宏定义：</p>
+<ul>
+<li>EPOLL_CTL_ADD：注册新的 fd 到 epfd 中</li>
+<li>EPOLL_CTL_MOD：修改已经注册的 fd 的监听事件</li>
+<li>EPOLL_CTI_DEL：从 epfd 中删除一个 fd</li>
+</ul>
+</li>
+<li><p>fd：需要监听的文件描述符，一般指 socket_fd</p>
+</li>
+<li><p>event：告诉内核对该 fd 资源感兴趣的事件，epoll_event 的结构：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> &#123;</span></span><br><span class="line">    <span class="keyword">_uint32_t</span> events;	<span class="comment">/*epoll events*/</span></span><br><span class="line">    <span class="keyword">epoll_data_t</span> data;	<span class="comment">/*user data variable*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>events 可以是以下几个宏集合：EPOLLIN、EPOLOUT、EPOLLPRI、EPOLLERR、EPOLLHUP（挂断）、EPOLET（边缘触发）、EPOLLONESHOT（只监听一次，事件触发后自动清除该 fd，从 epoll 列表）</p>
+</li>
+</ul>
+</li>
+<li><p>epoll_wait：等待事件的产生，类似于 select() 调用，返回值为本次就绪的 fd 个数，直接从就绪链表获取，时间复杂度 O(1)</p>
+<ul>
+<li>epfd：<strong>指定感兴趣的 epoll 事件列表</strong></li>
+<li>events：指向一个 epoll_event 结构数组，当函数返回时，内核会把就绪状态的数据拷贝到该数组</li>
+<li>maxevents：标明 epoll_event 数组最多能接收的数据量，即本次操作最多能获取多少就绪数据</li>
+<li>timeout：单位为毫秒<ul>
+<li>0：表示立即返回，非阻塞调用</li>
+<li>-1：阻塞调用，直到有用户感兴趣的事件就绪为止</li>
+<li>大于 0：阻塞调用，阻塞指定时间内如果有事件就绪则提前返回，否则等待指定时间后返回</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>epoll 的描述符事件有两种触发模式：LT（level trigger）和 ET（edge trigger）：</p>
+<ul>
+<li>LT 模式：当 epoll_wait() 检测到描述符事件到达时，将此事件通知进程，进程可以不立即处理该事件，下次调用 epoll_wait() 会再次通知进程，是默认的一种模式，并且同时支持 Blocking 和 No-Blocking</li>
+<li>ET 模式：通知之后进程必须立即处理事件，下次再调用 epoll_wait() 时不会再得到事件到达的通知。减少了 epoll 事件被重复触发的次数，因此效率要比 LT 模式高；只支持 No-Blocking，以避免由于一个 fd 的阻塞读/阻塞写操作把处理多个文件描述符的任务饥饿</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建 epoll 描述符，每个应用程序只需要一个，用于监控所有套接字</span></span><br><span class="line"><span class="keyword">int</span> pollingfd = epoll_create(<span class="number">0xCAFE</span>);</span><br><span class="line"><span class="keyword">if</span> ( pollingfd &lt; <span class="number">0</span> )<span class="comment">// report error</span></span><br><span class="line"><span class="comment">// 初始化 epoll 结构</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> <span class="title">ev</span> = &#123;</span> <span class="number">0</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将连接类实例与事件相关联，可以关联任何想要的东西</span></span><br><span class="line">ev.data.ptr = pConnection1;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监视输入，并且在事件发生后不自动重新准备描述符</span></span><br><span class="line">ev.events = EPOLLIN | EPOLLONESHOT;</span><br><span class="line"><span class="comment">// 将描述符添加到监控列表中，即使另一个线程在epoll_wait中等待，描述符将被正确添加</span></span><br><span class="line"><span class="keyword">if</span> ( epoll_ctl( epollfd, EPOLL_CTL_ADD, pConnection1-&gt;getSocket(), &amp;ev) != <span class="number">0</span> )</span><br><span class="line">    <span class="comment">// report error</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 最多等待 20 个事件</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> <span class="title">pevents</span>[20];</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 等待10秒，检索20个并存入epoll_event数组</span></span><br><span class="line"><span class="keyword">int</span> ready = epoll_wait(pollingfd, pevents, <span class="number">20</span>, <span class="number">10000</span>);</span><br><span class="line"><span class="comment">// 检查epoll是否成功</span></span><br><span class="line"><span class="keyword">if</span> ( ret == <span class="number">-1</span>)<span class="comment">// report error and abort</span></span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> ( ret == <span class="number">0</span>)<span class="comment">// timeout; no event detected</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ready; i+ )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> ( pevents[i].events &amp; EPOLLIN )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 获取连接指针</span></span><br><span class="line">            Connection * c = (Connection*) pevents[i].data.ptr;</span><br><span class="line">            c-&gt;handleReadEvent();</span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>流程图：<a href="https://gitee.com/seazean/images/blob/master/Java/IO-epoll%E5%8E%9F%E7%90%86%E5%9B%BE.jpg" target="_blank" rel="noopener">https://gitee.com/seazean/images/blob/master/Java/IO-epoll%E5%8E%9F%E7%90%86%E5%9B%BE.jpg</a></p>
+<p>参考视频：<a href="https://www.bilibili.com/video/BV19D4y1o797" target="_blank" rel="noopener">https://www.bilibili.com/video/BV19D4y1o797</a></p>
+<h5 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h5><p>epoll 的特点：</p>
+<ul>
+<li><p>epoll 仅适用于 Linux 系统</p>
+</li>
+<li><p>epoll 使用<strong>一个文件描述符管理多个描述符</strong>，将用户关心的文件描述符的事件存放到内核的一个事件表（个人理解成哑元节点）</p>
+</li>
+<li><p>没有最大描述符数量（并发连接）的限制，打开 fd 的上限远大于1024（1G 内存能监听约 10 万个端口）</p>
+</li>
+<li><p>epoll 的时间复杂度 O(1)，epoll 理解为 event poll，不同于忙轮询和无差别轮询，调用 epoll_wait <strong>只是轮询就绪链表</strong>。当监听列表有设备就绪时调用回调函数，把就绪 fd 放入就绪链表中，并唤醒在 epoll_wait 中阻塞的进程，所以 epoll 实际上是<strong>事件驱动</strong>（每个事件关联上fd）的，降低了 system call 的时间复杂度</p>
+</li>
+<li><p>epoll 内核中根据每个 fd 上的 callback 函数来实现，只有活跃的 socket 才会主动调用 callback，所以使用 epoll 没有前面两者的线性下降的性能问题，效率提高</p>
+</li>
+<li><p>epoll 注册新的事件是注册到到内核中 epoll 句柄中，不需要每次调用 epoll_wait 时重复拷贝，对比前面两种只需要将描述符从进程缓冲区向内核缓冲区<strong>拷贝一次</strong>，也可以利用 <strong>mmap() 文件映射内存</strong>加速与内核空间的消息传递（只是可以用，并没有用）</p>
+</li>
+<li><p>前面两者要把 current 往设备等待队列中挂一次，epoll 也只把 current 往等待队列上挂一次，但是这里的等待队列并不是设备等待队列，只是一个 epoll 内部定义的等待队列，这样可以节省开销</p>
+</li>
+<li><p>epoll 对多线程编程更有友好，一个线程调用了 epoll_wait() 另一个线程关闭了同一个描述符，也不会产生像 select 和 poll 的不确定情况</p>
+</li>
+</ul>
+<p>参考文章：<a href="https://www.jianshu.com/p/dfd940e7fca2" target="_blank" rel="noopener">https://www.jianshu.com/p/dfd940e7fca2</a></p>
+<p>参考文章：<a href="https://www.cnblogs.com/anker/p/3265058.html" target="_blank" rel="noopener">https://www.cnblogs.com/anker/p/3265058.html</a></p>
+<h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><p>应用场景： </p>
+<ul>
+<li><p>select 应用场景：</p>
+<ul>
+<li>select 的 timeout 参数精度为微秒，poll 和 epoll 为毫秒，因此 select 适用<strong>实时性要求比较高</strong>的场景，比如核反应堆的控制</li>
+<li>select 可移植性更好，几乎被所有主流平台所支持</li>
+</ul>
+</li>
+<li><p>poll 应用场景：poll 没有最大描述符数量的限制，适用于平台支持并且对实时性要求不高的情况</p>
+</li>
+<li><p>epoll 应用场景：</p>
+<ul>
+<li>运行在 Linux 平台上，有大量的描述符需要同时轮询，并且这些连接最好是<strong>长连接</strong></li>
+<li>需要同时监控小于 1000 个描述符，没必要使用 epoll，因为这个应用场景下并不能体现 epoll 的优势</li>
+<li>需要监控的描述符状态变化多，而且是非常短暂的，就没有必要使用 epoll。因为 epoll 中的所有描述符都存储在内核中，每次对描述符的状态改变都需要通过 epoll_ctl() 进行系统调用，频繁系统调用降低效率，并且 epoll 的描述符存储在内核，不容易调试</li>
+</ul>
+</li>
+</ul>
+<p>参考文章：<a href="https://github.com/CyC2018/CS-Notes/blob/master/notes/Socket.md" target="_blank" rel="noopener">https://github.com/CyC2018/CS-Notes/blob/master/notes/Socket.md</a></p>
+<h3 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h3><h4 id="内核态"><a href="#内核态" class="headerlink" title="内核态"></a>内核态</h4><p>用户空间：用户代码、用户堆栈</p>
+<p>内核空间：内核代码、内核调度程序、进程描述符（内核堆栈、thread_info 进程描述符）</p>
+<ul>
+<li>进程描述符和用户的进程是一一对应的</li>
+<li>SYS_API 系统调用：如 read、write，系统调用就是 0X80 中断</li>
+<li>进程描述符 pd：进程从用户态切换到内核态时，需要<strong>保存用户态时的上下文信息在 PCB 中</strong></li>
+<li>线程上下文：用户程序基地址，程序计数器、cpu cache、寄存器等，方便程序切回用户态时恢复现场</li>
+<li>内核堆栈：<strong>系统调用函数也是要创建变量的，</strong>这些变量在内核堆栈上分配</li>
+</ul>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/IO-%E7%94%A8%E6%88%B7%E6%80%81%E5%92%8C%E5%86%85%E6%A0%B8%E6%80%81.png" alt></p>
+<h4 id="80中断"><a href="#80中断" class="headerlink" title="80中断"></a>80中断</h4><p>在用户程序中调用操作系统提供的核心态级别的子功能，为了系统安全需要进行用户态和内核态转换，状态的转换需要进行 CPU 中断，中断分为硬中断和软中断：</p>
+<ul>
+<li>硬中断：如网络传输中，数据到达网卡后，网卡经过一系列操作后发起硬件中断</li>
+<li>软中断：如程序运行过程中本身产生的一些中断<ul>
+<li>发起 <code>0X80</code> 中断</li>
+<li>程序执行碰到除 0 异常</li>
+</ul>
+</li>
+</ul>
+<p>系统调用 system_call 函数所对应的中断指令编号是 0X80（十进制是 8×16=128），而该指令编号对应的就是系统调用程序的入口，所以称系统调用为 80 中断</p>
+<p>系统调用的流程：</p>
+<ul>
+<li>在 CPU 寄存器里存一个系统调用号，表示哪个系统函数，比如 read</li>
+<li>将 CPU 的临时数据都保存到 thread_info 中</li>
+<li>执行 80 中断处理程序，找到刚刚存的系统调用号（read），先检查缓存中有没有对应的数据，没有就去磁盘中加载到内核缓冲区，然后从内核缓冲区拷贝到用户空间</li>
+<li>最后恢复到用户态，通过 thread_info 恢复现场，用户态继续执行</li>
+</ul>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/IO-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E7%9A%84%E8%BF%87%E7%A8%8B.jpg" alt></p>
+<p>参考视频：<a href="https://www.bilibili.com/video/BV19D4y1o797" target="_blank" rel="noopener">https://www.bilibili.com/video/BV19D4y1o797</a></p>
+<h3 id="零拷贝"><a href="#零拷贝" class="headerlink" title="零拷贝"></a>零拷贝</h3><h4 id="DMA"><a href="#DMA" class="headerlink" title="DMA"></a>DMA</h4><p>DMA (Direct Memory Access) ：直接存储器访问，让外部设备不通过 CPU 直接与系统内存交换数据的接口技术</p>
+<p>作用：可以解决批量数据的输入/输出问题，使数据的传送速度取决于存储器和外设的工作速度</p>
+<p>把内存数据传输到网卡然后发送：</p>
+<ul>
+<li>没有 DMA：CPU 读内存数据到 CPU 高速缓存，再写到网卡，这样就把 CPU 的速度拉低到和网卡一个速度</li>
+<li>使用 DMA：把数据读到 Socket 内核缓存区（CPU 复制），CPU 分配给 DMA 开始<strong>异步</strong>操作，DMA 读取 Socket 缓冲区到 DMA 缓冲区，然后写到网卡。DMA 执行完后<strong>中断</strong>（就是通知） CPU，这时 Socket 内核缓冲区为空，CPU 从用户态切换到内核态，执行中断处理程序，将需要使用 Socket 缓冲区的阻塞进程移到就绪队列</li>
+</ul>
+<p>一个完整的 DMA 传输过程必须经历 DMA 请求、DMA 响应、DMA 传输、DMA 结束四个步骤：</p>
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/IO-DMA.png" style="zoom: 50%;">
+
+<p>DMA 方式是一种完全由硬件进行信息传送的控制方式，通常系统总线由 CPU 管理，在 DMA 方式中，CPU 的主存控制信号被禁止使用，CPU 把总线（地址总线、数据总线、控制总线）让出来由 DMA 控制器接管，用来控制传送的字节数、判断 DMA 是否结束、以及发出 DMA 结束信号，所以 DMA 控制器必须有以下功能：</p>
+<ul>
+<li>接受外设发出的 DMA 请求，并向 CPU 发出总线接管请求</li>
+<li>当 CPU 发出允许接管信号后，进入 DMA 操作周期</li>
+<li>确定传送数据的主存单元地址及长度，并自动修改主存地址计数和传送长度计数</li>
+<li>规定数据在主存和外设间的传送方向，发出读写等控制信号，执行数据传送操作</li>
+<li>判断 DMA 传送是否结束，发出 DMA 结束信号，使 CPU 恢复正常工作状态（中断）</li>
+</ul>
+<h4 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h4><p>传统的 I/O 操作进行了 4 次用户空间与内核空间的上下文切换，以及 4 次数据拷贝：</p>
+<ul>
+<li>JVM 发出 read 系统调用，OS 上下文切换到内核模式（切换 1）并将数据从网卡或硬盘等设备通过 DMA 读取到内核空间缓冲区（拷贝 1），内核缓冲区实际上是<strong>磁盘高速缓存（PageCache）</strong></li>
+<li>OS 内核将数据复制到用户空间缓冲区（拷贝 2），然后 read 系统调用返回，又会导致一次内核空间到用户空间的上下文切换（切换 2）</li>
+<li>JVM 处理代码逻辑并发送 write() 系统调用，OS 上下文切换到内核模式（切换3）并从用户空间缓冲区复制数据到内核空间缓冲区（拷贝3）</li>
+<li>将内核空间缓冲区中的数据写到 hardware（拷贝4），write 系统调用返回，导致内核空间到用户空间的再次上下文切换（切换4）</li>
+</ul>
+<p>流程图中的箭头反过来也成立，可以从网卡获取数据</p>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/IO-BIO%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png" alt></p>
+<p>read 调用图示：read、write 都是系统调用指令</p>
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/IO-缓冲区读写.png" style="zoom: 67%;">
+
+
+<h4 id="mmap"><a href="#mmap" class="headerlink" title="mmap"></a>mmap</h4><p>mmap（Memory Mapped Files）内存映射加 write 实现零拷贝，<strong>零拷贝就是没有数据从内核空间复制到用户空间</strong></p>
+<p>用户空间和内核空间都使用内存，所以可以共享同一块物理内存地址，省去用户态和内核态之间的拷贝。写网卡时，共享空间的内容拷贝到 Socket 缓冲区，然后交给 DMA 发送到网卡，只需要 3 次复制</p>
+<p>进行了 4 次用户空间与内核空间的上下文切换，以及 3 次数据拷贝（2 次 DMA，一次 CPU 复制）：</p>
+<ul>
+<li>发出 mmap 系统调用，DMA 拷贝到内核缓冲区，映射到共享缓冲区；mmap 系统调用返回，无需拷贝</li>
+<li>发出 write 系统调用，将数据从内核缓冲区拷贝到内核 Socket 缓冲区；write 系统调用返回，DMA 将内核空间 Socket 缓冲区中的数据传递到协议引擎</li>
+</ul>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/IO-mmap%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png" alt></p>
+<p>原理：利用操作系统的 Page 来实现文件到物理内存的直接映射，完成映射后对物理内存的操作会<strong>被同步</strong>到硬盘上</p>
+<p>缺点：不可靠，写到 mmap 中的数据并没有被真正的写到硬盘，操作系统会在程序主动调用 flush 的时候才把数据真正的写到硬盘</p>
+<p>Java NIO 提供了 <strong>MappedByteBuffer</strong> 类可以用来实现 mmap 内存映射，MappedByteBuffer 类对象<strong>只能通过调用 <code>FileChannel.map()</code> 获取</strong></p>
+<h4 id="sendfile"><a href="#sendfile" class="headerlink" title="sendfile"></a>sendfile</h4><p>sendfile 实现零拷贝，打开文件的文件描述符 fd 和 socket 的 fd 传递给 sendfile，然后经过 3 次复制和 2 次用户态和内核态的切换</p>
+<p>原理：数据根本不经过用户态，直接从内核缓冲区进入到 Socket Buffer，由于和用户态完全无关，就减少了两次上下文切换</p>
+<p>说明：零拷贝技术是不允许进程对文件内容作进一步的加工的，比如压缩数据再发送</p>
+<p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/IO-sendfile%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png" alt></p>
+<p>sendfile2.4 之后，sendfile 实现了更简单的方式，文件到达内核缓冲区后，不必再将数据全部复制到 socket buffer 缓冲区，而是只<strong>将记录数据位置和长度相关等描述符信息</strong>保存到 socket buffer，DMA 根据 Socket 缓冲区中描述符提供的位置和偏移量信息直接将内核空间缓冲区中的数据拷贝到协议引擎上（2 次复制 2 次切换）</p>
+<p>Java NIO 对 sendfile 的支持是 <code>FileChannel.transferTo()/transferFrom()</code>，把磁盘文件读取 OS 内核缓冲区后的 fileChannel，直接转给 socketChannel 发送，底层就是 sendfile</p>
+<p>参考文章：<a href="https://blog.csdn.net/hancoder/article/details/112149121" target="_blank" rel="noopener">https://blog.csdn.net/hancoder/article/details/112149121</a></p>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2023/06/26/IO-传统BIO下网络编程/">IO模型-基于BIO的Java网络编程</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-06-26</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/IO/">IO</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/IO/">IO</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h3 id="InetAddress"><a href="#InetAddress" class="headerlink" title="InetAddress"></a>InetAddress</h3><p>一个 InetAddress 类的对象就代表一个 IP 地址对象</p>
 <p>成员方法：</p>
 <ul>
 <li><code>static InetAddress getLocalHost()</code>：获得本地主机 IP 地址对象</li>
@@ -778,34 +1045,6 @@
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 1、获取通道</span></span><br><span class="line">        SocketChannel socketChannel = SocketChannel.open(<span class="keyword">new</span> InetSocketAddress(<span class="string">"127.0.0.1"</span>, <span class="number">9999</span>));</span><br><span class="line">        <span class="comment">// 2、切换成非阻塞模式</span></span><br><span class="line">        socketChannel.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line">        <span class="comment">// 3、分配指定缓冲区大小</span></span><br><span class="line">        ByteBuffer buffer = ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line">        <span class="comment">// 4、发送数据给服务端</span></span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">            System.out.print(<span class="string">"请说："</span>);</span><br><span class="line">            String msg = sc.nextLine();</span><br><span class="line">            buffer.put((<span class="string">"Client："</span> + msg).getBytes());</span><br><span class="line">            buffer.flip();</span><br><span class="line">            socketChannel.write(buffer);</span><br><span class="line">            buffer.clear();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2023/06/25/IO-同步异步阻塞非阻塞/">IO模型-同步异步、阻塞非阻塞</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-06-25</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/IO/">IO</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/IO/">IO</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="同步和异步"><a href="#同步和异步" class="headerlink" title="同步和异步"></a>同步和异步</h2><p>同步和异步描述的是消息通信的机制。</p>
-<h3 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h3><p>当一个request发送出去以后，会得到一个response，这整个过程就是一个同步调用的过程。哪怕response为空，或者response的返回特别快，但是针对这一次请求而言就是一个同步的调用。</p>
-<h3 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h3><p>当一个request发送出去以后，没有得到想要的response，而是通过后面的callback、状态或者通知的方式获得结果。</p>
-<p>可以这么理解，对于异步请求分两步：</p>
-<ul>
-<li><p>a. 调用方发送request没有返回对应的response（可能是一个空的response）</p>
-</li>
-<li><p>b. 服务提供方将response处理完成以后通过callback的方式通知调用方。</p>
-</li>
-</ul>
-<p>对于a而言是同步操作（调用方请求服务方），对于b而言也是同步操作（服务方回掉调用方）。从请求的目的（调用方发送一个request，希望获得对应的response）来看，这两个步骤拆分开来没有任何意义，需要结合起来看，而这整个过程就是一次异步请求。异步请求有一个最典型的特点：<strong>需要callback、状态或者通知的方式</strong>来告知调用方结果。</p>
-<h2 id="阻塞和非阻塞"><a href="#阻塞和非阻塞" class="headerlink" title="阻塞和非阻塞"></a>阻塞和非阻塞</h2><p>阻塞和非阻塞描述的是程序在等待调用结果（消息，返回值）时的状态。</p>
-<h3 id="阻塞"><a href="#阻塞" class="headerlink" title="阻塞"></a>阻塞</h3><p>阻塞调用是指调用方发出request的线程因为某种原因（如：等待系统资源）被服务方挂起，当服务方得到response后就唤醒挂起线程，并将response返回给调用方。</p>
-<h3 id="非阻塞"><a href="#非阻塞" class="headerlink" title="非阻塞"></a>非阻塞</h3><p>非阻塞调用是指调用方发出request的线程在没有等到结果时不会被挂起，直到得到response后才返回。</p>
-<p>阻塞和非阻塞最大的区别就是看调用方线程是否会被挂起。</p>
-<h2 id="图示"><a href="#图示" class="headerlink" title="图示"></a>图示</h2><p><img src="https://i.imgloc.com/2023/06/25/VIvk5U.png" alt="同步阻塞"><br><img src="https://i.imgloc.com/2023/06/25/VIvWrp.png" alt="异步阻塞"><br><img src="https://i.imgloc.com/2023/06/25/VIvCZv.png" alt="同步非阻塞"><br><img src="https://i.imgloc.com/2023/06/25/VIvlO3.png" alt="异步非阻塞"></p>
-<h2 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h2><blockquote>
-<p>出场人物：老张，水壶两把（普通水壶，简称水壶；会响的水壶，简称响水壶）。</p>
-</blockquote>
-<ol>
-<li>老张把水壶放到火上，立等水开。（同步阻塞）<br>老张觉得自己有点傻</li>
-<li>老张把水壶放到火上，去客厅看电视，时不时去厨房看看水开没有。（同步非阻塞）<br>老张还是觉得自己有点傻，于是变高端了，买了把会响笛的那种水壶。水开之后，能大声发出嘀<del>~</del>的噪音。</li>
-<li>老张把响水壶放到火上，立等水开。（异步阻塞）<br>老张觉得这样傻等意义不大</li>
-<li>老张把响水壶放到火上，去客厅看电视，水壶响之前不再去看它了，响了再去拿壶。（异步非阻塞）<br>老张觉得自己聪明了</li>
-</ol>
-<p><strong>所谓同步异步，只是对于水壶而言。</strong><br>普通水壶，同步；响水壶，异步。<br>虽然都能干活，但响水壶可以在自己完工之后，提示老张水开了。这是普通水壶所不能及的。<br>同步只能让调用者去轮询自己（情况2中），造成老张效率的低下。</p>
-<p><strong>所谓阻塞非阻塞，仅仅对于老张而言。</strong><br>立等的老张，阻塞；看电视的老张，非阻塞。</p>
-<p>情况1和情况3中老张就是阻塞的，媳妇喊他都不知道。虽然3中响水壶是异步的，可对于立等的老张没有太大的意义。所以一般异步是配合非阻塞使用的，这样才能发挥异步的效用。</p>
 </div><hr></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-chevron-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2015 - 2023 By GeYu</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Enjoy the cyber world!</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')

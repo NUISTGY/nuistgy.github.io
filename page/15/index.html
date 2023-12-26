@@ -7,7 +7,199 @@
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">227</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">83</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">46</span></a></div></div></div><nav id="nav" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2023/05/04/JUC-线程池技术/">JUC-线程池技术</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-05-04</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JUC/">JUC</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/并发编程/">并发编程</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JUC/">JUC</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="基本概述"><a href="#基本概述" class="headerlink" title="基本概述"></a>基本概述</h2><p><strong>线程池</strong>：一个容纳多个线程的容器，容器中的线程可以重复使用，省去了频繁创建和销毁线程对象的操作</p>
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://images5.alphacoders.com/423/423529.jpg"></div><div class="author-info__name text-center">GeYu</div><div class="author-info__description text-center">Do what you want to do !</div><div class="follow-button"><a href="https://github.com/NUISTGY">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">228</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">83</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">46</span></a></div></div></div><nav id="nav" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Yu's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">Yu's Blog</div><div id="site-sub-title">Do not go gentle into that good night ~</div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2023/05/05/MySQL-InnoDB-基本架构/">MySQL-InnoDB基本架构</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-05-05</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/MySQL/">MySQL</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/数据库/">数据库</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/MySQL/">MySQL</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="引擎逻辑存储结构"><a href="#引擎逻辑存储结构" class="headerlink" title="引擎逻辑存储结构"></a>引擎逻辑存储结构</h2><p>InnoDB的逻辑存储结构如下图所示:</p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.37t9zxcw8mo0.webp" alt="image"></p>
+<ol>
+<li><strong>表空间</strong></li>
+</ol>
+<p>表空间是InnoDB存储引擎逻辑结构的最高层， 如果用户启用了参数 innodb_file_per_table(在8.0版本中默认开启) ，则每张表都会有一个表空间（xxx.ibd），一个mysql实例可以对应多个表空间，用于存储记录、索引等数据。</p>
+<ol start="2">
+<li><strong>段</strong></li>
+</ol>
+<p>段，分为数据段（Leaf node segment）、索引段（Non-leaf node segment）、回滚段（Rollback segment），InnoDB是索引组织表，数据段就是B+树的叶子节点， 索引段即为B+树的非叶子节点。段用来管理多个Extent（区）。</p>
+<ol start="3">
+<li><strong>区</strong></li>
+</ol>
+<p>区，表空间的单元结构，每个区的大小为1M。 默认情况下， InnoDB存储引擎页大小为16K， 即一个区中一共有64个连续的页。</p>
+<ol start="4">
+<li><strong>页</strong></li>
+</ol>
+<p>页，是InnoDB 存储引擎磁盘管理的最小单元，每个页的大小默认为 16KB。为了保证页的连续性，InnoDB 存储引擎每次从磁盘申请 4-5 个区。</p>
+<ol start="5">
+<li><strong>行</strong></li>
+</ol>
+<p>行，InnoDB 存储引擎数据是按行进行存放的。</p>
+<p><strong>在行中，默认有两个隐藏字段：</strong></p>
+<ul>
+<li>Trx_id：每次对某条记录进行改动时，都会把对应的事务id赋值给trx_id隐藏列。</li>
+<li>Roll_pointer：每次对某条引记录进行改动时，都会把旧的版本写入到undo日志中，然后这个隐藏列就相当于一个指针，可以通过它来找到该记录修改前的信息。</li>
+</ul>
+<h2 id="引擎架构"><a href="#引擎架构" class="headerlink" title="引擎架构"></a>引擎架构</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>MySQL5.5 版本开始，默认使用InnoDB存储引擎，它擅长事务处理，具有崩溃恢复特性，在日常开发中使用非常广泛。下面是InnoDB架构图，左侧为内存结构，右侧为磁盘结构。</p>
+<p> <img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.2vd2i61zexs0.webp" alt="image"></p>
+<h3 id="内存架构"><a href="#内存架构" class="headerlink" title="内存架构"></a>内存架构</h3><p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.34rhni2wc0g0.webp" alt="image"></p>
+<p>在左侧的内存结构中，主要分为这么四大块儿： Buffer Pool、Change Buffer、Adaptive Hash Index、Log Buffer。  下来介绍一下这四个部分。</p>
+<ol>
+<li>Buffer Pool</li>
+</ol>
+<p><strong>Buffer Pool基本概念</strong></p>
+<p>Buffer Pool：缓冲池，简称BP。其作用是用来缓存表数据与索引数据，减少磁盘IO操作，提升效率。</p>
+<p>Buffer Pool由<strong>缓存数据页(Page)</strong> 和 对缓存数据页进行描述的<strong>控制块</strong> 组成, 控制块中存储着对应缓存页的所属的    表空间、数据页的编号、以及对应缓存页在Buffer Pool中的地址等信息.</p>
+<p>Buffer Pool默认大小是128M, 以Page页为单位，Page页默认大小16K，而控制块的大小约为数据页的5%，大    概是800字节。</p>
+<p><img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/16657/1607287731925286912/5b04714e186c412f89efeb7047c34ef2.png" alt="image.png"></p>
+<blockquote>
+<p>注: Buffer Pool大小为128M指的就是缓存页的大小，控制块则一般占5%，所以每次会多申请6M的内存空间用于存放控制块</p>
+</blockquote>
+<p><strong>如何判断一个页是否在BufferPool中缓存 ?</strong></p>
+<p>MySQl中有一个哈希表数据结构，它使用表空间号+数据页号，作为一个key，然后缓冲页对应的控制块作为value。</p>
+<p><img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/16657/1607287731925286912/79f20665ae0845d08adfbca28d78392c.png" alt="image.png"></p>
+<ul>
+<li><strong>当需要访问某个页的数据时，先从哈希表中根据表空间号+页号看看是否存在对应的缓冲页。</strong></li>
+<li><strong>如果有，则直接使用；如果没有，就从free链表中选出一个空闲的缓冲页，然后把磁盘中对应的页加载到该缓冲页的位置</strong></li>
+</ul>
+<p>InnoDB存储引擎基于磁盘文件存储，访问物理硬盘和在内存中进行访问，速度相差很大，为了尽可能弥补这两者之间的I/O效率的差值，就需要把经常使用的数据加载到缓冲池中，避免每次访问都进行磁盘I/O。</p>
+<p>在InnoDB的缓冲池中不仅缓存了索引页和数据页，还包含了undo页、插入缓存、自适应哈希索引以及InnoDB的锁信息等等。</p>
+<p>缓冲池 Buffer Pool，是主内存中的一个区域，里面可以缓存磁盘上经常操作的真实数据，在执行增<br>删改查操作时，先操作缓冲池中的数据（若缓冲池没有数据，则从磁盘加载并缓存），然后再以一定频<br>率刷新到磁盘，从而减少磁盘IO，加快处理速度。</p>
+<p>缓冲池以Page页为单位，底层采用链表数据结构管理Page。根据状态，将Page分为三种类型：</p>
+<ul>
+<li>free page：空闲page，未被使用。</li>
+<li>clean page：被使用page，数据没有被修改过。</li>
+<li>dirty page：脏页，被使用page，数据被修改过，也中数据与磁盘的数据产生了不一致。</li>
+</ul>
+<p>在专用服务器上，通常将多达80％的物理内存分配给缓冲池 。参数设置： show variables like ‘innodb_buffer_pool_size’;</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like <span class="string">'innodb_buffer_pool_size'</span>;</span><br><span class="line">+-------------------------+-----------+</span><br><span class="line">| Variable_name           | Value     |</span><br><span class="line">+-------------------------+-----------+</span><br><span class="line">| innodb_buffer_pool_size | 134217728 |</span><br><span class="line">+-------------------------+-----------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Change Buffer</li>
+</ol>
+<p>Change Buffer，更改缓冲区（针对于非唯一二级索引页），在执行DML语句时，如果这些数据Page没有在Buffer Pool中，不会直接操作磁盘，而会将数据变更存在更改缓冲区 Change Buffer中，在未来数据被读取时，再将数据合并恢复到Buffer Pool中，再将合并后的数据刷新到磁盘中。</p>
+<p>Change Buffer的意义是什么呢?</p>
+<p>先来看一幅图，这个是二级索引的结构图：</p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.uxn6zhbyoz4.webp" alt="image"></p>
+<p>与聚集索引不同，二级索引通常是非唯一的，并且以相对随机的顺序插入二级索引。同样，删除和更新可能会影响索引树中不相邻的二级索引页，如果每一次都操作磁盘，会造成大量的磁盘IO。有了ChangeBuffer之后，我们可以在缓冲池中进行合并处理，减少磁盘IO。</p>
+<ol start="3">
+<li>Adaptive Hash Index</li>
+</ol>
+<p>自适应hash索引，用于优化对Buffer Pool数据的查询。MySQL的innoDB引擎中虽然没有直接支持hash索引，但是给我们提供了一个功能就是这个自适应hash索引。因为前面我们讲到过，hash索引在进行等值匹配时，一般性能是要高于B+树的，因为hash索引一般只需要一次IO即可，而B+树，可能需要几次匹配，所以hash索引的效率要高，但是hash索引又不适合做范围查询、模糊匹配等。</p>
+<p>InnoDB存储引擎会监控对表上各索引页的查询，如果观察到在特定的条件下hash索引可以提升速度，则建立hash索引，称之为自适应hash索引。</p>
+<p><strong>自适应哈希索引，无需人工干预，是系统根据情况自动完成</strong>。</p>
+<p>参数： <code>adaptive_hash_index</code></p>
+<ol start="4">
+<li>Log Buffer</li>
+</ol>
+<p>Log Buffer：日志缓冲区，用来保存要写入到磁盘中的log日志数据（<strong>redo log 、undo log</strong>），默认大小为 16MB，日志缓冲区的日志会定期刷新到磁盘中。如果需要更新、插入或删除许多行的事务，增加日志缓冲区的大小可以节省磁盘 I/O。</p>
+<p>参数:</p>
+<p><code>innodb_log_buffer_size</code>：缓冲区大小</p>
+<p><code>innodb_flush_log_at_trx_commit</code>：日志刷新到磁盘时机，取值主要包含以下三个：</p>
+<p>​    <code>1</code>:日志在每次事务提交时写入并刷新到磁盘，默认值。</p>
+<p>​    <code>0</code>:每秒将日志写入并刷新到磁盘一次。</p>
+<p>​    <code>2</code>:日志在每次事务提交后写入，并每秒刷新到磁盘一次。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like <span class="string">'innodb_flush_log_at_trx_commit'</span>;</span><br><span class="line">+--------------------------------+-------+</span><br><span class="line">| Variable_name                  | Value |</span><br><span class="line">+--------------------------------+-------+</span><br><span class="line">| innodb_flush_log_at_trx_commit | 1     |</span><br><span class="line">+--------------------------------+-------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="磁盘结构"><a href="#磁盘结构" class="headerlink" title="磁盘结构"></a>磁盘结构</h3><p>接下来，再来看看InnoDB体系结构的右边部分，也就是磁盘结构：</p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.4217fmn26w60.webp" alt="image"></p>
+<ol>
+<li><code>System Tablespace</code></li>
+</ol>
+<p>系统表空间是更改缓冲区的存储区域。如果表是在系统表空间而不是每个表文件或通用表空间中创建的，它也可能包含表和索引数据。(在MySQL5.x版本中还包含InnoDB数据字典、undolog等)</p>
+<p>参数：innodb_data_file_path</p>
+<figure class="highlight sh"><figcaption><span>&#123;5&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like <span class="string">'innodb_data_file_path'</span>;</span><br><span class="line">+-----------------------+------------------------+</span><br><span class="line">| Variable_name         | Value                  |</span><br><span class="line">+-----------------------+------------------------+</span><br><span class="line">| innodb_data_file_path | ibdata1:12M:autoextend |</span><br><span class="line">+-----------------------+------------------------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>系统表空间，默认的文件名叫 ibdata1。</p>
+<ol start="2">
+<li>File-Per-Table Tablespaces</li>
+</ol>
+<p>如果开启了innodb_file_per_table开关 ，则每个表的文件表空间包含单个InnoDB表的数据和索引 ，并存储在文件系统上的单个数据文件中。</p>
+<p>开关参数：<code>innodb_file_per_table</code>，该参数默认开启。</p>
+<figure class="highlight sh"><figcaption><span>&#123;5&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like <span class="string">'innodb_file_per_table'</span>;</span><br><span class="line">+-----------------------+-------+</span><br><span class="line">| Variable_name         | Value |</span><br><span class="line">+-----------------------+-------+</span><br><span class="line">| innodb_file_per_table | ON    |</span><br><span class="line">+-----------------------+-------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>那也就是说，我们每创建一个表，都会产生一个表空间文件，如图：</p>
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.skv7c34jaxc.webp" alt="image"></p>
+<ol start="3">
+<li>General Tablespaces</li>
+</ol>
+<p>通用表空间，需要通过 CREATE TABLESPACE 语法创建通用表空间，在创建表时，可以指定该表空间。</p>
+<p>A. 创建表空间</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLESPACE</span> ts_name <span class="keyword">ADD</span> <span class="keyword">DATAFILE</span> <span class="string">'file_name'</span> <span class="keyword">ENGINE</span> = engine_name;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE TABLESPACE ts_itheima ADD DATAFILE 'myitheima.ibd' ENGINE = innodb;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>B. 创建表时指定表空间</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> xxx ... <span class="keyword">TABLESPACE</span> ts_name;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create table a(id int primary key auto_increment,name varchar(10)) engine=innodb tablespace ts_itheima;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>Undo Tablespaces</li>
+</ol>
+<p>撤销表空间，MySQL实例在初始化时会自动创建两个默认的undo表空间（初始大小16M），用于存储 undo log日志。</p>
+<ol start="5">
+<li>Temporary Tablespaces</li>
+</ol>
+<p>InnoDB 使用会话临时表空间和全局临时表空间。存储用户创建的临时表等数据。</p>
+<ol start="6">
+<li>Doublewrite Buffer Files</li>
+</ol>
+<p>双写缓冲区，innoDB引擎将数据页从Buffer Pool刷新到磁盘前，先将数据页写入双写缓冲区文件中，便于系统异常时恢复数据。</p>
+<ol start="7">
+<li>Redo Log</li>
+</ol>
+<p>重做日志，是用来实现事务的持久性。该日志文件由两部分组成：重做日志缓冲（redo log buffer）以及重做日志文件（redo log）,前者是在内存中，后者在磁盘中。当事务提交之后会把所有修改信息都会存到该日志中, 用于在刷新脏页到磁盘时,发生错误时, 进行数据恢复使用。</p>
+<p>以循环方式写入重做日志文件，涉及两个文件：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-rw-r-----. 1 mysql mysql  50331648 10月  2 22:52 ib_logfile0</span><br><span class="line">-rw-r-----. 1 mysql mysql  50331648 10月  2 22:52 ib_logfile1</span><br></pre></td></tr></table></figure>
+
+<p>前面介绍了InnoDB的内存结构，以及磁盘结构，那么内存中所更新的数据，又是如何到磁盘中的呢？ 此时，就涉及到一组后台线程，接下来，就来介绍一些InnoDB中涉及到的后台线程。</p>
+<h3 id="后台线程"><a href="#后台线程" class="headerlink" title="后台线程"></a>后台线程</h3><p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.2cliaf6k2q80.webp" alt="image"></p>
+<p>在InnoDB的后台线程中，分为4类，分别是：Master Thread 、IO Thread、Purge Thread、Page Cleaner Thread。</p>
+<ol>
+<li><strong>Master Thread</strong></li>
+</ol>
+<p>核心后台线程，负责调度其他线程，还负责将缓冲池中的数据异步刷新到磁盘中, 保持数据的一致性，还包括脏页的刷新、合并插入缓存、undo页的回收 。</p>
+<ol start="2">
+<li><strong>IO Thread</strong></li>
+</ol>
+<p>在InnoDB存储引擎中大量使用了AIO来处理IO请求, 这样可以极大地提高数据库的性能，而IOThread主要负责这些IO请求的回调。</p>
+<table>
+<thead>
+<tr>
+<th>线程类型</th>
+<th>默认个数</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Read thread</td>
+<td>4</td>
+<td>负责读操作</td>
+</tr>
+<tr>
+<td>Write thread</td>
+<td>4</td>
+<td>负责写操作</td>
+</tr>
+<tr>
+<td>Log thread</td>
+<td>1</td>
+<td>负责将日志缓冲区刷新到磁盘</td>
+</tr>
+<tr>
+<td>Insert buffer thread</td>
+<td>1</td>
+<td>负责将写缓冲区内容刷新到磁盘</td>
+</tr>
+</tbody></table>
+<p>我们可以通过以下的这条指令，查看到InnoDB的状态信息，其中就包含IO Thread信息。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show engine innodb status;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.17ohijy1s8e8.webp" alt="image"></p>
+<ol start="3">
+<li><strong>Purge Thread</strong></li>
+</ol>
+<p>主要用于回收事务已经提交了的undo log，在事务提交之后，undo log可能不用了，就用它来回收。</p>
+<ol start="4">
+<li><strong>Page Cleaner Thread</strong></li>
+</ol>
+<p>协助 Master Thread 刷新脏页到磁盘的线程，它可以减轻 Master Thread 的工作压力，减少阻塞。</p>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2023/05/04/JUC-线程池技术/">JUC-线程池技术</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-05-04</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JUC/">JUC</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/并发编程/">并发编程</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JUC/">JUC</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h2 id="基本概述"><a href="#基本概述" class="headerlink" title="基本概述"></a>基本概述</h2><p><strong>线程池</strong>：一个容纳多个线程的容器，容器中的线程可以重复使用，省去了频繁创建和销毁线程对象的操作</p>
 <p><strong>线程池作用</strong>：</p>
 <ol>
 <li>降低资源消耗，减少了创建和销毁线程的次数，每个工作线程都可以被重复利用，可执行多个任务</li>
@@ -311,359 +503,6 @@
 <blockquote>
 <p>详细内容参考：<a href="https://zhuanlan.zhihu.com/p/56772793" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/56772793</a></p>
 </blockquote>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2023/04/25/MySQL-锁/">MySQL锁</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-04-25</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/MySQL/">MySQL</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/数据库/">数据库</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/MySQL/">MySQL</a></span><div class="content"><script src="/assets/js/APlayer.min.js"> </script><h1 id="MySQL-锁"><a href="#MySQL-锁" class="headerlink" title="MySQL 锁"></a>MySQL 锁</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
-<li><strong>锁概述</strong></li>
-</ul>
-<p>锁是计算机协调多个进程或线程并发访问某一资源的机制（避免争抢）。</p>
-<p>在数据库中，除传统的计算资源（如 CPU、RAM、I/O 等）的争用以外，数据也是一种供许多用户共享的资源。如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。从这个角度来说，锁对数据库而言显得尤其重要，也更加复杂。</p>
-<ul>
-<li><strong>锁分类：</strong></li>
-</ul>
-<p>从对数据操作的粒度分 ：  </p>
-<p>1） 全局锁：锁定数据库中的所有表。</p>
-<p>2） 表锁：操作时，会锁定整个表。</p>
-<p>3） 行锁：操作时，会锁定当前操作行。</p>
-<p>从对数据操作的类型分：</p>
-<p>1） 读锁（共享锁）：针对同一份数据，多个读操作可以同时进行而不会互相影响。</p>
-<p>2） 写锁（排它锁）：当前操作没有完成之前，它会阻断其他写锁和读锁。</p>
-<ul>
-<li><strong>Mysql 锁</strong></li>
-</ul>
-<p>相对其他数据库而言，MySQL的锁机制比较简单，其最显著的特点是不同的存储引擎支持不同的锁机制。</p>
-<p>下表中罗列出了各存储引擎对锁的支持情况：</p>
-<table>
-<thead>
-<tr>
-<th>存储引擎</th>
-<th>表级锁</th>
-<th>行级锁</th>
-<th>页面锁</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>MyISAM</td>
-<td>支持</td>
-<td>不支持</td>
-<td>不支持</td>
-</tr>
-<tr>
-<td>InnoDB</td>
-<td>支持</td>
-<td>支持</td>
-<td>不支持</td>
-</tr>
-<tr>
-<td>MEMORY</td>
-<td>支持</td>
-<td>不支持</td>
-<td>不支持</td>
-</tr>
-<tr>
-<td>BDB</td>
-<td>支持</td>
-<td>不支持</td>
-<td>支持</td>
-</tr>
-</tbody></table>
-<p>MySQL这3种锁的特性可大致归纳如下 ：</p>
-<table>
-<thead>
-<tr>
-<th>锁类型</th>
-<th>特点</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>表级锁</td>
-<td>偏向MyISAM 存储引擎，开销小，加锁快；不会出现死锁；锁定粒度大，发生锁冲突的概率最高,并发度最低。</td>
-</tr>
-<tr>
-<td>行级锁</td>
-<td>偏向InnoDB 存储引擎，开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突的概率最低,并发度也最高。</td>
-</tr>
-<tr>
-<td>页面锁</td>
-<td>开销和加锁时间界于表锁和行锁之间；会出现死锁；锁定粒度界于表锁和行锁之间，并发度一般。</td>
-</tr>
-</tbody></table>
-<p>从上述特点可见，很难笼统地说哪种锁更好，只能就具体应用的特点来说哪种锁更合适！仅从锁的角度来说：表级锁更适合于以查询为主，只有少量按索引条件更新数据的应用，如Web 应用；而行级锁则更适合于有大量按索引条件并发更新少量不同数据，同时又有并查询的应用，如一些在线事务处理（OLTP）系统。</p>
-<h2 id="全局锁"><a href="#全局锁" class="headerlink" title="全局锁"></a>全局锁</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>全局锁就是对整个数据库实例加锁，加锁后整个实例就处于只读状态，后续的DML的写语句，DDL语句，已经更新操作的事务提交语句都将被阻塞。</p>
-<p>其典型的使用场景是做全库的逻辑备份，对所有的表进行锁定，从而获取一致性视图，保证数据的完整性。</p>
-<p>为什么全库逻辑备份，就需要加全就锁呢？</p>
-<p>A. 我们一起先来分析一下不加全局锁，可能存在的问题。</p>
-<p>假设在数据库中存在这样三张表: tb_stock 库存表，tb_order 订单表，tb_orderlog 订单日志表。</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221001/image.4ireueq20ec0.webp" alt="image"></p>
-<ul>
-<li>在进行数据备份时，先备份了tb_stock库存表。</li>
-<li>然后接下来，在业务系统中，执行了下单操作，扣减库存，生成订单（更新tb_stock表，插入tb_order表）。</li>
-<li>然后再执行备份 tb_order表的逻辑。</li>
-<li>业务中执行插入订单日志操作。</li>
-<li>最后，又备份了tb_orderlog表。</li>
-</ul>
-<p>此时备份出来的数据，是存在问题的。因为备份出来的数据，tb_stock表与tb_order表的数据不一致(有最新操作的订单信息,但是库存数没减)。</p>
-<p>那如何来规避这种问题呢? 此时就可以借助于MySQL的全局锁来解决。</p>
-<p>B. 再来分析一下加了全局锁后的情况</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221001/image.4izhidiw1ti0.webp" alt="image"></p>
-<p>对数据库进行进行逻辑备份之前，先对整个数据库加上全局锁，一旦加了全局锁之后，其他的DDL、DML全部都处于阻塞状态，但是可以执行DQL语句，也就是处于只读状态，而数据备份就是查询操作。那么数据在进行逻辑备份的过程中，数据库中的数据就是不会发生变化的，这样就保证了数据的一致性和完整性。</p>
-<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><ol>
-<li>加全局锁</li>
-</ol>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">flush</span> <span class="keyword">tables</span> <span class="keyword">with</span> <span class="keyword">read</span> <span class="keyword">lock</span>;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>数据备份</li>
-</ol>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot –p1234 itcast &gt; itcast.sql</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>释放锁</li>
-</ol>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unlock</span> <span class="keyword">tables</span>;</span><br></pre></td></tr></table></figure>
-
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>数据库中加全局锁，是一个比较重的操作，存在以下问题：</p>
-<ul>
-<li>如果在主库上备份，那么在备份期间都不能执行更新，业务基本上就得停摆。</li>
-<li>如果在从库上备份，那么在备份期间从库不能执行主库同步过来的二进制日志（binlog），会导致主从延迟。</li>
-</ul>
-<p>在InnoDB引擎中，我们可以在备份时加上参数 –single-transaction 参数来完成不加锁的一致性数据备份。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump <span class="comment">--single-transaction -uroot –p123456 itcast &gt; itcast.sql</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="表级锁"><a href="#表级锁" class="headerlink" title="表级锁"></a>表级锁</h2><h3 id="介绍-1"><a href="#介绍-1" class="headerlink" title="介绍"></a>介绍</h3><p>表级锁，每次操作锁住整张表。锁定粒度大，发生锁冲突的概率最高，并发度最低。应用在MyISAM、InnoDB、BDB等存储引擎中。</p>
-<p>对于表级锁，主要分为以下三类：</p>
-<ul>
-<li>表锁</li>
-<li>元数据锁（meta data lock，MDL）</li>
-<li>意向锁</li>
-</ul>
-<h3 id="表锁"><a href="#表锁" class="headerlink" title="表锁"></a>表锁</h3><p>对于表锁，分为两类：</p>
-<ul>
-<li>表共享读锁（read lock）</li>
-<li>表独占写锁（write lock）</li>
-</ul>
-<p>语法：</p>
-<ul>
-<li>加锁：lock tables 表名… read/write。</li>
-<li>释放锁：unlock tables / 客户端断开连接 。</li>
-</ul>
-<p>特点:</p>
-<h4 id="A-读锁"><a href="#A-读锁" class="headerlink" title="A. 读锁"></a>A. 读锁</h4><p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.22qu9jlh84w0.webp" alt="image"></p>
-<p>左侧为客户端一，对指定表加了读锁，不会影响右侧客户端二的读，但是会阻塞客户端一、二的写操作。</p>
-<p>测试:</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221023/image.68kspc8r9rs0.webp" alt="image"></p>
-<h4 id="B-写锁"><a href="#B-写锁" class="headerlink" title="B.写锁"></a>B.写锁</h4><p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.69e8kif6xq40.webp" alt="image"></p>
-<p>左侧为客户端一，对指定表加了写锁，会阻塞右侧客户端的读和写。</p>
-<p>测试:</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.67yjllpu1ok0.webp" alt="image"></p>
-<h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a><strong>结论</strong></h4><p>读锁不会阻塞其他客户端的读，但是会阻塞所有的写。写锁既会阻塞其他客户端的读，又会阻塞其他客户端的写。</p>
-<h3 id="元数据锁"><a href="#元数据锁" class="headerlink" title="元数据锁"></a>元数据锁</h3><p><strong>meta data lock , 元数据锁，简写MDL。</strong></p>
-<p>MDL加锁过程是系统<strong>自动控制</strong>，无需显式使用，在访问一张表的时候会自动加上。MDL锁主要作用是维护表元数据的数据一致性，在表上有活动事务的时候，不可以对元数据进行写入操作。<strong>为了避免DML与DDL冲突，保证读写的正确性</strong>。</p>
-<p>这里的元数据，大家可以简单理解为就是一张表的表结构。 也就是说，某一张表涉及到未提交的事务时，是不能够修改这张表的表结构的。</p>
-<p>在MySQL5.5中引入了MDL，当对一张表进行增删改查的时候，加MDL读锁(共享)；当对表结构进行变更操作的时候，加MDL写锁(排他)。</p>
-<p>常见的SQL操作时，所添加的元数据锁：</p>
-<table>
-<thead>
-<tr>
-<th>对应SQL</th>
-<th>锁类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>lock tables xxx read/write</td>
-<td>SHARED_READ_ONLY / SHARED_NO_READ_WRITE</td>
-<td></td>
-</tr>
-<tr>
-<td>select 、select … lock in share mode</td>
-<td>SHARED_READ</td>
-<td>与SHARED_READ、SHARED_WRITE兼容，与EXCLUSIVE互斥</td>
-</tr>
-<tr>
-<td>insert 、update、delete、select … for update</td>
-<td>SHARED_WRITE</td>
-<td>与SHARED_READ、SHARED_WRITE兼容，与EXCLUSIVE互斥</td>
-</tr>
-<tr>
-<td>alter table …</td>
-<td>EXCLUSIVE</td>
-<td>与其他的MDL都互斥</td>
-</tr>
-</tbody></table>
-<p>演示：</p>
-<p>当执行SELECT、INSERT、UPDATE、DELETE等语句时，添加的是<strong>元数据共享锁（SHARED_READ /</strong><br><strong>SHARED_WRITE）</strong>，之间是兼容的。</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.ya2d7wavuvk.webp" alt="image"></p>
-<p>当执行SELECT语句时，添加的是元数据共享锁（SHARED_READ），会阻塞元数据排他锁（EXCLUSIVE），之间是互斥的。</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221011/image.394qjn5ovva0.webp" alt="image"></p>
-<p>我们可以通过下面的SQL，来查看数据库中的元数据锁的情况：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> object_type,object_schema,object_name,lock_type,lock_duration <span class="keyword">from</span> performance_schema.metadata_locks;</span><br></pre></td></tr></table></figure>
-
-<p>我们在操作过程中，可以通过上述的SQL语句，来查看元数据锁的加锁情况。</p>
-<figure class="highlight sql"><figcaption><span>&#123;5-7&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select object_type,object_schema,object_name,lock_type,lock_duration from performance_schema.metadata_locks;</span><br><span class="line">+<span class="comment">-------------+--------------------+----------------+--------------+---------------+</span></span><br><span class="line">| object_type | object_schema      | object_name    | lock_type    | lock_duration |</span><br><span class="line">+<span class="comment">-------------+--------------------+----------------+--------------+---------------+</span></span><br><span class="line">| TABLE       | MySQL_Advanced     | tb_user        | SHARED_READ  | TRANSACTION   |</span><br><span class="line">| TABLE       | MySQL_Advanced     | tb_user        | SHARED_READ  | TRANSACTION   |</span><br><span class="line">| TABLE       | MySQL_Advanced     | tb_user        | SHARED_WRITE | TRANSACTION   |</span><br><span class="line">| TABLE       | MySQL_Advanced     | user_logs      | SHARED_WRITE | TRANSACTION   |</span><br><span class="line">| TABLE       | performance_schema | metadata_locks | SHARED_READ  | TRANSACTION   |</span><br><span class="line">+<span class="comment">-------------+--------------------+----------------+--------------+---------------+</span></span><br><span class="line">5 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line">mysql&gt; <span class="keyword">alter</span> <span class="keyword">table</span> tb_user <span class="keyword">add</span> <span class="keyword">column</span> <span class="keyword">java</span> <span class="built_in">int</span>;</span><br><span class="line">...阻塞</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sql"><figcaption><span>&#123;12-14&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 另开一个客户端窗口</span></span><br><span class="line">mysql&gt; select object_type,object_schema,object_name,lock_type,lock_duration from performance_schema.metadata_locks;</span><br><span class="line">+<span class="comment">-------------+--------------------+------------------------+---------------------+---------------+</span></span><br><span class="line">| object_type | object_schema      | object_name            | lock_type           | lock_duration |</span><br><span class="line">+<span class="comment">-------------+--------------------+------------------------+---------------------+---------------+</span></span><br><span class="line">| TABLE       | MySQL_Advanced     | tb_user                | SHARED_READ         | TRANSACTION   |</span><br><span class="line">| GLOBAL      | NULL               | NULL                   | INTENTION_EXCLUSIVE | STATEMENT     |</span><br><span class="line">| <span class="keyword">BACKUP</span> <span class="keyword">LOCK</span> | <span class="literal">NULL</span>               | <span class="literal">NULL</span>                   | INTENTION_EXCLUSIVE | <span class="keyword">TRANSACTION</span>   |</span><br><span class="line">| <span class="keyword">SCHEMA</span>      | MySQL_Advanced     | <span class="literal">NULL</span>                   | INTENTION_EXCLUSIVE | <span class="keyword">TRANSACTION</span>   |</span><br><span class="line">| <span class="keyword">TABLE</span>       | MySQL_Advanced     | tb_user                | SHARED_UPGRADABLE   | <span class="keyword">TRANSACTION</span>   |</span><br><span class="line">| <span class="keyword">TABLESPACE</span>  | <span class="literal">NULL</span>               | MySQL_Advanced/tb_user | INTENTION_EXCLUSIVE | <span class="keyword">TRANSACTION</span>   |</span><br><span class="line">| <span class="keyword">TRIGGER</span>     | MySQL_Advanced     | tb_user_insert_trigger | EXCLUSIVE           | <span class="keyword">TRANSACTION</span>   |</span><br><span class="line">| <span class="keyword">TRIGGER</span>     | MySQL_Advanced     | tb_user_update_trigger | EXCLUSIVE           | <span class="keyword">TRANSACTION</span>   |</span><br><span class="line">| <span class="keyword">TRIGGER</span>     | MySQL_Advanced     | tb_user_delete_trigger | EXCLUSIVE           | <span class="keyword">TRANSACTION</span>   |</span><br><span class="line">| <span class="keyword">TABLE</span>       | MySQL_Advanced     | <span class="comment">#sql-261d_18           | EXCLUSIVE           | STATEMENT     |</span></span><br><span class="line">| <span class="keyword">TABLE</span>       | MySQL_Advanced     | tb_user                | EXCLUSIVE           | <span class="keyword">TRANSACTION</span>   |</span><br><span class="line">| <span class="keyword">TABLE</span>       | performance_schema | metadata_locks         | SHARED_READ         | <span class="keyword">TRANSACTION</span>   |</span><br><span class="line">+<span class="comment">-------------+--------------------+------------------------+---------------------+---------------+</span></span><br><span class="line"><span class="number">12</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
-
-<h3 id="意向锁"><a href="#意向锁" class="headerlink" title="意向锁"></a>意向锁</h3><ol>
-<li>介绍</li>
-</ol>
-<p>为了避免DML在执行时，加的行锁与表锁的冲突，在InnoDB中引入了意向锁，使得表锁不用检查每行数据是否加锁，使用意向锁来减少表锁的检查。</p>
-<p>假如没有意向锁，客户端一对表加了行锁后，客户端二如何给表加表锁呢，来通过示意图简单分析一下：</p>
-<p>首先客户端一，开启一个事务，然后执行DML操作，在执行DML语句时，会对涉及到的行加行锁。</p>
-<p>当客户端二，想对这张表加表锁时，会检查当前表是否有对应的行锁，如果没有，则添加表锁，此时就会从第一行数据，检查到最后一行数据，效率较低。</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.2ow7a20u3go0.webp" alt="image"></p>
-<p>有了意向锁之后 :</p>
-<p>客户端一，在执行DML操作时，会对涉及的行加行锁，同时也会对该表加上意向锁。</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.3qyixden7980.webp" alt="image"></p>
-<p>而其他客户端，在对这张表加表锁的时候，会根据该表上所加的意向锁来判定是否可以成功加表锁，而不用逐行判断行锁情况了。</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.4kcp8w59518.webp" alt="image"></p>
-<ol start="2">
-<li>分类</li>
-</ol>
-<ul>
-<li><strong>意向共享锁(IS): 由语句select … lock in share mode添加</strong> 。<strong>与表锁共享锁(read)兼容，与表锁排他锁(write)互斥</strong>。</li>
-<li><strong>意向排他锁(IX)</strong>: <strong>由insert、update、delete、select…for update添加 **。</strong>与表锁共享锁(read)及排他锁(write)都互斥，意向锁之间不会互斥**。</li>
-</ul>
-<blockquote>
-<p>一旦事务提交了，意向共享锁、意向排他锁，都会自动释放。</p>
-</blockquote>
-<p>可以通过以下SQL，查看意向锁及行锁的加锁情况：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> object_schema,object_name,index_name,lock_type,lock_mode,lock_data <span class="keyword">from</span> performance_schema.data_locks;</span><br></pre></td></tr></table></figure>
-
-<p>演示：</p>
-<p>A. 意向共享锁与表读锁是兼容的</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.5th2uhlbios0.webp" alt="image"></p>
-<p>B. 意向排他锁与表读锁、写锁都是互斥的</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.1c5a0mcxhhsw.webp" alt="image"></p>
-<h3 id="AUTO-INC-Locking"><a href="#AUTO-INC-Locking" class="headerlink" title="AUTO-INC Locking"></a>AUTO-INC Locking</h3><p>自增长锁，在InnoDB引擎中，每个表都会维护一个<strong>表级别的自增长计数器</strong>，当对表进行插入的时候，会通过以下的命令来获取当前的自增长的值。</p>
-<p><code>SELECT MAX(auto_inc_col)  FROM user FOR UPDATE;</code><br>插入操作会在这个基础上加1得到即将要插入的自增长id，然后在一个事务内设置id。</p>
-<p>为了提高插入性能，自增长的锁不会等到事务提交之后才释放，而是在相关插入sql语句完成后立刻就释放，这也导致了一些事务回滚之后，id不连续。</p>
-<p>由于自增长会申请写锁，尽管不用等到事务结束，但仍然降低了数据库的性能，5.1.2版本后InnoDB支持互斥量的方式来实现自增长，通过互斥量可以对内存中的计数器进行累加操作，比AUTO-INC Locking要快些。</p>
-<h2 id="行级锁"><a href="#行级锁" class="headerlink" title="行级锁"></a>行级锁</h2><h3 id="介绍-2"><a href="#介绍-2" class="headerlink" title="介绍"></a>介绍</h3><p>行级锁，每次操作锁住对应的行数据。锁定粒度最小，发生锁冲突的概率最低，并发度最高。应用在InnoDB存储引擎中。要注意MYSQL默认条件下是使用next key lock的，而仅仅在条件满足时降级为行锁。</p>
-<p>InnoDB的数据是基于索引组织的，行锁是通过对<strong>索引</strong>上的索引项加锁来实现的，而不是对记录加的锁。对于行级锁，主要分为以下三类：</p>
-<ul>
-<li>行锁（Record Lock）：锁定单个行记录的锁，防止其他事务对此行进行update和delete。在RC、RR隔离级别下都支持。</li>
-</ul>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.rtov5kk31cw.webp" alt="image"></p>
-<ul>
-<li>间隙锁（Gap Lock）：锁定索引记录间隙（不含该记录），确保索引记录间隙不变，防止其他事务在这个间隙进行insert，产生幻读。在RR隔离级别下支持。</li>
-</ul>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.24mdbeh7vt4.webp" alt="image"></p>
-<ul>
-<li>临键锁（Next-Key Lock）：行锁和间隙锁组合，同时锁住数据，并锁住数据前面的间隙Gap。在RR隔离级别下支持。</li>
-</ul>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.4swt8pe4slc0.webp" alt="image"></p>
-<h3 id="行级锁-1"><a href="#行级锁-1" class="headerlink" title="行级锁"></a>行级锁</h3><ol>
-<li>介绍</li>
-</ol>
-<p>InnoDB实现了以下两种类型的行锁：</p>
-<ul>
-<li>共享锁（S）：允许一个事务去读一行，阻止其他事务获得相同数据集的排它锁。</li>
-<li>排他锁（X）：允许获取排他锁的事务更新数据，阻止其他事务获得相同数据集的共享锁和排他<br>锁。</li>
-</ul>
-<p>两种行锁的兼容情况如下:</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.4mxrlvwh3940.webp" alt="image"></p>
-<p>常见的SQL语句，在执行时，所加的行锁如下：</p>
-<table>
-<thead>
-<tr>
-<th>SQL</th>
-<th>行锁类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>INSERT …</td>
-<td>排他锁</td>
-<td>自动加锁</td>
-</tr>
-<tr>
-<td>UPDATE …</td>
-<td>排他锁</td>
-<td>自动加锁</td>
-</tr>
-<tr>
-<td>DELETE …</td>
-<td>排他锁</td>
-<td>自动加锁</td>
-</tr>
-<tr>
-<td>SELECT（正常）</td>
-<td><font color="red">不加任何锁</font></td>
-<td></td>
-</tr>
-<tr>
-<td>SELECT … LOCK IN SHARE MODE</td>
-<td>共享锁</td>
-<td>需要手动在SELECT之后加LOCK IN SHARE MODE</td>
-</tr>
-<tr>
-<td>SELECT … FOR UPDATE</td>
-<td>排他锁</td>
-<td>需要手动在SELECT之后加FOR UPDATE</td>
-</tr>
-</tbody></table>
-<ol start="2">
-<li>演示</li>
-</ol>
-<p>默认情况下，<strong>InnoDB在 REPEATABLE READ事务隔离级别运行，InnoDB使用 next-key 锁进行搜索和索引扫描</strong>，以防止幻读。</p>
-<ul>
-<li>针对唯一索引进行检索时，对已存在的记录进行等值匹配时，将会<strong>自动优化</strong>为行锁。</li>
-<li>InnoDB的行锁是针对于索引加的锁，不通过索引条件检索数据，那么InnoDB将对表中的所有记录加锁，此时 就会升级为表锁。</li>
-</ul>
-<p>可以通过以下SQL，查看意向锁及行锁的加锁情况：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> object_schema,object_name,index_name,lock_type,lock_mode,lock_data <span class="keyword">from</span> performance_schema.data_locks;</span><br></pre></td></tr></table></figure>
-
-<p>示例演示</p>
-<p>数据准备:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`stu`</span> (</span><br><span class="line">	<span class="string">`id`</span> <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</span><br><span class="line">	<span class="string">`name`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">	<span class="string">`age`</span> <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span></span><br><span class="line">) <span class="keyword">ENGINE</span> = <span class="keyword">InnoDB</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> = utf8mb4;</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`stu`</span> <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">'tom'</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`stu`</span> <span class="keyword">VALUES</span> (<span class="number">3</span>, <span class="string">'cat'</span>, <span class="number">3</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`stu`</span> <span class="keyword">VALUES</span> (<span class="number">8</span>, <span class="string">'rose'</span>, <span class="number">8</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`stu`</span> <span class="keyword">VALUES</span> (<span class="number">11</span>, <span class="string">'jetty'</span>, <span class="number">11</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`stu`</span> <span class="keyword">VALUES</span> (<span class="number">19</span>, <span class="string">'lily'</span>, <span class="number">19</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`stu`</span> <span class="keyword">VALUES</span> (<span class="number">25</span>, <span class="string">'luci'</span>, <span class="number">25</span>);</span><br></pre></td></tr></table></figure>
-
-<p>演示行锁的时候，我们就通过上面这张表来演示一下。</p>
-<p>A. <strong>普通的select语句，执行时，不会加锁</strong>。</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.6dggge8wtr00.webp" alt="image"></p>
-<p>B. select…lock in share mode，加共享锁，<strong>共享锁与共享锁之间兼容</strong>。</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.5xvi9xjut140.webp" alt="image"></p>
-<p>共享锁与排他锁之间互斥。</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.2z0m89b3tw40.webp" alt="image"></p>
-<p>客户端一获取的是id为1这行的共享锁，客户端二是可以获取id为3这行的排它锁的，因为不是同一行数据。 而如果客户端二想获取id为1这行的排他锁，会处于阻塞状态，以为共享锁与排他锁之间互斥。</p>
-<p>C. <strong>排它锁与排他锁之间互斥</strong></p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.1fsq73p1a7vk.webp" alt="image"></p>
-<p>当客户端一，执行update语句，会为id为1的记录加排他锁； 客户端二，如果也执行update语句更新id为1的数据，也要为id为1的数据加排他锁，但是客户端二会处于阻塞状态，因为排他锁之间是互斥的。 直到客户端一，把事务提交了，才会把这一行的行锁释放，此时客户端二，解除阻塞。</p>
-<p>D. <strong>无索引行锁升级为表锁</strong></p>
-<p>stu表中数据如下:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from stu;</span><br><span class="line">+<span class="comment">----+-----+-------+</span></span><br><span class="line">| id | age | name  |</span><br><span class="line">+<span class="comment">----+-----+-------+</span></span><br><span class="line">|  1 |   1 | Java  |</span><br><span class="line">|  3 |   3 | Java  |</span><br><span class="line">|  8 |   8 | rose  |</span><br><span class="line">| 11 |  11 | jetty |</span><br><span class="line">| 19 |  19 | lily  |</span><br><span class="line">| 25 |  25 | luci  |</span><br><span class="line">+<span class="comment">----+-----+-------+</span></span><br><span class="line">6 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
-
-<p>我们在两个客户端中执行如下操作:</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.7iii0c906200.webp" alt="image"></p>
-<p>在客户端一中，开启事务，并执行update语句，更新name为Lily的数据，也就是id为19的记录 。然后在客户端二中更新id为3的记录，却不能直接执行，会处于阻塞状态，为什么呢？</p>
-<p>原因就是因为此时，客户端一，根据name字段进行更新时，name字段是没有索引的，如果没有索引，此时行锁会升级为表锁(因为行锁是对索引项加的锁，而name没有索引)。</p>
-<p>接下来，我们再针对name字段建立索引，索引建立之后，再次做一个测试：</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.9mwkzbcpctc.webp" alt="image"></p>
-<p>此时我们可以看到，客户端一，开启事务，然后依然是根据name进行更新。而客户端二，在更新id为3的数据时，更新成功，并未进入阻塞状态。 这样就说明，我们根据索引字段进行更新操作，就可以避免行锁升级为表锁的情况。</p>
-<h3 id="间隙锁-amp-临键锁"><a href="#间隙锁-amp-临键锁" class="headerlink" title="间隙锁&amp;临键锁"></a>间隙锁&amp;临键锁</h3><p><strong>临键锁与间隙锁仅在RR(可重复读)隔离级别下生效</strong>，目的是为了解决幻读问题，而RC级别下连不可重复读都无法解决，更别说幻读问题了。InnoDB使用 next-key 锁进行搜索和索引扫描，以防止幻读。</p>
-<p><strong>临键锁也是一个范围锁，但与间隙锁不同，临建锁不仅会锁住一个范围，还会锁住记录本身，锁住记录本身采用的是行记录锁，是基于唯一索引的锁，可将临键锁看作是间隙锁和行记录锁的结合。</strong></p>
-<p>临键锁采用临键锁算法(Next Key Locking)，对一个范围执行左开右闭的封锁，闭区间意味着该记录也被锁住。</p>
-<ul>
-<li>索引上的等值查询(唯一索引)，给不存在的记录加锁时, 优化为间隙锁 。</li>
-<li>索引上的等值查询(非唯一普通索引)，向右遍历时最后一个值不满足查询需求时，next-key lock 退化为间隙锁。</li>
-<li>索引上的范围查询(唯一索引)–会访问到不满足条件的第一个值为止。</li>
-</ul>
-<p>注意:</p>
-<p>间隙锁唯一目的是防止其他事务插入间隙。<strong>间隙锁可以共存</strong>，一个事务采用的间隙锁不会阻止另一个事务在同一间隙上采用间隙锁。</p>
-<p><strong>为何等值查询语句也需要范围锁？前面已经解释过了，非唯一索引等值查询会查询多条语句，行记录锁只能锁一条，如果每条都上行记录锁，效率太低了，因此需要一个范围锁</strong></p>
-<p> 示例演示</p>
-<p>A. <strong>索引上的等值查询(唯一索引)，给不存在的记录加锁时, 优化为</strong>间隙锁 。</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.2bg1yvv9ouzo.webp" alt="image"></p>
-<p>B. 索引上的等值查询(非唯一普通索引)，向右遍历时最后一个值不满足查询需求时，next-key lock 退化为间隙锁。 </p>
-<p>介绍分析一下：</p>
-<p>我们知道InnoDB的B+树索引，叶子节点是有序的双向链表。 假如，我们要根据这个二级索引查询值为18的数据，并加上共享锁，我们是只锁定18这一行就可以了吗？ 并不是，因为是非唯一索引，这个结构中可能有多个18的存在，所以，在加锁时会继续往后找，找到一个不满足条件的值（当前案例中也就是29）。此时会对18加临键锁，并对29之前的间隙加锁。</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.2hj4xorarn40.webp" alt="image"></p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.56pgq9ibofk0.webp" alt="image"></p>
-<p>C. 索引上的范围查询(唯一索引)–会访问到不满足条件的第一个值为止。</p>
-<p><img src="https://cdn.staticaly.com/gh/xustudyxu/image-hosting1@master/20221002/image.6sdod08g3tc0.webp" alt="image"></p>
-<p>查询的条件为id&gt;=19，并添加共享锁。 此时我们可以根据数据库表中现有的数据，将数据分为三个部分：</p>
-<p>[19]</p>
-<p>(19,25]</p>
-<p>(25,+∞]</p>
-<p>所以数据库数据在加锁是，就是将19加了行锁，25的临键锁（包含25及25之前的间隙），正无穷的临键锁(正无穷及之前的间隙)。</p>
 </div><hr></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-chevron-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://pic.syst.eu.org/WechatIMG8673.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2015 - 2023 By GeYu</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Enjoy the cyber world!</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')
